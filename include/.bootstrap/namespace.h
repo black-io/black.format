@@ -4,10 +4,10 @@
 // Black Framework main namespace.
 namespace Black
 {
-// DOD (Data Oriented Design) library.
-inline namespace DataOriented
+// Data/File formats library.
+inline namespace Format
 {
-// Internal namespace for DOD library.
+// Internal namespace for formats library.
 namespace Internal
 {
 
