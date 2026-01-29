@@ -13,3 +13,4 @@ files:
 # Other components this one depends on. Only component names allowed.
 references:
   - 'black.core'
+  - 'black.data-oriented'
