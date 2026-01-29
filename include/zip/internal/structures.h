@@ -42,162 +42,310 @@ namespace Internal
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::LocalFileHeader;
 
 
-		HeaderSignature	signature				= SIGNATURE;	// [4B] {0x04034b50} local file header signature
-		uint16_t		extractor_version		= 0;			// [2B] (4.4.3) version needed to extract
-		uint16_t		general_purpose_bits	= 0;			// [2B] (4.4.4) general purpose bit flag
-		uint16_t		compression_function	= 0;			// [2B] (4.4.5) compression method
-		uint16_t		last_modification_time	= 0;			// [2B] (4.4.6) last mod file time
-		uint16_t		last_modification_date	= 0;			// [2B] (4.4.6) last mod file date
-		uint32_t		checksumm				= 0;			// [4B] (4.4.7) crc-32
-		uint32_t		compressed_length		= 0;			// [4B] (4.4.8) compressed size
-		uint32_t		uncompressed_length		= 0;			// [4B] (4.4.9) uncompressed size
-		uint16_t		name_length				= 0;			// [2B] (4.4.10) file name length
-		uint16_t		extra_field_length		= 0;			// [2B] (4.4.11) extra field length
+		HeaderSignature	signature				= SIGNATURE;	// [4B] {0x04034b50} local file header signature.
+		uint16_t		extractor_version		= 0;			// [2B] (4.4.3) version needed to extract.
+		uint16_t		general_purpose_bits	= 0;			// [2B] (4.4.4) general purpose bit flag.
+		uint16_t		compression_function	= 0;			// [2B] (4.4.5) compression method.
+		uint16_t		last_modification_time	= 0;			// [2B] (4.4.6) last mod file time.
+		uint16_t		last_modification_date	= 0;			// [2B] (4.4.6) last mod file date.
+		uint32_t		checksumm				= 0;			// [4B] (4.4.7) crc-32.
+		uint32_t		compressed_length		= 0;			// [4B] (4.4.8) compressed size.
+		uint32_t		uncompressed_length		= 0;			// [4B] (4.4.9) uncompressed size.
+		uint16_t		name_length				= 0;			// [2B] (4.4.10) file name length.
+		uint16_t		extra_field_length		= 0;			// [2B] (4.4.11) extra field length.
 	};
 	#pragma pack( pop )
 
 	static_assert( sizeof( LocalFileHeader ) == 30, "Local File Header does not aligned properly." );
 
 	/**
+		@brief	Data descriptor.
+
+		This block described in section 4.3.9 of .ZIP file format specification.
+
+		4.3.9  Data descriptor:
+			crc-32                          4 bytes
+			compressed size                 4 bytes
+			uncompressed size               4 bytes
+
+		4.3.9.3 Although not originally assigned a signature, the value
+		0x08074b50 has commonly been adopted as a signature value
+		for the data descriptor record.
+
+		16 bytes total.
+		This is only header. It does not include the strings of file name and extra field.
+
+		The `SIGNATURE` static field stores the valid value of data descriptor signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 4 )
 	struct FileDataDescriptor final
 	{
-		//
+		// Should be 0x08074b50. Valid signature of block.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::DataDescriptor;
 
 
-		HeaderSignature	signature				= SIGNATURE;
-		uint32_t		checksumm				= 0;
-		uint32_t		compressed_length		= 0;
-		uint32_t		uncompressed_length		= 0;
+		HeaderSignature	signature				= SIGNATURE;	// [4B] {0x08074b50} data descriptor signature.
+		uint32_t		checksumm				= 0;			// [4B] (4.4.7) crc-32.
+		uint32_t		compressed_length		= 0;			// [4B]	(4.4.8) compressed size.
+		uint32_t		uncompressed_length		= 0;			// [4B]	(4.4.9) uncompressed size.
 	};
 	#pragma pack( pop )
 
 	static_assert( sizeof( FileDataDescriptor ) == 16, "File Data Descriptor does not aligned properly." );
 
 	/**
+		@brief	Archive extra data record.
+
+		This block described in section 4.3.9 of .ZIP file format specification.
+
+		4.3.11  Archive extra data record:
+			archive extra data signature    4 bytes  (0x08064b50)
+			extra field length              4 bytes
+
+			extra field data                (variable size)
+
+		8 bytes total.
+		This is only header. It does not include the string of extra field.
+
+		The `SIGNATURE` static field stores the valid value of block signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 4 )
 	struct ArchiveExtraDataRecord final
 	{
-		//
+		// Should be 0x08064b50. Valid signature of block.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::ArchiveExtraDataRecord;
 
 
-		HeaderSignature	signature				= SIGNATURE;
-		uint32_t		extra_field_length		= 0;
+		HeaderSignature	signature				= SIGNATURE;	// [4B] {0x08064b50} archive extra data signature.
+		uint32_t		extra_field_length		= 0;			// [4B] (4.4.11) extra field length.
 	};
 	#pragma pack( pop )
 
 	static_assert( sizeof( ArchiveExtraDataRecord ) == 8, "Archive Extra Data Record does not aligned properly." );
 
 	/**
+		@brief	Central directory file header.
+
+		This header described in section 4.3.12 of .ZIP file format specification.
+
+		File header:
+			central file header signature   4 bytes  (0x02014b50)
+			version made by                 2 bytes
+			version needed to extract       2 bytes
+			general purpose bit flag        2 bytes
+			compression method              2 bytes
+			last mod file time              2 bytes
+			last mod file date              2 bytes
+			crc-32                          4 bytes
+			compressed size                 4 bytes
+			uncompressed size               4 bytes
+			file name length                2 bytes
+			extra field length              2 bytes
+			file comment length             2 bytes
+			disk number start               2 bytes
+			internal file attributes        2 bytes
+			external file attributes        4 bytes
+			relative offset of local header 4 bytes
+
+			file name (variable size)
+			extra field (variable size)
+			file comment (variable size)
+
+		46 bytes total.
+		This is only header. It does not include the strings of file name, extra field or file comment.
+
+		The `SIGNATURE` static field stores the valid value of header signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 2 )
 	struct CentralDirectoryFileHeader final
 	{
-		//
+		// Should be 0x08064b50. Valid signature of header.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::CentralDirectoryFileHeader;
 
 
-		HeaderSignature	signature				= SIGNATURE;
-		uint16_t		compressor_version		= 0;
-		uint16_t		extractor_version		= 0;
-		uint16_t		general_purpose_bits	= 0;
-		uint16_t		compression_function	= 0;
-		uint16_t		last_modification_time	= 0;
-		uint16_t		last_modification_date	= 0;
-		uint32_t		checksumm				= 0;
-		uint32_t		compressed_length		= 0;
-		uint32_t		uncompressed_length		= 0;
-		uint16_t		name_length				= 0;
-		uint16_t		extra_field_length		= 0;
-		uint16_t		comment_length			= 0;
-		uint16_t		disk_number_start		= 0;
-		uint16_t		internal_attributes		= 0;
-		uint32_t		external_attributes		= 0;
-		uint32_t		local_header_offset		= 0;
+		HeaderSignature	signature				= SIGNATURE;	// [4B] {0x08064b50} central file header signature.
+		uint16_t		compressor_version		= 0;			// [2B] (4.4.2) version made by.
+		uint16_t		extractor_version		= 0;			// [2B] (4.4.3) version needed to extract.
+		uint16_t		general_purpose_bits	= 0;			// [2B] (4.4.4) general purpose bit flag.
+		uint16_t		compression_function	= 0;			// [2B] (4.4.5) compression method.
+		uint16_t		last_modification_time	= 0;			// [2B] (4.4.6) last mod file time.
+		uint16_t		last_modification_date	= 0;			// [2B] (4.4.6) last mod file date.
+		uint32_t		checksumm				= 0;			// [4B] (4.4.7) crc-32.
+		uint32_t		compressed_length		= 0;			// [4B] (4.4.8) compressed size.
+		uint32_t		uncompressed_length		= 0;			// [4B] (4.4.9) uncompressed size.
+		uint16_t		name_length				= 0;			// [2B] (4.4.10) file name length.
+		uint16_t		extra_field_length		= 0;			// [2B] (4.4.11) extra field length.
+		uint16_t		comment_length			= 0;			// [2B] (4.4.12) file comment length.
+		uint16_t		disk_number_start		= 0;			// [2B] (4.4.13) disk number start.
+		uint16_t		internal_attributes		= 0;			// [2B] (4.4.14) internal file attributes.
+		uint32_t		external_attributes		= 0;			// [4B] (4.4.15) external file attributes.
+		uint32_t		local_header_offset		= 0;			// [4B] (4.4.16) relative offset of local header.
 	};
 	#pragma pack( pop )
 
 	static_assert( sizeof( CentralDirectoryFileHeader ) == 46, "Central Directory File Header does not aligned properly." );
 
 	/**
+		@brief	Central directory digital signature.
+
+		This block described in section 4.3.13 of .ZIP file format specification.
+
+		4.3.13 Digital signature:
+
+			header signature                4 bytes  (0x05054b50)
+			size of data                    2 bytes
+
+			signature data (variable size)
+
+		6 bytes total.
+		This is only header. It does not include the signature data.
+
+		The `SIGNATURE` static field stores the valid value of header signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 2 )
 	struct CentralDirectoryDigitalSignature final
 	{
-		//
+		// Should be 0x05054b50. Valid signature of block.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::CentralDirectoryDigitalSignature;
 
 
-		HeaderSignature	signature				= SIGNATURE;
-		uint16_t		data_length				= 0;
+		HeaderSignature	signature				= SIGNATURE;	// [4B] {0x05054b50} header signature.
+		uint16_t		data_length				= 0;			// [2B] (?) size of data.
 	};
 	#pragma pack( pop )
 
 	static_assert( sizeof( CentralDirectoryDigitalSignature ) == 6, "Central Directory Digital Signature does not aligned properly." );
 
 	/**
+		@brief	End of central directory record in Zip64 format.
+
+		This block described in section 4.3.14 of .ZIP file format specification.
+
+		4.3.14  Zip64 end of central directory record
+			zip64 end of central dir
+			signature                       4 bytes  (0x06064b50)
+			size of zip64 end of central
+			directory record                8 bytes
+			version made by                 2 bytes
+			version needed to extract       2 bytes
+			number of this disk             4 bytes
+			number of the disk with the
+			start of the central directory  4 bytes
+			total number of entries in the
+			central directory on this disk  8 bytes
+			total number of entries in the
+			central directory               8 bytes
+			size of the central directory   8 bytes
+			offset of start of central
+			directory with respect to
+			the starting disk number        8 bytes
+
+			zip64 extensible data sector    (variable size)
+
+		56 bytes total.
+		This is only header. It does not include the extensible data sector.
+
+		The `SIGNATURE` static field stores the valid value of header signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 2 )
 	struct Zip64EndOfCentralDirectory final
 	{
-		//
+		// Should be 0x06064b50. Valid signature of block.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::Zip64EndOfCentralDirectory;
 
 
-		HeaderSignature	signature					= SIGNATURE;
-		uint64_t		length						= 0;
-		uint16_t		compressor_version			= 0;
-		uint16_t		extractor_version			= 0;
-		uint32_t		current_disk_index			= 0;
-		uint32_t		first_disk_index			= 0;
-		uint64_t		current_disk_entries		= 0;
-		uint64_t		entries_total_count			= 0;
-		uint64_t		central_directory_length	= 0;
-		uint64_t		central_directory_position	= 0;
+		HeaderSignature	signature					= SIGNATURE;	// [4B] {0x06064b50} zip64 end of central dir signature.
+		uint64_t		length						= 0;			// [8B] (4.3.14.1) size of zip64 end of central directory record.
+		uint16_t		compressor_version			= 0;			// [2B] (4.4.2) version made by.
+		uint16_t		extractor_version			= 0;			// [2B] (4.4.3) version needed to extract.
+		uint32_t		current_disk_index			= 0;			// [4B] (4.4.19) number of this disk.
+		uint32_t		first_disk_index			= 0;			// [4B] (4.4.20) number of the disk with the start of the central directory.
+		uint64_t		current_disk_entries		= 0;			// [8B] (4.4.21) total number of entries in the central directory on this disk.
+		uint64_t		entries_total_count			= 0;			// [8B] (4.4.22) total number of entries in the central directory.
+		uint64_t		central_directory_length	= 0;			// [8B] (4.4.23) size of the central directory.
+		uint64_t		central_directory_position	= 0;			// [8B] (4.4.24) offset of start of central directory with respect to the starting disk number.
 	};
 	#pragma pack( pop )
 
 	static_assert( sizeof( Zip64EndOfCentralDirectory ) == 56, "End of Zip64 Central Directory does not aligned properly." );
 
 	/**
+		@brief	End of central directory locator in Zip64 format.
+
+		This block described in section 4.3.15 of .ZIP file format specification.
+
+		4.3.15 Zip64 end of central directory locator
+			zip64 end of central dir locator
+			signature                       4 bytes  (0x07064b50)
+			number of the disk with the
+			start of the zip64 end of
+			central directory               4 bytes
+			relative offset of the zip64
+			end of central directory record 8 bytes
+			total number of disks           4 bytes
+
+		20 bytes total.
+
+		The `SIGNATURE` static field stores the valid value of block signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 4 )
 	struct Zip64EndOfCentralDirectoryLocator final
 	{
-		//
+		// Should be 0x07064b50. Valid signature of block.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::Zip64EndOfCentralDirectoryLocator;
 
 
-		HeaderSignature	signature				= SIGNATURE;
-		uint32_t		first_disk_index		= 0;
-		uint64_t		position_offset			= 0;
-		uint32_t		disks_count				= 0;
+		HeaderSignature	signature				= SIGNATURE;	// [4B] {0x07064b50} zip64 end of central dir locator signature.
+		uint32_t		first_disk_index		= 0;			// [4B] (4.4.20) number of the disk with the start of the zip64 end of central directory.
+		uint64_t		position_offset			= 0;			// [8B] (?) relative offset of the zip64 end of central directory record.
+		uint32_t		disks_count				= 0;			// [4B] (?) total number of disks.
 	};
 	#pragma pack( pop )
 
 	static_assert( sizeof( Zip64EndOfCentralDirectoryLocator ) == 20, "Central Directory Digital Signature does not aligned properly." );
 
 	/**
+		@brief	End of central directory record.
+
+		This block described in section 4.3.16 of .ZIP file format specification.
+
+		4.3.16  End of central directory record:
+			end of central dir signature    4 bytes  (0x06054b50)
+			number of this disk             2 bytes
+			number of the disk with the
+			start of the central directory  2 bytes
+			total number of entries in the
+			central directory on this disk  2 bytes
+			total number of entries in
+			the central directory           2 bytes
+			size of the central directory   4 bytes
+			offset of start of central
+			directory with respect to
+			the starting disk number        4 bytes
+			.ZIP file comment length        2 bytes
+
+			.ZIP file comment       (variable size)
+
+		20 bytes total.
+		This is only header. It does not include the string of .ZIP file comment.
+
+		The `SIGNATURE` static field stores the valid value of block signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 2 )
 	struct EndOfCentralDirectory final
 	{
-		//
+		// Should be 0x06054b50. Valid signature of block.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::EndOfCentralDirectory;
 
 
-		HeaderSignature	signature					= SIGNATURE;
-		uint16_t		current_disk_index			= 0;
-		uint16_t		first_disk_index			= 0;
-		uint16_t		current_disk_entries		= 0;
-		uint16_t		entries_total_count			= 0;
-		uint32_t		central_directory_length	= 0;
-		uint32_t		central_directory_position	= 0;
-		uint16_t		comment_length				= 0;
+		HeaderSignature	signature					= SIGNATURE;	// [4B] {0x06054b50} end of central dir signature
+		uint16_t		current_disk_index			= 0;			// [2B] (4.4.19) number of this disk
+		uint16_t		first_disk_index			= 0;			// [2B] (4.4.20) number of the disk with the start of the central directory
+		uint16_t		current_disk_entries		= 0;			// [2B] (4.4.21) total number of entries in the central directory on this disk
+		uint16_t		entries_total_count			= 0;			// [2B] (4.4.22) total number of entries in the central directory
+		uint32_t		central_directory_length	= 0;			// [4B] (4.4.23) size of the central directory
+		uint32_t		central_directory_position	= 0;			// [4B] (4.4.24) offset of start of central directory with respect to the starting disk number
+		uint16_t		comment_length				= 0;			// [2B] (4.4.25) .ZIP file comment length
 	};
 	#pragma pack( pop )
 
