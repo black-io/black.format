@@ -3,6 +3,7 @@
 
 // External dependencies.
 #include <black/core.h>
+#include <black/data-oriented.h>
 
 
 // The library namespace definition.
