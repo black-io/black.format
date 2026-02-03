@@ -27,4 +27,4 @@ namespace Internal
 #include "internal/structures.h"
 
 // ZIP file format types.
-#include "ZipFileDescription.h"
+#include "ZipFileView.h"
