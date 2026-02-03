@@ -9,7 +9,9 @@ inline namespace Zip
 {
 namespace Internal
 {
-
+	/**
+	*/
+	using GeneralPurposeBitFlags = Black::EnumFlags<GeneralPurposeBitFlag>;
 }
 }
 }
