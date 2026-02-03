@@ -352,6 +352,14 @@ namespace Internal
 	static_assert( sizeof( EndOfCentralDirectory ) == 22, "Central Directory Digital Signature does not aligned properly." );
 
 	/**
+		@brief	Regular entry of file.
+
+		This type reflects the section 4.3.7 (Local file header) of .ZIP file format specification.
+
+		This type describes the placement of regular file (or empty folder) inside of ZIP format.
+		The core header of file is `LocalFileHeader`. All other headers are optional and may be not found while parsing the format.
+
+		Once some additional block or header is found in ZIP format for certain file entry, it will be linked with file entry.
 	*/
 	struct ZipFileEntry final
 	{
@@ -369,31 +377,46 @@ namespace Internal
 	};
 
 	/**
+		@brief	Extra data of ZIP format.
+
+		This type reflects the section 4.3.11 (Archive extra data record) of .ZIP file format specification.
+
+		This type describes the regular extra data for ZIP file decryption.
 	*/
 	struct ZipExtraData final
 	{
-		std::shared_ptr<ArchiveExtraDataRecord>		header;
-		Black::PlainView<std::byte>					payload;
+		std::shared_ptr<ArchiveExtraDataRecord>		header;		// Header of extra data.
+		Black::PlainView<std::byte>					payload;	// Payload of extra data.
 	};
 
 	/**
+		@brief	Central directory digital signature.
+
+		This type reflects the section 4.3.13 (Digital signature) of .ZIP file format specification.
+
+		Object of this type will be filled once the ZIP file contains encrypted central directory.
 	*/
 	struct ZipDigitalSignature final
 	{
-		std::shared_ptr<CentralDirectoryDigitalSignature>	header;
-		Black::PlainView<std::byte>							payload;
+		std::shared_ptr<CentralDirectoryDigitalSignature>	header;		// Header of digital signature.
+		Black::PlainView<std::byte>							payload;	// Signature data.
 	};
 
 	/**
+		@brief	Central directory footer.
+
+		This type reflects the section 4.3.16 (End of central directory record) of .ZIP file format specification.
+
+		This type describes the ending of ZIP format. It consists of stored trailing headers and blocks.
 	*/
 	struct ZipCentralDirectoryFooter final
 	{
-		std::shared_ptr<EndOfCentralDirectory>				description;
-		std::shared_ptr<Zip64EndOfCentralDirectory>			zip64_description;
-		std::shared_ptr<Zip64EndOfCentralDirectoryLocator>	zip64_locator;
+		std::shared_ptr<EndOfCentralDirectory>				description;		// EOCD record.
+		std::shared_ptr<Zip64EndOfCentralDirectory>			zip64_description;	// EOCD record in Zip64 format.
+		std::shared_ptr<Zip64EndOfCentralDirectoryLocator>	zip64_locator;		// Locator of EOCD record in Zip64Format.
 
-		std::string_view									comment;
-		Black::PlainView<std::byte>							zip64_extra_field;
+		std::string_view									comment;			// Main comment of ZIP file.
+		Black::PlainView<std::byte>							zip64_extra_field;	// Extra field in Zip64 format.
 	};
 }
 }
