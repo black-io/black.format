@@ -25,6 +25,35 @@ namespace Internal
 		Zip64EndOfCentralDirectoryLocator	= '\x07\x06\x4B\x50',	// (4.3.15) EOCD locator signature for Zip64.
 		EndOfCentralDirectory				= '\x06\x05\x4B\x50',	// (4.3.16) EOCD signature.
 	};
+
+	/**
+	*/
+	enum class GeneralPurposeBitFlag : uint16_t
+	{
+		IsEncrypted				= 0x0001U,
+		// For compression method 6:
+		Use8kSlidingDictionary	= 0x0002U,
+		Use3sfAlgorithm			= 0x0004U,
+		// For compression method 8/9:
+		UseMaxAlgorithmVersion	= 0x0002U,
+		FavorFastAlgorithm		= 0x0004U,
+		// For compression method 14:
+		UseEosMarker			= 0x0002U,
+		// Other bits:
+		UseDataDescriptor		= 0x0008U,
+		// 0x0010U is reserved.
+		IsCompressedPatchedData	= 0x0020U,
+		UseStrongEncryption		= 0x0040U,
+		// 0x0080U is reserved.
+		// 0x0100U is reserved.
+		// 0x0200U is reserved.
+		// 0x0400U is reserved.
+		UseUtfStrings			= 0x0800U,
+		// 0x1000U is reserved.
+		IsCentralDirectoryEncrypted	= 0x2000U,
+		// 0x4000U is reserved.
+		// 0x8000U is reserved.
+	};
 }
 }
 }
