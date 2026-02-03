@@ -350,6 +350,51 @@ namespace Internal
 	#pragma pack( pop )
 
 	static_assert( sizeof( EndOfCentralDirectory ) == 22, "Central Directory Digital Signature does not aligned properly." );
+
+	/**
+	*/
+	struct ZipFileEntry final
+	{
+		size_t										name_hash;						// Hash of name.
+		std::string_view							name;							// Name of file.
+
+		std::shared_ptr<LocalFileHeader>			header;							// Header of file.
+		std::shared_ptr<FileDataDescriptor>			data_descriptor;				// Data descriptor of file.
+		std::shared_ptr<CentralDirectoryFileHeader>	central_directory_header;		// Central directory header of file.
+
+		Black::PlainView<std::byte>					payload;						// Payload of file.
+		Black::PlainView<std::byte>					extra_field;					// Extra field, if used.
+		Black::PlainView<std::byte>					central_directory_extra_field;	// Extra field from central directory, if used.
+		std::string_view							comment;						// Comment for file in central directory.
+	};
+
+	/**
+	*/
+	struct ZipExtraData final
+	{
+		std::shared_ptr<ArchiveExtraDataRecord>		header;
+		Black::PlainView<std::byte>					payload;
+	};
+
+	/**
+	*/
+	struct ZipDigitalSignature final
+	{
+		std::shared_ptr<CentralDirectoryDigitalSignature>	header;
+		Black::PlainView<std::byte>							payload;
+	};
+
+	/**
+	*/
+	struct ZipCentralDirectoryFooter final
+	{
+		std::shared_ptr<EndOfCentralDirectory>				description;
+		std::shared_ptr<Zip64EndOfCentralDirectory>			zip64_description;
+		std::shared_ptr<Zip64EndOfCentralDirectoryLocator>	zip64_locator;
+
+		std::string_view									comment;
+		Black::PlainView<std::byte>							zip64_extra_field;
+	};
 }
 }
 }
