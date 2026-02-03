@@ -25,3 +25,6 @@ namespace Internal
 #include "internal/constants.h"
 #include "internal/aliases.h"
 #include "internal/structures.h"
+
+// ZIP file format types.
+#include "ZipFileDescription.h"
