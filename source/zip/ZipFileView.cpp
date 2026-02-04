@@ -321,7 +321,10 @@ namespace
 			{
 			case Internal::LocalFileHeader::SIGNATURE:
 				{
-					std::tie( m_entries.emplace_back(), file_memory ) = ParseFileEntry( std::move( file_memory ) );
+					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseFileEntry( std::move( file_memory ) ) };
+					ENSURES_DEBUG( rest_memory.has_value() );
+
+					file_memory = *std::move( rest_memory );
 				}
 				break;
 			case Internal::FileDataDescriptor::SIGNATURE:
