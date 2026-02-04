@@ -390,7 +390,7 @@ namespace
 				}
 				break;
 			default:
-				BLACK_LOG_ERROR( LOG_CHANNEL, "Unexpected signature of ZIP command: {}.", signature );
+				BLACK_LOG_ERROR( LOG_CHANNEL, "Unexpected signature of ZIP command: 0x{:X}.", Black::GetEnumValue( signature ) );
 				return;
 			}
 		}
