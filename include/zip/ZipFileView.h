@@ -77,6 +77,11 @@ inline namespace Zip
 		//
 		void TestFileMemory() const;
 
+	// .ZIP format pipeline.
+	private:
+		//
+		std::optional<Black::PlainView<std::byte>> ParseFileEntry( Black::PlainView<std::byte>&& memory ) const;
+
 	// Private state.
 	private:
 		Black::PlainView<std::byte>	m_file_memory;

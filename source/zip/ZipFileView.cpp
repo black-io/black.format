@@ -26,46 +26,6 @@ namespace
 	}
 
 	//
-	std::pair<Internal::ZipFileEntry, Black::PlainView<std::byte>> ParseFileEntry( Black::PlainView<std::byte>&& file_memory )
-	{
-		std::pair<Internal::ZipFileEntry, Black::PlainView<std::byte>> result{};
-		auto& [ file_entry, buffer ] = result;
-
-		buffer = std::move( file_memory );
-
-		std::byte* current_memory = buffer.GetMemory();
-		file_entry.header = std::shared_ptr<Internal::LocalFileHeader>{
-			reinterpret_cast<Internal::LocalFileHeader*>( current_memory ),
-			[]( Internal::LocalFileHeader* const header ) {}
-		};
-
-		current_memory += sizeof( Internal::LocalFileHeader );
-		file_entry.name = {
-			reinterpret_cast<const char*>( current_memory ),
-			size_t( file_entry.header->name_length )
-		};
-
-		file_entry.name_hash = std::hash<std::string_view>{}( file_entry.name );
-
-		current_memory += file_entry.name.length();
-		file_entry.extra_field = {
-			current_memory,
-			size_t( file_entry.header->extra_field_length )
-		};
-
-		current_memory += file_entry.extra_field.GetLength();
-		file_entry.payload = {
-			current_memory,
-			size_t( file_entry.header->compressed_length )
-		};
-
-		current_memory += file_entry.payload.GetLength();
-		buffer = { current_memory, buffer.GetEnd() };
-
-		return result;
-	}
-
-	//
 	std::pair<Internal::ZipExtraData, Black::PlainView<std::byte>> ParseExtraDataRecord( Black::PlainView<std::byte>&& file_memory )
 	{
 		std::pair<Internal::ZipExtraData, Black::PlainView<std::byte>> result{};
@@ -445,6 +405,48 @@ namespace
 		CRET( ( sizeof( Internal::LocalFileHeader ) + header.name_length + header.extra_field_length + header.compressed_length ) > m_file_memory.GetLength() );
 
 		m_is_valid = true;
+	}
+
+	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseFileEntry( Black::PlainView<std::byte>&& memory ) const
+	{
+		Black::PlainView<std::byte> buffer{ std::move( memory ) };
+
+		Internal::ZipFileEntry file_entry;
+		file_entry.header = std::shared_ptr<Internal::LocalFileHeader>{
+			reinterpret_cast<Internal::LocalFileHeader*>( buffer.GetMemory() ),
+			[]( Internal::LocalFileHeader* const header ) {}
+		};
+
+		buffer = buffer.SkipPrefix( sizeof( Internal::LocalFileHeader ) );
+		file_entry.name = {
+			reinterpret_cast<const char*>( buffer.GetMemory() ),
+			size_t( file_entry.header->name_length )
+		};
+
+		file_entry.name_hash = std::hash<std::string_view>{}( file_entry.name );
+
+		buffer = buffer.SkipPrefix( file_entry.name.length() );
+		file_entry.extra_field = {
+			buffer.GetMemory(),
+			size_t( file_entry.header->extra_field_length )
+		};
+
+		buffer = buffer.SkipPrefix( file_entry.extra_field.GetLength() );
+		if( file_entry.header->general_purpose_bits.HasFlag( Internal::GeneralPurposeBitFlag::UseDataDescriptor ) )
+		{
+		}
+		else
+		{
+			file_entry.payload = {
+				buffer.GetMemory(),
+				size_t( file_entry.header->compressed_length )
+			};
+		}
+
+		buffer = buffer.SkipPrefix( file_entry.payload.GetLength() );
+
+		m_entries.emplace_back( std::move( file_entry ) );
+		return { buffer };
 	}
 }
 }
