@@ -91,6 +91,9 @@ inline namespace Zip
 		//
 		std::optional<Black::PlainView<std::byte>> ParseCentralDirectoryEntry( Black::PlainView<std::byte>&& memory ) const;
 
+		//
+		std::optional<Black::PlainView<std::byte>> ParseCentralDirectoryDigitalSignature( Black::PlainView<std::byte>&& memory ) const;
+
 	// Private state.
 	private:
 		Black::PlainView<std::byte>	m_file_memory;

@@ -26,32 +26,6 @@ namespace
 	}
 
 	//
-	std::pair<Internal::ZipDigitalSignature, Black::PlainView<std::byte>> ParseCentralDirectoryDigitalSignature( Black::PlainView<std::byte>&& file_memory )
-	{
-		std::pair<Internal::ZipDigitalSignature, Black::PlainView<std::byte>> result{};
-		auto& [ signature, buffer ] = result;
-
-		buffer = std::move( file_memory );
-
-		std::byte* current_memory = buffer.GetMemory();
-		signature.header = std::shared_ptr<Internal::CentralDirectoryDigitalSignature>{
-			reinterpret_cast<Internal::CentralDirectoryDigitalSignature*>( current_memory ),
-			[]( Internal::CentralDirectoryDigitalSignature* const block ) {}
-		};
-
-		current_memory += sizeof( Internal::CentralDirectoryDigitalSignature );
-		signature.payload = {
-			current_memory,
-			size_t( signature.header->data_length )
-		};
-
-		current_memory += signature.payload.GetLength();
-		buffer = { current_memory, buffer.GetEnd() };
-
-		return result;
-	}
-
-	//
 	std::pair<Internal::ZipCentralDirectoryFooter, Black::PlainView<std::byte>> ParseZip64EndOfCentralDirectory( Black::PlainView<std::byte>&& file_memory )
 	{
 		// (4.3.14) ... SHOULD be the size of the remaining record and SHOULD NOT include the leading 12 bytes.
@@ -290,7 +264,10 @@ namespace
 				break;
 			case Internal::CentralDirectoryDigitalSignature::SIGNATURE:
 				{
-					std::tie( m_digital_signature, file_memory ) = ParseCentralDirectoryDigitalSignature( std::move( file_memory ) );
+					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseCentralDirectoryDigitalSignature( std::move( file_memory ) ) };
+					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse central directory digital signature." );
+
+					file_memory = *std::move( rest_memory );
 				}
 				break;
 			case Internal::Zip64EndOfCentralDirectory::SIGNATURE:
@@ -471,6 +448,7 @@ namespace
 
 		buffer = buffer.TruncatePrefix( file_comment.length() );
 
+		// Remember the taken data into corresponded file entry.
 		Black::FindItem(
 			m_entries,
 			[name_hash, &file_path]( const Internal::ZipFileEntry& file_entry )
@@ -485,6 +463,34 @@ namespace
 				file_entry.comment							= std::move( file_comment );
 			}
 		);
+
+		return { buffer };
+	}
+
+	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseCentralDirectoryDigitalSignature( Black::PlainView<std::byte>&& memory ) const
+	{
+		constexpr size_t header_size = sizeof( Internal::CentralDirectoryDigitalSignature );
+
+		Black::PlainView<std::byte> buffer{ std::move( memory ) };
+		CRETE( buffer.GetLength() < header_size, {}, LOG_CHANNEL, "The rest memory is less than size of central directory digital signature." );
+
+		std::shared_ptr<Internal::CentralDirectoryDigitalSignature> header{
+			reinterpret_cast<Internal::CentralDirectoryDigitalSignature*>( buffer.GetMemory() ),
+			[]( Internal::CentralDirectoryDigitalSignature* const block ) {}
+		};
+		CRETE( header->signature != Internal::CentralDirectoryDigitalSignature::SIGNATURE, {}, LOG_CHANNEL, "Central directory digital signature mismatch." );
+
+		buffer = buffer.TruncatePrefix( header_size );
+		CRETE( buffer.GetLength() < size_t( header->data_length ), {}, LOG_CHANNEL, "The rest memory is less than length of payload." );
+		Black::PlainView<std::byte> payload{
+			buffer.GetMemory(),
+			size_t( header->data_length )
+		};
+
+		buffer = buffer.TruncatePrefix( payload.GetLength() );
+
+		m_digital_signature.header	= std::move( header );
+		m_digital_signature.payload	= std::move( payload );
 
 		return { buffer };
 	}
