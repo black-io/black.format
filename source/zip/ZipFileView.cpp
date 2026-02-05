@@ -443,7 +443,17 @@ namespace
 		buffer = buffer.TruncatePrefix( file_entry.extra_field.GetLength() );
 		if( file_entry.header->general_purpose_bits.HasFlag( Internal::GeneralPurposeBitFlag::UseDataDescriptor ) )
 		{
-			// T.B.D.
+			std::shared_ptr<Internal::FileDataDescriptor> data_descriptor{ LocateDataDescriptor( buffer ) };
+			CRETE( data_descriptor == nullptr, {}, LOG_CHANNEL, "Failed to locate the data descriptor block for file." );
+			CRETE( buffer.GetLength() < size_t( data_descriptor->compressed_length ), {}, LOG_CHANNEL, "The rest memory is less than length file content." );
+
+			file_entry.data_descriptor = std::move( data_descriptor );
+			file_entry.payload = {
+				buffer.GetMemory(),
+				size_t( file_entry.data_descriptor->compressed_length )
+			};
+
+			buffer = buffer.TruncatePrefix( file_entry.payload.GetLength() + sizeof( Internal::FileDataDescriptor ) );
 		}
 		else if( !file_entry.header->compressed_length > 0 )
 		{
@@ -452,12 +462,18 @@ namespace
 				buffer.GetMemory(),
 				size_t( file_entry.header->compressed_length )
 			};
-		}
 
-		buffer = buffer.TruncatePrefix( file_entry.payload.GetLength() );
+			buffer = buffer.TruncatePrefix( file_entry.payload.GetLength() );
+		}
 
 		m_entries.emplace_back( std::move( file_entry ) );
 		return { buffer };
+	}
+
+	std::shared_ptr<Internal::FileDataDescriptor> ZipFileView::LocateDataDescriptor( const Black::PlainView<std::byte>& memory ) const
+	{
+		BLACK_LOG_ERROR( LOG_CHANNEL, "Data descriptor lookup is not supported." );
+		return {};
 	}
 }
 }
