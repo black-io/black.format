@@ -26,26 +26,6 @@ namespace
 	}
 
 	//
-	std::pair<Internal::ZipCentralDirectoryFooter, Black::PlainView<std::byte>> ParseZip64EndOfCentralDirectoryLocator( Black::PlainView<std::byte>&& file_memory )
-	{
-		std::pair<Internal::ZipCentralDirectoryFooter, Black::PlainView<std::byte>> result{};
-		auto& [ footer, buffer ] = result;
-
-		buffer = std::move( file_memory );
-
-		std::byte* current_memory = buffer.GetMemory();
-		footer.zip64_locator = std::shared_ptr<Internal::Zip64EndOfCentralDirectoryLocator>{
-			reinterpret_cast<Internal::Zip64EndOfCentralDirectoryLocator*>( current_memory ),
-			[]( Internal::Zip64EndOfCentralDirectoryLocator* const block ) {}
-		};
-
-		current_memory += sizeof( Internal::Zip64EndOfCentralDirectoryLocator );
-		buffer = { current_memory, buffer.GetEnd() };
-
-		return result;
-	}
-
-	//
 	std::pair<Internal::ZipCentralDirectoryFooter, Black::PlainView<std::byte>> ParseEndOfCentralDirectory( Black::PlainView<std::byte>&& file_memory )
 	{
 		std::pair<Internal::ZipCentralDirectoryFooter, Black::PlainView<std::byte>> result{};
@@ -249,10 +229,10 @@ namespace
 				break;
 			case Internal::Zip64EndOfCentralDirectoryLocator::SIGNATURE:
 				{
-					Internal::ZipCentralDirectoryFooter footer;
-					std::tie( footer, file_memory ) = ParseZip64EndOfCentralDirectoryLocator( std::move( file_memory ) );
+					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseZip64CentralDirectoryLocator( std::move( file_memory ) ) };
+					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse Zip64 central directory footer locator." );
 
-					m_footer.zip64_locator = std::move( footer.zip64_locator );
+					file_memory = *std::move( rest_memory );
 				}
 				break;
 			case Internal::EndOfCentralDirectory::SIGNATURE:
@@ -491,6 +471,31 @@ namespace
 
 		m_footer.zip64_description = std::move( description );
 		m_footer.zip64_extra_field = std::move( extra_field );
+
+		return { buffer };
+	}
+
+	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseZip64CentralDirectoryLocator( Black::PlainView<std::byte>&& memory ) const
+	{
+		constexpr size_t locator_size = sizeof( Internal::Zip64EndOfCentralDirectoryLocator );
+
+		Black::PlainView<std::byte> buffer{ std::move( memory ) };
+		CRETE( buffer.GetLength() < locator_size, {}, LOG_CHANNEL, "The rest memory is less than size of central directory footer locator." );
+
+		std::shared_ptr<Internal::Zip64EndOfCentralDirectoryLocator> locator{
+			reinterpret_cast<Internal::Zip64EndOfCentralDirectoryLocator*>( buffer.GetMemory() ),
+			[]( Internal::Zip64EndOfCentralDirectoryLocator* const block ) {}
+		};
+		CRETE(
+			locator->signature != Internal::Zip64EndOfCentralDirectoryLocator::SIGNATURE,
+			{},
+			LOG_CHANNEL,
+			"Zip64 central directory locator signature mismatch."
+		);
+
+		buffer = buffer.TruncatePrefix( locator_size );
+
+		m_footer.zip64_locator = std::move( locator );
 
 		return { buffer };
 	}
