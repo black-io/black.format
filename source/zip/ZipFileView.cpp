@@ -16,37 +16,11 @@ namespace
 
 
 	//
-	const Internal::HeaderSignature PeekHeaderSignature( const Black::PlainView<std::byte> buffer )
+	const Internal::HeaderSignature PeekHeaderSignature( const Black::PlainView<std::byte>& buffer )
 	{
 		Internal::HeaderSignature result;
 
 		Black::CopyMemory( &result, buffer.GetMemory(), sizeof( result ) );
-
-		return result;
-	}
-
-	//
-	std::pair<Internal::ZipCentralDirectoryFooter, Black::PlainView<std::byte>> ParseEndOfCentralDirectory( Black::PlainView<std::byte>&& file_memory )
-	{
-		std::pair<Internal::ZipCentralDirectoryFooter, Black::PlainView<std::byte>> result{};
-		auto& [ footer, buffer ] = result;
-
-		buffer = std::move( file_memory );
-
-		std::byte* current_memory = buffer.GetMemory();
-		footer.description = std::shared_ptr<Internal::EndOfCentralDirectory>{
-			reinterpret_cast<Internal::EndOfCentralDirectory*>( current_memory ),
-			[]( Internal::EndOfCentralDirectory* const block ) {}
-		};
-
-		current_memory += sizeof( Internal::EndOfCentralDirectory );
-		footer.comment = {
-			reinterpret_cast<char*>( current_memory ),
-			size_t( footer.description->comment_length )
-		};
-
-		current_memory += footer.comment.length();
-		buffer = { current_memory, buffer.GetEnd() };
 
 		return result;
 	}
@@ -190,11 +164,6 @@ namespace
 					file_memory = *std::move( rest_memory );
 				}
 				break;
-			case Internal::FileDataDescriptor::SIGNATURE:
-				{
-					BLACK_LOG_ERROR( LOG_CHANNEL, "Unexpected data descriptor command." );
-				}
-				return;
 			case Internal::ArchiveExtraDataRecord::SIGNATURE:
 				{
 					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseExtraDataEntry( std::move( file_memory ) ) };
@@ -237,11 +206,10 @@ namespace
 				break;
 			case Internal::EndOfCentralDirectory::SIGNATURE:
 				{
-					Internal::ZipCentralDirectoryFooter footer;
-					std::tie( footer, file_memory ) = ParseEndOfCentralDirectory( std::move( file_memory ) );
+					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseCentralDirectoryFooter( std::move( file_memory ) ) };
+					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse central directory footer." );
 
-					m_footer.description = std::move( footer.description );
-					m_footer.comment = std::move( footer.comment );
+					file_memory = *std::move( rest_memory );
 				}
 				break;
 			default:
@@ -249,6 +217,8 @@ namespace
 				return;
 			}
 		}
+
+		reset_contract.Cancel();
 	}
 
 	void ZipFileView::TestFileMemory() const
@@ -496,6 +466,34 @@ namespace
 		buffer = buffer.TruncatePrefix( locator_size );
 
 		m_footer.zip64_locator = std::move( locator );
+
+		return { buffer };
+	}
+
+	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseCentralDirectoryFooter( Black::PlainView<std::byte>&& memory ) const
+	{
+		constexpr size_t description_size = sizeof( Internal::EndOfCentralDirectory );
+
+		Black::PlainView<std::byte> buffer{ std::move( memory ) };
+		CRETE( buffer.GetLength() < description_size, {}, LOG_CHANNEL, "The rest memory is less than size of central directory footer." );
+
+		std::shared_ptr<Internal::EndOfCentralDirectory> description{
+			reinterpret_cast<Internal::EndOfCentralDirectory*>( buffer.GetMemory() ),
+			[]( Internal::EndOfCentralDirectory* const block ) {}
+		};
+		CRETE( description->signature != Internal::EndOfCentralDirectory::SIGNATURE, {}, LOG_CHANNEL, "Central directory footer signature mismatch." );
+
+		buffer = buffer.TruncatePrefix( description_size );
+		CRETE( buffer.GetLength() < size_t( description->comment_length ), {}, LOG_CHANNEL, "The rest memory is less than size of central directory comment." );
+		std::string_view comment {
+			reinterpret_cast<char*>( buffer.GetMemory() ),
+			size_t( description->comment_length )
+		};
+
+		buffer = buffer.TruncatePrefix( comment.length() );
+
+		m_footer.description	= std::move( description );
+		m_footer.comment		= std::move( comment );
 
 		return { buffer };
 	}

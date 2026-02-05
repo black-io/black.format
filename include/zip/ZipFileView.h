@@ -96,9 +96,12 @@ inline namespace Zip
 
 		//
 		std::optional<Black::PlainView<std::byte>> ParseZip64CentralDirectoryFooter( Black::PlainView<std::byte>&& memory ) const;
-				
+
 		//
 		std::optional<Black::PlainView<std::byte>> ParseZip64CentralDirectoryLocator( Black::PlainView<std::byte>&& memory ) const;
+
+		//
+		std::optional<Black::PlainView<std::byte>> ParseCentralDirectoryFooter( Black::PlainView<std::byte>&& memory ) const;
 
 	// Private state.
 	private:
