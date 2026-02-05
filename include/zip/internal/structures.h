@@ -217,94 +217,6 @@ namespace Internal
 	static_assert( sizeof( CentralDirectoryDigitalSignature ) == 6, "Central Directory Digital Signature does not aligned properly." );
 
 	/**
-		@brief	End of central directory record in Zip64 format.
-
-		This block described in section 4.3.14 of .ZIP file format specification.
-
-		4.3.14  Zip64 end of central directory record
-			zip64 end of central dir
-			signature                       4 bytes  (0x06064b50)
-			size of zip64 end of central
-			directory record                8 bytes
-			version made by                 2 bytes
-			version needed to extract       2 bytes
-			number of this disk             4 bytes
-			number of the disk with the
-			start of the central directory  4 bytes
-			total number of entries in the
-			central directory on this disk  8 bytes
-			total number of entries in the
-			central directory               8 bytes
-			size of the central directory   8 bytes
-			offset of start of central
-			directory with respect to
-			the starting disk number        8 bytes
-
-			zip64 extensible data sector    (variable size)
-
-		56 bytes total.
-		This is only header. It does not include the extensible data sector.
-
-		The `SIGNATURE` static field stores the valid value of header signature. So it can be used during the parsing of format.
-	*/
-	#pragma pack( push, 2 )
-	struct Zip64EndOfCentralDirectory final
-	{
-		// Should be 0x06064b50. Valid signature of block.
-		static constexpr HeaderSignature SIGNATURE = HeaderSignature::Zip64EndOfCentralDirectory;
-
-
-		HeaderSignature	signature					= SIGNATURE;	// [4B] {0x06064b50} zip64 end of central dir signature.
-		uint64_t		length						= 0;			// [8B] (4.3.14.1) size of zip64 end of central directory record.
-		uint16_t		compressor_version			= 0;			// [2B] (4.4.2) version made by.
-		uint16_t		extractor_version			= 0;			// [2B] (4.4.3) version needed to extract.
-		uint32_t		current_disk_index			= 0;			// [4B] (4.4.19) number of this disk.
-		uint32_t		first_disk_index			= 0;			// [4B] (4.4.20) number of the disk with the start of the central directory.
-		uint64_t		current_disk_entries		= 0;			// [8B] (4.4.21) total number of entries in the central directory on this disk.
-		uint64_t		entries_total_count			= 0;			// [8B] (4.4.22) total number of entries in the central directory.
-		uint64_t		central_directory_length	= 0;			// [8B] (4.4.23) size of the central directory.
-		uint64_t		central_directory_position	= 0;			// [8B] (4.4.24) offset of start of central directory with respect to the starting disk number.
-	};
-	#pragma pack( pop )
-
-	static_assert( sizeof( Zip64EndOfCentralDirectory ) == 56, "End of Zip64 Central Directory does not aligned properly." );
-
-	/**
-		@brief	End of central directory locator in Zip64 format.
-
-		This block described in section 4.3.15 of .ZIP file format specification.
-
-		4.3.15 Zip64 end of central directory locator
-			zip64 end of central dir locator
-			signature                       4 bytes  (0x07064b50)
-			number of the disk with the
-			start of the zip64 end of
-			central directory               4 bytes
-			relative offset of the zip64
-			end of central directory record 8 bytes
-			total number of disks           4 bytes
-
-		20 bytes total.
-
-		The `SIGNATURE` static field stores the valid value of block signature. So it can be used during the parsing of format.
-	*/
-	#pragma pack( push, 4 )
-	struct Zip64EndOfCentralDirectoryLocator final
-	{
-		// Should be 0x07064b50. Valid signature of block.
-		static constexpr HeaderSignature SIGNATURE = HeaderSignature::Zip64EndOfCentralDirectoryLocator;
-
-
-		HeaderSignature	signature				= SIGNATURE;	// [4B] {0x07064b50} zip64 end of central dir locator signature.
-		uint32_t		first_disk_index		= 0;			// [4B] (4.4.20) number of the disk with the start of the zip64 end of central directory.
-		uint64_t		position_offset			= 0;			// [8B] (?) relative offset of the zip64 end of central directory record.
-		uint32_t		disks_count				= 0;			// [4B] (?) total number of disks.
-	};
-	#pragma pack( pop )
-
-	static_assert( sizeof( Zip64EndOfCentralDirectoryLocator ) == 20, "Central Directory Digital Signature does not aligned properly." );
-
-	/**
 		@brief	End of central directory record.
 
 		This block described in section 4.3.16 of .ZIP file format specification.
@@ -412,11 +324,8 @@ namespace Internal
 	struct ZipCentralDirectoryFooter final
 	{
 		std::shared_ptr<EndOfCentralDirectory>				description;		// EOCD record.
-		std::shared_ptr<Zip64EndOfCentralDirectory>			zip64_description;	// EOCD record in Zip64 format.
-		std::shared_ptr<Zip64EndOfCentralDirectoryLocator>	zip64_locator;		// Locator of EOCD record in Zip64Format.
 
 		std::string_view									comment;			// Main comment of ZIP file.
-		Black::PlainView<std::byte>							zip64_extra_field;	// Extra field in Zip64 format.
 	};
 }
 }
