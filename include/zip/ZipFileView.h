@@ -80,13 +80,16 @@ inline namespace Zip
 	// .ZIP format pipeline.
 	private:
 		//
-		std::optional<Black::PlainView<std::byte>> ParseFileEntry( Black::PlainView<std::byte>&& memory ) const;
-
-		//
 		std::shared_ptr<Internal::FileDataDescriptor> LocateDataDescriptor( const Black::PlainView<std::byte>& memory ) const;
 
 		//
+		std::optional<Black::PlainView<std::byte>> ParseFileEntry( Black::PlainView<std::byte>&& memory ) const;
+
+		//
 		std::optional<Black::PlainView<std::byte>> ParseExtraDataEntry( Black::PlainView<std::byte>&& memory ) const;
+
+		//
+		std::optional<Black::PlainView<std::byte>> ParseCentralDirectoryEntry( Black::PlainView<std::byte>&& memory ) const;
 
 	// Private state.
 	private:

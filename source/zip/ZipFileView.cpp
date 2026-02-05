@@ -26,46 +26,6 @@ namespace
 	}
 
 	//
-	std::pair<Internal::ZipFileEntry, Black::PlainView<std::byte>> ParseCentralDirectoryEntry( Black::PlainView<std::byte>&& file_memory )
-	{
-		std::pair<Internal::ZipFileEntry, Black::PlainView<std::byte>> result{};
-		auto& [ file_entry, buffer ] = result;
-
-		buffer = std::move( file_memory );
-
-		std::byte* current_memory = buffer.GetMemory();
-		file_entry.central_directory_header = std::shared_ptr<Internal::CentralDirectoryFileHeader>{
-			reinterpret_cast<Internal::CentralDirectoryFileHeader*>( current_memory ),
-			[]( Internal::CentralDirectoryFileHeader* const header ) {}
-		};
-
-		current_memory += sizeof( Internal::CentralDirectoryFileHeader );
-		file_entry.name = {
-			reinterpret_cast<const char*>( current_memory ),
-			size_t( file_entry.central_directory_header->name_length )
-		};
-
-		file_entry.name_hash = std::hash<std::string_view>{}( file_entry.name );
-
-		current_memory += file_entry.name.length();
-		file_entry.central_directory_extra_field = {
-			current_memory,
-			size_t( file_entry.central_directory_header->extra_field_length )
-		};
-
-		current_memory += file_entry.central_directory_extra_field.GetLength();
-		file_entry.comment = {
-			reinterpret_cast<const char*>( current_memory ),
-			size_t( file_entry.central_directory_header->comment_length )
-		};
-
-		current_memory += file_entry.comment.length();
-		buffer = { current_memory, buffer.GetEnd() };
-
-		return result;
-	}
-
-	//
 	std::pair<Internal::ZipDigitalSignature, Black::PlainView<std::byte>> ParseCentralDirectoryDigitalSignature( Black::PlainView<std::byte>&& file_memory )
 	{
 		std::pair<Internal::ZipDigitalSignature, Black::PlainView<std::byte>> result{};
@@ -393,6 +353,12 @@ namespace
 		m_is_valid = true;
 	}
 
+	std::shared_ptr<Internal::FileDataDescriptor> ZipFileView::LocateDataDescriptor( const Black::PlainView<std::byte>& memory ) const
+	{
+		BLACK_LOG_ERROR( LOG_CHANNEL, "Data descriptor lookup is not supported." );
+		return {};
+	}
+
 	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseFileEntry( Black::PlainView<std::byte>&& memory ) const
 	{
 		constexpr size_t header_size = sizeof( Internal::LocalFileHeader );
@@ -453,12 +419,6 @@ namespace
 		return { buffer };
 	}
 
-	std::shared_ptr<Internal::FileDataDescriptor> ZipFileView::LocateDataDescriptor( const Black::PlainView<std::byte>& memory ) const
-	{
-		BLACK_LOG_ERROR( LOG_CHANNEL, "Data descriptor lookup is not supported." );
-		return {};
-	}
-
 	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseExtraDataEntry( Black::PlainView<std::byte>&& memory ) const
 	{
 		constexpr size_t header_size = sizeof( Internal::ArchiveExtraDataRecord );
@@ -483,6 +443,62 @@ namespace
 		buffer = buffer.TruncatePrefix( extra_data.payload.GetLength() );
 
 		m_extra_data = std::move( extra_data );
+		return { buffer };
+	}
+
+	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseCentralDirectoryEntry( Black::PlainView<std::byte>&& memory ) const
+	{
+		constexpr size_t header_size = sizeof( Internal::CentralDirectoryFileHeader );
+
+		Black::PlainView<std::byte> buffer{ std::move( memory ) };
+		CRETE( buffer.GetLength() < header_size, {}, LOG_CHANNEL, "The rest memory is less than size of extra data record." );
+
+		std::shared_ptr<Internal::CentralDirectoryFileHeader> header{
+			reinterpret_cast<Internal::CentralDirectoryFileHeader*>( buffer.GetMemory() ),
+			[]( Internal::CentralDirectoryFileHeader* const header ) {}
+		};
+		CRETE( header->signature != Internal::CentralDirectoryFileHeader::SIGNATURE, {}, LOG_CHANNEL, "Central directory file header signature mismatch." );
+
+		buffer = buffer.TruncatePrefix( header_size );
+		CRETE( buffer.GetLength() < size_t( header->name_length ), {}, LOG_CHANNEL, "The rest memory is less than length of file path." );
+		std::string_view file_path{
+			reinterpret_cast<const char*>( buffer.GetMemory() ),
+			size_t( header->name_length )
+		};
+
+		const std::size_t name_hash = std::hash<std::string_view>{}( file_path );
+
+		buffer = buffer.TruncatePrefix( file_path.length() );
+		CRETE( buffer.GetLength() < size_t( header->extra_field_length ), {}, LOG_CHANNEL, "The rest memory is less than length of extra data." );
+		Black::PlainView<std::byte> extra_data{
+			buffer.GetMemory(),
+			size_t( header->extra_field_length )
+		};
+
+		buffer = buffer.TruncatePrefix( extra_data.GetLength() );
+		CRETE( buffer.GetLength() < size_t( header->comment_length ), {}, LOG_CHANNEL, "The rest memory is less than length of file comment." );
+		std::string_view file_comment{
+			reinterpret_cast<const char*>( buffer.GetMemory() ),
+			size_t( header->comment_length )
+		};
+
+		buffer = buffer.TruncatePrefix( file_comment.length() );
+
+		Black::FindItem(
+			m_entries,
+			[name_hash, &file_path]( const Internal::ZipFileEntry& file_entry )
+			{
+				return ( file_entry.name_hash == name_hash ) && ( file_entry.name == file_path );
+			}
+		).AndThen(
+			[&header, &extra_data, &file_comment]( Internal::ZipFileEntry& file_entry )
+			{
+				file_entry.central_directory_header			= std::move( header );
+				file_entry.central_directory_extra_field	= std::move( extra_data );
+				file_entry.comment							= std::move( file_comment );
+			}
+		);
+
 		return { buffer };
 	}
 }
