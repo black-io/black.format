@@ -85,6 +85,9 @@ inline namespace Zip
 		//
 		std::shared_ptr<Internal::FileDataDescriptor> LocateDataDescriptor( const Black::PlainView<std::byte>& memory ) const;
 
+		//
+		std::optional<Black::PlainView<std::byte>> ParseExtraDataEntry( Black::PlainView<std::byte>&& memory ) const;
+
 	// Private state.
 	private:
 		Black::PlainView<std::byte>	m_file_memory;

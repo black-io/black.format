@@ -26,32 +26,6 @@ namespace
 	}
 
 	//
-	std::pair<Internal::ZipExtraData, Black::PlainView<std::byte>> ParseExtraDataRecord( Black::PlainView<std::byte>&& file_memory )
-	{
-		std::pair<Internal::ZipExtraData, Black::PlainView<std::byte>> result{};
-		auto& [ extra_data, buffer ] = result;
-
-		buffer = std::move( file_memory );
-
-		std::byte* current_memory = buffer.GetMemory();
-		extra_data.header = std::shared_ptr<Internal::ArchiveExtraDataRecord>{
-			reinterpret_cast<Internal::ArchiveExtraDataRecord*>( current_memory ),
-			[]( Internal::ArchiveExtraDataRecord* const record ) {}
-		};
-
-		current_memory += sizeof( Internal::ArchiveExtraDataRecord );
-		extra_data.payload = {
-			current_memory,
-			size_t( extra_data.header->extra_field_length )
-		};
-
-		current_memory += extra_data.payload.GetLength();
-		buffer = { current_memory, buffer.GetEnd() };
-
-		return result;
-	}
-
-	//
 	std::pair<Internal::ZipFileEntry, Black::PlainView<std::byte>> ParseCentralDirectoryEntry( Black::PlainView<std::byte>&& file_memory )
 	{
 		std::pair<Internal::ZipFileEntry, Black::PlainView<std::byte>> result{};
@@ -220,10 +194,13 @@ namespace
 
 	void ZipFileView::Reset()
 	{
-		m_file_memory	= {};
-		m_entries		= {};
-		m_is_valid		= false;
-		m_is_parsed		= false;
+		m_file_memory		= {};
+		m_entries			= {};
+		m_extra_data		= {};
+		m_digital_signature	= {};
+		m_footer			= {};
+		m_is_valid			= false;
+		m_is_parsed			= false;
 	}
 
 	void ZipFileView::Swap( ZipFileView& other )
@@ -305,8 +282,11 @@ namespace
 		auto reset_contract = Black::ScopeLeaveHandler{
 			[this]()
 			{
-				m_is_valid = false;
+				m_is_valid			= false;
 				m_entries.clear();
+				m_extra_data		= {};
+				m_digital_signature	= {};
+				m_footer			= {};
 				BLACK_LOG_ERROR( LOG_CHANNEL, "Parse of file failed." );
 			}
 		};
@@ -322,7 +302,7 @@ namespace
 			case Internal::LocalFileHeader::SIGNATURE:
 				{
 					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseFileEntry( std::move( file_memory ) ) };
-					ENSURES_DEBUG( rest_memory.has_value() );
+					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse file entry." );
 
 					file_memory = *std::move( rest_memory );
 				}
@@ -334,7 +314,10 @@ namespace
 				return;
 			case Internal::ArchiveExtraDataRecord::SIGNATURE:
 				{
-					std::tie( m_extra_data, file_memory ) = ParseExtraDataRecord( std::move( file_memory ) );
+					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseExtraDataEntry( std::move( file_memory ) ) };
+					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse archive extra data." );
+
+					file_memory = *std::move( rest_memory );
 				}
 				break;
 			case Internal::CentralDirectoryFileHeader::SIGNATURE:
@@ -455,7 +438,7 @@ namespace
 
 			buffer = buffer.TruncatePrefix( file_entry.payload.GetLength() + sizeof( Internal::FileDataDescriptor ) );
 		}
-		else if( !file_entry.header->compressed_length > 0 )
+		else if( file_entry.header->compressed_length > 0 )
 		{
 			CRETE( buffer.GetLength() < size_t( file_entry.header->compressed_length ), {}, LOG_CHANNEL, "The rest memory is less than length file content." );
 			file_entry.payload = {
@@ -474,6 +457,33 @@ namespace
 	{
 		BLACK_LOG_ERROR( LOG_CHANNEL, "Data descriptor lookup is not supported." );
 		return {};
+	}
+
+	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseExtraDataEntry( Black::PlainView<std::byte>&& memory ) const
+	{
+		constexpr size_t header_size = sizeof( Internal::ArchiveExtraDataRecord );
+
+		Black::PlainView<std::byte> buffer{ std::move( memory ) };
+		CRETE( buffer.GetLength() < header_size, {}, LOG_CHANNEL, "The rest memory is less than size of extra data record." );
+
+		Internal::ZipExtraData extra_data;
+		extra_data.header = std::shared_ptr<Internal::ArchiveExtraDataRecord>{
+			reinterpret_cast<Internal::ArchiveExtraDataRecord*>( buffer.GetMemory() ),
+			[]( Internal::ArchiveExtraDataRecord* const record ) {}
+		};
+		CRETE( extra_data.header->signature != Internal::ArchiveExtraDataRecord::SIGNATURE, {}, LOG_CHANNEL, "Extra data record signature mismatch." );
+
+		buffer = buffer.TruncatePrefix( header_size );
+		CRETE( buffer.GetLength() < size_t( extra_data.header->extra_field_length ), {}, LOG_CHANNEL, "The rest memory is less than length extra data." );
+		extra_data.payload = {
+			buffer.GetMemory(),
+			size_t( extra_data.header->extra_field_length )
+		};
+
+		buffer = buffer.TruncatePrefix( extra_data.payload.GetLength() );
+
+		m_extra_data = std::move( extra_data );
+		return { buffer };
 	}
 }
 }
