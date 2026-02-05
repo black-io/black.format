@@ -262,7 +262,7 @@ namespace
 			case Internal::LocalFileHeader::SIGNATURE:
 				{
 					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseFileEntry( std::move( file_memory ) ) };
-					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse file entry." );
+					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse local file entry." );
 
 					file_memory = *std::move( rest_memory );
 				}
@@ -282,23 +282,10 @@ namespace
 				break;
 			case Internal::CentralDirectoryFileHeader::SIGNATURE:
 				{
-					Internal::ZipFileEntry file_entry;
-					std::tie( file_entry, file_memory ) = ParseCentralDirectoryEntry( std::move( file_memory ) );
+					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseCentralDirectoryEntry( std::move( file_memory ) ) };
+					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse central directory file entry." );
 
-					Black::FindItem(
-						m_entries,
-						[&file_entry]( const Internal::ZipFileEntry& candidate )
-						{
-							return ( candidate.name_hash == file_entry.name_hash ) && ( candidate.name == file_entry.name );
-						}
-					).AndThen(
-						[&file_entry]( Internal::ZipFileEntry& stored_entry )
-						{
-							stored_entry.central_directory_header = std::move( file_entry.central_directory_header );
-							stored_entry.central_directory_extra_field = std::move( file_entry.central_directory_extra_field );
-							stored_entry.comment = std::move( file_entry.comment );
-						}
-					);
+					file_memory = *std::move( rest_memory );
 				}
 				break;
 			case Internal::CentralDirectoryDigitalSignature::SIGNATURE:
