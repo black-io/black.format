@@ -412,15 +412,20 @@ namespace
 
 	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseFileEntry( Black::PlainView<std::byte>&& memory ) const
 	{
+		constexpr size_t header_size = sizeof( Internal::LocalFileHeader );
+
 		Black::PlainView<std::byte> buffer{ std::move( memory ) };
+		CRETE( buffer.GetLength() < header_size, {}, LOG_CHANNEL, "The rest memory is less than size of local file header." );
 
 		Internal::ZipFileEntry file_entry;
 		file_entry.header = std::shared_ptr<Internal::LocalFileHeader>{
 			reinterpret_cast<Internal::LocalFileHeader*>( buffer.GetMemory() ),
 			[]( Internal::LocalFileHeader* const header ) {}
 		};
+		CRETE( file_entry.header->signature != Internal::LocalFileHeader::SIGNATURE, {}, LOG_CHANNEL, "Local file signature mismatch." );
 
-		buffer = buffer.SkipPrefix( sizeof( Internal::LocalFileHeader ) );
+		buffer = buffer.TruncatePrefix( header_size );
+		CRETE( buffer.GetLength() < size_t( file_entry.header->name_length ), {}, LOG_CHANNEL, "The rest memory is less than length of file path." );
 		file_entry.name = {
 			reinterpret_cast<const char*>( buffer.GetMemory() ),
 			size_t( file_entry.header->name_length )
@@ -428,25 +433,28 @@ namespace
 
 		file_entry.name_hash = std::hash<std::string_view>{}( file_entry.name );
 
-		buffer = buffer.SkipPrefix( file_entry.name.length() );
+		buffer = buffer.TruncatePrefix( file_entry.name.length() );
+		CRETE( buffer.GetLength() < size_t( file_entry.header->extra_field_length ), {}, LOG_CHANNEL, "The rest memory is less than length of extra field." );
 		file_entry.extra_field = {
 			buffer.GetMemory(),
 			size_t( file_entry.header->extra_field_length )
 		};
 
-		buffer = buffer.SkipPrefix( file_entry.extra_field.GetLength() );
+		buffer = buffer.TruncatePrefix( file_entry.extra_field.GetLength() );
 		if( file_entry.header->general_purpose_bits.HasFlag( Internal::GeneralPurposeBitFlag::UseDataDescriptor ) )
 		{
+			// T.B.D.
 		}
-		else
+		else if( !file_entry.header->compressed_length > 0 )
 		{
+			CRETE( buffer.GetLength() < size_t( file_entry.header->compressed_length ), {}, LOG_CHANNEL, "The rest memory is less than length file content." );
 			file_entry.payload = {
 				buffer.GetMemory(),
 				size_t( file_entry.header->compressed_length )
 			};
 		}
 
-		buffer = buffer.SkipPrefix( file_entry.payload.GetLength() );
+		buffer = buffer.TruncatePrefix( file_entry.payload.GetLength() );
 
 		m_entries.emplace_back( std::move( file_entry ) );
 		return { buffer };
