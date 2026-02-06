@@ -203,7 +203,7 @@ namespace Internal
 		The `SIGNATURE` static field stores the valid value of header signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 2 )
-	struct CentralDirectoryDigitalSignature final
+	struct CentralDirectoryDigitalSignatureHeader final
 	{
 		// Should be 0x05054b50. Valid signature of block.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::CentralDirectoryDigitalSignature;
@@ -214,7 +214,7 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
-	static_assert( sizeof( CentralDirectoryDigitalSignature ) == 6, "Central Directory Digital Signature does not aligned properly." );
+	static_assert( sizeof( CentralDirectoryDigitalSignatureHeader ) == 6, "Central Directory Digital Signature does not aligned properly." );
 
 	/**
 		@brief	End of central directory record.
@@ -244,7 +244,7 @@ namespace Internal
 		The `SIGNATURE` static field stores the valid value of block signature. So it can be used during the parsing of format.
 	*/
 	#pragma pack( push, 2 )
-	struct EndOfCentralDirectory final
+	struct EndOfCentralDirectoryHeader final
 	{
 		// Should be 0x06054b50. Valid signature of block.
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::EndOfCentralDirectory;
@@ -261,19 +261,19 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
-	static_assert( sizeof( EndOfCentralDirectory ) == 22, "Central Directory Digital Signature does not aligned properly." );
+	static_assert( sizeof( EndOfCentralDirectoryHeader ) == 22, "Central Directory Digital Signature does not aligned properly." );
 
 	/**
-		@brief	Regular entry of file.
+		@brief	Regular entry of local file in ZIP format.
 
-		This type reflects the section 4.3.7 (Local file header) of .ZIP file format specification.
+		This type reflects the union of sections 4.3.7 (Local file header) and 4.3.8 (File data) of .ZIP file format specification.
 
 		This type describes the placement of regular file (or empty folder) inside of ZIP format.
 		The core header of file is `LocalFileHeader`. All other headers are optional and may be not found while parsing the format.
 
 		Once some additional block or header is found in ZIP format for certain file entry, it will be linked with file entry.
 	*/
-	struct ZipFileEntry final
+	struct LocalFileEntry final
 	{
 		size_t										name_hash;						// Hash of name.
 		std::string_view							name;							// Name of file.
@@ -295,7 +295,7 @@ namespace Internal
 
 		This type describes the regular extra data for ZIP file decryption.
 	*/
-	struct ZipExtraData final
+	struct ArchiveDecryptionExtraData final
 	{
 		std::shared_ptr<ArchiveExtraDataRecord>		header;		// Header of extra data.
 		Black::PlainView<std::byte>					payload;	// Payload of extra data.
@@ -308,10 +308,10 @@ namespace Internal
 
 		Object of this type will be filled once the ZIP file contains encrypted central directory.
 	*/
-	struct ZipDigitalSignature final
+	struct CentralDirectoryDigitalSignature final
 	{
-		std::shared_ptr<CentralDirectoryDigitalSignature>	header;		// Header of digital signature.
-		Black::PlainView<std::byte>							payload;	// Signature data.
+		std::shared_ptr<CentralDirectoryDigitalSignatureHeader>	header;		// Header of digital signature.
+		Black::PlainView<std::byte>								payload;	// Signature data.
 	};
 
 	/**
@@ -321,9 +321,9 @@ namespace Internal
 
 		This type describes the ending of ZIP format. It consists of stored trailing headers and blocks.
 	*/
-	struct ZipCentralDirectoryFooter final
+	struct EndOfCentralDirectoryRecord final
 	{
-		std::shared_ptr<EndOfCentralDirectory>				description;		// EOCD record.
+		std::shared_ptr<EndOfCentralDirectoryHeader>		description;		// EOCD record header.
 
 		std::string_view									comment;			// Main comment of ZIP file.
 	};

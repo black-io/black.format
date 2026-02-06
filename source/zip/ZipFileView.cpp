@@ -53,7 +53,7 @@ namespace
 	{
 		m_file_memory		= {};
 		m_entries			= {};
-		m_extra_data		= {};
+		m_decryption_entry	= {};
 		m_digital_signature	= {};
 		m_footer			= {};
 		m_is_valid			= false;
@@ -68,7 +68,7 @@ namespace
 		Black::Swap( m_is_parsed, other.m_is_parsed );
 	}
 
-	Black::Hypothetical<const ZipFileView::Entry&> ZipFileView::FindEntry( const std::string_view entry_name ) const
+	Black::Hypothetical<const ZipFileView::LocalFileEntry&> ZipFileView::FindEntry( const std::string_view entry_name ) const
 	{
 		CRET( !m_is_valid, {} );
 
@@ -78,12 +78,12 @@ namespace
 		const size_t name_hash = std::hash<std::string_view>{}( entry_name );
 		return Black::FindItem(
 			m_entries,
-			[&entry_name, name_hash]( const Entry& entry )
+			[&entry_name, name_hash]( const LocalFileEntry& entry )
 			{
 				return ( entry.name_hash == name_hash ) && ( entry.name == entry_name );
 			}
 		).Transform(
-			[]( Entry& entry ) -> const Entry&
+			[]( LocalFileEntry& entry ) -> const LocalFileEntry&
 			{
 				return entry;
 			}
@@ -98,7 +98,7 @@ namespace
 		return m_entries.size();
 	}
 
-	const ZipFileView::Entry* ZipFileView::QueryEntry( const size_t entry_index ) const
+	const ZipFileView::LocalFileEntry* ZipFileView::QueryEntry( const size_t entry_index ) const
 	{
 		CRET( !m_is_valid, nullptr );
 		EnsureFileMemoryParsed();
@@ -107,11 +107,11 @@ namespace
 		return ( entry_index < m_entries.size() )? &m_entries[ entry_index ] : nullptr;
 	}
 
-	const ZipFileView::Entry& ZipFileView::GetEntry( const size_t entry_index ) const
+	const ZipFileView::LocalFileEntry& ZipFileView::GetEntry( const size_t entry_index ) const
 	{
 		EXPECTS( m_is_valid );
 
-		const Entry* const found_entry = QueryEntry( entry_index );
+		const LocalFileEntry* const found_entry = QueryEntry( entry_index );
 		ENSURES( found_entry != nullptr );
 
 		return *found_entry;
@@ -132,6 +132,8 @@ namespace
 
 	void ZipFileView::ParseFileMemory() const
 	{
+		using ParseRoutine = decltype( &ZipFileView::ParseFileEntry );
+
 		m_is_parsed = false;
 		CRETW( !m_is_valid, , LOG_CHANNEL, "Unable to parse invalid memory." );
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "Perform file parsing." );
@@ -141,7 +143,7 @@ namespace
 			{
 				m_is_valid			= false;
 				m_entries.clear();
-				m_extra_data		= {};
+				m_decryption_entry		= {};
 				m_digital_signature	= {};
 				m_footer			= {};
 				BLACK_LOG_ERROR( LOG_CHANNEL, "Parse of file failed." );
@@ -154,52 +156,39 @@ namespace
 			CRETE( file_memory.GetLength() < sizeof( Internal::HeaderSignature ), , LOG_CHANNEL, "Unexpected end of file." );
 
 			const Internal::HeaderSignature signature = PeekHeaderSignature( file_memory );
+			ParseRoutine routine = {};
+			std::string_view routine_comment;
+
 			switch( signature )
 			{
 			case Internal::LocalFileHeader::SIGNATURE:
-				{
-					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseFileEntry( std::move( file_memory ) ) };
-					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse local file entry." );
-
-					file_memory = *std::move( rest_memory );
-				}
+				routine = &ZipFileView::ParseFileEntry;
+				routine_comment = "local file entry";
 				break;
 			case Internal::ArchiveExtraDataRecord::SIGNATURE:
-				{
-					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseExtraDataEntry( std::move( file_memory ) ) };
-					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse archive extra data." );
-
-					file_memory = *std::move( rest_memory );
-				}
+				routine = &ZipFileView::ParseExtraDataEntry;
+				routine_comment = "archive extra data";
 				break;
 			case Internal::CentralDirectoryFileHeader::SIGNATURE:
-				{
-					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseCentralDirectoryEntry( std::move( file_memory ) ) };
-					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse central directory file entry." );
-
-					file_memory = *std::move( rest_memory );
-				}
+				routine = &ZipFileView::ParseCentralDirectoryEntry;
+				routine_comment = "central directory file entry";
 				break;
-			case Internal::CentralDirectoryDigitalSignature::SIGNATURE:
-				{
-					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseCentralDirectoryDigitalSignature( std::move( file_memory ) ) };
-					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse central directory digital signature." );
-
-					file_memory = *std::move( rest_memory );
-				}
+			case Internal::CentralDirectoryDigitalSignatureHeader::SIGNATURE:
+				routine = &ZipFileView::ParseCentralDirectoryDigitalSignature;
+				routine_comment = "central directory digital signature";
 				break;
-			case Internal::EndOfCentralDirectory::SIGNATURE:
-				{
-					std::optional<Black::PlainView<std::byte>> rest_memory{ ParseCentralDirectoryFooter( std::move( file_memory ) ) };
-					CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse central directory footer." );
-
-					file_memory = *std::move( rest_memory );
-				}
+			case Internal::EndOfCentralDirectoryHeader::SIGNATURE:
+				routine = &ZipFileView::ParseCentralDirectoryFooter;
+				routine_comment = "central directory footer";
 				break;
 			default:
 				BLACK_LOG_ERROR( LOG_CHANNEL, "Unexpected signature of ZIP command: 0x{:X}.", Black::GetEnumValue( signature ) );
 				return;
 			}
+
+			std::optional<Black::PlainView<std::byte>> rest_memory{ (this->*routine)( std::move( file_memory ) ) };
+			CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse {}.", routine_comment );
+			file_memory = *std::move( rest_memory );
 		}
 
 		reset_contract.Cancel();
@@ -227,17 +216,15 @@ namespace
 
 	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseFileEntry( Black::PlainView<std::byte>&& memory ) const
 	{
-		constexpr size_t header_size = sizeof( Internal::LocalFileHeader );
+		using Header = Internal::LocalFileHeader;
+		constexpr size_t header_size = sizeof( Header );
 
 		Black::PlainView<std::byte> buffer{ std::move( memory ) };
 		CRETE( buffer.GetLength() < header_size, {}, LOG_CHANNEL, "The rest memory is less than size of local file header." );
 
-		Internal::ZipFileEntry file_entry;
-		file_entry.header = std::shared_ptr<Internal::LocalFileHeader>{
-			reinterpret_cast<Internal::LocalFileHeader*>( buffer.GetMemory() ),
-			[]( Internal::LocalFileHeader* const header ) {}
-		};
-		CRETE( file_entry.header->signature != Internal::LocalFileHeader::SIGNATURE, {}, LOG_CHANNEL, "Local file signature mismatch." );
+		LocalFileEntry file_entry;
+		file_entry.header = std::shared_ptr<Header>{ reinterpret_cast<Header*>( buffer.GetMemory() ), []( Header* const header ) {} };
+		CRETE( file_entry.header->signature != Header::SIGNATURE, {}, LOG_CHANNEL, "Local file signature mismatch." );
 
 		buffer = buffer.TruncatePrefix( header_size );
 		CRETE( buffer.GetLength() < size_t( file_entry.header->name_length ), {}, LOG_CHANNEL, "The rest memory is less than length of file path." );
@@ -287,43 +274,39 @@ namespace
 
 	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseExtraDataEntry( Black::PlainView<std::byte>&& memory ) const
 	{
-		constexpr size_t header_size = sizeof( Internal::ArchiveExtraDataRecord );
+		using Header = Internal::ArchiveExtraDataRecord;
+		constexpr size_t header_size = sizeof( Header );
 
 		Black::PlainView<std::byte> buffer{ std::move( memory ) };
 		CRETE( buffer.GetLength() < header_size, {}, LOG_CHANNEL, "The rest memory is less than size of extra data record." );
 
-		Internal::ZipExtraData extra_data;
-		extra_data.header = std::shared_ptr<Internal::ArchiveExtraDataRecord>{
-			reinterpret_cast<Internal::ArchiveExtraDataRecord*>( buffer.GetMemory() ),
-			[]( Internal::ArchiveExtraDataRecord* const record ) {}
-		};
-		CRETE( extra_data.header->signature != Internal::ArchiveExtraDataRecord::SIGNATURE, {}, LOG_CHANNEL, "Extra data record signature mismatch." );
+		DecryptionDataEntry decryption_entry;
+		decryption_entry.header = std::shared_ptr<Header>{ reinterpret_cast<Header*>( buffer.GetMemory() ), []( Header* const record ) {} };
+		CRETE( decryption_entry.header->signature != Header::SIGNATURE, {}, LOG_CHANNEL, "Extra data record signature mismatch." );
 
 		buffer = buffer.TruncatePrefix( header_size );
-		CRETE( buffer.GetLength() < size_t( extra_data.header->extra_field_length ), {}, LOG_CHANNEL, "The rest memory is less than length extra data." );
-		extra_data.payload = {
+		CRETE( buffer.GetLength() < size_t( decryption_entry.header->extra_field_length ), {}, LOG_CHANNEL, "The rest memory is less than length extra data." );
+		decryption_entry.payload = {
 			buffer.GetMemory(),
-			size_t( extra_data.header->extra_field_length )
+			size_t( decryption_entry.header->extra_field_length )
 		};
 
-		buffer = buffer.TruncatePrefix( extra_data.payload.GetLength() );
+		buffer = buffer.TruncatePrefix( decryption_entry.payload.GetLength() );
 
-		m_extra_data = std::move( extra_data );
+		m_decryption_entry = std::move( decryption_entry );
 		return { buffer };
 	}
 
 	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseCentralDirectoryEntry( Black::PlainView<std::byte>&& memory ) const
 	{
-		constexpr size_t header_size = sizeof( Internal::CentralDirectoryFileHeader );
+		using Header = Internal::CentralDirectoryFileHeader;
+		constexpr size_t header_size = sizeof( Header );
 
 		Black::PlainView<std::byte> buffer{ std::move( memory ) };
 		CRETE( buffer.GetLength() < header_size, {}, LOG_CHANNEL, "The rest memory is less than size of extra data record." );
 
-		std::shared_ptr<Internal::CentralDirectoryFileHeader> header{
-			reinterpret_cast<Internal::CentralDirectoryFileHeader*>( buffer.GetMemory() ),
-			[]( Internal::CentralDirectoryFileHeader* const header ) {}
-		};
-		CRETE( header->signature != Internal::CentralDirectoryFileHeader::SIGNATURE, {}, LOG_CHANNEL, "Central directory file header signature mismatch." );
+		std::shared_ptr<Header> header{ reinterpret_cast<Header*>( buffer.GetMemory() ), []( Header* const header ) {} };
+		CRETE( header->signature != Header::SIGNATURE, {}, LOG_CHANNEL, "Central directory file header signature mismatch." );
 
 		buffer = buffer.TruncatePrefix( header_size );
 		CRETE( buffer.GetLength() < size_t( header->name_length ), {}, LOG_CHANNEL, "The rest memory is less than length of file path." );
@@ -353,12 +336,12 @@ namespace
 		// Remember the taken data into corresponded file entry.
 		Black::FindItem(
 			m_entries,
-			[name_hash, &file_path]( const Internal::ZipFileEntry& file_entry )
+			[name_hash, &file_path]( const LocalFileEntry& file_entry )
 			{
 				return ( file_entry.name_hash == name_hash ) && ( file_entry.name == file_path );
 			}
 		).AndThen(
-			[&header, &extra_data, &file_comment]( Internal::ZipFileEntry& file_entry )
+			[&header, &extra_data, &file_comment]( LocalFileEntry& file_entry )
 			{
 				file_entry.central_directory_header			= std::move( header );
 				file_entry.central_directory_extra_field	= std::move( extra_data );
@@ -371,16 +354,14 @@ namespace
 
 	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseCentralDirectoryDigitalSignature( Black::PlainView<std::byte>&& memory ) const
 	{
-		constexpr size_t header_size = sizeof( Internal::CentralDirectoryDigitalSignature );
+		using Header = Internal::CentralDirectoryDigitalSignatureHeader;
+		constexpr size_t header_size = sizeof( Header );
 
 		Black::PlainView<std::byte> buffer{ std::move( memory ) };
 		CRETE( buffer.GetLength() < header_size, {}, LOG_CHANNEL, "The rest memory is less than size of central directory digital signature." );
 
-		std::shared_ptr<Internal::CentralDirectoryDigitalSignature> header{
-			reinterpret_cast<Internal::CentralDirectoryDigitalSignature*>( buffer.GetMemory() ),
-			[]( Internal::CentralDirectoryDigitalSignature* const block ) {}
-		};
-		CRETE( header->signature != Internal::CentralDirectoryDigitalSignature::SIGNATURE, {}, LOG_CHANNEL, "Central directory digital signature mismatch." );
+		std::shared_ptr<Header> header{ reinterpret_cast<Header*>( buffer.GetMemory() ), []( Header* const block ) {} };
+		CRETE( header->signature != Header::SIGNATURE, {}, LOG_CHANNEL, "Central directory digital signature mismatch." );
 
 		buffer = buffer.TruncatePrefix( header_size );
 		CRETE( buffer.GetLength() < size_t( header->data_length ), {}, LOG_CHANNEL, "The rest memory is less than length of payload." );
@@ -399,16 +380,14 @@ namespace
 
 	std::optional<Black::PlainView<std::byte>> ZipFileView::ParseCentralDirectoryFooter( Black::PlainView<std::byte>&& memory ) const
 	{
-		constexpr size_t description_size = sizeof( Internal::EndOfCentralDirectory );
+		using Header = Internal::EndOfCentralDirectoryHeader;
+		constexpr size_t description_size = sizeof( Header );
 
 		Black::PlainView<std::byte> buffer{ std::move( memory ) };
 		CRETE( buffer.GetLength() < description_size, {}, LOG_CHANNEL, "The rest memory is less than size of central directory footer." );
 
-		std::shared_ptr<Internal::EndOfCentralDirectory> description{
-			reinterpret_cast<Internal::EndOfCentralDirectory*>( buffer.GetMemory() ),
-			[]( Internal::EndOfCentralDirectory* const block ) {}
-		};
-		CRETE( description->signature != Internal::EndOfCentralDirectory::SIGNATURE, {}, LOG_CHANNEL, "Central directory footer signature mismatch." );
+		std::shared_ptr<Header> description{ reinterpret_cast<Header*>( buffer.GetMemory() ), []( Header* const block ) {} };
+		CRETE( description->signature != Header::SIGNATURE, {}, LOG_CHANNEL, "Central directory footer signature mismatch." );
 
 		buffer = buffer.TruncatePrefix( description_size );
 		CRETE( buffer.GetLength() < size_t( description->comment_length ), {}, LOG_CHANNEL, "The rest memory is less than size of central directory comment." );
