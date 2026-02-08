@@ -85,6 +85,15 @@ namespace
 		return size_t( m_footer.description->central_directory_length );
 	}
 
+	const size_t ZipCentralDirectoryLocator::GetDirectoryFooterLength() const
+	{
+		CRET( !m_is_valid, Black::UNDEFINED_INDEX );
+		EnsureMemoryProcessed();
+		CRET( m_footer.description == nullptr, Black::UNDEFINED_INDEX );
+
+		return std::distance( reinterpret_cast<std::byte*>( m_footer.description.get() ), m_file_memory.GetEnd() );
+	}
+
 	const bool ZipCentralDirectoryLocator::HasCentralDirectory() const
 	{
 		CRET( !m_is_valid, false );

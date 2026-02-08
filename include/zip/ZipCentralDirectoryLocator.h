@@ -65,6 +65,9 @@ inline namespace Zip
 		//
 		const size_t GetDirectoryLength() const;
 
+		//
+		const size_t GetDirectoryFooterLength() const;
+
 
 		//
 		const bool HasCentralDirectory() const;
