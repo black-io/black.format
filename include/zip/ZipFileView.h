@@ -22,7 +22,7 @@ inline namespace Zip
 	*/
 	class ZipFileView final : private Black::NonCopyable
 	{
-	// Public inner types and friendship declarations.
+	// Public inner types.
 	public:
 		// Entry point of file as described in section 4.3.7 (Local file header).
 		using LocalFileEntry = Internal::LocalFileEntry;

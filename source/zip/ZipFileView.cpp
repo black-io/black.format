@@ -64,6 +64,9 @@ namespace
 	{
 		Black::Swap( m_file_memory, other.m_file_memory );
 		Black::Swap( m_entries, other.m_entries );
+		Black::Swap( m_decryption_entry, other.m_decryption_entry );
+		Black::Swap( m_digital_signature, other.m_digital_signature );
+		Black::Swap( m_footer, other.m_footer );
 		Black::Swap( m_is_valid, other.m_is_valid );
 		Black::Swap( m_is_parsed, other.m_is_parsed );
 	}
@@ -143,7 +146,7 @@ namespace
 			{
 				m_is_valid			= false;
 				m_entries.clear();
-				m_decryption_entry		= {};
+				m_decryption_entry	= {};
 				m_digital_signature	= {};
 				m_footer			= {};
 				BLACK_LOG_ERROR( LOG_CHANNEL, "Parse of file failed." );
