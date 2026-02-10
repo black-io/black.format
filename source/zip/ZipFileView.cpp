@@ -242,7 +242,8 @@ namespace
 		file_entry.header = std::shared_ptr<Header>{ reinterpret_cast<Header*>( buffer.GetMemory() ), []( Header* const header ) {} };
 		CRETE( file_entry.header->signature != Header::SIGNATURE, {}, LOG_CHANNEL, "Local file signature mismatch." );
 
-		buffer = buffer.TruncatePrefix( header_size );
+		file_entry.base_offset	= std::distance( m_file_memory.GetBegin(), buffer.GetBegin() );
+		buffer					= buffer.TruncatePrefix( header_size );
 		CRETE( buffer.GetLength() < size_t( file_entry.header->name_length ), {}, LOG_CHANNEL, "The rest memory is less than length of file path." );
 		file_entry.name = {
 			reinterpret_cast<const char*>( buffer.GetMemory() ),
@@ -258,7 +259,8 @@ namespace
 			size_t( file_entry.header->extra_field_length )
 		};
 
-		buffer = buffer.TruncatePrefix( file_entry.extra_field.GetLength() );
+		buffer						= buffer.TruncatePrefix( file_entry.extra_field.GetLength() );
+		file_entry.payload_offset	= std::distance( m_file_memory.GetBegin(), buffer.GetBegin() );
 		if( file_entry.header->general_purpose_bits.HasFlag( Internal::GeneralPurposeBitFlag::UseDataDescriptor ) )
 		{
 			std::shared_ptr<Internal::FileDataDescriptor> data_descriptor{ LocateDataDescriptor( buffer ) };
@@ -283,6 +285,9 @@ namespace
 
 			buffer = buffer.TruncatePrefix( file_entry.payload.GetLength() );
 		}
+
+		file_entry.payload_length	= file_entry.payload.GetLength();
+		file_entry.base_length		= std::distance( m_file_memory.GetBegin(), buffer.GetBegin() );
 
 		m_entries.emplace_back( std::move( file_entry ) );
 		return { buffer };
