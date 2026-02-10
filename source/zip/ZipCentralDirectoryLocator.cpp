@@ -30,10 +30,7 @@ namespace
 
 	ZipCentralDirectoryLocator& ZipCentralDirectoryLocator::operator=( Black::PlainView<std::byte> file_memory ) noexcept
 	{
-		ZipCentralDirectoryLocator new_locator{ std::move( file_memory ) };
-		Black::Swap( *this, new_locator );
-
-		return *this;
+		return Black::CopyAndSwap( *this, std::move( file_memory ) );
 	}
 
 	void ZipCentralDirectoryLocator::Reset()
