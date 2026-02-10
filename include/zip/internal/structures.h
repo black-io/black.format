@@ -277,6 +277,10 @@ namespace Internal
 	{
 		size_t										name_hash;						// Hash of name.
 		std::string_view							name;							// Name of file.
+		size_t										base_offset;					// File placement base offset. Points to local file header.
+		size_t										base_length;					// File placement length. Relative to base offset.
+		size_t										payload_offset;					// File payload base offset. Points to begin of file payload.
+		size_t										payload_length;					// File payload length. Means the length of file payload.
 
 		std::shared_ptr<LocalFileHeader>			header;							// Header of file.
 		std::shared_ptr<FileDataDescriptor>			data_descriptor;				// Data descriptor of file.
