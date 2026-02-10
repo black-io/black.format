@@ -36,9 +36,15 @@ inline namespace Zip
 		// Central directory footer entry as described in section 4.3.16 (End of central directory record).
 		using FooterEntry = Internal::EndOfCentralDirectoryRecord;
 
+		//
+		using ConstIterator = std::vector<LocalFileEntry>::const_iterator;
+
 	// Friendship interface.
 	public:
-		friend inline void swap( ZipFileView& left, ZipFileView& right ) { left.Swap( right ); };
+		friend inline void swap( ZipFileView& left, ZipFileView& right )	{ left.Swap( right ); };
+
+		friend inline ConstIterator begin( const ZipFileView& instance )	{ return instance.GetBegin(); };
+		friend inline ConstIterator end( const ZipFileView& instance )		{ return instance.GetEnd(); };
 
 	// Public life-time management.
 	public:
@@ -79,6 +85,12 @@ inline namespace Zip
 
 		// Get the reference to local file entry by ordinal index. The given index should be valid.
 		const LocalFileEntry& GetEntry( const size_t entry_index ) const;
+
+		//
+		ConstIterator GetBegin() const;
+
+		//
+		ConstIterator GetEnd() const;
 
 
 		// Whether the ZIP file consists of file entries.

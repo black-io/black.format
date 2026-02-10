@@ -43,10 +43,7 @@ namespace
 
 	ZipFileView& ZipFileView::operator=( Black::PlainView<std::byte> file_memory ) noexcept
 	{
-		ZipFileView new_view{ std::move( file_memory ) };
-		Black::Swap( *this, new_view );
-
-		return *this;
+		return Black::CopyAndSwap( *this, std::move( file_memory ) );
 	}
 
 	void ZipFileView::Reset()
@@ -118,6 +115,22 @@ namespace
 		ENSURES( found_entry != nullptr );
 
 		return *found_entry;
+	}
+
+	ZipFileView::ConstIterator ZipFileView::GetBegin() const
+	{
+		CRET( !m_is_valid, m_entries.end() );
+		EnsureFileMemoryParsed();
+
+		return m_entries.begin();
+	}
+
+	ZipFileView::ConstIterator ZipFileView::GetEnd() const
+	{
+		CRET( !m_is_valid, m_entries.end() );
+		EnsureFileMemoryParsed();
+
+		return m_entries.end();
 	}
 
 	const bool ZipFileView::HasEntries() const
