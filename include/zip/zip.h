@@ -28,3 +28,5 @@ namespace Internal
 
 // ZIP file format types.
 #include "ZipFileView.h"
+#include "ZipCentralDirectoryLocator.h"
+#include "ZipCentralDirectoryView.h"
