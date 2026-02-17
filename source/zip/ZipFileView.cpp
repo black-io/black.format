@@ -208,6 +208,7 @@ namespace
 		}
 
 		reset_contract.Cancel();
+		m_is_parsed = true;
 	}
 
 	void ZipFileView::TestFileMemory() const
