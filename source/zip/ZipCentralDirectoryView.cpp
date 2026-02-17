@@ -197,6 +197,9 @@ namespace
 			CRETE( !rest_memory.has_value(), , LOG_CHANNEL, "Failed to parse {}.", routine_comment );
 			file_memory = *std::move( rest_memory );
 		}
+
+		reset_contract.Cancel();
+		m_is_parsed = true;
 	}
 
 	void ZipCentralDirectoryView::TestFileMemory() const
