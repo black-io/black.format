@@ -16,12 +16,12 @@ namespace Internal
 	*/
 	enum class HeaderSignature : uint32_t
 	{
-		LocalFileHeader						= '\x04\x03\x4B\x50',	// (4.3.7) Local file header signature.
-		DataDescriptor						= '\x08\x07\x4B\x50',	// (4.3.9) File data descriptor signature.
-		ArchiveExtraDataRecord				= '\x08\x06\x4B\x50',	// (4.3.11) Archive extra-data record signature.
-		CentralDirectoryFileHeader			= '\x02\x01\x4B\x50',	// (4.3.12) File header in central directory.
-		CentralDirectoryDigitalSignature	= '\x05\x05\x4B\x50',	// (4.3.13) Digital signature of central directory.
-		EndOfCentralDirectory				= '\x06\x05\x4B\x50',	// (4.3.16) EOCD signature.
+		LocalFileHeader						= '\x50\x4B\x03\x04',	// (4.3.7) Local file header signature.
+		DataDescriptor						= '\x50\x4B\x07\x08',	// (4.3.9) File data descriptor signature.
+		ArchiveExtraDataRecord				= '\x50\x4B\x06\x08',	// (4.3.11) Archive extra-data record signature.
+		CentralDirectoryFileHeader			= '\x50\x4B\x01\x02',	// (4.3.12) File header in central directory.
+		CentralDirectoryDigitalSignature	= '\x50\x4B\x05\x05',	// (4.3.13) Digital signature of central directory.
+		EndOfCentralDirectory				= '\x50\x4B\x05\x06',	// (4.3.16) EOCD signature.
 	};
 
 	/**
