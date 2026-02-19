@@ -8,24 +8,36 @@ inline namespace Format
 inline namespace Zip
 {
 	/**
+		@brief	View of central directory in regular ZIP file.
+
+		This type support only basic ZIP file format. Not the Zip64.
+		The object of this type implement regular interface for central directory overview.
+		It does not provide the access to local files, but only the local file placement information from central directory.
+
+		Objects of this type should be constructed using only the memory of central directory in ZIP file.
+		To obtain information about central directory, one can use object of `Black::ZipCentralDirectoryLocator` type.
+		After the central directory located, the instance of locator provides all information about central directory placement in file.
+
+		The views of central directory may be created using only the memory of central directory or using the memory at the tail of file, combined with
+		length of central directory.
 	*/
 	class ZipCentralDirectoryView final : private Black::NonCopyable
 	{
 	// Public inner types.
 	public:
-		//
+		// Type of EOCD Header in most tail of ZIP file.
 		using EndHeader = Internal::EndOfCentralDirectoryHeader;
-
-		//
-		using FileHeader = Internal::CentralDirectoryFileHeader;
 
 		// Central directory footer entry as described in section 4.3.16 (End of central directory record).
 		using FooterEntry = Internal::EndOfCentralDirectoryRecord;
 
-		//
+		// Type of Local file header which always placed at before the file payload.
+		using FileHeader = Internal::CentralDirectoryFileHeader;
+
+		// Entry point of file as described in section 4.3.7 (Local file header).
 		using LocalFileEntry = Internal::LocalFileEntry;
 
-		//
+		// Regular iterator to access the file entries using standard algorithms.
 		using ConstIterator = std::vector<LocalFileEntry>::const_iterator;
 
 	// Friendship interface.
@@ -76,12 +88,15 @@ inline namespace Zip
 		// Get the reference to local file entry by ordinal index. The given index should be valid.
 		const LocalFileEntry& GetEntry( const size_t entry_index ) const;
 
-		//
+		// Get the iterator to begin of file entries list. Will be equal to `GetEnd()` in case of empty list or invalid ZIP file.
 		ConstIterator GetBegin() const;
 
-		//
+		// Get the iterator to end of file entries list. Should never be de-referenced.
 		ConstIterator GetEnd() const;
 
+
+		// Whether the ZIP file is invalid or consists of no file entries.
+		const bool IsEmpty() const;
 
 		// Whether the ZIP file consists of file entries.
 		const bool HasEntries() const;

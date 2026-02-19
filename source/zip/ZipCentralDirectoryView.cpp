@@ -138,6 +138,13 @@ namespace
 		return m_entries.end();
 	}
 
+	const bool ZipCentralDirectoryView::IsEmpty() const
+	{
+		CRET( !m_is_valid, false );
+		EnsureFileMemoryParsed();
+		return m_entries.empty();
+	}
+
 	const bool ZipCentralDirectoryView::HasEntries() const
 	{
 		CRET( !m_is_valid, false );
