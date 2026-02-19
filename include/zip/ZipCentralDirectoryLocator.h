@@ -28,7 +28,7 @@ inline namespace Zip
 	// Public inner types.
 	public:
 		// Type of EOCD Header in most tail of ZIP file.
-		using EndOfCentralDirectoryHeader = Internal::EndOfCentralDirectoryHeader;
+		using EndHeader = Internal::EndOfCentralDirectoryHeader;
 
 		// Central directory footer entry as described in section 4.3.16 (End of central directory record).
 		using FooterEntry = Internal::EndOfCentralDirectoryRecord;
@@ -36,10 +36,10 @@ inline namespace Zip
 	//	Public constants.
 	public:
 		// Size of EOCD header.
-		static constexpr size_t HEADER_SIZE = sizeof( EndOfCentralDirectoryHeader );
+		static constexpr size_t END_HEADER_SIZE = sizeof( EndHeader );
 
 		// Maximum length at the end of ZIP file where the EOCD header may be found.
-		static constexpr size_t MAX_LOOKUP_DISTANCE = std::numeric_limits<uint16_t>::max() + HEADER_SIZE;
+		static constexpr size_t MAX_LOOKUP_DISTANCE = std::numeric_limits<uint16_t>::max() + END_HEADER_SIZE;
 
 	// Public life-time management.
 	public:
@@ -64,10 +64,10 @@ inline namespace Zip
 
 
 		// Query the EOCD header of file. May return `nullptr` in case the file is not ZIP or if central directory is missing.
-		EndOfCentralDirectoryHeader* const QueryDirectoryFooter() const;
+		EndHeader* const QueryDirectoryFooter() const;
 
 		// Get the EOCD header of file. Causes termination on call for invalid view or if central directory is missing.
-		const EndOfCentralDirectoryHeader& GetDirectoryFooter() const;
+		const EndHeader& GetDirectoryFooter() const;
 
 		/**
 			@brief	Get the base offset to central directory of ZIP file.

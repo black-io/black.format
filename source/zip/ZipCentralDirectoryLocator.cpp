@@ -49,14 +49,14 @@ namespace
 		Black::Swap( m_is_processed, other.m_is_processed );
 	}
 
-	ZipCentralDirectoryLocator::EndOfCentralDirectoryHeader* const ZipCentralDirectoryLocator::QueryDirectoryFooter() const
+	ZipCentralDirectoryLocator::EndHeader* const ZipCentralDirectoryLocator::QueryDirectoryFooter() const
 	{
 		CRET( !m_is_valid, nullptr );
 		EnsureMemoryProcessed();
 		return m_footer.description.get();
 	}
 
-	const ZipCentralDirectoryLocator::EndOfCentralDirectoryHeader& ZipCentralDirectoryLocator::GetDirectoryFooter() const
+	const ZipCentralDirectoryLocator::EndHeader& ZipCentralDirectoryLocator::GetDirectoryFooter() const
 	{
 		EnsureMemoryProcessed();
 		ENSURES( m_footer.description != nullptr );
@@ -117,19 +117,16 @@ namespace
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "Look for the central directory in file." );
 
 		Internal::HeaderSignature candidate_signature;
-		for( std::byte* memory_head = m_file_memory.GetEnd() - HEADER_SIZE; memory_head >= m_file_memory.GetBegin(); --memory_head )
+		for( std::byte* memory_head = m_file_memory.GetEnd() - END_HEADER_SIZE; memory_head >= m_file_memory.GetBegin(); --memory_head )
 		{
 			CCON( *memory_head != vaild_first_byte );
 
 			Black::CopyMemory( &candidate_signature, memory_head, sizeof( candidate_signature ) );
 			CCON( candidate_signature != valid_signature );
 
-			std::shared_ptr<EndOfCentralDirectoryHeader> header{
-				reinterpret_cast<EndOfCentralDirectoryHeader*>( memory_head ),
-				[]( EndOfCentralDirectoryHeader* header ) {}
-			};
+			std::shared_ptr<EndHeader> header{ reinterpret_cast<EndHeader*>( memory_head ), []( EndHeader* header ) {} };
 
-			std::byte* comment_head = memory_head + HEADER_SIZE;
+			std::byte* comment_head = memory_head + END_HEADER_SIZE;
 			CCON( header->comment_length != std::distance( comment_head, m_file_memory.GetEnd() ) );
 
 			m_footer.description	= std::move( header );
@@ -152,7 +149,7 @@ namespace
 		m_is_valid = false;
 
 		CRET( m_file_memory.IsEmpty() );
-		CRET( m_file_memory.size() < HEADER_SIZE );
+		CRET( m_file_memory.size() < END_HEADER_SIZE );
 
 		m_is_valid = true;
 	}
