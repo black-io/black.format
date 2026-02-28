@@ -24,6 +24,36 @@ inline namespace Zip
 	{
 	// Public inner types.
 	public:
+		// Enumeration of all ZIP-file header signatures.
+		using HeaderSignature = Internal::HeaderSignature;
+
+		// Enumeration of general purpose bit flags as described in section 4.4.4 (general purpose bit flag).
+		using GeneralPurposeBitFlag = Internal::GeneralPurposeBitFlag;
+
+		// Aggregation of general purpose bit flags to be used in file headers.
+		using GeneralPurposeBitFlags = Internal::GeneralPurposeBitFlags;
+
+		// Enumeration of documented compression methods as described in section 4.4.5 (compression method).
+		using CompressionMethod = Internal::CompressionMethod;
+
+		// ZIP-file internal header as described in section 4.3.7 (Local file header).
+		using LocalFileHeader = Internal::LocalFileHeader;
+
+		// ZIP-file internal header as described in section 4.3.9 (Data descriptor).
+		using DataDescriptor = Internal::FileDataDescriptor;
+
+		// ZIP-file internal header as described in section 4.3.11 (Archive extra data record).
+		using ArchiveExtraDataRecord = Internal::ArchiveExtraDataRecord;
+
+		// ZIP-file internal header as described in section 4.3.12 (File header).
+		using CentralDirectoryHeader = Internal::CentralDirectoryFileHeader;
+
+		// ZIP-file internal header as described in section 4.3.13 (Digital signature).
+		using CentralDirectoryDigitalSignature = Internal::CentralDirectoryDigitalSignatureHeader;
+
+		// ZIP-file internal header as described in section 4.3.16 (End of central directory record).
+		using EndOfCentralDirectoryHeader = Internal::EndOfCentralDirectoryHeader;
+
 		// Entry point of file as described in section 4.3.7 (Local file header).
 		using LocalFileEntry = Internal::LocalFileEntry;
 
