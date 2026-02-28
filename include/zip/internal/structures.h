@@ -42,17 +42,17 @@ namespace Internal
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::LocalFileHeader;
 
 
-		HeaderSignature			signature				= SIGNATURE;	// [4B] {0x04034b50} local file header signature.
-		uint16_t				extractor_version		= 0;			// [2B] (4.4.3) version needed to extract.
-		GeneralPurposeBitFlags	general_purpose_bits	{};				// [2B] (4.4.4) general purpose bit flag.
-		uint16_t				compression_function	= 0;			// [2B] (4.4.5) compression method.
-		uint16_t				last_modification_time	= 0;			// [2B] (4.4.6) last mod file time.
-		uint16_t				last_modification_date	= 0;			// [2B] (4.4.6) last mod file date.
-		uint32_t				checksumm				= 0;			// [4B] (4.4.7) crc-32.
-		uint32_t				compressed_length		= 0;			// [4B] (4.4.8) compressed size.
-		uint32_t				uncompressed_length		= 0;			// [4B] (4.4.9) uncompressed size.
-		uint16_t				name_length				= 0;			// [2B] (4.4.10) file name length.
-		uint16_t				extra_field_length		= 0;			// [2B] (4.4.11) extra field length.
+		HeaderSignature			signature				= SIGNATURE;				// [4B] {0x04034b50} local file header signature.
+		uint16_t				extractor_version		= 0;						// [2B] (4.4.3) version needed to extract.
+		GeneralPurposeBitFlags	general_purpose_bits	{};							// [2B] (4.4.4) general purpose bit flag.
+		CompressionMethod		compression_function	= CompressionMethod::Store;	// [2B] (4.4.5) compression method.
+		uint16_t				last_modification_time	= 0;						// [2B] (4.4.6) last mod file time.
+		uint16_t				last_modification_date	= 0;						// [2B] (4.4.6) last mod file date.
+		uint32_t				checksumm				= 0;						// [4B] (4.4.7) crc-32.
+		uint32_t				compressed_length		= 0;						// [4B] (4.4.8) compressed size.
+		uint32_t				uncompressed_length		= 0;						// [4B] (4.4.9) uncompressed size.
+		uint16_t				name_length				= 0;						// [2B] (4.4.10) file name length.
+		uint16_t				extra_field_length		= 0;						// [2B] (4.4.11) extra field length.
 	};
 	#pragma pack( pop )
 
@@ -163,23 +163,23 @@ namespace Internal
 		static constexpr HeaderSignature SIGNATURE = HeaderSignature::CentralDirectoryFileHeader;
 
 
-		HeaderSignature				signature				= SIGNATURE;	// [4B] {0x08064b50} central file header signature.
-		uint16_t					compressor_version		= 0;			// [2B] (4.4.2) version made by.
-		uint16_t					extractor_version		= 0;			// [2B] (4.4.3) version needed to extract.
-		GeneralPurposeBitFlags		general_purpose_bits	{};				// [2B] (4.4.4) general purpose bit flag.
-		uint16_t					compression_function	= 0;			// [2B] (4.4.5) compression method.
-		uint16_t					last_modification_time	= 0;			// [2B] (4.4.6) last mod file time.
-		uint16_t					last_modification_date	= 0;			// [2B] (4.4.6) last mod file date.
-		uint32_t					checksumm				= 0;			// [4B] (4.4.7) crc-32.
-		uint32_t					compressed_length		= 0;			// [4B] (4.4.8) compressed size.
-		uint32_t					uncompressed_length		= 0;			// [4B] (4.4.9) uncompressed size.
-		uint16_t					name_length				= 0;			// [2B] (4.4.10) file name length.
-		uint16_t					extra_field_length		= 0;			// [2B] (4.4.11) extra field length.
-		uint16_t					comment_length			= 0;			// [2B] (4.4.12) file comment length.
-		uint16_t					disk_number_start		= 0;			// [2B] (4.4.13) disk number start.
-		uint16_t					internal_attributes		= 0;			// [2B] (4.4.14) internal file attributes.
-		uint32_t					external_attributes		= 0;			// [4B] (4.4.15) external file attributes.
-		uint32_t					local_header_offset		= 0;			// [4B] (4.4.16) relative offset of local header.
+		HeaderSignature				signature				= SIGNATURE;				// [4B] {0x08064b50} central file header signature.
+		uint16_t					compressor_version		= 0;						// [2B] (4.4.2) version made by.
+		uint16_t					extractor_version		= 0;						// [2B] (4.4.3) version needed to extract.
+		GeneralPurposeBitFlags		general_purpose_bits	{};							// [2B] (4.4.4) general purpose bit flag.
+		CompressionMethod			compression_function	= CompressionMethod::Store;	// [2B] (4.4.5) compression method.
+		uint16_t					last_modification_time	= 0;						// [2B] (4.4.6) last mod file time.
+		uint16_t					last_modification_date	= 0;						// [2B] (4.4.6) last mod file date.
+		uint32_t					checksumm				= 0;						// [4B] (4.4.7) crc-32.
+		uint32_t					compressed_length		= 0;						// [4B] (4.4.8) compressed size.
+		uint32_t					uncompressed_length		= 0;						// [4B] (4.4.9) uncompressed size.
+		uint16_t					name_length				= 0;						// [2B] (4.4.10) file name length.
+		uint16_t					extra_field_length		= 0;						// [2B] (4.4.11) extra field length.
+		uint16_t					comment_length			= 0;						// [2B] (4.4.12) file comment length.
+		uint16_t					disk_number_start		= 0;						// [2B] (4.4.13) disk number start.
+		uint16_t					internal_attributes		= 0;						// [2B] (4.4.14) internal file attributes.
+		uint32_t					external_attributes		= 0;						// [4B] (4.4.15) external file attributes.
+		uint32_t					local_header_offset		= 0;						// [4B] (4.4.16) relative offset of local header.
 	};
 	#pragma pack( pop )
 
