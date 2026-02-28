@@ -281,6 +281,8 @@ namespace Internal
 		size_t										base_length;					// File placement length. Relative to base offset.
 		size_t										payload_offset;					// File payload base offset. Points to begin of file payload.
 		size_t										payload_length;					// File payload length. Means the length of file payload.
+		GeneralPurposeBitFlags						general_purpose_bits;			// Given bits of general purpose flags from headers of file.
+		CompressionMethod							compression_function;			// Given compression function from headers of file.
 
 		std::shared_ptr<LocalFileHeader>			header;							// Header of file.
 		std::shared_ptr<FileDataDescriptor>			data_descriptor;				// Data descriptor of file.
