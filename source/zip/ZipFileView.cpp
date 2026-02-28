@@ -249,6 +249,8 @@ namespace
 		LocalFileEntry file_entry;
 		file_entry.header = std::shared_ptr<Header>{ reinterpret_cast<Header*>( buffer.GetMemory() ), []( Header* const header ) {} };
 		CRETE( file_entry.header->signature != Header::SIGNATURE, {}, LOG_CHANNEL, "Local file signature mismatch." );
+		file_entry.general_purpose_bits	= file_entry.header->general_purpose_bits;
+		file_entry.compression_function	= file_entry.header->compression_function;
 
 		file_entry.base_offset	= std::distance( m_file_memory.GetBegin(), buffer.GetBegin() );
 		buffer					= buffer.TruncatePrefix( header_size );
@@ -294,8 +296,8 @@ namespace
 			buffer = buffer.TruncatePrefix( file_entry.payload.GetLength() );
 		}
 
-		file_entry.payload_length	= file_entry.payload.GetLength();
-		file_entry.base_length		= std::distance( m_file_memory.GetBegin(), buffer.GetBegin() );
+		file_entry.payload_length		= file_entry.payload.GetLength();
+		file_entry.base_length			= std::distance( m_file_memory.GetBegin(), buffer.GetBegin() );
 
 		m_entries.emplace_back( std::move( file_entry ) );
 		return { buffer };
@@ -372,6 +374,8 @@ namespace
 		).AndThen(
 			[&header, &extra_data, &file_comment]( LocalFileEntry& file_entry )
 			{
+				file_entry.general_purpose_bits				= header->general_purpose_bits;
+				file_entry.compression_function				= header->compression_function;
 				file_entry.central_directory_header			= std::move( header );
 				file_entry.central_directory_extra_field	= std::move( extra_data );
 				file_entry.comment							= std::move( file_comment );

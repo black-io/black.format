@@ -266,6 +266,8 @@ namespace
 		file_entry.base_length				= sizeof( Internal::LocalFileHeader ) + header->name_length + header->extra_field_length + header->compressed_length;
 		file_entry.payload_offset			= file_entry.base_offset + sizeof( Internal::LocalFileHeader ) + header->name_length + header->extra_field_length;
 		file_entry.payload_length			= size_t( header->compressed_length );
+		file_entry.general_purpose_bits		= header->general_purpose_bits;
+		file_entry.compression_function		= header->compression_function;
 
 		file_entry.central_directory_header	= std::move( header );
 		file_entry.extra_field				= std::move( extra_field );
