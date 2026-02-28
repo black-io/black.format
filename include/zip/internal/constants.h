@@ -142,6 +142,75 @@ namespace Internal
 		// 0x4000U is reserved.
 		// 0x8000U is reserved.
 	};
+
+	/**
+		@brief	Enumeration of compression methods.
+
+		This constants described in section 4.4.5 of .ZIP file format specification.
+
+		4.4.5 compression method: (2 bytes)
+			0 - The file is stored (no compression)
+			1 - The file is Shrunk
+			2 - The file is Reduced with compression factor 1
+			3 - The file is Reduced with compression factor 2
+			4 - The file is Reduced with compression factor 3
+			5 - The file is Reduced with compression factor 4
+			6 - The file is Imploded
+			7 - Reserved for Tokenizing compression algorithm
+			8 - The file is Deflated
+			9 - Enhanced Deflating using Deflate64(tm)
+			10 - PKWARE Data Compression Library Imploding (old IBM TERSE)
+			11 - Reserved by PKWARE
+			12 - File is compressed using BZIP2 algorithm
+			13 - Reserved by PKWARE
+			14 - LZMA
+			15 - Reserved by PKWARE
+			16 - IBM z/OS CMPSC Compression
+			17 - Reserved by PKWARE
+			18 - File is compressed using IBM TERSE (new)
+			19 - IBM LZ77 z Architecture
+			20 - deprecated (use method 93 for zstd)
+			93 - Zstandard (zstd) Compression
+			94 - MP3 Compression
+			95 - XZ Compression
+			96 - JPEG variant
+			97 - WavPack compressed data
+			98 - PPMd version I, Rev 1
+			99 - AE-x encryption marker (see APPENDIX E)
+
+			4.4.5.1 Methods 1-6 are legacy algorithms and are no longer recommended for use when compressing files.
+	*/
+	enum class CompressionMethod : uint16_t
+	{
+		Store = 0,			// 0 - The file is stored (no compression)
+		Shrink,				// 1 - The file is Shrunk
+		CompressionFactor1,	// 2 - The file is Reduced with compression factor 1
+		CompressionFactor2,	// 3 - The file is Reduced with compression factor 2
+		CompressionFactor3,	// 4 - The file is Reduced with compression factor 3
+		CompressionFactor4,	// 5 - The file is Reduced with compression factor 4
+		Implode,			// 6 - The file is Imploded
+		Tokenize,			// 7 - Reserved for Tokenizing compression algorithm
+		Deflate,			// 8 - The file is Deflated
+		Deflate64,			// 9 - Enhanced Deflating using Deflate64(tm)
+		OldIbmTerse,		// 10 - PKWARE Data Compression Library Imploding (old IBM TERSE)
+		Reserved_11,		// 11 - Reserved by PKWARE
+		BZip2,				// 12 - File is compressed using BZIP2 algorithm
+		Reserved_13,		// 13 - Reserved by PKWARE
+		Lzma,				// 14 - LZMA
+		Reserved_15,		// 15 - Reserved by PKWARE
+		IbmCmpsc,			// 16 - IBM z/OS CMPSC Compression
+		Reserved_17,		// 17 - Reserved by PKWARE
+		IbmTerse,			// 18 - File is compressed using IBM TERSE (new)
+		IbmLz77,			// 19 - IBM LZ77 z Architecture
+		Deprecated_20,		// 20 - deprecated (use method 93 for zstd)
+		Zstandard,			// 93 - Zstandard (zstd) Compression
+		Mp3,				// 94 - MP3 Compression
+		Xz,					// 95 - XZ Compression
+		Jpeg,				// 96 - JPEG variant
+		WavPack,			// 97 - WavPack compressed data
+		Ppmd,				// 98 - PPMd version I, Rev 1
+		Aex,				// 99 - AE-x encryption marker (see APPENDIX E)
+	};
 }
 }
 }
