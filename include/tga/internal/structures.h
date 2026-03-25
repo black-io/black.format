@@ -16,6 +16,10 @@ namespace Internal
 		All fields are implemented as specified. But it was decided to give new names to some fields in order to improve the readability and meaning of code.
 		Also some fields are implemented with different types than specifications describes. It was made also to improve the readability and meaning of code.
 
+		Header always placed at first 18 bytes of valid TGA file. Any arbitrary file may be verified to satisfy the specification of TGA format via
+		reading and testing the header. Due some limitations, values of header fields depends on some other values in header.
+		So, checking this relations may give the answer whether the file is valid TGA or not.
+
 		Some of fields become irrelevant through the days. Such fields are made anonymous in this implementation to prevent the ambiguity of meaning.
 
 		The total size of palette (in bytes) may be only calculated using the values of `palette` field.
@@ -56,6 +60,28 @@ namespace Internal
 				};
 			}				flags;					// Field 5.6 (1 byte) - Image Descriptor. This field represented by bit-fields for best usability.
 		}					image;					// Image Specification - Field 5 (10 bytes). Describe the image screen location, size and pixel depth.
+	};
+	#pragma pack( pop )
+
+	/**
+		@brief	Footer of TGA file.
+
+		This footer described in section `TGA FILE FOOTER` of TGA 2.0 file format specification.
+
+		Footer exist only in version 2.0 of TGA file format. It always occupy the last 26 bytes of valid TGA 2.0 file.
+		Valid footer indicates the file as valid TGA 2.0 file in case the header of file also checked and valid.
+
+		Both offsets are zero-based and measured from beginning of file.
+		According to specification of TGA format, developer directory always should be placed after the image, but before the extension area.
+		So the offset of developer directory should be always less than offset of extension area.
+		Anyway, both offsets are optional and may be initialized as `0` in case the corresponding area does not placed in file.
+	*/
+	#pragma pack( push, 1 )
+	struct Footer final
+	{
+		size32_t	extension_area_offset;		// Byte 0-3 - Extension Area Offset - Field 28. Optional offset of extension area in file.
+		size32_t	developer_directory_offset;	// Byte 4-7 - Developer Directory Offset - Field 29. Optional offset of developer directory in file.
+		char		signature[18];				// Byte 8-23 - Signature - Field 30, 31 and 32. All last fields combined in single string.
 	};
 	#pragma pack( pop )
 }
