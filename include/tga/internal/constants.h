@@ -79,6 +79,27 @@ namespace Internal
 		QuadWay,		// Image stored in 4-way interlaced mode.
 		OctaWay,		// Image stored in 8-way interlaced mode.
 	};
+
+	/**
+		@brief	TGA image origin (pivot-point) specification.
+
+		This enumeration explained in section `Field 5.6 (1 byte) - Image Descriptor`, subsection `Bits 5 & 4`, of TGA 2.0 file format specification.
+
+		The original specification of TGA 2.0 file format reveals it like that:
+		B5	B4	Corner of first pixel
+		 0	 0	bottom left
+		 1	 0	bottom right
+		 0	 1	top left
+		 1	 1	top right
+		Ironically, the most of TGA format code just drops the meaning of `B4`, leaving it as `reserved`.
+	*/
+	enum class OriginPosition : uint8_t
+	{
+		BottomLeft	= 0,	// 0b00 - Image data starts from bottom-left corner of image.
+		BottomRight,		// 0b01 - Image data starts from bottom-right corner of image.
+		TopLeft,			// 0b10 - Image data starts from top-left corner of image.
+		TopRight,			// 0b11 - Image data starts from top-right corner of image.
+	};
 }
 }
 }
