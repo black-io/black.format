@@ -65,6 +65,20 @@ namespace Internal
 		RGB24		= 24,	// 24Bpp R8G8B8 color. Also may be represent A8I16 color index in palette.
 		ARGB32		= 32,	// 24+8Bpp X8R8G8B8 color or 32Bpp A8R8G8B8 color.
 	};
+
+	/**
+		@brief	TGA image interlacing specification.
+
+		This enumeration does not described in TGA 2.0 file format specification directly. But, instead, it is used widely by image creators
+		to speed up the loading of image.
+	*/
+	enum class Interlacing : uint8_t
+	{
+		Disabled = 0,	// Image stored without interlacing.
+		TwoWay,			// Image stored in even-odd interlaced mode.
+		QuadWay,		// Image stored in 4-way interlaced mode.
+		OctaWay,		// Image stored in 8-way interlaced mode.
+	};
 }
 }
 }
