@@ -28,10 +28,10 @@ namespace Internal
 	{
 		Empty				= 0,	// No Image Data Included.
 		Paletted			= 1,	// Uncompressed, Color-mapped Image.
-		Rgba				= 2,	// Uncompressed, True-color Image.
+		TrueColor			= 2,	// Uncompressed, True-color Image.
 		Grayscale			= 3,	// Uncompressed, Black-and-white Image.
 		RlePaletted			= 9,	// Run-length encoded, Color-mapped Image.
-		RleRgba				= 10,	// Run-length encoded, True-color Image.
+		RleTrueColor		= 10,	// Run-length encoded, True-color Image.
 		RleGrayscale		= 11,	// Run-length encoded, Black-and-white Image.
 	};
 
@@ -74,10 +74,10 @@ namespace Internal
 	*/
 	enum class Interlacing : uint8_t
 	{
-		Disabled = 0,	// Image stored without interlacing.
-		TwoWay,			// Image stored in even-odd interlaced mode.
-		QuadWay,		// Image stored in 4-way interlaced mode.
-		OctaWay,		// Image stored in 8-way interlaced mode.
+		Disabled	= 0,	// Image stored without interlacing.
+		TwoWay,				// Image stored in even-odd interlaced mode.
+		QuadWay,			// Image stored in 4-way interlaced mode.
+		OctaWay,			// Image stored in 8-way interlaced mode.
 	};
 
 	/**
@@ -95,10 +95,10 @@ namespace Internal
 	*/
 	enum class OriginPosition : uint8_t
 	{
-		BottomLeft	= 0,	// 0b00 - Image data starts from bottom-left corner of image.
-		BottomRight,		// 0b01 - Image data starts from bottom-right corner of image.
-		TopLeft,			// 0b10 - Image data starts from top-left corner of image.
-		TopRight,			// 0b11 - Image data starts from top-right corner of image.
+		BottomLeft		= 0,	// 0b00 - Image data starts from bottom-left corner of image.
+		BottomRight,			// 0b01 - Image data starts from bottom-right corner of image.
+		TopLeft,				// 0b10 - Image data starts from top-left corner of image.
+		TopRight,				// 0b11 - Image data starts from top-right corner of image.
 	};
 }
 }
