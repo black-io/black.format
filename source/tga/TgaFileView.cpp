@@ -222,17 +222,23 @@ namespace
 
 	TgaFileView::TgaFileView( TgaFileView&& other ) noexcept = default;
 
-	TgaFileView::TgaFileView( Black::PlainView<std::byte> file_memory )
+	TgaFileView::TgaFileView( Black::PlainView<const std::byte> file_memory )
 		: m_file_memory{ std::move( file_memory ) }
 	{
 		TestFileMemory();
+	}
+
+	TgaFileView::TgaFileView( Black::PlainView<const std::byte> file_memory, const Black::ConstructInplace )
+		: TgaFileView{ std::move( file_memory ) }
+	{
+		EnsureFileMemoryParsed();
 	}
 
 	TgaFileView::~TgaFileView() noexcept = default;
 
 	TgaFileView& TgaFileView::operator=( TgaFileView&& other ) noexcept = default;
 
-	TgaFileView& TgaFileView::operator=( Black::PlainView<std::byte> file_memory ) noexcept
+	TgaFileView& TgaFileView::operator=( Black::PlainView<const std::byte> file_memory ) noexcept
 	{
 		return Black::CopyAndSwap( *this, std::move( file_memory ) );
 	}

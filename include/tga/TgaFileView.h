@@ -63,13 +63,14 @@ inline namespace Tga
 		TgaFileView() noexcept;
 		TgaFileView( TgaFileView&& other ) noexcept;
 
-		explicit TgaFileView( Black::PlainView<std::byte> file_memory );
+		explicit TgaFileView( Black::PlainView<const std::byte> file_memory );
+		TgaFileView( Black::PlainView<const std::byte> file_memory, const Black::ConstructInplace );
 
 		~TgaFileView() noexcept;
 
 
 		TgaFileView& operator = ( TgaFileView&& other ) noexcept;
-		TgaFileView& operator = ( Black::PlainView<std::byte> file_memory ) noexcept;
+		TgaFileView& operator = ( Black::PlainView<const std::byte> file_memory ) noexcept;
 
 	// Public interface.
 	public:
@@ -142,7 +143,7 @@ inline namespace Tga
 
 	// Private state.
 	private:
-		Black::PlainView<std::byte>	m_file_memory;	// TGA file memory.
+		Black::PlainView<const std::byte>	m_file_memory;	// TGA file memory.
 
 	// Private on-state.
 	private:
