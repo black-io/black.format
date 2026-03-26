@@ -16,6 +16,23 @@ namespace
 }
 
 
+	std::string_view format_as( const Version value )
+	{
+		switch( value )
+		{
+		case Version::Undefined:
+			return "Undefined";
+		case Version::Version1:
+			return "v1.0";
+		case Version::Version2:
+			return "v2.0";
+		default:
+			break;
+		}
+
+		return "Unknown";
+	}
+
 	std::string_view format_as( const ContentType value )
 	{
 		switch( value )
