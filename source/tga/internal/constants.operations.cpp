@@ -12,7 +12,7 @@ namespace Internal
 namespace
 {
 	// Logging channel.
-	constexpr const char* LOG_CHANNEL = "Black/Format/TGA";
+	constexpr const char* LOG_CHANNEL = "Black/TGA/Operations";
 }
 
 
