@@ -10,6 +10,19 @@ inline namespace Tga
 namespace Internal
 {
 	/**
+		@brief	Specification of TGA format versions.
+
+		This enumeration does not specified in file format or can be found in files.
+		This enumeration defined only for information.
+	*/
+	enum class Version : uint8_t
+	{
+		Undefined	= 0,	// Version is undefined.
+		Version1,			// TGA 1.0 version.
+		Version2,			// TGA 2.0 version.
+	};
+
+	/**
 		@brief	TGA file image type.
 
 		This enumeration explained in section `Image Type - Field 3 (1 byte)` of TGA 2.0 file format specification.
