@@ -38,6 +38,14 @@ inline namespace Tga
 		static const bool IsHeaderValid( const Black::PlainView<const std::byte>& file_memory );
 
 		/**
+			@brief	Whether the memory of TGA file header is valid.
+
+			@param	header	Given header to be checked.
+			@result			`true` in case the given header is valid.
+		*/
+		static const bool IsHeaderValid( const TgaStructure::Header& header );
+
+		/**
 			@brief	Whether the memory of file carries valid footer of TGA 2.0 format.
 
 			@param	file_memory	Memory of file to be checked.

@@ -155,13 +155,16 @@ namespace
 }
 
 
-
 	const bool TgaFileView::IsHeaderValid( const Black::PlainView<const std::byte>& file_memory )
 	{
 		CRET( file_memory.GetLength() < sizeof( Internal::Header ), false );
 		CRET( ( Black::GetEnumValue( file_memory[1] ) & 0xFEU ) != 0, false );
 
-		const Internal::Header& header = *MapHeader( file_memory );
+		return IsHeaderValid( *MapHeader( file_memory ) );
+	}
+
+	const bool TgaFileView::IsHeaderValid( const TgaStructure::Header& header )
+	{
 		CRET( !IsContentTypeValid( header.content_type ), false );
 
 		if( Black::HasItem( { Internal::ContentType::Paletted, Internal::ContentType::RlePaletted }, header.content_type ) )
