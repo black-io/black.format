@@ -8,3 +8,6 @@
 
 // The library namespace definition.
 #include ".bootstrap/namespace.h"
+
+// Most global stuff.
+#include ".global/structures.h"
