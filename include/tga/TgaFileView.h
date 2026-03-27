@@ -1,9 +1,6 @@
 #pragma once
 
 
-// Fundamental external dependencies.
-
-
 namespace Black
 {
 inline namespace Format
