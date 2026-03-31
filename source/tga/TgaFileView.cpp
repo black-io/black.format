@@ -18,39 +18,6 @@ namespace
 
 namespace
 {
-	// Whether the given bit-rate is valid.
-	const bool IsBitrateValid( const Internal::Bitrate bitrate )
-	{
-		static constexpr Internal::Bitrate allowed_bitrates[] {
-			Internal::Bitrate::Monochrome,
-			Internal::Bitrate::ARGB16,
-			Internal::Bitrate::RGB24,
-			Internal::Bitrate::ARGB32,
-		};
-
-		return Black::HasItem( allowed_bitrates, bitrate );
-	}
-
-	// Translate the given bit-rate to size (in bytes) of pixel.
-	const size_t GetPixelSize( const Internal::Bitrate bitrate )
-	{
-		switch( bitrate )
-		{
-		case Internal::Bitrate::Monochrome:
-			return 1;
-		case Internal::Bitrate::ARGB16:
-			return 2;
-		case Internal::Bitrate::RGB24:
-			return 3;
-		case Internal::Bitrate::ARGB32:
-			return 4;
-		default:
-			break;
-		}
-
-		return 0;
-	}
-
 	// Get the TGA image id offset like it described in TGA file format specification.
 	const size_t GetIdOffset( const Internal::Header& header )
 	{
@@ -69,7 +36,7 @@ namespace
 	const size_t GetPaletteSize( const Internal::Header& header )
 	{
 		// It depends on the state of palette flag.
-		return ( header.has_palette )? ( size_t( header.palette.length ) * GetPixelSize( header.palette.bitrate ) ) : 0ULL;
+		return ( header.has_palette )? ( size_t( header.palette.length ) * Internal::GetElementSize( header.palette.bitrate ) ) : 0ULL;
 	}
 
 	// Get the TGA image offset like it described in TGA file format specification.
@@ -91,7 +58,7 @@ namespace
 	// Get the size (in bytes) of image.
 	const size_t GetImageSize( const Black::PlainView<const std::byte>& file_memeory, const Internal::Header& header, const Internal::Footer* const footer )
 	{
-		const size_t pixel_size = GetPixelSize( header.image.bitrate );
+		const size_t pixel_size = Internal::GetElementSize( header.image.bitrate );
 
 		if( Internal::IsContentCompressed( header.content_type ) )
 		{
@@ -140,12 +107,12 @@ namespace
 
 	const bool TgaFileView::IsHeaderValid( const TgaStructure::Header& header )
 	{
-		CRET( !IsContentTypeValid( header.content_type ), false );
+		CRET( !Internal::IsContentTypeValid( header.content_type ), false );
 
 		if( Black::HasItem( { Internal::ContentType::Paletted, Internal::ContentType::RlePaletted }, header.content_type ) )
 		{
 			CRET( header.palette.length == 0, false );
-			CRET( !IsBitrateValid( header.palette.bitrate ), false );
+			CRET( !Internal::IsBitrateValid( header.palette.bitrate ), false );
 			CRET( header.image.flags.alpha_length != 0, false );
 
 			const size_t max_index = ~( ~size_t{} << Black::GetEnumValue( header.image.bitrate ) ) + 1;
@@ -154,7 +121,7 @@ namespace
 
 		CRET( header.image.width == 0, false );
 		CRET( header.image.height == 0, false );
-		CRET( !IsBitrateValid( header.image.bitrate ), false );
+		CRET( !Internal::IsBitrateValid( header.image.bitrate ), false );
 
 		return true;
 	}

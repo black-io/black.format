@@ -18,6 +18,14 @@ namespace Internal
 	const bool IsContentTypeValid( const ContentType content_type );
 
 	/**
+		@brief	Whether the given bit-rate is valid.
+
+		@param	bitrate	Given bit-rate to be checked.
+		@return			`true` in case the given bit-rate is valid.
+	*/
+	const bool IsBitrateValid( const Bitrate bitrate );
+
+	/**
 		@brief	Whether the given content type assumes compression.
 
 		@param	content_type	Given content type to be checked.
@@ -42,6 +50,15 @@ namespace Internal
 		@return					The value returned is content type, that will be given after decompression or before compression.
 	*/
 	const ContentType GetContentTypeBehindCompression( const ContentType content_type );
+
+	/**
+		@brief	Translate the given bit-rate to size (in bytes) of element.
+
+		@param	bitrate	Given bit-rate to be translated.
+		@return			The value returned is size of element declared with given bit-rate.
+		@retval	0		Zero will be returned for any unknown bit-rate.
+	*/
+	const size_t GetElementSize( const Bitrate bitrate );
 }
 }
 }

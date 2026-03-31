@@ -39,6 +39,18 @@ namespace
 		return Black::HasItem( allowed_types, content_type );
 	}
 
+	const bool IsBitrateValid( const Bitrate bitrate )
+	{
+		static constexpr Internal::Bitrate allowed_bitrates[] {
+			Internal::Bitrate::Monochrome,
+			Internal::Bitrate::ARGB16,
+			Internal::Bitrate::RGB24,
+			Internal::Bitrate::ARGB32,
+		};
+
+		return Black::HasItem( allowed_bitrates, bitrate );
+	}
+
 	const bool IsContentCompressed( const ContentType content_type )
 	{
 		const uint8_t value = Black::GetEnumValue( content_type );
@@ -57,6 +69,25 @@ namespace
 	{
 		const uint8_t value = Black::GetEnumValue( content_type );
 		return ContentType{ value & PURE_CONTENT_MASK };
+	}
+
+	const size_t GetElementSize( const Bitrate bitrate )
+	{
+		switch( bitrate )
+		{
+		case Internal::Bitrate::Monochrome:
+			return 1;
+		case Internal::Bitrate::ARGB16:
+			return 2;
+		case Internal::Bitrate::RGB24:
+			return 3;
+		case Internal::Bitrate::ARGB32:
+			return 4;
+		default:
+			break;
+		}
+
+		return 0;
 	}
 }
 }
