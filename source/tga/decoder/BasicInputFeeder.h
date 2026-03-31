@@ -31,7 +31,7 @@ namespace Decoder
 		void Rewind();
 
 		//
-		const Black::BooleanStatus SkipElement();
+		const Black::BooleanStatus StepForward();
 
 
 		//
@@ -61,7 +61,7 @@ namespace Decoder
 		virtual void OnRewind() = 0;
 
 		//
-		virtual const Black::BooleanStatus OnSkipElement() = 0;
+		virtual const Black::BooleanStatus OnStepForward() = 0;
 
 	// Heirs common state.
 	private:
