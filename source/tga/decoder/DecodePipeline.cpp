@@ -25,6 +25,7 @@ namespace
 				Decoder::StraightInputFeeder& feeder = ConstructComponent<Decoder::StraightInputFeeder>();
 				feeder.UseImageBuffer( image_buffer );
 				feeder.UseBitrate( header.image.bitrate );
+				m_input_feeder = &feeder;
 			}
 			return Black::BooleanStatus::Success;
 		case Internal::ContentCompression::Rle:
@@ -32,6 +33,7 @@ namespace
 				Decoder::RleInputFeeder& feeder = ConstructComponent<Decoder::RleInputFeeder>();
 				feeder.UseImageBuffer( image_buffer );
 				feeder.UseBitrate( header.image.bitrate );
+				m_input_feeder = &feeder;
 			}
 			return Black::BooleanStatus::Success;
 		default:
@@ -50,16 +52,19 @@ namespace
 			{
 				Decoder::PaletteColorMapper& mapper = ConstructComponent<Decoder::PaletteColorMapper>();
 				mapper.UsePalette( palette_buffer, header.palette.bitrate );
+				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::TrueColor:
 			{
 				Decoder::TrueColorMapper& mapper = ConstructComponent<Decoder::TrueColorMapper>();
+				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::Grayscale:
 			{
 				Decoder::MonochromeColorMapper& mapper = ConstructComponent<Decoder::MonochromeColorMapper>();
+				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
 		default:
