@@ -41,6 +41,7 @@ namespace
 
 	void TgaImageDecoder::Reset()
 	{
+		m_output_buffer.Invalidate();
 	}
 
 	void TgaImageDecoder::Swap( TgaImageDecoder& other )
