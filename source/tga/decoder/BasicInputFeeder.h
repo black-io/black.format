@@ -54,6 +54,8 @@ namespace Decoder
 
 	// Heirs interface.
 	protected:
+		//
+		void ShiftCurrentElement( const size_t size );
 
 	// Heirs virtual interface.
 	protected:
@@ -63,7 +65,7 @@ namespace Decoder
 		//
 		virtual const Black::BooleanStatus OnStepForward() = 0;
 
-	// Heirs common state.
+	// Private state.
 	private:
 		Black::PlainView<const std::byte>	m_image_buffer;
 		const std::byte*					m_current_element	= nullptr;
