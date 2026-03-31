@@ -33,6 +33,9 @@ inline namespace Tga
 
 	// Public interface.
 	public:
+		//
+		void Reset();
+
 		// Swap the state of this decoder with other one.
 		void Swap( TgaImageDecoder& other );
 
