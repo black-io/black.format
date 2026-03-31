@@ -49,6 +49,18 @@ namespace Internal
 	};
 
 	/**
+		@brief	Specification of content type compression methods.
+
+		This enumeration does not explained in TGA 2.0 file format specification.
+		It is surrogate of original `ContentType` specification.
+	*/
+	enum class ContentCompression : uint32_t
+	{
+		None = 0,	// Content does not compressed.
+		Rle,		// RLE compression used.
+	};
+
+	/**
 		@brief	TGA image bit-rate specification.
 
 		This enumeration explained in next sections of TGA 2.0 file format specification:
