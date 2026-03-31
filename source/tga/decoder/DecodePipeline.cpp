@@ -51,20 +51,23 @@ namespace
 				Decoder::PaletteColorMapper& mapper = ConstructComponent<Decoder::PaletteColorMapper>();
 				mapper.UsePalette( palette_buffer, header.palette.bitrate );
 			}
-			break;
+			return Black::BooleanStatus::Success;
 		case Internal::ContentType::TrueColor:
 			{
 				Decoder::TrueColorMapper& mapper = ConstructComponent<Decoder::TrueColorMapper>();
 			}
-			break;
+			return Black::BooleanStatus::Success;
 		case Internal::ContentType::Grayscale:
 			{
 				Decoder::MonochromeColorMapper& mapper = ConstructComponent<Decoder::MonochromeColorMapper>();
 			}
-			break;
+			return Black::BooleanStatus::Success;
 		default:
 			break;
 		}
+
+		BLACK_LOG_ERROR( LOG_CHANNEL, "Failed to determine real content type of image input buffer." );
+		return BooleanStatus::Failure;
 	}
 }
 }
