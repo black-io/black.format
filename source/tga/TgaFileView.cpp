@@ -18,31 +18,6 @@ namespace
 
 namespace
 {
-	// Whether the given content type is valid.
-	const bool IsContentTypeValid( const Internal::ContentType content_type )
-	{
-		static constexpr Internal::ContentType allowed_types[] {
-			Internal::ContentType::Empty,
-			Internal::ContentType::Paletted,
-			Internal::ContentType::TrueColor,
-			Internal::ContentType::Grayscale,
-			Internal::ContentType::RlePaletted,
-			Internal::ContentType::RleTrueColor,
-			Internal::ContentType::RleGrayscale,
-		};
-
-		return Black::HasItem( allowed_types, content_type );
-	}
-
-	// Whether the given content type assumes compression.
-	const bool IsContentCompressed( const Internal::ContentType content_type )
-	{
-		constexpr uint8_t rle_mask = 0x08;
-
-		const uint8_t value = Black::GetEnumValue( content_type );
-		return ( value & rle_mask ) != 0;
-	}
-
 	// Whether the given bit-rate is valid.
 	const bool IsBitrateValid( const Internal::Bitrate bitrate )
 	{
@@ -118,7 +93,7 @@ namespace
 	{
 		const size_t pixel_size = GetPixelSize( header.image.bitrate );
 
-		if( IsContentCompressed( header.content_type ) )
+		if( Internal::IsContentCompressed( header.content_type ) )
 		{
 			// The rest of file is image if no footer located in file.
 			const size_t image_offset = GetImageOffset( header );
