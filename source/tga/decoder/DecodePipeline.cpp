@@ -12,7 +12,7 @@ namespace Decoder
 namespace
 {
 	// Logging channel.
-	constexpr const char* LOG_CHANNEL = "Black/TGA/DecodePipeline";
+	constexpr const char* LOG_CHANNEL = "Black/TGA/Decoder/Pipeline";
 }
 
 
