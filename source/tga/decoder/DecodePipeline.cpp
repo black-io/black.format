@@ -41,6 +41,31 @@ namespace
 		BLACK_LOG_ERROR( LOG_CHANNEL, "Failed to determine compression of image input buffer." );
 		return BooleanStatus::Failure;
 	}
+
+	const Black::BooleanStatus DecodePipeline::SetupColorMapper( const Internal::Header& header, const Black::PlainView<const std::byte>& palette_buffer )
+	{
+		switch( Internal::GetContentTypeBehindCompression( header.content_type ) )
+		{
+		case Internal::ContentType::Paletted:
+			{
+				Decoder::PaletteColorMapper& mapper = ConstructComponent<Decoder::PaletteColorMapper>();
+				mapper.UsePalette( palette_buffer, header.palette.bitrate );
+			}
+			break;
+		case Internal::ContentType::TrueColor:
+			{
+				Decoder::TrueColorMapper& mapper = ConstructComponent<Decoder::TrueColorMapper>();
+			}
+			break;
+		case Internal::ContentType::Grayscale:
+			{
+				Decoder::MonochromeColorMapper& mapper = ConstructComponent<Decoder::MonochromeColorMapper>();
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }
 }
 }
