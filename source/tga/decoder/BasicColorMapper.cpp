@@ -34,6 +34,11 @@ namespace
 		EXPECTS_DEBUG( m_input_feeder != nullptr );
 		return PerformPeekElement();
 	}
+
+	void BasicColorMapper::SetOutputFormat( const Black::ImageFormat output_format )
+	{
+		m_output_format = output_format;
+	}
 }
 }
 }

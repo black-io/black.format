@@ -41,7 +41,7 @@ namespace Decoder
 		inline const Black::ImageFormat& GetInputFormat() const		{ return m_input_format; };
 
 		//
-		inline const Black::ImageFormat& GetOutputFormat() const	{ return m_input_format; };
+		inline const Black::ImageFormat& GetOutputFormat() const	{ return m_output_format; };
 
 
 		//
@@ -54,6 +54,9 @@ namespace Decoder
 
 	// Heirs interface.
 	protected:
+		//
+		void SetOutputFormat( const Black::ImageFormat output_format );
+
 		//
 		inline BasicInputFeeder& GetInputFeeder() const				{ return *m_input_feeder; };
 
