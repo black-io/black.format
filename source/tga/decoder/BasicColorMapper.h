@@ -32,14 +32,20 @@ namespace Decoder
 
 
 		//
-		inline const size_t GetElementSize() const	{ return ( m_input_feeder == nullptr )? 0 : m_input_feeder->GetElementSize(); };
+		inline const size_t GetElementSize() const					{ return ( m_input_feeder == nullptr )? 0 : m_input_feeder->GetElementSize(); };
 
 		//
-		inline const Bitrate GetBitrate() const		{ return ( m_input_feeder == nullptr )? Bitrate::Undefined : m_input_feeder->GetBitrate(); };
+		inline const Bitrate GetBitrate() const						{ return ( m_input_feeder == nullptr )? Bitrate::Undefined : m_input_feeder->GetBitrate(); };
+
+		//
+		inline const Black::ImageFormat& GetInputFormat() const		{ return m_input_format; };
+
+		//
+		inline const Black::ImageFormat& GetOutputFormat() const	{ return m_input_format; };
 
 
 		//
-		inline const bool HasElements() const		{ return ( m_input_feeder != nullptr ) && m_input_feeder->HasElements(); };
+		inline const bool HasElements() const						{ return ( m_input_feeder != nullptr ) && m_input_feeder->HasElements(); };
 
 	// Heirs life-time management.
 	protected:
@@ -49,7 +55,22 @@ namespace Decoder
 	// Heirs interface.
 	protected:
 		//
-		inline BasicInputFeeder& GetInputFeeder() const	{ return *m_input_feeder; };
+		inline BasicInputFeeder& GetInputFeeder() const				{ return *m_input_feeder; };
+
+		//
+		inline const size_t GetInputSize() const					{ return m_input_size; };
+
+		//
+		inline const size_t GetInputFirstAlphaBit() const			{ return m_input_first_alpha_bit; };
+
+		//
+		inline const size_t GetInputColorMask() const				{ return m_input_color_mask; };
+
+		//
+		inline const size_t GetInputAlphaMask() const				{ return m_input_alpha_mask; };
+
+		//
+		inline const Internal::Bitrate GetInputBitrate() const		{ return m_input_bitrate; };
 
 	// Heirs virtual interface.
 	protected:
@@ -58,7 +79,16 @@ namespace Decoder
 
 	// Private state.
 	private:
-		BasicInputFeeder*	m_input_feeder = nullptr;
+		BasicInputFeeder*	m_input_feeder			= nullptr;
+
+		size_t				m_input_size			= 0;
+		size_t				m_input_first_alpha_bit	= 0;
+		size_t				m_input_color_mask		= 0;
+		size_t				m_input_alpha_mask		= 0;
+		Black::ImageFormat	m_input_format			= Black::ImageFormats::UNDEFINED;
+		Black::ImageFormat	m_output_format			= Black::ImageFormats::UNDEFINED;
+
+		Internal::Bitrate	m_input_bitrate			= Internal::Bitrate::Undefined;
 	};
 }
 }

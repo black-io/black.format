@@ -24,6 +24,9 @@ namespace
 	void BasicColorMapper::UseInputFeeder( BasicInputFeeder& const feeder )
 	{
 		m_input_feeder = &feeder;
+
+		m_input_size = feeder.GetElementSize();
+		m_input_bitrate = feeder.GetBitrate();
 	}
 
 	const uint32_t BasicColorMapper::PeekElement() const
