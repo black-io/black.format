@@ -25,6 +25,11 @@ namespace
 		ShiftCurrentElement( GetElementSize() );
 		return Black::BooleanStatus::Success;
 	}
+
+	const std::byte* StraightInputFeeder::PerformPeekElement() const
+	{
+		return PeekCurrentElement();
+	}
 }
 }
 }

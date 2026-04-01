@@ -13,11 +13,6 @@ namespace Decoder
 	*/
 	class StraightInputFeeder final : private Black::HostRelatedComponent<DecodePipeline>, public BasicInputFeeder
 	{
-	// Friendship declarations.
-	public:
-		// Allow to use interface of composition.
-		friend class DecodePipeline;
-
 	// Public life-time management.
 	public:
 		StraightInputFeeder() noexcept	= default;
@@ -30,6 +25,9 @@ namespace Decoder
 
 		//
 		const Black::BooleanStatus OnStepForward() final;
+
+		//
+		const std::byte* PerformPeekElement() const final;
 	};
 }
 }
