@@ -42,6 +42,12 @@ namespace
 		return Black::BooleanStatus::Success;
 	}
 
+	const std::byte* BasicInputFeeder::PeekElement() const
+	{
+		EXPECTS_DEBUG( HasElements() );
+		return PerformPeekElement();
+	}
+
 	void BasicInputFeeder::ShiftCurrentElement( const size_t size )
 	{
 		m_current_element += size;

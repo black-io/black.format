@@ -33,9 +33,9 @@ namespace Decoder
 		//
 		const Black::BooleanStatus StepForward();
 
-
 		//
-		inline const std::byte* PeekElement() const	{ return m_current_element; };
+		const std::byte* PeekElement() const;
+
 
 		//
 		inline const size_t GetElementSize() const	{ return m_element_size; };
@@ -57,6 +57,10 @@ namespace Decoder
 		//
 		void ShiftCurrentElement( const size_t size );
 
+
+		//
+		inline const std::byte* PeekCurrentElement() const	{ return m_current_element; };
+
 	// Heirs virtual interface.
 	protected:
 		//
@@ -64,6 +68,9 @@ namespace Decoder
 
 		//
 		virtual const Black::BooleanStatus OnStepForward() = 0;
+
+		//
+		virtual const std::byte* PerformPeekElement() const = 0;
 
 	// Private state.
 	private:
