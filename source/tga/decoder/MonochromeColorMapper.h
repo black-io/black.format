@@ -15,8 +15,8 @@ namespace Decoder
 	{
 	// Public life-time management.
 	public:
-		MonochromeColorMapper() noexcept	= default;
-		~MonochromeColorMapper() noexcept	= default;
+		using Black::HostRelatedComponent<DecodePipeline>::HostRelatedComponent;
+		~MonochromeColorMapper() noexcept = default;
 
 	// `BasicColorMapper` interface implementations.
 	private:

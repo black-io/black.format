@@ -15,8 +15,8 @@ namespace Decoder
 	{
 	// Public life-time management.
 	public:
-		StraightInputFeeder() noexcept	= default;
-		~StraightInputFeeder() noexcept	= default;
+		using Black::HostRelatedComponent<DecodePipeline>::HostRelatedComponent;
+		~StraightInputFeeder() noexcept = default;
 
 	// `BasicInputFeeder` interface implementations.
 	private:
