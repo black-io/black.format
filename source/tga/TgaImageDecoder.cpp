@@ -99,7 +99,7 @@ namespace
 			{
 				CRETE( Black::IsFailed( pipeline() ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed processing at position {}.", cursor );
 			}
-			CRETE( Black::IsFailed( pipeline.EndProcessing() ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed to finish processing." );
+			CRETE( Black::IsFailed( pipeline.EndProcessing( cursor ) ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed to finish processing." );
 		}
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Decode finished." );
 

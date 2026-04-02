@@ -77,32 +77,49 @@ namespace
 
 	const Black::BooleanStatus DecodePipeline::SetupColorConverter( const Internal::Header& header, const Black::ImageFormat output_format )
 	{
-		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
-		return BooleanStatus::Failure;
+		BLACK_LOG_WARNING( LOG_CHANNEL, "Not implemented." );
+		return BooleanStatus::Success;
 	}
 
 	const Black::BooleanStatus DecodePipeline::SetupOutputBuilder( const Black::PlainView<std::byte>& image_buffer, const Black::ImageFormat output_format )
 	{
-		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
-		return BooleanStatus::Failure;
+		BLACK_LOG_WARNING( LOG_CHANNEL, "Not implemented." );
+		return BooleanStatus::Success;
 	}
 
 	const Black::BooleanStatus DecodePipeline::BeginProcessing( CoordinateCursor& image_cursor )
 	{
-		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
-		return BooleanStatus::Failure;
+		CRETE( m_input_feeder == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Input feeder does not configured." );
+		CRETE( m_color_mapper == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Input color mapper does not configured." );
+
+		image_cursor.SetInputFeeder( *m_input_feeder );
+		m_color_mapper->UseInputFeeder( *m_input_feeder );
+
+		BLACK_LOG_WARNING( LOG_CHANNEL, "Not implemented." );
+		return BooleanStatus::Success;
 	}
 
 	const Black::BooleanStatus DecodePipeline::Process()
 	{
-		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
-		return BooleanStatus::Failure;
+		EXPECTS_DEBUG( m_color_mapper != nullptr );
+		const uint32_t color = m_color_mapper->PeekElement();
+
+		//EXPECTS_DEBUG( m_color_converter != nullptr );
+		//m_color_converter->Consumer( color );
+
+		return BooleanStatus::Success;
 	}
 
-	const Black::BooleanStatus DecodePipeline::EndProcessing()
+	const Black::BooleanStatus DecodePipeline::EndProcessing( CoordinateCursor& image_cursor )
 	{
-		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
-		return BooleanStatus::Failure;
+		image_cursor.ResetInputFeeder();
+
+		if( m_color_mapper != nullptr )
+		{
+			m_color_mapper->RefuseInputFeeder();
+		}
+
+		return BooleanStatus::Success;
 	}
 }
 }

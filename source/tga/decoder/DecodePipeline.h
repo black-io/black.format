@@ -40,7 +40,7 @@ namespace Decoder
 		const Black::BooleanStatus Process();
 
 		//
-		const Black::BooleanStatus EndProcessing();
+		const Black::BooleanStatus EndProcessing( CoordinateCursor& image_cursor );
 
 
 		inline const Black::BooleanStatus operator () () { return Process(); };
