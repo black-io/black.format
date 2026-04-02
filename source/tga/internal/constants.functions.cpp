@@ -68,7 +68,7 @@ namespace
 	const ContentType GetContentTypeBehindCompression( const ContentType content_type )
 	{
 		const uint8_t value = Black::GetEnumValue( content_type );
-		return ContentType{ value & PURE_CONTENT_MASK };
+		return ContentType( value & PURE_CONTENT_MASK );
 	}
 
 	const size_t GetElementSize( const Bitrate bitrate )
