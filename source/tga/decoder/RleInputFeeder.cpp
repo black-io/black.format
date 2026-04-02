@@ -23,10 +23,10 @@ namespace
 		constexpr uint8_t	length_mask			= 0x7FU;
 
 		CRET( !HasElements(), Black::BooleanStatus::Failure );
-		const std::byte block_header = *PeekElement();
+		const std::byte block_header = *PeekCurrentElement();
 
 		m_is_block_compressed	= ( Black::GetEnumValue( block_header ) & compression_mask ) != 0;
-		m_block_payload			= PeekElement() + header_size;
+		m_block_payload			= PeekCurrentElement() + header_size;
 		m_block_position		= 0;
 		m_block_length			= size_t( Black::GetEnumValue( block_header ) & length_mask ) + 1;
 		m_block_size			= header_size + ( ( m_is_block_compressed )? ( GetElementSize() ) : ( GetElementSize() * m_block_length ) );
