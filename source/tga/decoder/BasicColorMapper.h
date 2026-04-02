@@ -24,7 +24,7 @@ namespace Decoder
 		void RefuseInputFeeder();
 
 		//
-		void UseInputFeeder( BasicInputFeeder& const feeder );
+		void UseInputFeeder( BasicInputFeeder& feeder );
 
 
 		//
