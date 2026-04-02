@@ -74,6 +74,36 @@ namespace
 		BLACK_LOG_ERROR( LOG_CHANNEL, "Failed to determine real content type of image input buffer." );
 		return BooleanStatus::Failure;
 	}
+
+	const Black::BooleanStatus DecodePipeline::SetupColorConverter( const Internal::Header& header, const Black::ImageFormat output_format )
+	{
+		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
+		return BooleanStatus::Failure;
+	}
+
+	const Black::BooleanStatus DecodePipeline::SetupOutputBuilder( const Black::PlainView<std::byte>& image_buffer, const Black::ImageFormat output_format )
+	{
+		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
+		return BooleanStatus::Failure;
+	}
+
+	const Black::BooleanStatus DecodePipeline::BeginProcessing( CoordinateCursor& image_cursor )
+	{
+		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
+		return BooleanStatus::Failure;
+	}
+
+	const Black::BooleanStatus DecodePipeline::Process()
+	{
+		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
+		return BooleanStatus::Failure;
+	}
+
+	const Black::BooleanStatus DecodePipeline::EndProcessing()
+	{
+		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Not implemented." );
+		return BooleanStatus::Failure;
+	}
 }
 }
 }
