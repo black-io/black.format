@@ -1,5 +1,7 @@
 #include "decoder.h"
 
+#include <black/core/algorithms.h>
+
 
 namespace Black
 {
@@ -25,6 +27,11 @@ namespace
 	}
 }
 
+
+	std::string format_as( const CoordinateCursor& cursor )
+	{
+		return Black::FormatString( "[{}, {}]->[{}, {}]", cursor.m_input_column, cursor.m_input_row, cursor.m_output_column, cursor.m_output_row );
+	}
 
 	CoordinateCursor::CoordinateCursor( const Internal::Header& header, const size_t output_width, const size_t output_height )
 		: m_input_width{ header.image.width }

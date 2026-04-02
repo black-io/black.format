@@ -13,6 +13,11 @@ namespace Decoder
 	*/
 	class CoordinateCursor final
 	{
+	// Friendship declarations.
+	public:
+		//
+		friend std::string format_as( const CoordinateCursor& cursor );
+
 	// Public life-time management.
 	public:
 		inline CoordinateCursor() noexcept									= delete;
