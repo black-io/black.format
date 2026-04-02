@@ -92,7 +92,7 @@ namespace
 
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Decode started." );
 		{
-			Decoder::CoordinateCursor cursor{ m_input_header, m_output_width, m_output_height, m_output_format };
+			Decoder::CoordinateCursor cursor{ m_input_header, m_output_width, m_output_height };
 
 			CRETE( Black::IsFailed( pipeline.BeginProcessing( cursor ) ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed to begin processing." );
 			for( cursor.Rewind(); !cursor.IsFinished(); cursor.StepForward() )
