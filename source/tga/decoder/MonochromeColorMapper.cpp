@@ -16,6 +16,11 @@ namespace
 }
 
 
+	void MonochromeColorMapper::FixOutputFormat( const Internal::Header& header )
+	{
+		SetOutputFormat( ( header.image.flags.alpha_length == 0 )? Black::ImageFormats::R8G8B8 : Black::ImageFormats::A8R8G8B8 );
+	}
+
 	const uint32_t MonochromeColorMapper::PerformPeekElement() const
 	{
 		uint32_t result = 0;
@@ -32,7 +37,12 @@ namespace
 		result_buffer[ output_format.red_channel_index ]	= magnitude;
 		result_buffer[ output_format.green_channel_index ]	= magnitude;
 		result_buffer[ output_format.blue_channel_index ]	= magnitude;
-		result_buffer[ output_format.alpha_channel_index ]	= ( output_format.has_alpha )? alpha : 0;
+
+		if( output_format.has_alpha )
+		{
+			result_buffer[ output_format.alpha_channel_index ] = alpha;
+		}
+
 		Black::CopyMemory( &result, result_buffer, output_format.size_bytes );
 
 		return result;

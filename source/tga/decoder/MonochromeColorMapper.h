@@ -18,6 +18,11 @@ namespace Decoder
 		using Black::HostRelatedComponent<DecodePipeline>::HostRelatedComponent;
 		~MonochromeColorMapper() noexcept = default;
 
+	// Public interface.
+	public:
+		//
+		void FixOutputFormat( const Internal::Header& header );
+
 	// `BasicColorMapper` interface implementations.
 	private:
 		//
