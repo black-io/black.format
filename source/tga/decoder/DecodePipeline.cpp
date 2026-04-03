@@ -51,6 +51,7 @@ namespace
 		case Internal::ContentType::Paletted:
 			{
 				Decoder::PaletteColorMapper& mapper = ConstructComponent<Decoder::PaletteColorMapper>();
+				mapper.UseImageSettings( header );
 				mapper.UsePalette( palette_buffer, header.palette.bitrate );
 				m_color_mapper = &mapper;
 			}
@@ -58,12 +59,14 @@ namespace
 		case Internal::ContentType::TrueColor:
 			{
 				Decoder::TrueColorMapper& mapper = ConstructComponent<Decoder::TrueColorMapper>();
+				mapper.UseImageSettings( header );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::Grayscale:
 			{
 				Decoder::MonochromeColorMapper& mapper = ConstructComponent<Decoder::MonochromeColorMapper>();
+				mapper.UseImageSettings( header );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
@@ -95,7 +98,7 @@ namespace
 		image_cursor.SetInputFeeder( *m_input_feeder );
 		m_color_mapper->UseInputFeeder( *m_input_feeder );
 
-		BLACK_LOG_WARNING( LOG_CHANNEL, "Not implemented." );
+		BLACK_LOG_DEBUG( LOG_CHANNEL, "Image processing began." );
 		return BooleanStatus::Success;
 	}
 
@@ -119,6 +122,7 @@ namespace
 			m_color_mapper->RefuseInputFeeder();
 		}
 
+		BLACK_LOG_DEBUG( LOG_CHANNEL, "Image processing ended." );
 		return BooleanStatus::Success;
 	}
 }
