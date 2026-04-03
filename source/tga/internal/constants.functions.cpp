@@ -89,6 +89,76 @@ namespace
 
 		return 0;
 	}
+
+	const Black::ImageFormat SelectImageFormat( const ContentType content_type, const Bitrate bitrate, const size_t alpha_bits_count )
+	{
+		switch( GetContentTypeBehindCompression( content_type ) )
+		{
+		case ContentType::Paletted:
+			switch( bitrate )
+			{
+			case Bitrate::Monochrome:
+				return Black::ImageFormats::I8;
+			case Bitrate::ARGB16:
+				CRET( alpha_bits_count == 0, Black::ImageFormats::I16 );
+				CRET( alpha_bits_count == 8, Black::ImageFormats::A8I8 );
+				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported value of alpha channel length - {}.", alpha_bits_count );
+				break;
+			default:
+				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported bit-rate of palette index - {}.", bitrate );
+				break;
+			}
+			break;
+		case ContentType::TrueColor:
+			switch( bitrate )
+			{
+			case Bitrate::ARGB16:
+				CRET( alpha_bits_count == 0, Black::ImageFormats::X1R5G5B5 );
+				CRET( alpha_bits_count == 1, Black::ImageFormats::A1R5G5B5 );
+				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported value of alpha channel length - {}.", alpha_bits_count );
+				break;
+			case Bitrate::RGB24:
+				return Black::ImageFormats::R8G8B8;
+			case Bitrate::ARGB32:
+				CRET( alpha_bits_count == 0, Black::ImageFormats::X8R8G8B8 );
+				CRET( alpha_bits_count == 8, Black::ImageFormats::A8R8G8B8 );
+				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported value of alpha channel length - {}.", alpha_bits_count );
+				break;
+			default:
+				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported bit-rate of True Color image - {}.", bitrate );
+				break;
+			}
+			break;
+		case ContentType::Grayscale:
+			switch( bitrate )
+			{
+			case Bitrate::Monochrome:
+				return Black::ImageFormats::W8;
+			case Bitrate::ARGB16:
+				CRET( alpha_bits_count == 0, Black::ImageFormats::W16 );
+				CRET( alpha_bits_count == 8, Black::ImageFormats::A8W8 );
+				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported value of alpha channel length - {}.", alpha_bits_count );
+				break;
+			default:
+				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported bit-rate of Monochrome image - {}.", bitrate );
+				break;
+			}
+			break;
+		default:
+			BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported type of image content - {}.", content_type );
+			break;
+		}
+
+		BLACK_LOG_ERROR(
+			LOG_CHANNEL,
+			"Unknown combination of content type ({}), bit-rate ({}) and alpha-channel ({}).",
+			Black::GetEnumValue( content_type ),
+			Black::GetEnumValue( bitrate ),
+			alpha_bits_count
+		);
+
+		return Black::ImageFormats::UNDEFINED;
+	}
 }
 }
 }

@@ -59,6 +59,16 @@ namespace Internal
 		@retval	0		Zero will be returned for any unknown bit-rate.
 	*/
 	const size_t GetElementSize( const Bitrate bitrate );
+
+	/**
+		@brief	Select proper image format according to given image settings.
+
+		@param	content_type		Declared type of image content.
+		@param	bitrate				Declared bit-rate of image elements.
+		@param	alpha_bits_count	Declared length of alpha-channel in image.
+		@return						The value returned is `ImageFormat` that can describe elements of given image.
+	*/
+	const Black::ImageFormat SelectImageFormat( const ContentType content_type, const Bitrate bitrate, const size_t alpha_bits_count );
 }
 }
 }
