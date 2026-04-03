@@ -70,10 +70,10 @@ namespace Decoder
 		inline const size_t GetInputFirstAlphaBit() const			{ return m_input_first_alpha_bit; };
 
 		//
-		inline const size_t GetInputColorMask() const				{ return m_input_color_mask; };
+		inline const uint32_t GetInputColorMask() const				{ return m_input_color_mask; };
 
 		//
-		inline const size_t GetInputAlphaMask() const				{ return m_input_alpha_mask; };
+		inline const uint32_t GetInputAlphaMask() const				{ return m_input_alpha_mask; };
 
 		//
 		inline const Internal::Bitrate GetInputBitrate() const		{ return m_input_bitrate; };
