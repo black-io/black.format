@@ -12,6 +12,8 @@
 // Interfaces.
 #include "BasicInputFeeder.h"
 #include "BasicColorMapper.h"
+#include "BasicOutputBuilder.h"
+#include "BasicColorConverter.h"
 
 // Components.
 #include "CoordinateCursor.h"
