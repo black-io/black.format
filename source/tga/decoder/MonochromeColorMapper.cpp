@@ -18,7 +18,11 @@ namespace
 
 	void MonochromeColorMapper::FixOutputFormat( const Internal::Header& header )
 	{
-		SetOutputFormat( ( header.image.flags.alpha_length == 0 )? Black::ImageFormats::R8G8B8 : Black::ImageFormats::A8R8G8B8 );
+		const bool has_alpha = header.image.flags.alpha_length != 0;
+		SetOutputFormat( ( has_alpha )? Black::ImageFormats::A8R8G8B8 : Black::ImageFormats::R8G8B8 );
+
+		const size_t magnitude_bits	= ( has_alpha )? size_t( Black::GetEnumValue( header.image.bitrate ) ) : GetInputFirstAlphaBit();
+		m_input_color_shrink_bits	= std::max<size_t>( magnitude_bits, 8 ) - 8;
 	}
 
 	const uint32_t MonochromeColorMapper::PerformPeekElement() const
@@ -28,8 +32,8 @@ namespace
 		const Black::ImageFormat& input_format = GetInputFormat();
 		Black::CopyMemory( &result, GetInputFeeder().PeekElement(), input_format.size_bytes );
 
-		const uint32_t magnitude	= ( ( input_format.has_alpha )? ( result & GetInputColorMask() ) : ( result >> m_input_color_shrink_bits ) ) & 0xFFUL;
-		const uint32_t alpha		= ( ( input_format.has_alpha )? ( result >> GetInputFirstAlphaBit() ) : ~uint32_t{} ) & 0xFFUL;
+		const uint32_t magnitude	= ( result >> m_input_color_shrink_bits ) & GetInputColorMask();
+		const uint32_t alpha		= ( ( input_format.has_alpha )? ( result & GetInputAlphaMask() ) : GetInputAlphaMask() ) >> GetInputFirstAlphaBit();
 
 		const Black::ImageFormat& output_format = GetOutputFormat();
 
