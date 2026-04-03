@@ -26,6 +26,9 @@ namespace Decoder
 		//
 		void UseInputFeeder( BasicInputFeeder& feeder );
 
+		//
+		void UseImageSettings( const Internal::Header& header );
+
 
 		//
 		const uint32_t PeekElement() const;
@@ -86,8 +89,8 @@ namespace Decoder
 
 		size_t				m_input_size			= 0;
 		size_t				m_input_first_alpha_bit	= 0;
-		size_t				m_input_color_mask		= 0;
-		size_t				m_input_alpha_mask		= 0;
+		uint32_t			m_input_color_mask		= 0;
+		uint32_t			m_input_alpha_mask		= 0;
 		Black::ImageFormat	m_input_format			= Black::ImageFormats::UNDEFINED;
 		Black::ImageFormat	m_output_format			= Black::ImageFormats::UNDEFINED;
 

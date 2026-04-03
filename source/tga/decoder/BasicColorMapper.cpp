@@ -24,9 +24,20 @@ namespace
 	void BasicColorMapper::UseInputFeeder( BasicInputFeeder& feeder )
 	{
 		m_input_feeder = &feeder;
+	}
 
-		m_input_size = feeder.GetElementSize();
-		m_input_bitrate = feeder.GetBitrate();
+	void BasicColorMapper::UseImageSettings( const Internal::Header& header )
+	{
+		m_input_bitrate			= header.image.bitrate;
+		const size_t bits_count	= Black::GetEnumValue( m_input_bitrate );
+
+		m_input_size			= Internal::GetElementSize( m_input_bitrate );
+		m_input_first_alpha_bit	= bits_count - header.image.flags.alpha_length;
+		m_input_color_mask		= ~( ~uint32_t{} << m_input_first_alpha_bit );
+		m_input_alpha_mask		= uint32_t( uint64_t( ~uint32_t{} << m_input_first_alpha_bit ) & ~uint64_t( ~uint32_t{} << bits_count ) );
+
+		m_input_format			= Internal::SelectImageFormat( header.content_type, m_input_bitrate, header.image.flags.alpha_length );
+		m_output_format			= m_input_format;
 	}
 
 	const uint32_t BasicColorMapper::PeekElement() const
