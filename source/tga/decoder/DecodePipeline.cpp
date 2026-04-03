@@ -67,6 +67,7 @@ namespace
 			{
 				Decoder::MonochromeColorMapper& mapper = ConstructComponent<Decoder::MonochromeColorMapper>();
 				mapper.UseImageSettings( header );
+				mapper.FixOutputFormat( header );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
