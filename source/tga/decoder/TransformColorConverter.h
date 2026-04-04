@@ -18,7 +18,7 @@ namespace Decoder
 		using Black::HostRelatedComponent<DecodePipeline>::HostRelatedComponent;
 		~TransformColorConverter() noexcept = default;
 
-	// `BasicColorMapper` interface implementations.
+	// `BasicColorConverter` interface implementations.
 	private:
 		//
 		const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const final;
