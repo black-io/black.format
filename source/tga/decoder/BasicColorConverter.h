@@ -26,7 +26,7 @@ namespace Decoder
 
 
 		//
-		const Black::BooleanStatus ConvertColor( const uint32_t color, const Black::ImageFormat color_format );
+		const Black::BooleanStatus ConvertColor( const uint32_t color, const Black::ImageFormat color_format ) const;
 
 
 		//
@@ -40,7 +40,7 @@ namespace Decoder
 	// Heirs virtual interface.
 	protected:
 		//
-		virtual const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) = 0;
+		virtual const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const = 0;
 
 	// Private state.
 	private:
