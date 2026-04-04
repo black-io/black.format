@@ -11,12 +11,12 @@ namespace Decoder
 {
 	/**
 	*/
-	class TrueColorMapper final : private Black::HostRelatedComponent<DecodePipeline>, public BasicColorMapper
+	class TrueColorMapper final : public BasicColorMapper
 	{
 	// Public life-time management.
 	public:
-		using Black::HostRelatedComponent<DecodePipeline>::HostRelatedComponent;
-		~TrueColorMapper() noexcept = default;
+		inline TrueColorMapper() noexcept	= default;
+		inline ~TrueColorMapper() noexcept	= default;
 
 	// `BasicColorMapper` interface implementations.
 	private:

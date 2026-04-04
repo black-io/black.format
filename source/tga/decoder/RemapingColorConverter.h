@@ -11,12 +11,12 @@ namespace Decoder
 {
 	/**
 	*/
-	class RemappingColorConverter final : private Black::HostRelatedComponent<DecodePipeline>, public BasicColorConverter
+	class RemappingColorConverter final : public BasicColorConverter
 	{
 	// Public life-time management.
 	public:
-		using Black::HostRelatedComponent<DecodePipeline>::HostRelatedComponent;
-		~RemappingColorConverter() noexcept = default;
+		inline RemappingColorConverter() noexcept	= default;
+		inline ~RemappingColorConverter() noexcept	= default;
 
 	// `BasicColorConverter` interface implementations.
 	private:

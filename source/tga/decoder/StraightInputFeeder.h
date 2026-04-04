@@ -11,12 +11,12 @@ namespace Decoder
 {
 	/**
 	*/
-	class StraightInputFeeder final : private Black::HostRelatedComponent<DecodePipeline>, public BasicInputFeeder
+	class StraightInputFeeder final : public BasicInputFeeder
 	{
 	// Public life-time management.
 	public:
-		using Black::HostRelatedComponent<DecodePipeline>::HostRelatedComponent;
-		~StraightInputFeeder() noexcept = default;
+		inline StraightInputFeeder() noexcept	= default;
+		inline ~StraightInputFeeder() noexcept	= default;
 
 	// `BasicInputFeeder` interface implementations.
 	private:

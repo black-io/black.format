@@ -11,12 +11,12 @@ namespace Decoder
 {
 	/**
 	*/
-	class PaletteColorMapper final : private Black::HostRelatedComponent<DecodePipeline>, public BasicColorMapper
+	class PaletteColorMapper final : public BasicColorMapper
 	{
 	// Public life-time management.
 	public:
-		using Black::HostRelatedComponent<DecodePipeline>::HostRelatedComponent;
-		~PaletteColorMapper() noexcept = default;
+		inline PaletteColorMapper() noexcept	= default;
+		inline ~PaletteColorMapper() noexcept	= default;
 
 	// Public interface.
 	public:
