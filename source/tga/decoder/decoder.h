@@ -23,6 +23,7 @@
 #include "PaletteColorMapper.h"
 #include "TrueColorMapper.h"
 
+#include "MonochromeColorConverter.h"
 #include "DirectColorConverter.h"
 #include "RemapingColorConverter.h"
 #include "TransformColorConverter.h"
