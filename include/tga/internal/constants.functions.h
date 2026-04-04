@@ -69,6 +69,15 @@ namespace Internal
 		@return						The value returned is `ImageFormat` that can describe elements of given image.
 	*/
 	const Black::ImageFormat SelectImageFormat( const ContentType content_type, const Bitrate bitrate, const size_t alpha_bits_count );
+
+	/**
+	*/
+	const Black::ImageFormat SelectImageFormat(
+		const ContentType content_type,
+		const Bitrate palette_bitrate,
+		const Bitrate image_bitrate,
+		const size_t alpha_bits_count
+	);
 }
 }
 }

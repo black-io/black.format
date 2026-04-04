@@ -159,6 +159,38 @@ namespace
 
 		return Black::ImageFormats::UNDEFINED;
 	}
+
+	const Black::ImageFormat SelectImageFormat(
+		const ContentType content_type,
+		const Bitrate palette_bitrate,
+		const Bitrate image_bitrate,
+		const size_t alpha_bits_count
+	)
+	{
+		switch( GetContentTypeBehindCompression( content_type ) )
+		{
+		case ContentType::Paletted:
+			return SelectImageFormat( ContentType::TrueColor, palette_bitrate, alpha_bits_count );
+		case ContentType::TrueColor:
+			return SelectImageFormat( content_type, image_bitrate, alpha_bits_count );
+		case ContentType::Grayscale:
+			return SelectImageFormat( ContentType::TrueColor, palette_bitrate, alpha_bits_count );
+		default:
+			BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported type of image content - {}.", content_type );
+			break;
+		}
+
+		BLACK_LOG_ERROR(
+			LOG_CHANNEL,
+			"Unknown combination of content type ({}), bit-rate ({}/{}) and alpha-channel ({}).",
+			Black::GetEnumValue( content_type ),
+			Black::GetEnumValue( palette_bitrate ),
+			Black::GetEnumValue( image_bitrate ),
+			alpha_bits_count
+		);
+
+		return Black::ImageFormats::UNDEFINED;
+	}
 }
 }
 }
