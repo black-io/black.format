@@ -28,10 +28,19 @@ namespace Decoder
 		//
 		const Black::BooleanStatus ConvertColor( const uint32_t color, const Black::ImageFormat color_format );
 
+
+		//
+		inline const Black::ImageFormat GetOutputFormat() const	{ return m_output_format; };
+
+	// Heirs interface.
+	protected:
+		//
+		inline BasicOutputBuilder& GetOutputBuilder() const		{ return *m_output_builder; };
+
 	// Heirs virtual interface.
 	protected:
 		//
-		virtual const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format );
+		virtual const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) = 0;
 
 	// Private state.
 	private:
