@@ -24,5 +24,9 @@
 #include "PaletteColorMapper.h"
 #include "TrueColorMapper.h"
 
+#include "DirectColorConverter.h"
+#include "RemapingColorConverter.h"
+#include "TransformColorConverter.h"
+
 // Routine.
 #include "DecodePipeline.h"
