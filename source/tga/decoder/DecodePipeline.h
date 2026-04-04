@@ -15,7 +15,8 @@ namespace Decoder
 		: public Black::Composition<
 			DecodePipeline,
 			Black::TypesUnion<StraightInputFeeder, RleInputFeeder>,
-			Black::TypesUnion<PaletteColorMapper, TrueColorMapper, MonochromeColorMapper>
+			Black::TypesUnion<PaletteColorMapper, TrueColorMapper, MonochromeColorMapper>,
+			Black::TypesUnion<DirectColorConverter, RemappingColorConverter, TransformColorConverter>
 		>
 	{
 	// Public interface.
