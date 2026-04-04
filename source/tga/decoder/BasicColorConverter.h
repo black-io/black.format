@@ -46,6 +46,7 @@ namespace Decoder
 	private:
 		BasicOutputBuilder*	m_output_builder	= nullptr;
 
+		uint32_t			m_output_alpha_mask	= 0;
 		Black::ImageFormat	m_output_format		= Black::ImageFormats::UNDEFINED;
 	};
 }

@@ -28,7 +28,8 @@ namespace
 
 	void BasicColorConverter::UseOutputFormat( const Black::ImageFormat output_format )
 	{
-		m_output_format = output_format;
+		m_output_format		= output_format;
+		m_output_alpha_mask	= uint32_t( Black::GetAlphaMask( m_output_format ) );
 	}
 
 	const Black::BooleanStatus BasicColorConverter::ConvertColor( const uint32_t color, const Black::ImageFormat color_format ) const
