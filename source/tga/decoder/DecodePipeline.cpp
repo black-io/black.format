@@ -114,13 +114,16 @@ namespace
 
 		if( in_format == out_format )
 		{
-			RemappingColorConverter& converter = ConstructComponent<RemappingColorConverter>();
-			converter.UseOutputFormat( output_format );
-			m_color_converter = &converter;
-			return Black::BooleanStatus::Success;
+			//RemappingColorConverter& converter = ConstructComponent<RemappingColorConverter>();
+			//converter.UseOutputFormat( output_format );
+			//m_color_converter = &converter;
+			//return Black::BooleanStatus::Success;
 		}
 
-		// True Color Full Converter.
+		//TransformColorConverter& converter = ConstructComponent<TransformColorConverter>();
+		//converter.UseOutputFormat( output_format );
+		//m_color_converter = &converter;
+		//return Black::BooleanStatus::Success;
 
 		BLACK_LOG_ERROR( LOG_CHANNEL, "Failed to determine color converting conditions for image." );
 		return BooleanStatus::Failure;
