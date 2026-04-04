@@ -100,8 +100,10 @@ namespace
 
 		if( in_format == out_format )
 		{
-			// True Color Direct Converter.
-			//return Black::BooleanStatus::Success;
+			DirectColorConverter& converter = ConstructComponent<DirectColorConverter>();
+			converter.UseOutputFormat( output_format );
+			m_color_converter = &converter;
+			return Black::BooleanStatus::Success;
 		}
 
 		// Now compare it without red-blue channel positions.
@@ -112,8 +114,10 @@ namespace
 
 		if( in_format == out_format )
 		{
-			// True Color Channel Converter.
-			//return Black::BooleanStatus::Success;
+			RemappingColorConverter& converter = ConstructComponent<RemappingColorConverter>();
+			converter.UseOutputFormat( output_format );
+			m_color_converter = &converter;
+			return Black::BooleanStatus::Success;
 		}
 
 		// True Color Full Converter.
