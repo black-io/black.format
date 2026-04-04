@@ -47,10 +47,10 @@ namespace Decoder
 
 	// Private state.
 	private:
-		BasicInputFeeder*	m_input_feeder = nullptr;
-		BasicColorMapper*	m_color_mapper = nullptr;
-
-		size_t m_pixels_cout = 0;
+		BasicInputFeeder*		m_input_feeder		= nullptr;
+		BasicColorMapper*		m_color_mapper		= nullptr;
+		BasicOutputBuilder*		m_output_builder	= nullptr;
+		BasicColorConverter*	m_color_converter	= nullptr;
 	};
 }
 }

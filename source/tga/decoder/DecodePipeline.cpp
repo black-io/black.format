@@ -81,8 +81,45 @@ namespace
 
 	const Black::BooleanStatus DecodePipeline::SetupColorConverter( const Internal::Header& header, const Black::ImageFormat output_format )
 	{
-		BLACK_LOG_WARNING( LOG_CHANNEL, "Not implemented." );
-		return BooleanStatus::Success;
+		// Prepare for comparison.
+		Black::ImageFormat out_format	= output_format;
+		Black::ImageFormat in_format	= Internal::SelectImageFormat(
+			header.content_type,
+			header.palette.bitrate,
+			header.image.bitrate,
+			header.image.flags.alpha_length
+		);
+
+		// Alpha settings are irrelevant for this comparison.
+		out_format.alpha_channel_bits	= 0;
+		out_format.alpha_channel_index	= 0;
+		out_format.has_alpha			= false;
+		in_format.alpha_channel_bits	= 0;
+		in_format.alpha_channel_index	= 0;
+		in_format.has_alpha				= false;
+
+		if( in_format == out_format )
+		{
+			// True Color Direct Converter.
+			//return Black::BooleanStatus::Success;
+		}
+
+		// Now compare it without red-blue channel positions.
+		out_format.red_channel_index	= 0;
+		out_format.blue_channel_index	= 0;
+		in_format.red_channel_index		= 0;
+		in_format.blue_channel_index	= 0;
+
+		if( in_format == out_format )
+		{
+			// True Color Channel Converter.
+			//return Black::BooleanStatus::Success;
+		}
+
+		// True Color Full Converter.
+
+		BLACK_LOG_ERROR( LOG_CHANNEL, "Failed to determine color converting conditions for image." );
+		return BooleanStatus::Failure;
 	}
 
 	const Black::BooleanStatus DecodePipeline::SetupOutputBuilder( const Black::PlainView<std::byte>& image_buffer, const Black::ImageFormat output_format )
@@ -95,9 +132,12 @@ namespace
 	{
 		CRETE( m_input_feeder == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Input feeder does not configured." );
 		CRETE( m_color_mapper == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Input color mapper does not configured." );
+		CRETE( m_color_converter == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Output color converter does not configured." );
+		//CRETE( m_output_builder == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Output image builder does not configured." );
 
 		image_cursor.SetInputFeeder( *m_input_feeder );
 		m_color_mapper->UseInputFeeder( *m_input_feeder );
+		m_color_converter->UseOutputBuilder( *m_output_builder );
 
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Image processing began." );
 		return BooleanStatus::Success;
@@ -105,13 +145,13 @@ namespace
 
 	const Black::BooleanStatus DecodePipeline::Process()
 	{
+		// Pull the color from input.
 		EXPECTS_DEBUG( m_color_mapper != nullptr );
 		const uint32_t color = m_color_mapper->PeekElement();
 
-		//EXPECTS_DEBUG( m_color_converter != nullptr );
-		//m_color_converter->Consumer( color );
-
-		return BooleanStatus::Success;
+		// Push the color to output.
+		EXPECTS_DEBUG( m_color_converter != nullptr );
+		return m_color_converter->ConvertColor( color, m_color_mapper->GetOutputFormat() );
 	}
 
 	const Black::BooleanStatus DecodePipeline::EndProcessing( CoordinateCursor& image_cursor )
