@@ -7,7 +7,6 @@
 
 
 // Most fundamental stuff.
-#include "forwards.h"
 
 // Interfaces.
 #include "BasicInputFeeder.h"
