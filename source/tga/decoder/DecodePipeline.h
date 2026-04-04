@@ -16,7 +16,7 @@ namespace Decoder
 			DecodePipeline,
 			Black::TypesUnion<StraightInputFeeder, RleInputFeeder>,
 			Black::TypesUnion<PaletteColorMapper, TrueColorMapper, MonochromeColorMapper>,
-			Black::TypesUnion<DirectColorConverter, RemappingColorConverter, TransformColorConverter>
+			Black::TypesUnion<MonochromeColorConverter, DirectColorConverter, RemappingColorConverter, TransformColorConverter>
 		>
 	{
 	// Public interface.
