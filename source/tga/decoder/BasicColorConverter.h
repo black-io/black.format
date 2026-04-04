@@ -37,6 +37,9 @@ namespace Decoder
 		//
 		inline BasicOutputBuilder& GetOutputBuilder() const		{ return *m_output_builder; };
 
+		//
+		inline const uint32_t GetOutputAlphaMask() const		{ return m_output_alpha_mask; };
+
 	// Heirs virtual interface.
 	protected:
 		//
