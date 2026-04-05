@@ -156,11 +156,12 @@ namespace
 		CRETE( m_input_feeder == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Input feeder does not configured." );
 		CRETE( m_color_mapper == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Input color mapper does not configured." );
 		CRETE( m_color_converter == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Output color converter does not configured." );
-		//CRETE( m_output_builder == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Output image builder does not configured." );
+		CRETE( m_output_builder == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Output image builder does not configured." );
 
-		image_cursor.SetInputFeeder( *m_input_feeder );
+		image_cursor.UseInputFeeder( *m_input_feeder );
 		m_color_mapper->UseInputFeeder( *m_input_feeder );
 		m_color_converter->UseOutputBuilder( *m_output_builder );
+		m_output_builder->UseCursor( image_cursor );
 
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Image processing began." );
 		return BooleanStatus::Success;
