@@ -16,7 +16,7 @@ namespace
 }
 
 
-	const uint32_t TrueColorMapper::PerformPeekElement() const
+	const uint32_t DirectColorMapper::PerformPeekElement() const
 	{
 		uint32_t result = 0;
 

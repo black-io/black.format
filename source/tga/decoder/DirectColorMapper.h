@@ -11,12 +11,12 @@ namespace Decoder
 {
 	/**
 	*/
-	class TrueColorMapper final : public BasicColorMapper
+	class DirectColorMapper final : public BasicColorMapper
 	{
 	// Public life-time management.
 	public:
-		inline TrueColorMapper() noexcept	= default;
-		inline ~TrueColorMapper() noexcept	= default;
+		inline DirectColorMapper() noexcept	= default;
+		inline ~DirectColorMapper() noexcept	= default;
 
 	// `BasicColorMapper` interface implementations.
 	private:
