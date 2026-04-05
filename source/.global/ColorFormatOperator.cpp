@@ -191,28 +191,47 @@ namespace
 		}
 
 		size_t sizes[4] {};
-		sizes[ m_format.red_channel_index ]		= m_format.red_channel_bits;
-		sizes[ m_format.green_channel_index ]	= m_format.green_channel_bits;
-		sizes[ m_format.blue_channel_index ]	= m_format.blue_channel_bits;
-		sizes[ m_format.alpha_channel_index ]	= m_format.alpha_channel_bits;
-
-		size_t offsets[4] {};
-		for( size_t index = 1; index < std::size( offsets ); ++index )
+		if( m_has_red_channel )
 		{
-			offsets[ index ] = offsets[ index - 1 ] + sizes[ index - 1 ];
+			sizes[ m_format.red_channel_index ] = m_format.red_channel_bits;
 		}
 
-		m_red_channel_offset	= offsets[ m_format.red_channel_index ];
-		m_green_channel_offset	= offsets[ m_format.red_channel_index ];
-		m_blue_channel_offset	= offsets[ m_format.red_channel_index ];
-		m_alpha_channel_offset	= offsets[ m_format.red_channel_index ];
+		if( m_has_green_channel )
+		{
+			sizes[ m_format.green_channel_index ] = m_format.green_channel_bits;
+		}
+
+		if( m_has_blue_channel )
+		{
+			sizes[ m_format.blue_channel_index ] = m_format.blue_channel_bits;
+		}
+
+		if( m_has_alpha_channel )
+		{
+			sizes[ m_format.alpha_channel_index ] = m_format.alpha_channel_bits;
+		}
+
+		size_t offsets[4] {};
+		size_t offset = 0;
+		for( size_t index = 0; index < std::size( offsets ); ++index )
+		{
+			offsets[ index ] = offset;
+			offset += sizes[ index ];
+		}
+
+		m_red_channel_offset	= ( m_has_red_channel )? offsets[ m_format.red_channel_index ] : 0;
+		m_green_channel_offset	= ( m_has_green_channel )? offsets[ m_format.green_channel_index ] : 0;
+		m_blue_channel_offset	= ( m_has_blue_channel )? offsets[ m_format.blue_channel_index ] : 0;
+		m_alpha_channel_offset	= ( m_has_alpha_channel )? offsets[ m_format.alpha_channel_index ] : 0;
+		m_white_channel_offset	= ( m_has_white_channel )? offsets[0] : 0;
+		m_index_offset			= ( m_has_index_channel )? offsets[0] : 0;
 	}
 
 	void ColorFormatOperator::CalculateMasks()
 	{
 		constexpr uint64_t all_bits = ~uint64_t{};
 
-		const size_t white_channel_bits = ( m_format.has_alpha )? ( m_format.size_bits - m_format.alpha_channel_bits ) : m_format.size_bits;
+		const size_t white_channel_bits = ( m_has_white_channel )? ( m_format.size_bits - m_format.alpha_channel_bits ) : 0;
 
 		m_red_channel_mask		= ( all_bits << m_red_channel_offset ) & ~( all_bits << ( m_red_channel_offset + m_format.red_channel_bits ) );
 		m_green_channel_mask	= ( all_bits << m_green_channel_offset ) & ~( all_bits << ( m_green_channel_offset + m_format.green_channel_bits ) );
