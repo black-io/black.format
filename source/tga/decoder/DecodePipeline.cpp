@@ -58,7 +58,7 @@ namespace
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::TrueColor:
 			{
-				Decoder::TrueColorMapper& mapper = ConstructComponent<Decoder::TrueColorMapper>();
+				Decoder::DirectColorMapper& mapper = ConstructComponent<Decoder::DirectColorMapper>();
 				mapper.UseImageSettings( header );
 				m_color_mapper = &mapper;
 			}
