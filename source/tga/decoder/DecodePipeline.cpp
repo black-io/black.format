@@ -58,16 +58,15 @@ namespace
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::TrueColor:
 			{
-				Decoder::DirectColorMapper& mapper = ConstructComponent<Decoder::DirectColorMapper>();
+				DirectColorMapper& mapper = ConstructComponent<DirectColorMapper>();
 				mapper.UseImageSettings( header );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::Grayscale:
 			{
-				Decoder::MonochromeColorMapper& mapper = ConstructComponent<Decoder::MonochromeColorMapper>();
+				DirectColorMapper& mapper = ConstructComponent<DirectColorMapper>();
 				mapper.UseImageSettings( header );
-				mapper.FixOutputFormat( header );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
