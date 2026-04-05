@@ -75,12 +75,12 @@ namespace
 		FixOutputPosition();
 	}
 
-	void CoordinateCursor::ResetInputFeeder()
+	void CoordinateCursor::RefuseInputFeeder()
 	{
 		m_input_feeder = nullptr;
 	}
 
-	void CoordinateCursor::SetInputFeeder( BasicInputFeeder& feeder )
+	void CoordinateCursor::UseInputFeeder( BasicInputFeeder& feeder )
 	{
 		m_input_feeder = &feeder;
 	}

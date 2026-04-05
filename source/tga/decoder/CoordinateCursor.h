@@ -41,10 +41,10 @@ namespace Decoder
 
 
 		//
-		void ResetInputFeeder();
+		void RefuseInputFeeder();
 
 		//
-		void SetInputFeeder( BasicInputFeeder& feeder );
+		void UseInputFeeder( BasicInputFeeder& feeder );
 
 
 		//
