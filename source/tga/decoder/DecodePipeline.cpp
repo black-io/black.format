@@ -90,6 +90,15 @@ namespace
 			header.image.flags.alpha_length
 		);
 
+		// First of all, the monochrome-to-rgb color converter.
+		if( in_format.is_monochrome && !out_format.is_monochrome )
+		{
+			MonochromeColorConverter& converter = ConstructComponent<MonochromeColorConverter>();
+			converter.UseOutputFormat( output_format );
+			m_color_converter = &converter;
+			return Black::BooleanStatus::Success;
+		}
+
 		// Alpha settings are irrelevant for this comparison.
 		out_format.alpha_channel_bits	= 0;
 		out_format.alpha_channel_index	= 0;
