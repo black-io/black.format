@@ -30,6 +30,13 @@ namespace Decoder
 	private:
 		//
 		const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const final;
+
+	// Private non-state.
+	private:
+		mutable Black::ColorFormatOperator	m_input_operator;
+		mutable size_t						m_red_channel_shrink;
+		mutable size_t						m_green_channel_shrink;
+		mutable size_t						m_blue_channel_shrink;
 	};
 }
 }
