@@ -19,9 +19,8 @@
 #include "StraightInputFeeder.h"
 #include "RleInputFeeder.h"
 
-#include "MonochromeColorMapper.h"
+#include "DirectColorMapper.h"
 #include "PaletteColorMapper.h"
-#include "TrueColorMapper.h"
 
 #include "MonochromeColorConverter.h"
 #include "DirectColorConverter.h"
