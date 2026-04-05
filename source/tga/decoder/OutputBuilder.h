@@ -30,10 +30,10 @@ namespace Decoder
 
 	// Private state.
 	private:
-		const CoordinateCursor* m_cursor = nullptr;
-		Black::PlainView<std::byte> m_output_buffer;
+		const CoordinateCursor*		m_cursor			= nullptr;
+		Black::PlainView<std::byte>	m_output_buffer;
 
-		Black::ImageFormat	m_output_format = Black::ImageFormats::UNDEFINED;
+		Black::ImageFormat			m_output_format		= Black::ImageFormats::UNDEFINED;
 	};
 }
 }
