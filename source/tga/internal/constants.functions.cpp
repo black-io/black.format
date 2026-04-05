@@ -174,7 +174,7 @@ namespace
 		case ContentType::TrueColor:
 			return SelectImageFormat( content_type, image_bitrate, alpha_bits_count );
 		case ContentType::Grayscale:
-			return SelectImageFormat( ContentType::TrueColor, Bitrate::ARGB32, alpha_bits_count );
+			return SelectImageFormat( content_type, image_bitrate, alpha_bits_count );
 		default:
 			BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported type of image content - {}.", content_type );
 			break;
