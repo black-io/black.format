@@ -179,12 +179,14 @@ namespace
 
 	const Black::BooleanStatus DecodePipeline::EndProcessing( CoordinateCursor& image_cursor )
 	{
-		image_cursor.ResetInputFeeder();
+		image_cursor.RefuseInputFeeder();
 
-		if( m_color_mapper != nullptr )
-		{
-			m_color_mapper->RefuseInputFeeder();
-		}
+		m_input_feeder		= nullptr;
+		m_color_mapper		= nullptr;
+		m_color_converter	= nullptr;
+		m_output_builder	= nullptr;
+
+		DestructAllComponents();
 
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Image processing ended." );
 		return BooleanStatus::Success;
