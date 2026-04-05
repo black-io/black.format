@@ -95,6 +95,7 @@ namespace
 			MonochromeColorConverter& converter = ConstructComponent<MonochromeColorConverter>();
 			converter.UseOutputFormat( output_format );
 			m_color_converter = &converter;
+
 			return Black::BooleanStatus::Success;
 		}
 
@@ -111,6 +112,7 @@ namespace
 			DirectColorConverter& converter = ConstructComponent<DirectColorConverter>();
 			converter.UseOutputFormat( output_format );
 			m_color_converter = &converter;
+
 			return Black::BooleanStatus::Success;
 		}
 
@@ -125,12 +127,14 @@ namespace
 			//RemappingColorConverter& converter = ConstructComponent<RemappingColorConverter>();
 			//converter.UseOutputFormat( output_format );
 			//m_color_converter = &converter;
+			//
 			//return Black::BooleanStatus::Success;
 		}
 
 		//TransformColorConverter& converter = ConstructComponent<TransformColorConverter>();
 		//converter.UseOutputFormat( output_format );
 		//m_color_converter = &converter;
+		//
 		//return Black::BooleanStatus::Success;
 
 		BLACK_LOG_ERROR( LOG_CHANNEL, "Failed to determine color converting conditions for image." );
