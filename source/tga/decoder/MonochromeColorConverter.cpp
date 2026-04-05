@@ -30,8 +30,8 @@ namespace
 			m_blue_channel_shrink	= std::max( magnitude_bits, output_format.blue_channel_bits ) - output_format.blue_channel_bits;
 		}
 
-		const uint32_t magnitude = uint32_t( m_input_operator.MaskWhiteChannel( color ) );
-		const uint32_t alpha = uint32_t( ( color_format.has_alpha )? m_input_operator.ExtractAlphaChannel( color ) : m_input_operator.GetAlphaChannelMask() );
+		const uint32_t magnitude	= uint32_t( m_input_operator.MaskWhiteChannel( color ) );
+		const uint32_t alpha		= uint32_t( m_input_operator.ExtractAlphaChannel( color ) );
 
 		uint64_t converted_color = 0;
 		converted_color = output_operator.InsertRedChannel( converted_color, magnitude >> m_red_channel_shrink );
@@ -48,13 +48,37 @@ namespace
 			converted_color = output_operator.ReplaceAlphaChannel( converted_color, output_operator.GetAlphaChannelMask() );
 		}
 
-		return GetOutputBuilder().ProduceElement( converted_color );;
+		return GetOutputBuilder().ProduceElement( converted_color );
 	}
 
 	const Black::BooleanStatus MonochromeColorConverter::ConvertToMonochrome( const uint32_t color, const Black::ImageFormat color_format ) const
 	{
-		BLACK_LOG_CRITICAL( LOG_CHANNEL, "Unimplemented method used." );
-		return Black::BooleanStatus::Failure;
+		const Black::ColorFormatOperator& output_operator = GetOutputOperator();
+		if( color_format != m_input_operator.GetFormat() )
+		{
+			m_input_operator = color_format;
+		}
+
+		const uint64_t red			= m_input_operator.ExtractRedChannel( color );
+		const uint64_t green		= m_input_operator.ExtractGreenChannel( color );
+		const uint64_t blue			= m_input_operator.ExtractBlueChannel( color );
+		const uint32_t alpha		= uint32_t( m_input_operator.ExtractAlphaChannel( color ) );
+		const uint32_t magnitude	= uint32_t( ( red + green + blue ) / 3 );
+
+		uint64_t converted_color = 0;
+		converted_color = output_operator.InsertWhiteChannel( converted_color, magnitude );
+		CRET( !output_operator.CanProcessAlphaChannel(), GetOutputBuilder().ProduceElement( converted_color ) );
+
+		if( m_input_operator.CanProcessAlphaChannel() )
+		{
+			converted_color = output_operator.InsertAlphaChannel( converted_color, alpha );
+		}
+		else
+		{
+			converted_color = output_operator.ReplaceAlphaChannel( converted_color, output_operator.GetAlphaChannelMask() );
+		}
+
+		return GetOutputBuilder().ProduceElement( converted_color );
 	}
 
 	const Black::BooleanStatus MonochromeColorConverter::PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const
