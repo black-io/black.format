@@ -22,7 +22,7 @@ namespace
 
 		if( !color_format.has_alpha && GetOutputFormat().has_alpha )
 		{
-			converted_color = converted_color | GetOutputAlphaMask();
+			converted_color = converted_color | uint32_t( GetOutputOperator().GetAlphaChannelMask() );
 		}
 
 		return GetOutputBuilder().ProduceElement( converted_color );
