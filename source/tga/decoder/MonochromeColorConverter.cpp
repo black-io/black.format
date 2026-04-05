@@ -37,7 +37,7 @@ namespace
 		converted_color = output_operator.InsertRedChannel( converted_color, magnitude >> m_red_channel_shrink );
 		converted_color = output_operator.InsertGreenChannel( converted_color, magnitude >> m_green_channel_shrink );
 		converted_color = output_operator.InsertBlueChannel( converted_color, magnitude >> m_blue_channel_shrink );
-		CRET( !output_operator.CanProcessAlphaChannel(), GetOutputBuilder().ProduceElement( converted_color ) );
+		CRET( !output_operator.CanProcessAlphaChannel(), GetOutputBuilder().ProduceElement( uint32_t( converted_color ) ) );
 
 		if( m_input_operator.CanProcessAlphaChannel() )
 		{
@@ -48,7 +48,7 @@ namespace
 			converted_color = output_operator.ReplaceAlphaChannel( converted_color, output_operator.GetAlphaChannelMask() );
 		}
 
-		return GetOutputBuilder().ProduceElement( converted_color );
+		return GetOutputBuilder().ProduceElement( uint32_t( converted_color ) );
 	}
 
 	const Black::BooleanStatus MonochromeColorConverter::ConvertToMonochrome( const uint32_t color, const Black::ImageFormat color_format ) const
@@ -67,7 +67,7 @@ namespace
 
 		uint64_t converted_color = 0;
 		converted_color = output_operator.InsertWhiteChannel( converted_color, magnitude );
-		CRET( !output_operator.CanProcessAlphaChannel(), GetOutputBuilder().ProduceElement( converted_color ) );
+		CRET( !output_operator.CanProcessAlphaChannel(), GetOutputBuilder().ProduceElement( uint32_t( converted_color ) ) );
 
 		if( m_input_operator.CanProcessAlphaChannel() )
 		{
@@ -78,7 +78,7 @@ namespace
 			converted_color = output_operator.ReplaceAlphaChannel( converted_color, output_operator.GetAlphaChannelMask() );
 		}
 
-		return GetOutputBuilder().ProduceElement( converted_color );
+		return GetOutputBuilder().ProduceElement( uint32_t( converted_color ) );
 	}
 
 	const Black::BooleanStatus MonochromeColorConverter::PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const
