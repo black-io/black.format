@@ -21,7 +21,7 @@ namespace
 		m_output_builder = nullptr;
 	}
 
-	void BasicColorConverter::UseOutputBuilder( BasicOutputBuilder& builder )
+	void BasicColorConverter::UseOutputBuilder( OutputBuilder& builder )
 	{
 		m_output_builder = &builder;
 	}

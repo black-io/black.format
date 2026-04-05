@@ -19,7 +19,7 @@ namespace Decoder
 		void RefuseOutputBuilder();
 
 		//
-		void UseOutputBuilder( BasicOutputBuilder& builder );
+		void UseOutputBuilder( OutputBuilder& builder );
 
 		//
 		void UseOutputFormat( const Black::ImageFormat output_format );
@@ -35,7 +35,7 @@ namespace Decoder
 	// Heirs interface.
 	protected:
 		//
-		inline BasicOutputBuilder& GetOutputBuilder() const					{ return *m_output_builder; };
+		inline OutputBuilder& GetOutputBuilder() const					{ return *m_output_builder; };
 
 		//
 		inline const Black::ColorFormatOperator& GetOutputOperator() const	{ return m_output_operator; };
@@ -47,7 +47,7 @@ namespace Decoder
 
 	// Private state.
 	private:
-		BasicOutputBuilder*	m_output_builder	= nullptr;
+		OutputBuilder*	m_output_builder	= nullptr;
 
 		Black::ColorFormatOperator	m_output_operator;
 	};
