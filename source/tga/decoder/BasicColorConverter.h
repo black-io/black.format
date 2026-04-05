@@ -30,15 +30,15 @@ namespace Decoder
 
 
 		//
-		inline const Black::ImageFormat GetOutputFormat() const	{ return m_output_format; };
+		inline const Black::ImageFormat GetOutputFormat() const				{ return m_output_operator.GetFormat(); };
 
 	// Heirs interface.
 	protected:
 		//
-		inline BasicOutputBuilder& GetOutputBuilder() const		{ return *m_output_builder; };
+		inline BasicOutputBuilder& GetOutputBuilder() const					{ return *m_output_builder; };
 
 		//
-		inline const uint32_t GetOutputAlphaMask() const		{ return m_output_alpha_mask; };
+		inline const Black::ColorFormatOperator& GetOutputOperator() const	{ return m_output_operator; };
 
 	// Heirs virtual interface.
 	protected:
@@ -49,8 +49,7 @@ namespace Decoder
 	private:
 		BasicOutputBuilder*	m_output_builder	= nullptr;
 
-		uint32_t			m_output_alpha_mask	= 0;
-		Black::ImageFormat	m_output_format		= Black::ImageFormats::UNDEFINED;
+		Black::ColorFormatOperator	m_output_operator;
 	};
 }
 }
