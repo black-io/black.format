@@ -22,7 +22,7 @@ namespace
 		{
 		case Internal::ContentCompression::None:
 			{
-				Decoder::StraightInputFeeder& feeder = ConstructComponent<Decoder::StraightInputFeeder>();
+				StraightInputFeeder& feeder = ConstructComponent<StraightInputFeeder>();
 				feeder.UseImageBuffer( image_buffer );
 				feeder.UseBitrate( header.image.bitrate );
 				m_input_feeder = &feeder;
@@ -30,7 +30,7 @@ namespace
 			return Black::BooleanStatus::Success;
 		case Internal::ContentCompression::Rle:
 			{
-				Decoder::RleInputFeeder& feeder = ConstructComponent<Decoder::RleInputFeeder>();
+				RleInputFeeder& feeder = ConstructComponent<RleInputFeeder>();
 				feeder.UseImageBuffer( image_buffer );
 				feeder.UseBitrate( header.image.bitrate );
 				m_input_feeder = &feeder;
@@ -50,7 +50,7 @@ namespace
 		{
 		case Internal::ContentType::Paletted:
 			{
-				Decoder::PaletteColorMapper& mapper = ConstructComponent<Decoder::PaletteColorMapper>();
+				PaletteColorMapper& mapper = ConstructComponent<PaletteColorMapper>();
 				mapper.UseImageSettings( header );
 				mapper.UsePalette( palette_buffer, header.palette.bitrate );
 				m_color_mapper = &mapper;
