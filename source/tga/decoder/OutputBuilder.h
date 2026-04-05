@@ -11,17 +11,29 @@ namespace Decoder
 {
 	/**
 	*/
-	class BasicOutputBuilder : private Black::NonTransferable
+	class OutputBuilder final : private Black::NonTransferable
 	{
 	// Public interface.
 	public:
 		//
+		void UseCursor( const CoordinateCursor& cursor );
+
+		//
+		void UseOutputBuffer( Black::PlainView<std::byte> output_buffer );
+
+		//
+		void UseOutputFormat( const Black::ImageFormat output_format );
+
+
+		//
 		const Black::BooleanStatus ProduceElement( const uint32_t color );
 
-	// Heirs virtual interface.
-	protected:
-		//
-		virtual const Black::BooleanStatus PerformElementProduction( const uint32_t color ) = 0;
+	// Private state.
+	private:
+		const CoordinateCursor* m_cursor = nullptr;
+		Black::PlainView<std::byte> m_output_buffer;
+
+		Black::ImageFormat	m_output_format = Black::ImageFormats::UNDEFINED;
 	};
 }
 }
