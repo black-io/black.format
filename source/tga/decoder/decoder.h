@@ -7,15 +7,14 @@
 
 
 // Most fundamental stuff.
+#include "forwards.h"
 
 // Interfaces.
 #include "BasicInputFeeder.h"
 #include "BasicColorMapper.h"
-#include "BasicOutputBuilder.h"
 #include "BasicColorConverter.h"
 
 // Components.
-#include "CoordinateCursor.h"
 #include "StraightInputFeeder.h"
 #include "RleInputFeeder.h"
 
@@ -26,6 +25,11 @@
 #include "DirectColorConverter.h"
 #include "RemapingColorConverter.h"
 #include "TransformColorConverter.h"
+
+#include "OutputBuilder.h"
+
+// Support types.
+#include "CoordinateCursor.h"
 
 // Routine.
 #include "DecodePipeline.h"
