@@ -12,5 +12,3 @@
 // Most global stuff.
 #include ".global/structures.h"
 #include ".global/ColorFormatOperator.h"
-
-#include ".global/structures.functions.h"
