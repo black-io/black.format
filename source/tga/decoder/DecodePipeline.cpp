@@ -143,7 +143,11 @@ namespace
 
 	const Black::BooleanStatus DecodePipeline::SetupOutputBuilder( const Black::PlainView<std::byte>& image_buffer, const Black::ImageFormat output_format )
 	{
-		BLACK_LOG_WARNING( LOG_CHANNEL, "Not implemented." );
+		OutputBuilder& builder = ConstructComponent<OutputBuilder>();
+		builder.UseOutputBuffer( image_buffer );
+		builder.UseOutputFormat( output_format );
+		m_output_builder = &builder;
+
 		return BooleanStatus::Success;
 	}
 

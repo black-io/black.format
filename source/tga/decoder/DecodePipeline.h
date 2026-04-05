@@ -16,7 +16,8 @@ namespace Decoder
 			DecodePipeline,
 			Black::TypesUnion<StraightInputFeeder, RleInputFeeder>,
 			Black::TypesUnion<DirectColorMapper, PaletteColorMapper>,
-			Black::TypesUnion<MonochromeColorConverter, DirectColorConverter, RemappingColorConverter, TransformColorConverter>
+			Black::TypesUnion<MonochromeColorConverter, DirectColorConverter, RemappingColorConverter, TransformColorConverter>,
+			OutputBuilder
 		>
 	{
 	// Public interface.
@@ -50,8 +51,8 @@ namespace Decoder
 	private:
 		BasicInputFeeder*		m_input_feeder		= nullptr;
 		BasicColorMapper*		m_color_mapper		= nullptr;
-		BasicOutputBuilder*		m_output_builder	= nullptr;
 		BasicColorConverter*	m_color_converter	= nullptr;
+		OutputBuilder*			m_output_builder	= nullptr;
 	};
 }
 }
