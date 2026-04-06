@@ -61,7 +61,7 @@ inline namespace Tga
 		inline Black::PlainView<const std::byte> GetOutputImageBuffer() const &	{ return { m_output_buffer.GetMemory(), m_output_buffer.GetLength() }; };
 
 		//
-		inline Black::PlainVector<std::byte>& GetOutputImageBuffer() &&			{ return m_output_buffer; };
+		inline Black::PlainVector<std::byte> GetOutputImageBuffer() &&			{ return std::move( m_output_buffer ); };
 
 		//
 		inline const size_t GetOutputWidth() const								{ return m_output_width; };
