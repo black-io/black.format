@@ -39,7 +39,7 @@ namespace
 	{
 		uint32_t result = 0;
 
-		const Black::ImageFormat& input_format = GetInputFormat();
+		const Black::ColorFormat& input_format = GetInputFormat();
 		Black::CopyMemory( &result, GetInputFeeder().PeekElement(), input_format.size_bytes );
 
 		const size_t index		= ( input_format.has_alpha )? ( result & GetInputColorMask() ) : result;

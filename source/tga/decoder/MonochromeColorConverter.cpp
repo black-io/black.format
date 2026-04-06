@@ -16,12 +16,12 @@ namespace
 }
 
 
-	const Black::BooleanStatus MonochromeColorConverter::ConvertFromMonochrome( const uint32_t color, const Black::ImageFormat color_format ) const
+	const Black::BooleanStatus MonochromeColorConverter::ConvertFromMonochrome( const uint32_t color, const Black::ColorFormat color_format ) const
 	{
 		const Black::ColorFormatOperator& output_operator = GetOutputOperator();
 		if( color_format != m_input_operator.GetFormat() )
 		{
-			const ImageFormat output_format	= output_operator.GetFormat();
+			const ColorFormat output_format	= output_operator.GetFormat();
 			const uint16_t magnitude_bits	= color_format.size_bits - color_format.alpha_channel_bits;
 
 			m_input_operator		= color_format;
@@ -51,7 +51,7 @@ namespace
 		return GetOutputBuilder().ProduceElement( uint32_t( converted_color ) );
 	}
 
-	const Black::BooleanStatus MonochromeColorConverter::ConvertToMonochrome( const uint32_t color, const Black::ImageFormat color_format ) const
+	const Black::BooleanStatus MonochromeColorConverter::ConvertToMonochrome( const uint32_t color, const Black::ColorFormat color_format ) const
 	{
 		const Black::ColorFormatOperator& output_operator = GetOutputOperator();
 		if( color_format != m_input_operator.GetFormat() )
@@ -81,7 +81,7 @@ namespace
 		return GetOutputBuilder().ProduceElement( uint32_t( converted_color ) );
 	}
 
-	const Black::BooleanStatus MonochromeColorConverter::PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const
+	const Black::BooleanStatus MonochromeColorConverter::PerformColorConversion( const uint32_t color, const Black::ColorFormat color_format ) const
 	{
 		CRET( color_format.is_monochrome, ConvertFromMonochrome( color, color_format ) );
 		return ConvertToMonochrome( color, color_format );

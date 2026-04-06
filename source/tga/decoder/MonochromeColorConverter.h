@@ -21,15 +21,15 @@ namespace Decoder
 	// Private interface.
 	private:
 		//
-		const Black::BooleanStatus ConvertFromMonochrome( const uint32_t color, const Black::ImageFormat color_format ) const;
+		const Black::BooleanStatus ConvertFromMonochrome( const uint32_t color, const Black::ColorFormat color_format ) const;
 
 		//
-		const Black::BooleanStatus ConvertToMonochrome( const uint32_t color, const Black::ImageFormat color_format ) const;
+		const Black::BooleanStatus ConvertToMonochrome( const uint32_t color, const Black::ColorFormat color_format ) const;
 
 	// `BasicColorConverter` interface implementations.
 	private:
 		//
-		const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const final;
+		const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ColorFormat color_format ) const final;
 
 	// Private non-state.
 	private:

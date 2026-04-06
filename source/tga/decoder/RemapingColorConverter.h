@@ -21,7 +21,7 @@ namespace Decoder
 	// `BasicColorConverter` interface implementations.
 	private:
 		//
-		const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const final;
+		const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ColorFormat color_format ) const final;
 	};
 }
 }

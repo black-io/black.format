@@ -41,7 +41,7 @@ namespace Decoder
 		size_t				m_output_color_mask			= 0;
 		size_t				m_output_alpha_mask			= 0;
 		size_t				m_palete_element_size		= 0;
-		Black::ImageFormat	m_palete_format				= Black::ImageFormats::UNDEFINED;
+		Black::ColorFormat	m_palete_format				= Black::ColorFormats::UNDEFINED;
 
 		Internal::Bitrate	m_bitrate					= Internal::Bitrate::Undefined;
 	};
