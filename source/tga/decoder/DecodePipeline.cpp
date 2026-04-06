@@ -53,6 +53,7 @@ namespace
 				PaletteColorMapper& mapper = ConstructComponent<PaletteColorMapper>();
 				mapper.UseImageSettings( header );
 				mapper.UsePalette( palette_buffer, header.palette.bitrate );
+				mapper.FixOutputFormat( header );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
