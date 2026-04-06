@@ -78,11 +78,11 @@ namespace
 		return BooleanStatus::Failure;
 	}
 
-	const Black::BooleanStatus DecodePipeline::SetupColorConverter( const Internal::Header& header, const Black::ImageFormat output_format )
+	const Black::BooleanStatus DecodePipeline::SetupColorConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
 		// Prepare for comparison.
-		Black::ImageFormat out_format	= output_format;
-		Black::ImageFormat in_format	= Internal::SelectImageFormat(
+		Black::ColorFormat out_format	= output_format;
+		Black::ColorFormat in_format	= Internal::SelectColorFormat(
 			header.content_type,
 			header.palette.bitrate,
 			header.image.bitrate,
@@ -141,7 +141,7 @@ namespace
 		return BooleanStatus::Failure;
 	}
 
-	const Black::BooleanStatus DecodePipeline::SetupOutputBuilder( const Black::PlainView<std::byte>& image_buffer, const Black::ImageFormat output_format )
+	const Black::BooleanStatus DecodePipeline::SetupOutputBuilder( const Black::PlainView<std::byte>& image_buffer, const Black::ColorFormat output_format )
 	{
 		OutputBuilder& builder = ConstructComponent<OutputBuilder>();
 		builder.UseOutputBuffer( image_buffer );

@@ -29,10 +29,10 @@ namespace Decoder
 		const Black::BooleanStatus SetupColorMapper( const Internal::Header& header, const Black::PlainView<const std::byte>& palette_buffer );
 
 		//
-		const Black::BooleanStatus SetupColorConverter( const Internal::Header& header, const Black::ImageFormat output_format );
+		const Black::BooleanStatus SetupColorConverter( const Internal::Header& header, const Black::ColorFormat output_format );
 
 		//
-		const Black::BooleanStatus SetupOutputBuilder( const Black::PlainView<std::byte>& image_buffer, const Black::ImageFormat output_format );
+		const Black::BooleanStatus SetupOutputBuilder( const Black::PlainView<std::byte>& image_buffer, const Black::ColorFormat output_format );
 
 
 		//
