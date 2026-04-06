@@ -43,7 +43,7 @@ inline namespace Tga
 		inline TgaImageDecoder& operator = ( const TgaImageDecoder& other ) noexcept	= default;
 		inline TgaImageDecoder& operator = ( TgaImageDecoder&& other ) noexcept			= default;
 
-		TgaImageDecoder& operator = ( const TgaStructure::Header& input_header );
+		inline TgaImageDecoder& operator = ( const TgaStructure::Header& input_header )	{ return Black::CopyAndSwap( *this, input_header ); };
 
 	// Public interface.
 	public:

@@ -21,11 +21,6 @@ namespace
 	{
 	}
 
-	TgaImageDecoder& TgaImageDecoder::operator=( const TgaStructure::Header& input_header )
-	{
-		return Black::CopyAndSwap( *this, input_header );
-	}
-
 	void TgaImageDecoder::ClearOutputBuffer()
 	{
 		m_output_buffer.Invalidate();
