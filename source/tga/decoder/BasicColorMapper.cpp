@@ -29,15 +29,8 @@ namespace
 	void BasicColorMapper::UseImageSettings( const Internal::Header& header )
 	{
 		m_input_bitrate			= header.image.bitrate;
-		const size_t bits_count	= Black::GetEnumValue( m_input_bitrate );
-
-		m_input_size			= Internal::GetElementSize( m_input_bitrate );
-		m_input_first_alpha_bit	= bits_count - header.image.flags.alpha_length;
-		m_input_color_mask		= ~( ~uint32_t{} << m_input_first_alpha_bit );
-		m_input_alpha_mask		= uint32_t( uint64_t( ~uint32_t{} << m_input_first_alpha_bit ) & ~uint64_t( ~uint32_t{} << bits_count ) );
-
-		m_input_format			= Internal::SelectColorFormat( header.content_type, m_input_bitrate, header.image.flags.alpha_length );
-		m_output_format			= m_input_format;
+		m_input_operator		= Internal::SelectColorFormat( header.content_type, m_input_bitrate, header.image.flags.alpha_length );
+		m_output_operator		= m_input_operator;
 	}
 
 	const uint32_t BasicColorMapper::PeekElement() const
@@ -48,7 +41,7 @@ namespace
 
 	void BasicColorMapper::SetOutputFormat( const Black::ColorFormat output_format )
 	{
-		m_output_format = output_format;
+		m_output_operator = output_format;
 	}
 }
 }

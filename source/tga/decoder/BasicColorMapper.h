@@ -41,10 +41,10 @@ namespace Decoder
 		inline const Bitrate GetBitrate() const						{ return ( m_input_feeder == nullptr )? Bitrate::Undefined : m_input_feeder->GetBitrate(); };
 
 		//
-		inline const Black::ColorFormat& GetInputFormat() const		{ return m_input_format; };
+		inline const Black::ColorFormat GetInputFormat() const		{ return m_input_operator.GetFormat(); };
 
 		//
-		inline const Black::ColorFormat& GetOutputFormat() const	{ return m_output_format; };
+		inline const Black::ColorFormat GetOutputFormat() const		{ return m_output_operator.GetFormat(); };
 
 
 		//
@@ -61,22 +61,13 @@ namespace Decoder
 		void SetOutputFormat( const Black::ColorFormat output_format );
 
 		//
-		inline BasicInputFeeder& GetInputFeeder() const				{ return *m_input_feeder; };
+		inline BasicInputFeeder& GetInputFeeder() const						{ return *m_input_feeder; };
 
 		//
-		inline const size_t GetInputSize() const					{ return m_input_size; };
+		inline const Black::ColorFormatOperator& GetInputOperator() const	{ return m_input_operator; };
 
 		//
-		inline const size_t GetInputFirstAlphaBit() const			{ return m_input_first_alpha_bit; };
-
-		//
-		inline const uint32_t GetInputColorMask() const				{ return m_input_color_mask; };
-
-		//
-		inline const uint32_t GetInputAlphaMask() const				{ return m_input_alpha_mask; };
-
-		//
-		inline const Internal::Bitrate GetInputBitrate() const		{ return m_input_bitrate; };
+		inline const Black::ColorFormatOperator& GetOutputOperator() const	{ return m_output_operator; };
 
 	// Heirs virtual interface.
 	protected:
@@ -85,16 +76,12 @@ namespace Decoder
 
 	// Private state.
 	private:
-		BasicInputFeeder*	m_input_feeder			= nullptr;
+		BasicInputFeeder*			m_input_feeder		= nullptr;
 
-		size_t				m_input_size			= 0;
-		size_t				m_input_first_alpha_bit	= 0;
-		uint32_t			m_input_color_mask		= 0;
-		uint32_t			m_input_alpha_mask		= 0;
-		Black::ColorFormat	m_input_format			= Black::ColorFormats::UNDEFINED;
-		Black::ColorFormat	m_output_format			= Black::ColorFormats::UNDEFINED;
+		Black::ColorFormatOperator	m_input_operator;
+		Black::ColorFormatOperator	m_output_operator;
 
-		Internal::Bitrate	m_input_bitrate			= Internal::Bitrate::Undefined;
+		Internal::Bitrate			m_input_bitrate		= Internal::Bitrate::Undefined;
 	};
 }
 }
