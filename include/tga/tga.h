@@ -24,8 +24,8 @@ namespace Internal
 // Internal stuff.
 #include "internal/constants.h"
 #include "internal/constants.operations.h"
-#include "internal/constants.functions.h"
 #include "internal/structures.h"
+#include "internal/constants.functions.h"
 
 // TGA file format types.
 #include "TgaStructure.h"
