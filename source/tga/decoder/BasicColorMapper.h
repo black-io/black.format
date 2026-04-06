@@ -41,10 +41,10 @@ namespace Decoder
 		inline const Bitrate GetBitrate() const						{ return ( m_input_feeder == nullptr )? Bitrate::Undefined : m_input_feeder->GetBitrate(); };
 
 		//
-		inline const Black::ImageFormat& GetInputFormat() const		{ return m_input_format; };
+		inline const Black::ColorFormat& GetInputFormat() const		{ return m_input_format; };
 
 		//
-		inline const Black::ImageFormat& GetOutputFormat() const	{ return m_output_format; };
+		inline const Black::ColorFormat& GetOutputFormat() const	{ return m_output_format; };
 
 
 		//
@@ -58,7 +58,7 @@ namespace Decoder
 	// Heirs interface.
 	protected:
 		//
-		void SetOutputFormat( const Black::ImageFormat output_format );
+		void SetOutputFormat( const Black::ColorFormat output_format );
 
 		//
 		inline BasicInputFeeder& GetInputFeeder() const				{ return *m_input_feeder; };
@@ -91,8 +91,8 @@ namespace Decoder
 		size_t				m_input_first_alpha_bit	= 0;
 		uint32_t			m_input_color_mask		= 0;
 		uint32_t			m_input_alpha_mask		= 0;
-		Black::ImageFormat	m_input_format			= Black::ImageFormats::UNDEFINED;
-		Black::ImageFormat	m_output_format			= Black::ImageFormats::UNDEFINED;
+		Black::ColorFormat	m_input_format			= Black::ColorFormats::UNDEFINED;
+		Black::ColorFormat	m_output_format			= Black::ColorFormats::UNDEFINED;
 
 		Internal::Bitrate	m_input_bitrate			= Internal::Bitrate::Undefined;
 	};

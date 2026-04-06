@@ -36,7 +36,7 @@ namespace
 		m_input_color_mask		= ~( ~uint32_t{} << m_input_first_alpha_bit );
 		m_input_alpha_mask		= uint32_t( uint64_t( ~uint32_t{} << m_input_first_alpha_bit ) & ~uint64_t( ~uint32_t{} << bits_count ) );
 
-		m_input_format			= Internal::SelectImageFormat( header.content_type, m_input_bitrate, header.image.flags.alpha_length );
+		m_input_format			= Internal::SelectColorFormat( header.content_type, m_input_bitrate, header.image.flags.alpha_length );
 		m_output_format			= m_input_format;
 	}
 
@@ -46,7 +46,7 @@ namespace
 		return PerformPeekElement();
 	}
 
-	void BasicColorMapper::SetOutputFormat( const Black::ImageFormat output_format )
+	void BasicColorMapper::SetOutputFormat( const Black::ColorFormat output_format )
 	{
 		m_output_format = output_format;
 	}
