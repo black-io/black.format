@@ -16,30 +16,17 @@ namespace
 }
 
 
-
-	TgaImageDecoder::TgaImageDecoder() noexcept = default;
-
-	TgaImageDecoder::TgaImageDecoder( const TgaImageDecoder& other ) noexcept = default;
-
-	TgaImageDecoder::TgaImageDecoder( TgaImageDecoder&& other ) noexcept = default;
-
 	TgaImageDecoder::TgaImageDecoder( const TgaStructure::Header& input_header )
 		: m_input_header{ input_header }
 	{
 	}
-
-	TgaImageDecoder::~TgaImageDecoder() noexcept = default;
-
-	TgaImageDecoder& TgaImageDecoder::operator=( const TgaImageDecoder& other ) noexcept = default;
-
-	TgaImageDecoder& TgaImageDecoder::operator=( TgaImageDecoder&& other ) noexcept = default;
 
 	TgaImageDecoder& TgaImageDecoder::operator=( const TgaStructure::Header& input_header )
 	{
 		return Black::CopyAndSwap( *this, input_header );
 	}
 
-	void TgaImageDecoder::Reset()
+	void TgaImageDecoder::ClearOutputBuffer()
 	{
 		m_output_buffer.Invalidate();
 	}
@@ -70,8 +57,8 @@ namespace
 		m_output_buffer.SetLength( m_output_row_size * m_output_height );
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Output image size: {}B.", m_output_buffer.GetLength() );
 
-		// Discard result in case of any error while decoding process.
-		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&TgaImageDecoder::Reset>( *this ) };
+		// Discard the result in case of any error while decoding process.
+		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&TgaImageDecoder::ClearOutputBuffer>( *this ) };
 
 		Decoder::DecodePipeline pipeline;
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Pipeline configuration started." );
@@ -108,7 +95,7 @@ namespace
 		return Black::BooleanStatus::Success;
 	}
 
-	TgaImageDecoder& TgaImageDecoder::SetOutputSize( const size_t width, const size_t height )
+	TgaImageDecoder& TgaImageDecoder::SetOutputResolution( const size_t width, const size_t height )
 	{
 		m_output_width		= width;
 		m_output_height		= height;
