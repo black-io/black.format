@@ -26,7 +26,7 @@ namespace
 		m_output_buffer = std::move( output_buffer );
 	}
 
-	void OutputBuilder::UseOutputFormat( const Black::ImageFormat output_format )
+	void OutputBuilder::UseOutputFormat( const Black::ColorFormat output_format )
 	{
 		m_output_format = output_format;
 	}

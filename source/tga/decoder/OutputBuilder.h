@@ -22,7 +22,7 @@ namespace Decoder
 		void UseOutputBuffer( Black::PlainView<std::byte> output_buffer );
 
 		//
-		void UseOutputFormat( const Black::ImageFormat output_format );
+		void UseOutputFormat( const Black::ColorFormat output_format );
 
 
 		//
@@ -33,7 +33,7 @@ namespace Decoder
 		const CoordinateCursor*		m_cursor			= nullptr;
 		Black::PlainView<std::byte>	m_output_buffer;
 
-		Black::ImageFormat			m_output_format		= Black::ImageFormats::UNDEFINED;
+		Black::ColorFormat			m_output_format		= Black::ColorFormats::UNDEFINED;
 	};
 }
 }
