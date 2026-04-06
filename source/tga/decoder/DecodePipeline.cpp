@@ -101,9 +101,13 @@ namespace
 		}
 
 		// Alpha settings are irrelevant for this comparison.
+		out_format.size_bits			= 0;
+		out_format.size_bytes			= 0;
 		out_format.alpha_channel_bits	= 0;
 		out_format.alpha_channel_index	= 0;
 		out_format.has_alpha			= false;
+		in_format.size_bits				= 0;
+		in_format.size_bytes			= 0;
 		in_format.alpha_channel_bits	= 0;
 		in_format.alpha_channel_index	= 0;
 		in_format.has_alpha				= false;
