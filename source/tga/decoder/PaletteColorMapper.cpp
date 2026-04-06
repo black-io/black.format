@@ -19,39 +19,52 @@ namespace
 	void PaletteColorMapper::UsePalette( Black::PlainView<const std::byte> palette_buffer, const Internal::Bitrate bitrate )
 	{
 		m_palette				= std::move( palette_buffer );
-		m_bitrate				= bitrate;
-		m_palete_element_size	= Internal::GetElementSize( m_bitrate );
+		m_palette_bitrate		= bitrate;
+	}
+
+	void PaletteColorMapper::FixOutputFormat( const Internal::Header& header )
+	{
+		SetOutputFormat( Internal::SelectColorFormat( Internal::ContentType::TrueColor, header.palette.bitrate, header.image.flags.alpha_length ) );
 	}
 
 	const uint32_t PaletteColorMapper::PeekPaletteElement( const size_t element_index ) const
 	{
 		uint32_t result = 0;
+		const Black::ColorFormatOperator& output_operator = GetOutputOperator();
 
-		const size_t element_offset = element_index * m_palete_element_size;
+		const size_t element_offset = element_index * output_operator.GetFormat().size_bytes;
 		EXPECTS_DEBUG( element_offset < m_palette.GetLength() );
 
-		Black::CopyMemory( &result, &m_palette[ element_offset ], m_palete_element_size );
+		Black::CopyMemory( &result, &m_palette[ element_offset ], output_operator.GetFormat().size_bytes );
 
 		return result;
 	}
 
 	const uint32_t PaletteColorMapper::PerformPeekElement() const
 	{
-		uint32_t result = 0;
+		uint64_t result = 0;
 
-		const Black::ColorFormat& input_format = GetInputFormat();
-		Black::CopyMemory( &result, GetInputFeeder().PeekElement(), input_format.size_bytes );
+		const Black::ColorFormatOperator& input_operator = GetInputOperator();
+		Black::CopyMemory( &result, GetInputFeeder().PeekElement(), input_operator.GetFormat().size_bytes );
 
-		const size_t index		= ( input_format.has_alpha )? ( result & GetInputColorMask() ) : result;
-		const uint32_t alpha	= ( ( input_format.has_alpha )? ( result >> GetInputFirstAlphaBit() ) : ~uint32_t{} ) & 0xFFUL;
+		const uint64_t index	= size_t( input_operator.MaskIndexChannel( result ) );
+		const uint64_t alpha	= input_operator.ExtractAlphaChannel( result );
 
 		result = PeekPaletteElement( index );
-		if( input_format.has_alpha )
+
+		const Black::ColorFormatOperator& output_operator = GetOutputOperator();
+		CRET( !output_operator.CanProcessAlphaChannel(), uint32_t( result ) );
+
+		if( input_operator.CanProcessAlphaChannel() )
 		{
-			result = result | ( ( alpha << m_output_first_alpha_bit ) & m_output_alpha_mask );
+			result = output_operator.InsertAlphaChannel( result, alpha );
+		}
+		else
+		{
+			result = output_operator.ReplaceAlphaChannel( result, output_operator.GetAlphaChannelMask() );
 		}
 
-		return result;
+		return uint32_t( result );
 	}
 }
 }

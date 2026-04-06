@@ -23,6 +23,9 @@ namespace Decoder
 		//
 		void UsePalette( Black::PlainView<const std::byte> palette_buffer, const Internal::Bitrate bitrate );
 
+		//
+		void FixOutputFormat( const Internal::Header& header );
+
 	// Private interface.
 	private:
 		//
@@ -35,15 +38,9 @@ namespace Decoder
 
 	// Private state.
 	private:
-		Black::PlainView<const std::byte>	m_palette;
+		Black::PlainView<const std::byte> m_palette;
 
-		size_t				m_output_first_alpha_bit	= 0;
-		size_t				m_output_color_mask			= 0;
-		size_t				m_output_alpha_mask			= 0;
-		size_t				m_palete_element_size		= 0;
-		Black::ColorFormat	m_palete_format				= Black::ColorFormats::UNDEFINED;
-
-		Internal::Bitrate	m_bitrate					= Internal::Bitrate::Undefined;
+		Internal::Bitrate m_palette_bitrate	= Internal::Bitrate::Undefined;
 	};
 }
 }
