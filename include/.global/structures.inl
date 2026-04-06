@@ -7,9 +7,9 @@ inline namespace Format
 {
 inline namespace Global
 {
-	inline ImageFormat::operator const uint64_t () const
+	inline ColorFormat::operator const uint64_t () const
 	{
-		static_assert( sizeof( ImageFormat ) == sizeof( uint64_t ), "Size of image format should be same as `uint64_t`." );
+		static_assert( sizeof( ColorFormat ) == sizeof( uint64_t ), "Size of color format should be same as `uint64_t`." );
 
 		uint64_t result;
 		std::memcpy( &result, this, sizeof( uint64_t ) );
