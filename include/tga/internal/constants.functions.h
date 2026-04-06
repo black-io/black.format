@@ -61,23 +61,38 @@ namespace Internal
 	const size_t GetElementSize( const Bitrate bitrate );
 
 	/**
-		@brief	Select proper image format according to given image settings.
+		@brief	Select proper color format according to given image settings.
 
 		@param	content_type		Declared type of image content.
 		@param	bitrate				Declared bit-rate of image elements.
 		@param	alpha_bits_count	Declared length of alpha-channel in image.
-		@return						The value returned is `ImageFormat` that can describe elements of given image.
+		@return						The value returned is `ColorFormat` that can describe elements of given image.
 	*/
-	const Black::ImageFormat SelectImageFormat( const ContentType content_type, const Bitrate bitrate, const size_t alpha_bits_count );
+	const Black::ColorFormat SelectColorFormat( const ContentType content_type, const Bitrate bitrate, const size_t alpha_bits_count );
 
 	/**
+		@brief	Select proper color format according to given image settings.
+
+		@param	content_type		Declared type of image content.
+		@param	palette_bitrate		Declared bit-rate of image palette.
+		@param	image_bitrate		Declared bit-rate of image elements.
+		@param	alpha_bits_count	Declared length of alpha-channel in image.
+		@return						The value returned is `ColorFormat` that can describe elements of given image.
 	*/
-	const Black::ImageFormat SelectImageFormat(
+	const Black::ColorFormat SelectColorFormat(
 		const ContentType content_type,
 		const Bitrate palette_bitrate,
 		const Bitrate image_bitrate,
 		const size_t alpha_bits_count
 	);
+
+	/**
+		@brief	Select proper color format according to given image header.
+
+		@param	header	Image header with all settings required to select the format.
+		@return			The value returned is `ColorFormat` that can describe elements of given image.
+	*/
+	const Black::ColorFormat SelectColorFormat( const Header& header );
 }
 }
 }

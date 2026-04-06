@@ -90,7 +90,7 @@ namespace
 		return 0;
 	}
 
-	const Black::ImageFormat SelectImageFormat( const ContentType content_type, const Bitrate bitrate, const size_t alpha_bits_count )
+	const Black::ColorFormat SelectColorFormat( const ContentType content_type, const Bitrate bitrate, const size_t alpha_bits_count )
 	{
 		switch( GetContentTypeBehindCompression( content_type ) )
 		{
@@ -98,10 +98,10 @@ namespace
 			switch( bitrate )
 			{
 			case Bitrate::Monochrome:
-				return Black::ImageFormats::I8;
+				return Black::ColorFormats::I8;
 			case Bitrate::ARGB16:
-				CRET( alpha_bits_count == 0, Black::ImageFormats::I16 );
-				CRET( alpha_bits_count == 8, Black::ImageFormats::A8I8 );
+				CRET( alpha_bits_count == 0, Black::ColorFormats::I16 );
+				CRET( alpha_bits_count == 8, Black::ColorFormats::A8I8 );
 				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported value of alpha channel length - {}.", alpha_bits_count );
 				break;
 			default:
@@ -113,15 +113,15 @@ namespace
 			switch( bitrate )
 			{
 			case Bitrate::ARGB16:
-				CRET( alpha_bits_count == 0, Black::ImageFormats::X1R5G5B5 );
-				CRET( alpha_bits_count == 1, Black::ImageFormats::A1R5G5B5 );
+				CRET( alpha_bits_count == 0, Black::ColorFormats::X1R5G5B5 );
+				CRET( alpha_bits_count == 1, Black::ColorFormats::A1R5G5B5 );
 				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported value of alpha channel length - {}.", alpha_bits_count );
 				break;
 			case Bitrate::RGB24:
-				return Black::ImageFormats::R8G8B8;
+				return Black::ColorFormats::R8G8B8;
 			case Bitrate::ARGB32:
-				CRET( alpha_bits_count == 0, Black::ImageFormats::X8R8G8B8 );
-				CRET( alpha_bits_count == 8, Black::ImageFormats::A8R8G8B8 );
+				CRET( alpha_bits_count == 0, Black::ColorFormats::X8R8G8B8 );
+				CRET( alpha_bits_count == 8, Black::ColorFormats::A8R8G8B8 );
 				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported value of alpha channel length - {}.", alpha_bits_count );
 				break;
 			default:
@@ -133,10 +133,10 @@ namespace
 			switch( bitrate )
 			{
 			case Bitrate::Monochrome:
-				return Black::ImageFormats::W8;
+				return Black::ColorFormats::W8;
 			case Bitrate::ARGB16:
-				CRET( alpha_bits_count == 0, Black::ImageFormats::W16 );
-				CRET( alpha_bits_count == 8, Black::ImageFormats::A8W8 );
+				CRET( alpha_bits_count == 0, Black::ColorFormats::W16 );
+				CRET( alpha_bits_count == 8, Black::ColorFormats::A8W8 );
 				BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported value of alpha channel length - {}.", alpha_bits_count );
 				break;
 			default:
@@ -157,10 +157,10 @@ namespace
 			alpha_bits_count
 		);
 
-		return Black::ImageFormats::UNDEFINED;
+		return Black::ColorFormats::UNDEFINED;
 	}
 
-	const Black::ImageFormat SelectImageFormat(
+	const Black::ColorFormat SelectColorFormat(
 		const ContentType content_type,
 		const Bitrate palette_bitrate,
 		const Bitrate image_bitrate,
@@ -170,11 +170,11 @@ namespace
 		switch( GetContentTypeBehindCompression( content_type ) )
 		{
 		case ContentType::Paletted:
-			return SelectImageFormat( ContentType::TrueColor, palette_bitrate, alpha_bits_count );
+			return SelectColorFormat( ContentType::TrueColor, palette_bitrate, alpha_bits_count );
 		case ContentType::TrueColor:
-			return SelectImageFormat( content_type, image_bitrate, alpha_bits_count );
+			return SelectColorFormat( content_type, image_bitrate, alpha_bits_count );
 		case ContentType::Grayscale:
-			return SelectImageFormat( content_type, image_bitrate, alpha_bits_count );
+			return SelectColorFormat( content_type, image_bitrate, alpha_bits_count );
 		default:
 			BLACK_LOG_ERROR( LOG_CHANNEL, "Unsupported type of image content - {}.", content_type );
 			break;
@@ -189,7 +189,12 @@ namespace
 			alpha_bits_count
 		);
 
-		return Black::ImageFormats::UNDEFINED;
+		return Black::ColorFormats::UNDEFINED;
+	}
+
+	const Black::ColorFormat SelectColorFormat( const Header& header )
+	{
+		return SelectColorFormat( header.content_type, header.palette.bitrate, header.image.bitrate, header.image.flags.alpha_length );
 	}
 }
 }
