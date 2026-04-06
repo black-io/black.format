@@ -23,7 +23,7 @@ namespace Internal
 		Some of fields become irrelevant through the days. Such fields are made anonymous in this implementation to prevent the ambiguity of meaning.
 
 		The total size of palette (in bytes) may be only calculated using the values of `palette` field.
-		Since the `bitrate` fields store only size in bits, the per-byte size should be calculated through the division by `8`.
+		Since the `bit-rate` fields store only size in bits, the per-byte size should be calculated through the division by `8`.
 		In this case the size of palette may be calculated as `palette.length * ( palette.bitrate >> 3 )`.
 		Also the size of image may be calculated as `image.width * image.height * ( image.bitrate >> 3 )`.
 	*/
