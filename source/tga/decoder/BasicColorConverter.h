@@ -22,20 +22,20 @@ namespace Decoder
 		void UseOutputBuilder( OutputBuilder& builder );
 
 		//
-		void UseOutputFormat( const Black::ImageFormat output_format );
+		void UseOutputFormat( const Black::ColorFormat output_format );
 
 
 		//
-		const Black::BooleanStatus ConvertColor( const uint32_t color, const Black::ImageFormat color_format ) const;
+		const Black::BooleanStatus ConvertColor( const uint32_t color, const Black::ColorFormat color_format ) const;
 
 
 		//
-		inline const Black::ImageFormat GetOutputFormat() const				{ return m_output_operator.GetFormat(); };
+		inline const Black::ColorFormat GetOutputFormat() const				{ return m_output_operator.GetFormat(); };
 
 	// Heirs interface.
 	protected:
 		//
-		inline OutputBuilder& GetOutputBuilder() const					{ return *m_output_builder; };
+		inline OutputBuilder& GetOutputBuilder() const						{ return *m_output_builder; };
 
 		//
 		inline const Black::ColorFormatOperator& GetOutputOperator() const	{ return m_output_operator; };
@@ -43,7 +43,7 @@ namespace Decoder
 	// Heirs virtual interface.
 	protected:
 		//
-		virtual const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ImageFormat color_format ) const = 0;
+		virtual const Black::BooleanStatus PerformColorConversion( const uint32_t color, const Black::ColorFormat color_format ) const = 0;
 
 	// Private state.
 	private:

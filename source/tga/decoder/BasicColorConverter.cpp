@@ -26,12 +26,12 @@ namespace
 		m_output_builder = &builder;
 	}
 
-	void BasicColorConverter::UseOutputFormat( const Black::ImageFormat output_format )
+	void BasicColorConverter::UseOutputFormat( const Black::ColorFormat output_format )
 	{
 		m_output_operator = output_format;
 	}
 
-	const Black::BooleanStatus BasicColorConverter::ConvertColor( const uint32_t color, const Black::ImageFormat color_format ) const
+	const Black::BooleanStatus BasicColorConverter::ConvertColor( const uint32_t color, const Black::ColorFormat color_format ) const
 	{
 		EXPECTS_DEBUG( m_output_builder != nullptr );
 		return PerformColorConversion( color, color_format );
