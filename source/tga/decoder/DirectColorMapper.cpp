@@ -20,7 +20,7 @@ namespace
 	{
 		uint32_t result = 0;
 
-		Black::CopyMemory( &result, GetInputFeeder().PeekElement(), GetInputSize() );
+		Black::CopyMemory( &result, GetInputFeeder().PeekElement(), GetInputFormat().size_bytes );
 
 		return result;
 	}
