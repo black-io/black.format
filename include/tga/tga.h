@@ -32,3 +32,4 @@ namespace Internal
 #include "TgaFileView.h"
 #include "TgaImageDecoder.h"
 #include "TgaImageEncoder.h"
+#include "TgaFileBuilder.h"
