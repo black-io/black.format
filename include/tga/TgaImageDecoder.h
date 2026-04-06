@@ -51,7 +51,7 @@ inline namespace Tga
 		TgaImageDecoder& SetOutputSize( const size_t width, const size_t height );
 
 		//
-		TgaImageDecoder& SetOutputFormat( const Black::ImageFormat format );
+		TgaImageDecoder& SetOutputFormat( const Black::ColorFormat format );
 
 
 		//
@@ -73,7 +73,7 @@ inline namespace Tga
 		inline const size_t GetOutputRowSize() const							{ return m_output_row_size; };
 
 		//
-		inline const Black::ImageFormat GetOutputFormat() const					{ return m_output_format; };
+		inline const Black::ColorFormat GetOutputFormat() const					{ return m_output_format; };
 
 	// Private state.
 	private:
@@ -84,7 +84,7 @@ inline namespace Tga
 		size_t	m_output_height		= 0;
 		size_t	m_output_row_size	= 0;
 
-		Black::ImageFormat	m_output_format	= Black::ImageFormats::UNDEFINED;
+		Black::ColorFormat	m_output_format	= Black::ColorFormats::UNDEFINED;
 	};
 }
 }

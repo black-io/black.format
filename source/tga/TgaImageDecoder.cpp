@@ -116,7 +116,7 @@ namespace
 		return *this;
 	}
 
-	TgaImageDecoder& TgaImageDecoder::SetOutputFormat( const Black::ImageFormat format )
+	TgaImageDecoder& TgaImageDecoder::SetOutputFormat( const Black::ColorFormat format )
 	{
 		m_output_format		= format;
 		m_output_row_size	= m_output_width * m_output_format.size_bytes;
