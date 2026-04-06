@@ -123,17 +123,17 @@ namespace
 
 	const uint64_t ColorFormatOperator::ExtractGreenChannel( const uint64_t color ) const
 	{
-		return MaskGreenChannel( color ) >> m_red_channel_offset;
+		return MaskGreenChannel( color ) >> m_green_channel_offset;
 	}
 
 	const uint64_t ColorFormatOperator::ExtractBlueChannel( const uint64_t color ) const
 	{
-		return MaskBlueChannel( color ) >> m_red_channel_offset;
+		return MaskBlueChannel( color ) >> m_blue_channel_offset;
 	}
 
 	const uint64_t ColorFormatOperator::ExtractAlphaChannel( const uint64_t color ) const
 	{
-		return MaskAlphaChannel( color ) >> m_red_channel_offset;
+		return MaskAlphaChannel( color ) >> m_alpha_channel_offset;
 	}
 
 	const uint64_t ColorFormatOperator::MaskRedChannel( const uint64_t color ) const
