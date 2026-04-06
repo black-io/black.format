@@ -65,16 +65,17 @@ inline namespace Tga
 
 	// Public life-time management.
 	public:
-		TgaFileView() noexcept;
-		TgaFileView( TgaFileView&& other ) noexcept;
+		inline TgaFileView() noexcept						= default;;
+		inline TgaFileView( TgaFileView&& other ) noexcept	= default;
 
 		explicit TgaFileView( Black::PlainView<const std::byte> file_memory );
 		TgaFileView( Black::PlainView<const std::byte> file_memory, const Black::ConstructInplace );
 
-		~TgaFileView() noexcept;
+		inline ~TgaFileView() noexcept = default;
 
 
-		TgaFileView& operator = ( TgaFileView&& other ) noexcept;
+		inline TgaFileView& operator = ( TgaFileView&& other ) noexcept	= default;
+
 		TgaFileView& operator = ( Black::PlainView<const std::byte> file_memory ) noexcept;
 
 	// Public interface.

@@ -163,10 +163,6 @@ namespace
 		return true;
 	}
 
-	TgaFileView::TgaFileView() noexcept = default;
-
-	TgaFileView::TgaFileView( TgaFileView&& other ) noexcept = default;
-
 	TgaFileView::TgaFileView( Black::PlainView<const std::byte> file_memory )
 		: m_file_memory{ std::move( file_memory ) }
 	{
@@ -178,10 +174,6 @@ namespace
 	{
 		EnsureFileMemoryParsed();
 	}
-
-	TgaFileView::~TgaFileView() noexcept = default;
-
-	TgaFileView& TgaFileView::operator=( TgaFileView&& other ) noexcept = default;
 
 	TgaFileView& TgaFileView::operator=( Black::PlainView<const std::byte> file_memory ) noexcept
 	{
