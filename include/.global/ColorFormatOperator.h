@@ -21,19 +21,19 @@ inline namespace Global
 		inline ColorFormatOperator( const ColorFormatOperator& other ) noexcept	= default;
 		inline ColorFormatOperator( ColorFormatOperator&& other ) noexcept		= default;
 
-		explicit ColorFormatOperator( ImageFormat format ) noexcept;
+		explicit ColorFormatOperator( ColorFormat format ) noexcept;
 
 		inline ~ColorFormatOperator() noexcept	= default;
 
 		inline ColorFormatOperator& operator = ( const ColorFormatOperator& other ) noexcept	= default;
 		inline ColorFormatOperator& operator = ( ColorFormatOperator&& other ) noexcept			= default;
 
-		inline ColorFormatOperator& operator = ( ImageFormat format ) noexcept					{ return Black::CopyAndSwap( *this, format ); };
+		inline ColorFormatOperator& operator = ( ColorFormat format ) noexcept					{ return Black::CopyAndSwap( *this, format ); };
 
 	// Public interface.
 	public:
 		//
-		void Swap( ColorFormatOperator& other );
+		void Swap( ColorFormatOperator& other ) noexcept;
 
 
 		//
@@ -125,7 +125,7 @@ inline namespace Global
 		inline const uint64_t GetIndexMask() const			{ return m_index_mask; };
 
 		//
-		inline const ImageFormat GetFormat() const			{ return m_format; };
+		inline const ColorFormat GetFormat() const			{ return m_format; };
 
 
 		//
@@ -182,7 +182,7 @@ inline namespace Global
 		uint64_t	m_white_channel_mask	= 0;
 		uint64_t	m_index_mask			= 0;
 
-		ImageFormat	m_format				= ImageFormats::UNDEFINED;
+		ColorFormat	m_format				= ColorFormats::UNDEFINED;
 
 		union
 		{

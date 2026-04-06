@@ -30,7 +30,7 @@ namespace
 }
 
 
-	ColorFormatOperator::ColorFormatOperator( ImageFormat format ) noexcept
+	ColorFormatOperator::ColorFormatOperator( ColorFormat format ) noexcept
 		: m_format{ format }
 	{
 		ConfigureFlags();
@@ -38,7 +38,7 @@ namespace
 		CalculateMasks();
 	}
 
-	void ColorFormatOperator::Swap( ColorFormatOperator& other )
+	void ColorFormatOperator::Swap( ColorFormatOperator& other ) noexcept
 	{
 		Black::Swap( m_red_channel_offset, other.m_red_channel_offset );
 		Black::Swap( m_green_channel_offset, other.m_green_channel_offset );
