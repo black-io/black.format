@@ -9,19 +9,10 @@
 // Most fundamental stuff.
 #include "forwards.h"
 
-// Interfaces.
+// Components.
 #include "InputFeeder.h"
 #include "ColorMapper.h"
 #include "ColorConverter.h"
-
-#include "BasicColorConverter.h"
-
-// Components.
-#include "MonochromeColorConverter.h"
-#include "DirectColorConverter.h"
-#include "RemapingColorConverter.h"
-#include "TransformColorConverter.h"
-
 #include "OutputBuilder.h"
 
 // Support types.
