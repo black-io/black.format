@@ -13,13 +13,9 @@
 #include "InputFeeder.h"
 #include "ColorMapper.h"
 
-#include "BasicColorMapper.h"
 #include "BasicColorConverter.h"
 
 // Components.
-#include "DirectColorMapper.h"
-#include "PaletteColorMapper.h"
-
 #include "MonochromeColorConverter.h"
 #include "DirectColorConverter.h"
 #include "RemapingColorConverter.h"
