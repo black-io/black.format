@@ -89,8 +89,8 @@ namespace
 		// First of all, the monochrome-to-rgb color converter.
 		if( in_format.is_monochrome && !out_format.is_monochrome )
 		{
-			MonochromeColorConverter& converter = ConstructComponent<MonochromeColorConverter>();
-			converter.UseOutputFormat( output_format );
+			ColorConverter& converter = ConstructComponent<ColorConverter>();
+			converter = ColorConverter::SetupMonochromeToRgbConverter( header, output_format );
 			m_color_converter = &converter;
 
 			return Black::BooleanStatus::Success;
@@ -110,8 +110,8 @@ namespace
 
 		if( in_format == out_format )
 		{
-			DirectColorConverter& converter = ConstructComponent<DirectColorConverter>();
-			converter.UseOutputFormat( output_format );
+			ColorConverter& converter = ConstructComponent<ColorConverter>();
+			converter = ColorConverter::SetupDirectConverter( header, output_format );
 			m_color_converter = &converter;
 
 			return Black::BooleanStatus::Success;
