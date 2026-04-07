@@ -56,6 +56,20 @@ namespace Decoder
 
 	// Private interface.
 	private:
+		//
+		const uint32_t ConvertDirectly( const uint32_t color ) const;
+
+		//
+		const uint32_t ConvertFromMonochrome( const uint32_t color ) const;
+
+		//
+		const uint32_t ConvertToMonochrome( const uint32_t color ) const;
+
+		//
+		const uint32_t RebindChannels( const uint32_t color ) const;
+
+		//
+		const uint32_t TransformChannels( const uint32_t color ) const;
 
 	// Private state.
 	private:
