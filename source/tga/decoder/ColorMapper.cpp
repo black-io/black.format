@@ -35,6 +35,9 @@ namespace
 
 	ColorMapper& ColorMapper::operator=( ColorMapper&& other ) noexcept
 	{
+		ColorMapper temp{ std::move( other ) };
+		Swap( temp );
+		return *this;
 	}
 
 	void ColorMapper::Swap( ColorMapper& other )
