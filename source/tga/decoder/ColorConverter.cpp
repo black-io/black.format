@@ -18,22 +18,57 @@ namespace
 
 	ColorConverter ColorConverter::SetupRgbToMonochromeConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
+		ColorConverter converter;
+
+		converter.m_convert_method	= &ColorConverter::ConvertToMonochrome;
+		converter.m_input_operator	= Internal::SelectColorFormat( header );
+		converter.m_output_operator	= output_format;
+
+		return converter;
 	}
 
 	ColorConverter ColorConverter::SetupMonochromeToRgbConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
+		ColorConverter converter;
+
+		converter.m_convert_method	= &ColorConverter::ConvertFromMonochrome;
+		converter.m_input_operator	= Internal::SelectColorFormat( header );
+		converter.m_output_operator	= output_format;
+
+		return converter;
 	}
 
 	ColorConverter ColorConverter::SetupDirectConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
+		ColorConverter converter;
+
+		converter.m_convert_method	= &ColorConverter::BypassColor;
+		converter.m_input_operator	= Internal::SelectColorFormat( header );
+		converter.m_output_operator	= output_format;
+
+		return converter;
 	}
 
 	ColorConverter ColorConverter::SetupRemappingConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
+		ColorConverter converter;
+
+		converter.m_convert_method	= &ColorConverter::RemapChannels;
+		converter.m_input_operator	= Internal::SelectColorFormat( header );
+		converter.m_output_operator	= output_format;
+
+		return converter;
 	}
 
 	ColorConverter ColorConverter::SetupTransformConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
+		ColorConverter converter;
+
+		converter.m_convert_method	= &ColorConverter::TransformChannels;
+		converter.m_input_operator	= Internal::SelectColorFormat( header );
+		converter.m_output_operator	= output_format;
+
+		return converter;
 	}
 
 	ColorConverter::ColorConverter( ColorConverter&& other ) noexcept
