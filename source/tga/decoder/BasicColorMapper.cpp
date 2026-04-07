@@ -21,7 +21,7 @@ namespace
 		m_input_feeder = nullptr;
 	}
 
-	void BasicColorMapper::UseInputFeeder( BasicInputFeeder& feeder )
+	void BasicColorMapper::UseInputFeeder( InputFeeder& feeder )
 	{
 		m_input_feeder = &feeder;
 	}

@@ -24,7 +24,7 @@ namespace Decoder
 		void RefuseInputFeeder();
 
 		//
-		void UseInputFeeder( BasicInputFeeder& feeder );
+		void UseInputFeeder( InputFeeder& feeder );
 
 		//
 		void UseImageSettings( const Internal::Header& header );
@@ -61,7 +61,7 @@ namespace Decoder
 		void SetOutputFormat( const Black::ColorFormat output_format );
 
 		//
-		inline BasicInputFeeder& GetInputFeeder() const						{ return *m_input_feeder; };
+		inline InputFeeder& GetInputFeeder() const						{ return *m_input_feeder; };
 
 		//
 		inline const Black::ColorFormatOperator& GetInputOperator() const	{ return m_input_operator; };
@@ -76,7 +76,7 @@ namespace Decoder
 
 	// Private state.
 	private:
-		BasicInputFeeder*			m_input_feeder		= nullptr;
+		InputFeeder*				m_input_feeder		= nullptr;
 
 		Black::ColorFormatOperator	m_input_operator;
 		Black::ColorFormatOperator	m_output_operator;
