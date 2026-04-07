@@ -48,24 +48,22 @@ namespace
 		{
 		case Internal::ContentType::Paletted:
 			{
-				PaletteColorMapper& mapper = ConstructComponent<PaletteColorMapper>();
-				mapper.UseImageSettings( header );
-				mapper.UsePalette( palette_buffer, header.palette.bitrate );
-				mapper.FixOutputFormat( header );
+				ColorMapper& mapper = ConstructComponent<ColorMapper>();
+				mapper = ColorMapper::SetupPaletteMapper( header, palette_buffer );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::TrueColor:
 			{
-				DirectColorMapper& mapper = ConstructComponent<DirectColorMapper>();
-				mapper.UseImageSettings( header );
+				ColorMapper& mapper = ConstructComponent<ColorMapper>();
+				mapper = ColorMapper::SetupDirectMapper( header );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::Grayscale:
 			{
-				DirectColorMapper& mapper = ConstructComponent<DirectColorMapper>();
-				mapper.UseImageSettings( header );
+				ColorMapper& mapper = ConstructComponent<ColorMapper>();
+				mapper = ColorMapper::SetupDirectMapper( header );
 				m_color_mapper = &mapper;
 			}
 			return Black::BooleanStatus::Success;
