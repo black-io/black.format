@@ -51,6 +51,17 @@ namespace Decoder
 		//
 		inline const std::byte* const PeekElement() const	{ return m_block_payload; };
 
+
+		//
+		inline const size_t GetElementSize() const			{ return m_input_element_size; };
+
+		//
+		inline const Internal::Bitrate GetBitrate() const	{ return m_input_bitrage; };
+
+
+		//
+		inline const bool HasElements() const				{ return m_input_buffer.IsInside( m_block_payload ); };
+
 	// Private interface.
 	private:
 		//

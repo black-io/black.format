@@ -84,6 +84,10 @@ namespace
 		if( m_block_rest_length == 0 )
 		{
 			EXPECTS_DEBUG( m_has_compressed_input );
+
+			// On iterating, the payload cursor didn't moved in compressed block. So it should be moved somehow before continue.
+			m_block_payload += m_input_element_size;
+
 			ParseBlockHeader();
 			return Black::BooleanStatus::Success;
 		}
@@ -102,17 +106,11 @@ namespace
 		constexpr uint8_t	compression_mask	= 0x80U;
 		constexpr uint8_t	length_mask			= 0x7FU;
 
-		// On iterating, the payload cursor didn't moved in compressed block. So it should be moved somehow before continue.
-		if( m_is_block_compressed )
-		{
-			m_block_payload += m_input_element_size;
-		}
-
 		EXPECTS_DEBUG( m_input_buffer.IsInside( m_block_payload ) );
 		const uint8_t block_header = Black::GetEnumValue( *m_block_payload );
 
 		m_is_block_compressed	= ( block_header & compression_mask ) != 0;
-		m_block_rest_length		= size_t( block_header & length_mask ) + 1;
+		m_block_rest_length		= size_t( block_header & length_mask ) * m_input_element_size;
 
 		++m_block_payload;
 		ENSURES_DEBUG( m_input_buffer.IsInside( m_block_payload ) );
