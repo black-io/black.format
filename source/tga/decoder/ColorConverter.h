@@ -59,6 +59,7 @@ namespace Decoder
 
 	// Private state.
 	private:
+		Black::ColorFormatOperator	m_input_operator;
 		Black::ColorFormatOperator	m_output_operator;
 	};
 }
