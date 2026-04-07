@@ -10,16 +10,12 @@
 #include "forwards.h"
 
 // Interfaces.
-#include "BasicInputFeeder.h"
+#include "InputFeeder.h"
+
 #include "BasicColorMapper.h"
 #include "BasicColorConverter.h"
 
 // Components.
-#include "InputFeeder.h"
-
-#include "StraightInputFeeder.h"
-#include "RleInputFeeder.h"
-
 #include "DirectColorMapper.h"
 #include "PaletteColorMapper.h"
 
