@@ -18,10 +18,29 @@ namespace
 
 	ColorMapper ColorMapper::SetupDirectMapper( const Internal::Header& header )
 	{
+		ColorMapper mapper;
+
+		mapper.m_input_operator		= Internal::SelectColorFormat( header.content_type, header.image.bitrate, header.image.flags.alpha_length );
+		mapper.m_output_operator	= mapper.m_input_operator;
+		mapper.m_input_bitrate		= header.image.bitrate;
+		ENSURES_DEBUG( !mapper.m_input_operator.GetFormat().is_index );
+
+		return mapper;
 	}
 
 	ColorMapper ColorMapper::SetupPaletteMapper( const Internal::Header& header, Black::PlainView<const std::byte> palette_buffer )
 	{
+		ColorMapper mapper;
+
+		mapper.m_palette			= std::move( palette_buffer );
+		mapper.m_input_operator		= Internal::SelectColorFormat( header.content_type, header.image.bitrate, header.image.flags.alpha_length );
+		mapper.m_output_operator	= Internal::SelectColorFormat( Internal::ContentType::TrueColor, header.palette.bitrate, header.image.flags.alpha_length );
+		mapper.m_input_bitrate		= header.image.bitrate;
+		mapper.m_palette_bitrate	= header.palette.bitrate;
+		ENSURES_DEBUG( mapper.m_input_operator.GetFormat().is_index );
+		ENSURES_DEBUG( !mapper.m_output_operator.GetFormat().is_index );
+
+		return mapper;
 	}
 
 	ColorMapper::ColorMapper( ColorMapper&& other ) noexcept
