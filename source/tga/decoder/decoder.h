@@ -14,6 +14,3 @@
 #include "ColorConverter.h"
 #include "CoordinateCursor.h"
 #include "OutputBuilder.h"
-
-// Routine.
-#include "DecodePipeline.h"
