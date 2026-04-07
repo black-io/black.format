@@ -25,6 +25,11 @@ namespace
 	}
 
 	ColorMapper::ColorMapper( ColorMapper&& other ) noexcept
+		: m_palette{ std::move( other.m_palette ) }
+		, m_input_operator{ std::move( other.m_input_operator ) }
+		, m_output_operator{ std::move( other.m_output_operator ) }
+		, m_input_bitrate{ std::exchange( other.m_input_bitrate, Internal::Bitrate::Undefined ) }
+		, m_palette_bitrate{ std::exchange( other.m_palette_bitrate, Internal::Bitrate::Undefined ) }
 	{
 	}
 
