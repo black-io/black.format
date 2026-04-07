@@ -54,25 +54,31 @@ namespace Decoder
 		//
 		const uint32_t ConvertColor( const uint32_t color ) const;
 
+	// Private inner types.
+	private:
+		//
+		using ConvertMethod = const uint64_t (ColorConverter::*)( const uint32_t color ) const;
+
 	// Private interface.
 	private:
 		//
-		const uint32_t ConvertDirectly( const uint32_t color ) const;
+		const uint64_t BypassColor( const uint32_t color ) const;
 
 		//
-		const uint32_t ConvertFromMonochrome( const uint32_t color ) const;
+		const uint64_t ConvertFromMonochrome( const uint32_t color ) const;
 
 		//
-		const uint32_t ConvertToMonochrome( const uint32_t color ) const;
+		const uint64_t ConvertToMonochrome( const uint32_t color ) const;
 
 		//
-		const uint32_t RebindChannels( const uint32_t color ) const;
+		const uint64_t RebindChannels( const uint32_t color ) const;
 
 		//
-		const uint32_t TransformChannels( const uint32_t color ) const;
+		const uint64_t TransformChannels( const uint32_t color ) const;
 
 	// Private state.
 	private:
+		ConvertMethod				m_convert_method	= &ColorConverter::BypassColor;
 		Black::ColorFormatOperator	m_input_operator;
 		Black::ColorFormatOperator	m_output_operator;
 	};

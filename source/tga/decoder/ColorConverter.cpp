@@ -59,23 +59,23 @@ namespace
 	{
 	}
 
-	const uint32_t ColorConverter::ConvertDirectly( const uint32_t color ) const
+	const uint64_t ColorConverter::BypassColor( const uint32_t color ) const
 	{
 	}
 
-	const uint32_t ColorConverter::ConvertFromMonochrome( const uint32_t color ) const
+	const uint64_t ColorConverter::ConvertFromMonochrome( const uint32_t color ) const
 	{
 	}
 
-	const uint32_t ColorConverter::ConvertToMonochrome( const uint32_t color ) const
+	const uint64_t ColorConverter::ConvertToMonochrome( const uint32_t color ) const
 	{
 	}
 
-	const uint32_t ColorConverter::RebindChannels( const uint32_t color ) const
+	const uint64_t ColorConverter::RebindChannels( const uint32_t color ) const
 	{
 	}
 
-	const uint32_t ColorConverter::TransformChannels( const uint32_t color ) const
+	const uint64_t ColorConverter::TransformChannels( const uint32_t color ) const
 	{
 	}
 }
