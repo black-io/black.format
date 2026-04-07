@@ -30,12 +30,37 @@ namespace
 }
 
 
+	ColorFormatOperator::ColorFormatOperator( ColorFormatOperator&& other ) noexcept
+		: m_red_channel_offset{ std::exchange( other.m_red_channel_offset, 0 ) }
+		, m_green_channel_offset{ std::exchange( other.m_green_channel_offset, 0 ) }
+		, m_blue_channel_offset{ std::exchange( other.m_blue_channel_offset, 0 ) }
+		, m_alpha_channel_offset{ std::exchange( other.m_alpha_channel_offset, 0 ) }
+		, m_white_channel_offset{ std::exchange( other.m_white_channel_offset, 0 ) }
+		, m_index_offset{ std::exchange( other.m_index_offset, 0 ) }
+		, m_red_channel_mask{ std::exchange( other.m_red_channel_mask, 0 ) }
+		, m_green_channel_mask{ std::exchange( other.m_green_channel_mask, 0 ) }
+		, m_blue_channel_mask{ std::exchange( other.m_blue_channel_mask, 0 ) }
+		, m_alpha_channel_mask{ std::exchange( other.m_alpha_channel_mask, 0 ) }
+		, m_white_channel_mask{ std::exchange( other.m_white_channel_mask, 0 ) }
+		, m_index_mask{ std::exchange( other.m_index_mask, 0 ) }
+		, m_format{ std::exchange( other.m_format, ColorFormats::UNDEFINED ) }
+		, m_flags_buffer{ std::exchange( other.m_flags_buffer, 0 ) }
+	{
+	}
+
 	ColorFormatOperator::ColorFormatOperator( ColorFormat format ) noexcept
 		: m_format{ format }
 	{
 		ConfigureFlags();
 		CalculateOffsets();
 		CalculateMasks();
+	}
+
+	ColorFormatOperator& ColorFormatOperator::operator=( ColorFormatOperator&& other ) noexcept
+	{
+		ColorFormatOperator temp{ std::move( other ) };
+		Swap( temp );
+		return *this;
 	}
 
 	void ColorFormatOperator::Swap( ColorFormatOperator& other ) noexcept

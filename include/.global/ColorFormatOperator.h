@@ -19,14 +19,14 @@ inline namespace Global
 	public:
 		inline ColorFormatOperator() noexcept									= default;
 		inline ColorFormatOperator( const ColorFormatOperator& other ) noexcept	= default;
-		inline ColorFormatOperator( ColorFormatOperator&& other ) noexcept		= default;
+		ColorFormatOperator( ColorFormatOperator&& other ) noexcept;
 
 		explicit ColorFormatOperator( ColorFormat format ) noexcept;
 
 		inline ~ColorFormatOperator() noexcept	= default;
 
 		inline ColorFormatOperator& operator = ( const ColorFormatOperator& other ) noexcept	= default;
-		inline ColorFormatOperator& operator = ( ColorFormatOperator&& other ) noexcept			= default;
+		ColorFormatOperator& operator = ( ColorFormatOperator&& other ) noexcept;
 
 		inline ColorFormatOperator& operator = ( ColorFormat format ) noexcept					{ return Black::CopyAndSwap( *this, format ); };
 
