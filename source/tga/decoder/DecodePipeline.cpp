@@ -170,8 +170,8 @@ namespace
 	const Black::BooleanStatus DecodePipeline::Process()
 	{
 		// Pull the color from input.
-		EXPECTS_DEBUG( m_color_mapper != nullptr );
-		const uint32_t color = m_color_mapper->PeekElement();
+		const std::byte* const color_buffer = m_input_feeder->PeekElement();
+		const uint32_t color = m_color_mapper->MapColor( color_buffer );
 
 		// Push the color to output.
 		EXPECTS_DEBUG( m_color_converter != nullptr );
