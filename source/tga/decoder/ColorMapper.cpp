@@ -42,6 +42,11 @@ namespace
 
 	void ColorMapper::Swap( ColorMapper& other )
 	{
+		Black::Swap( m_palette, other.m_palette );
+		Black::Swap( m_input_operator, other.m_input_operator );
+		Black::Swap( m_output_operator, other.m_output_operator );
+		Black::Swap( m_input_bitrate, other.m_input_bitrate );
+		Black::Swap( m_palette_bitrate, other.m_palette_bitrate );
 	}
 
 	const uint32_t ColorMapper::MapColor( const std::byte* color_buffer ) const
