@@ -75,6 +75,14 @@ namespace
 
 	const uint32_t ColorMapper::PeekPaletteElement( const size_t element_index ) const
 	{
+		uint32_t color = 0;
+
+		const size_t element_offset = element_index * m_output_operator.GetFormat().size_bytes;
+		EXPECTS_DEBUG( element_offset < m_palette.GetLength() );
+
+		Black::CopyMemory( &color, &m_palette[ element_offset ], m_output_operator.GetFormat().size_bytes );
+
+		return color;
 	}
 }
 }
