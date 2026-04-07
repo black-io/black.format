@@ -39,9 +39,6 @@ namespace Decoder
 	// Public interface.
 	public:
 		//
-		void Rewind();
-
-		//
 		void Swap( ColorMapper& other );
 
 
