@@ -102,10 +102,12 @@ namespace
 
 	const uint64_t ColorConverter::RebindChannels( const uint32_t color ) const
 	{
+		return 0;
 	}
 
 	const uint64_t ColorConverter::TransformChannels( const uint32_t color ) const
 	{
+		return 0;
 	}
 }
 }
