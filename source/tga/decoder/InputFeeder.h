@@ -27,8 +27,8 @@ namespace Decoder
 
 	// Public life-time management.
 	public:
-		inline InputFeeder() noexcept = default;
-		inline InputFeeder( const InputFeeder& other ) noexcept = default;
+		inline InputFeeder() noexcept							= default;
+		inline InputFeeder( const InputFeeder& other ) noexcept	= default;
 		InputFeeder( InputFeeder&& other ) noexcept;
 
 		inline ~InputFeeder() noexcept = default;
