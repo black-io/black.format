@@ -75,6 +75,7 @@ namespace
 
 	const uint64_t ColorConverter::BypassColor( const uint32_t color ) const
 	{
+		return color;
 	}
 
 	const uint64_t ColorConverter::ConvertFromMonochrome( const uint32_t color ) const
