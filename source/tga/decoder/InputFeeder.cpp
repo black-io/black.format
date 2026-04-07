@@ -85,7 +85,7 @@ namespace
 		{
 			EXPECTS_DEBUG( m_has_compressed_input );
 
-			// On iterating, the payload cursor didn't moved in compressed block. So it should be moved somehow before continue.
+			// Payload was not shifted last time, so shift it here before accessing next block.
 			m_block_payload += m_input_element_size;
 
 			ParseBlockHeader();
@@ -98,6 +98,7 @@ namespace
 		CRET( m_is_block_compressed, Black::BooleanStatus::Success );
 		m_block_payload += m_input_element_size;
 
+		ENSURES_DEBUG( m_input_buffer.IsInside( m_block_payload ) );
 		return Black::BooleanStatus::Success;
 	}
 
