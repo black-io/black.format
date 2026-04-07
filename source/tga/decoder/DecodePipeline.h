@@ -14,7 +14,7 @@ namespace Decoder
 	class DecodePipeline final
 		: public Black::Composition<
 			DecodePipeline,
-			Black::TypesUnion<StraightInputFeeder, RleInputFeeder>,
+			InputFeeder,
 			Black::TypesUnion<DirectColorMapper, PaletteColorMapper>,
 			Black::TypesUnion<MonochromeColorConverter, DirectColorConverter, RemappingColorConverter, TransformColorConverter>,
 			OutputBuilder
@@ -49,7 +49,7 @@ namespace Decoder
 
 	// Private state.
 	private:
-		BasicInputFeeder*		m_input_feeder		= nullptr;
+		InputFeeder*			m_input_feeder		= nullptr;
 		BasicColorMapper*		m_color_mapper		= nullptr;
 		BasicColorConverter*	m_color_converter	= nullptr;
 		OutputBuilder*			m_output_builder	= nullptr;

@@ -22,17 +22,15 @@ namespace
 		{
 		case Internal::ContentCompression::None:
 			{
-				StraightInputFeeder& feeder = ConstructComponent<StraightInputFeeder>();
-				feeder.UseImageBuffer( image_buffer );
-				feeder.UseBitrate( header.image.bitrate );
+				InputFeeder& feeder = ConstructComponent<InputFeeder>();
+				feeder = InputFeeder::SetupStraightFeeder( image_buffer, header.image.bitrate );
 				m_input_feeder = &feeder;
 			}
 			return Black::BooleanStatus::Success;
 		case Internal::ContentCompression::Rle:
 			{
-				RleInputFeeder& feeder = ConstructComponent<RleInputFeeder>();
-				feeder.UseImageBuffer( image_buffer );
-				feeder.UseBitrate( header.image.bitrate );
+				InputFeeder& feeder = ConstructComponent<InputFeeder>();
+				feeder = InputFeeder::SetupRleFeeder( image_buffer, header.image.bitrate );
 				m_input_feeder = &feeder;
 			}
 			return Black::BooleanStatus::Success;
