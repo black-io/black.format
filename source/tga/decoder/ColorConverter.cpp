@@ -57,6 +57,20 @@ namespace
 
 	const uint32_t ColorConverter::ConvertColor( const uint32_t color ) const
 	{
+		uint64_t converted_color = (this->*m_convert_method)( color );
+		CRET( !m_output_operator.CanProcessAlphaChannel(), uint32_t( converted_color ) );
+
+		if( m_input_operator.CanProcessAlphaChannel() )
+		{
+			const uint64_t alpha = m_input_operator.ExtractAlphaChannel( color );
+			converted_color = m_output_operator.InsertAlphaChannel( converted_color, alpha );
+		}
+		else
+		{
+			converted_color = m_output_operator.ReplaceAlphaChannel( converted_color, m_output_operator.GetAlphaChannelMask() );
+		}
+
+		return uint32_t( converted_color );
 	}
 
 	const uint64_t ColorConverter::BypassColor( const uint32_t color ) const
