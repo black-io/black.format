@@ -72,7 +72,8 @@ namespace
 	}
 
 	ColorConverter::ColorConverter( ColorConverter&& other ) noexcept
-		: m_input_operator{ std::move( other.m_input_operator ) }
+		: m_convert_method{ std::exchange( other.m_convert_method, &ColorConverter::BypassColor ) }
+		, m_input_operator{ std::move( other.m_input_operator ) }
 		, m_output_operator{ std::move( other.m_output_operator ) }
 	{
 	}
@@ -86,6 +87,7 @@ namespace
 
 	void ColorConverter::Swap( ColorConverter& other )
 	{
+		Black::Swap( m_convert_method, other.m_convert_method );
 		Black::Swap( m_input_operator, other.m_input_operator );
 		Black::Swap( m_output_operator, other.m_output_operator );
 	}
