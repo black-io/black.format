@@ -92,6 +92,12 @@ namespace
 
 	const uint64_t ColorConverter::ConvertToMonochrome( const uint32_t color ) const
 	{
+		const uint64_t red			= m_input_operator.ExtractRedChannel( color );
+		const uint64_t green		= m_input_operator.ExtractGreenChannel( color );
+		const uint64_t blue			= m_input_operator.ExtractBlueChannel( color );
+		const uint64_t magnitude	= ( red + green + blue ) / 3;
+
+		return m_output_operator.InsertWhiteChannel( 0, magnitude );
 	}
 
 	const uint64_t ColorConverter::RebindChannels( const uint32_t color ) const
