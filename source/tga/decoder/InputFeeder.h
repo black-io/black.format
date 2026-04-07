@@ -39,17 +39,17 @@ namespace Decoder
 	// Public interface.
 	public:
 		//
-		void Rewind();
+		void Swap( InputFeeder& other );
 
 		//
-		void Swap( InputFeeder& other );
+		void Rewind();
 
 
 		//
 		const Black::BooleanStatus StepForward();
 
 		//
-		inline const std::byte* const PeekElement() const	{ return m_block_payload; };
+		const std::byte* const PeekColorBuffer() const;
 
 
 		//

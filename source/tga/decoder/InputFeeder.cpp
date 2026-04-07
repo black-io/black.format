@@ -59,16 +59,6 @@ namespace
 		return *this;
 	}
 
-	void InputFeeder::Rewind()
-	{
-		m_block_payload			= m_input_buffer.GetBegin();
-		m_block_rest_length		= m_input_buffer.GetLength();
-		m_is_block_compressed	= false;
-
-		CRET( !m_has_compressed_input );
-		ParseBlockHeader();
-	}
-
 	void InputFeeder::Swap( InputFeeder& other )
 	{
 		Black::Swap( m_input_buffer, other.m_input_buffer );
@@ -77,6 +67,16 @@ namespace
 		Black::Swap( m_input_element_size, other.m_input_element_size );
 		Black::Swap( m_input_bitrage, other.m_input_bitrage );
 		Black::Swap( m_flags_buffer, other.m_flags_buffer );
+	}
+
+	void InputFeeder::Rewind()
+	{
+		m_block_payload			= m_input_buffer.GetBegin();
+		m_block_rest_length		= m_input_buffer.GetLength();
+		m_is_block_compressed	= false;
+
+		CRET( !m_has_compressed_input );
+		ParseBlockHeader();
 	}
 
 	const Black::BooleanStatus InputFeeder::StepForward()
@@ -100,6 +100,12 @@ namespace
 
 		ENSURES_DEBUG( m_input_buffer.IsInside( m_block_payload ) );
 		return Black::BooleanStatus::Success;
+	}
+
+	const std::byte* const InputFeeder::PeekColorBuffer() const
+	{
+		EXPECTS_DEBUG( m_input_buffer.IsInside( m_block_payload ) );
+		return m_block_payload;
 	}
 
 	void InputFeeder::ParseBlockHeader()
