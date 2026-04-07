@@ -16,6 +16,131 @@ namespace
 }
 
 
+namespace
+{
+	const Black::BooleanStatus SetupInputFeeder(
+		Decoder::InputFeeder& feeder,
+		const Internal::Header& header,
+		const Black::PlainView<const std::byte>& image_buffer
+	)
+	{
+		switch( Internal::ClassifyContentCompression( header.content_type ) )
+		{
+		case Internal::ContentCompression::None:
+			feeder = Decoder::InputFeeder::SetupStraightFeeder( image_buffer, header.image.bitrate );
+
+			return Black::BooleanStatus::Success;
+		case Internal::ContentCompression::Rle:
+			feeder = Decoder::InputFeeder::SetupRleFeeder( image_buffer, header.image.bitrate );
+
+			return Black::BooleanStatus::Success;
+		default:
+			break;
+		}
+
+		BLACK_LOG_ERROR( LOG_CHANNEL, "Failed to determine compression of image input buffer." );
+		return BooleanStatus::Failure;
+	}
+
+	const Black::BooleanStatus SetupColorMapper(
+		Decoder::ColorMapper& mapper,
+		const Internal::Header& header,
+		const Black::PlainView<const std::byte>& palette_buffer
+	)
+	{
+		switch( Internal::GetContentTypeBehindCompression( header.content_type ) )
+		{
+		case Internal::ContentType::Paletted:
+			mapper = Decoder::ColorMapper::SetupPaletteMapper( header, palette_buffer );
+
+			return Black::BooleanStatus::Success;
+		case Internal::ContentType::TrueColor:
+			mapper = Decoder::ColorMapper::SetupDirectMapper( header );
+
+			return Black::BooleanStatus::Success;
+		case Internal::ContentType::Grayscale:
+			mapper = Decoder::ColorMapper::SetupDirectMapper( header );
+
+			return Black::BooleanStatus::Success;
+		default:
+			break;
+		}
+
+		BLACK_LOG_ERROR( LOG_CHANNEL, "Failed to determine real content type of image input buffer." );
+		return BooleanStatus::Failure;
+	}
+
+	const Black::BooleanStatus SetupColorConverter( Decoder::ColorConverter& converter, const Internal::Header& header, const Black::ColorFormat output_format )
+	{
+		// Prepare for comparison.
+		Black::ColorFormat out_format	= output_format;
+		Black::ColorFormat in_format	= Internal::SelectColorFormat(
+			header.content_type,
+			header.palette.bitrate,
+			header.image.bitrate,
+			header.image.flags.alpha_length
+		);
+
+		// First of all, the monochrome-to-rgb color converter.
+		if( in_format.is_monochrome && !out_format.is_monochrome )
+		{
+			converter = Decoder::ColorConverter::SetupMonochromeToRgbConverter( header, output_format );
+
+			return Black::BooleanStatus::Success;
+		}
+
+		// Alpha settings are irrelevant for this comparison.
+		out_format.size_bits			= 0;
+		out_format.size_bytes			= 0;
+		out_format.alpha_channel_bits	= 0;
+		out_format.alpha_channel_index	= 0;
+		out_format.has_alpha			= false;
+		in_format.size_bits				= 0;
+		in_format.size_bytes			= 0;
+		in_format.alpha_channel_bits	= 0;
+		in_format.alpha_channel_index	= 0;
+		in_format.has_alpha				= false;
+
+		if( in_format == out_format )
+		{
+			converter = Decoder::ColorConverter::SetupDirectConverter( header, output_format );
+
+			return Black::BooleanStatus::Success;
+		}
+
+		// Now compare it without red-blue channel positions.
+		out_format.red_channel_index	= 0;
+		out_format.blue_channel_index	= 0;
+		in_format.red_channel_index		= 0;
+		in_format.blue_channel_index	= 0;
+
+		if( in_format == out_format )
+		{
+			converter = Decoder::ColorConverter::SetupRemappingConverter( header, output_format );
+
+			return Black::BooleanStatus::Success;
+		}
+
+		// So, setup the most slow and most comprehensive converter.
+		converter = Decoder::ColorConverter::SetupTransformConverter( header, output_format );
+		return BooleanStatus::Success;
+	}
+
+	const Black::BooleanStatus SetupOutputBuilder(
+		Decoder::OutputBuilder& builder,
+		const Black::PlainView<std::byte>& image_buffer,
+		const Black::ColorFormat output_format
+	)
+	{
+		builder = {};
+		builder.UseOutputBuffer( image_buffer );
+		builder.UseOutputFormat( output_format );
+
+		return BooleanStatus::Success;
+	}
+}
+
+
 	TgaImageDecoder::TgaImageDecoder( const TgaStructure::Header& input_header )
 		: m_input_header{ input_header }
 	{
@@ -55,19 +180,22 @@ namespace
 		// Discard the result in case of any error while decoding process.
 		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&TgaImageDecoder::ClearOutputBuffer>( *this ) };
 
-		Decoder::DecodePipeline pipeline;
+		Decoder::InputFeeder	input_feeder;
+		Decoder::ColorMapper	color_mapper;
+		Decoder::ColorConverter	color_converter;
+		Decoder::OutputBuilder	output_builder;
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Pipeline configuration started." );
 		{
-			Black::BooleanStatus status = pipeline.SetupInputFeeder( m_input_header, image_buffer );
+			Black::BooleanStatus status = SetupInputFeeder( input_feeder, m_input_header, image_buffer );
 			CRETE( Black::IsFailed( status ), status, LOG_CHANNEL, "Failed to setup image buffer for decoding." );
 
-			status = pipeline.SetupColorMapper( m_input_header, palette_buffer );
+			status = SetupColorMapper( color_mapper, m_input_header, palette_buffer );
 			CRETE( Black::IsFailed( status ), status, LOG_CHANNEL, "Failed to setup image color mapper for decoding." );
 
-			status = pipeline.SetupColorConverter( m_input_header, m_output_format );
+			status = SetupColorConverter( color_converter, m_input_header, m_output_format );
 			CRETE( Black::IsFailed( status ), status, LOG_CHANNEL, "Failed to setup output color converter for decoding." );
 
-			status = pipeline.SetupOutputBuilder( m_output_buffer, m_output_format );
+			status = SetupOutputBuilder( output_builder, m_output_buffer, m_output_format );
 			CRETE( Black::IsFailed( status ), status, LOG_CHANNEL, "Failed to setup output color converter for decoding." );
 		}
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Pipeline configuration finished." );
@@ -76,12 +204,22 @@ namespace
 		{
 			Decoder::CoordinateCursor cursor{ m_input_header, m_output_width, m_output_height };
 
-			CRETE( Black::IsFailed( pipeline.BeginProcessing( cursor ) ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed to begin processing." );
+			cursor.UseInputFeeder( input_feeder );
+			output_builder.UseCursor( cursor );
+
 			for( cursor.Rewind(); !cursor.IsFinished(); cursor.StepForward() )
 			{
-				CRETE( Black::IsFailed( pipeline() ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed processing at position {}.", cursor );
+				// Pull the color from input.
+				const std::byte* const color_buffer = input_feeder.PeekColorBuffer();
+				const uint32_t color = color_mapper.MapColor( color_buffer );
+
+				// Push the color to output.
+				const uint32_t converted_color		= color_converter.ConvertColor( color );
+				const Black::BooleanStatus status	= output_builder.ProduceElement( converted_color );
+				CRETE( Black::IsFailed( status ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed processing at position {}.", cursor );
 			}
-			CRETE( Black::IsFailed( pipeline.EndProcessing( cursor ) ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed to finish processing." );
+
+			output_builder.RefuseCursor();
 		}
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Decode finished." );
 
