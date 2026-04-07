@@ -63,12 +63,12 @@ namespace
 
 	void CoordinateCursor::StepForward()
 	{
-		ShiftInputFeeder();
-
 		++m_input_column;
 		++m_input_index;
 		m_output_column += m_output_column_step;
 		m_output_index += m_output_column_step;
+
+		ShiftInputFeeder();
 		CRET( m_input_column < m_input_width );
 
 		FixInputPosition();
@@ -100,6 +100,7 @@ namespace
 
 	void CoordinateCursor::ShiftInputFeeder()
 	{
+		CRET( m_input_index == m_input_length );
 		CRET( m_input_feeder == nullptr );
 		m_input_feeder->StepForward();
 	}
