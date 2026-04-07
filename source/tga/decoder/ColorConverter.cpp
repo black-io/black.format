@@ -37,15 +37,22 @@ namespace
 	}
 
 	ColorConverter::ColorConverter( ColorConverter&& other ) noexcept
+		: m_input_operator{ std::move( other.m_input_operator ) }
+		, m_output_operator{ std::move( other.m_output_operator ) }
 	{
 	}
 
-	ColorConverter& ColorConverter::operator = ( ColorConverter&& other ) noexcept
+	ColorConverter& ColorConverter::operator=( ColorConverter&& other ) noexcept
 	{
+		ColorConverter temp{ std::move( other ) };
+		Swap( temp );
+		return *this;
 	}
 
 	void ColorConverter::Swap( ColorConverter& other )
 	{
+		Black::Swap( m_input_operator, other.m_input_operator );
+		Black::Swap( m_output_operator, other.m_output_operator );
 	}
 
 	const uint32_t ColorConverter::ConvertColor( const uint32_t color ) const
