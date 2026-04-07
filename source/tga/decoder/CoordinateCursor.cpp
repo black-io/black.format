@@ -80,7 +80,7 @@ namespace
 		m_input_feeder = nullptr;
 	}
 
-	void CoordinateCursor::UseInputFeeder( BasicInputFeeder& feeder )
+	void CoordinateCursor::UseInputFeeder( InputFeeder& feeder )
 	{
 		m_input_feeder = &feeder;
 	}

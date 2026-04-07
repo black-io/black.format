@@ -44,7 +44,7 @@ namespace Decoder
 		void RefuseInputFeeder();
 
 		//
-		void UseInputFeeder( BasicInputFeeder& feeder );
+		void UseInputFeeder( InputFeeder& feeder );
 
 
 		//
@@ -88,7 +88,7 @@ namespace Decoder
 
 	// Private state.
 	private:
-		BasicInputFeeder* m_input_feeder	= nullptr;
+		InputFeeder* m_input_feeder	= nullptr;
 
 		size_t		m_input_width			= 0;
 		size_t		m_input_height			= 0;
