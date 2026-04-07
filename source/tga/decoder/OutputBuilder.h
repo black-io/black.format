@@ -11,10 +11,28 @@ namespace Decoder
 {
 	/**
 	*/
-	class OutputBuilder final : private Black::NonTransferable
+	class OutputBuilder final
 	{
+	// Friendship interface.
+	public:
+		friend inline void swap( OutputBuilder& left, OutputBuilder& right )	{ left.Swap( right ); };
+
+	// Public life-time management.
+	public:
+		inline OutputBuilder() noexcept								= default;
+		inline OutputBuilder( const OutputBuilder& other ) noexcept	= default;
+		OutputBuilder( OutputBuilder&& other ) noexcept;
+
+		inline ~OutputBuilder() noexcept = default;
+
+		inline OutputBuilder& operator = ( const OutputBuilder& other ) noexcept = default;
+		OutputBuilder& operator = ( OutputBuilder&& other ) noexcept;
+
 	// Public interface.
 	public:
+		//
+		void Swap( OutputBuilder& other );
+
 		//
 		void RefuseCursor();
 

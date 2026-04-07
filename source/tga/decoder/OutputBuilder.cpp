@@ -16,6 +16,27 @@ namespace
 }
 
 
+	OutputBuilder::OutputBuilder( OutputBuilder&& other ) noexcept
+		: m_cursor{ std::exchange( other.m_cursor, nullptr ) }
+		, m_output_buffer{ std::move( other.m_output_buffer ) }
+		, m_output_format{ std::exchange( other.m_output_format, Black::ColorFormats::UNDEFINED ) }
+	{
+	}
+
+	OutputBuilder& OutputBuilder::operator=( OutputBuilder&& other ) noexcept
+	{
+		OutputBuilder temp{ std::move( other ) };
+		Swap( temp );
+		return *this;
+	}
+
+	void OutputBuilder::Swap( OutputBuilder& other )
+	{
+		Black::Swap( m_cursor, other.m_cursor );
+		Black::Swap( m_output_buffer, other.m_output_buffer );
+		Black::Swap( m_output_format, other.m_output_format );
+	}
+
 	void OutputBuilder::RefuseCursor()
 	{
 		m_cursor = nullptr;
