@@ -52,7 +52,7 @@ namespace Decoder
 
 
 		//
-		const uint32_t ConvertColor( const uint32_t color );
+		const uint32_t ConvertColor( const uint32_t color ) const;
 
 	// Private interface.
 	private:
