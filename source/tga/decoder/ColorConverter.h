@@ -71,7 +71,7 @@ namespace Decoder
 		const uint64_t ConvertToMonochrome( const uint32_t color ) const;
 
 		//
-		const uint64_t RebindChannels( const uint32_t color ) const;
+		const uint64_t RemapChannels( const uint32_t color ) const;
 
 		//
 		const uint64_t TransformChannels( const uint32_t color ) const;

@@ -100,7 +100,7 @@ namespace
 		return m_output_operator.InsertWhiteChannel( 0, magnitude );
 	}
 
-	const uint64_t ColorConverter::RebindChannels( const uint32_t color ) const
+	const uint64_t ColorConverter::RemapChannels( const uint32_t color ) const
 	{
 		return 0;
 	}
