@@ -12,6 +12,7 @@
 // Interfaces.
 #include "InputFeeder.h"
 #include "ColorMapper.h"
+#include "ColorConverter.h"
 
 #include "BasicColorConverter.h"
 
