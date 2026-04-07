@@ -14,3 +14,5 @@
 #include "ColorConverter.h"
 #include "CoordinateCursor.h"
 #include "OutputBuilder.h"
+
+#include "functions.h"
