@@ -16,6 +16,9 @@ namespace Decoder
 	// Public interface.
 	public:
 		//
+		void RefuseCursor();
+
+		//
 		void UseCursor( const CoordinateCursor& cursor );
 
 		//

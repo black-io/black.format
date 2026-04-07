@@ -16,6 +16,11 @@ namespace
 }
 
 
+	void OutputBuilder::RefuseCursor()
+	{
+		m_cursor = nullptr;
+	}
+
 	void OutputBuilder::UseCursor( const CoordinateCursor& cursor )
 	{
 		m_cursor = &cursor;
