@@ -51,6 +51,26 @@ namespace
 
 	const uint32_t ColorMapper::MapColor( const std::byte* color_buffer ) const
 	{
+		uint64_t color = 0;
+		Black::CopyMemory( &color, color_buffer, m_input_operator.GetFormat().size_bytes );
+		CRET( !m_input_operator.GetFormat().is_index, uint32_t( color ) );
+
+		const size_t index		= size_t( m_input_operator.MaskIndexChannel( color ) );
+		const uint64_t alpha	= m_input_operator.ExtractAlphaChannel( color );
+
+		color = PeekPaletteElement( index );
+		CRET( !m_output_operator.CanProcessAlphaChannel(), uint32_t( color ) );
+
+		if( m_input_operator.CanProcessAlphaChannel() )
+		{
+			color = m_output_operator.InsertAlphaChannel( color, alpha );
+		}
+		else
+		{
+			color = m_output_operator.ReplaceAlphaChannel( color, m_output_operator.GetAlphaChannelMask() );
+		}
+
+		return uint32_t( color );
 	}
 
 	const uint32_t ColorMapper::PeekPaletteElement( const size_t element_index ) const
