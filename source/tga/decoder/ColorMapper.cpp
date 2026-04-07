@@ -49,7 +49,7 @@ namespace
 		Black::Swap( m_palette_bitrate, other.m_palette_bitrate );
 	}
 
-	const uint32_t ColorMapper::MapColor( const std::byte* color_buffer ) const
+	const uint32_t ColorMapper::MapColor( const std::byte* const color_buffer ) const
 	{
 		uint64_t color = 0;
 		Black::CopyMemory( &color, color_buffer, m_input_operator.GetFormat().size_bytes );

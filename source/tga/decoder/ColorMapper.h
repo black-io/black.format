@@ -43,7 +43,14 @@ namespace Decoder
 
 
 		//
-		const uint32_t MapColor( const std::byte* color_buffer ) const;
+		const uint32_t MapColor( const std::byte* const color_buffer ) const;
+
+
+		//
+		inline const Black::ColorFormat GetInputFormat() const { return m_input_operator.GetFormat(); };
+
+		//
+		inline const Black::ColorFormat GetOutputFormat() const { return m_output_operator.GetFormat(); };
 
 	// Private interface.
 	private:
