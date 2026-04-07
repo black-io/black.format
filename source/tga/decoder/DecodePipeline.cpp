@@ -160,7 +160,6 @@ namespace
 		CRETE( m_output_builder == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Output image builder does not configured." );
 
 		image_cursor.UseInputFeeder( *m_input_feeder );
-		m_color_converter->UseOutputBuilder( *m_output_builder );
 		m_output_builder->UseCursor( image_cursor );
 
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Image processing began." );
@@ -174,8 +173,8 @@ namespace
 		const uint32_t color = m_color_mapper->MapColor( color_buffer );
 
 		// Push the color to output.
-		EXPECTS_DEBUG( m_color_converter != nullptr );
-		return m_color_converter->ConvertColor( color, m_color_mapper->GetOutputFormat() );
+		const uint32_t converted_color = m_color_converter->ConvertColor( color );
+		return m_output_builder->ProduceElement( converted_color );
 	}
 
 	const Black::BooleanStatus DecodePipeline::EndProcessing( CoordinateCursor& image_cursor )
