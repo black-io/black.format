@@ -160,7 +160,6 @@ namespace
 		CRETE( m_output_builder == nullptr, Black::BooleanStatus::Failure, LOG_CHANNEL, "Output image builder does not configured." );
 
 		image_cursor.UseInputFeeder( *m_input_feeder );
-		m_color_mapper->UseInputFeeder( *m_input_feeder );
 		m_color_converter->UseOutputBuilder( *m_output_builder );
 		m_output_builder->UseCursor( image_cursor );
 
