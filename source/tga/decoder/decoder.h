@@ -15,6 +15,8 @@
 #include "BasicColorConverter.h"
 
 // Components.
+#include "InputFeeder.h"
+
 #include "StraightInputFeeder.h"
 #include "RleInputFeeder.h"
 
