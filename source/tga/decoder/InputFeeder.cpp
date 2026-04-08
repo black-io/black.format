@@ -22,7 +22,7 @@ namespace
 
 		feeder.m_input_buffer			= std::move( input_buffer );
 		feeder.m_input_element_size		= Internal::GetElementSize( input_bitrate );
-		feeder.m_input_bitrage			= input_bitrate;
+		feeder.m_input_bitrate			= input_bitrate;
 		feeder.m_has_compressed_input	= false;
 		feeder.Rewind();
 
@@ -35,7 +35,7 @@ namespace
 
 		feeder.m_input_buffer			= std::move( input_buffer );
 		feeder.m_input_element_size		= Internal::GetElementSize( input_bitrate );
-		feeder.m_input_bitrage			= input_bitrate;
+		feeder.m_input_bitrate			= input_bitrate;
 		feeder.m_has_compressed_input	= true;
 		feeder.Rewind();
 
@@ -47,7 +47,7 @@ namespace
 		, m_block_payload{ std::exchange( other.m_block_payload, nullptr ) }
 		, m_block_rest_size{ std::exchange( other.m_block_rest_size, 0 ) }
 		, m_input_element_size{ std::exchange( other.m_input_element_size, 0 ) }
-		, m_input_bitrage{ std::exchange( other.m_input_bitrage, Internal::Bitrate::Undefined ) }
+		, m_input_bitrate{ std::exchange( other.m_input_bitrate, Internal::Bitrate::Undefined ) }
 		, m_flags_buffer{ std::exchange( other.m_flags_buffer, 0 ) }
 	{
 	}
@@ -65,7 +65,7 @@ namespace
 		Black::Swap( m_block_payload, other.m_block_payload );
 		Black::Swap( m_block_rest_size, other.m_block_rest_size );
 		Black::Swap( m_input_element_size, other.m_input_element_size );
-		Black::Swap( m_input_bitrage, other.m_input_bitrage );
+		Black::Swap( m_input_bitrate, other.m_input_bitrate );
 		Black::Swap( m_flags_buffer, other.m_flags_buffer );
 	}
 

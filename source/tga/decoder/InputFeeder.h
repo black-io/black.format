@@ -78,7 +78,7 @@ namespace Decoder
 		inline const size_t GetElementSize() const			{ return m_input_element_size; };
 
 		// Get the bit-rate of image.
-		inline const Internal::Bitrate GetBitrate() const	{ return m_input_bitrage; };
+		inline const Internal::Bitrate GetBitrate() const	{ return m_input_bitrate; };
 
 
 		// Whether more of image element still can be observed.
@@ -96,7 +96,7 @@ namespace Decoder
 		const std::byte*	m_block_payload			= nullptr;						// Current head of input content.
 		size_t				m_block_rest_size		= 0;							// Rest size of currently observed RLE-block.
 		size_t				m_input_element_size	= 0;							// Size of single element in input memory.
-		Internal::Bitrate	m_input_bitrage			= Internal::Bitrate::Undefined;	// Bit-rate of elements in input memory.
+		Internal::Bitrate	m_input_bitrate			= Internal::Bitrate::Undefined;	// Bit-rate of elements in input memory.
 
 		union
 		{
