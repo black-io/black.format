@@ -140,7 +140,17 @@ namespace
 
 	const uint64_t ColorConverter::RemapChannels( const uint32_t color ) const
 	{
-		return 0;
+		uint64_t converted_color = 0;
+
+		const uint64_t red		= m_input_operator.ExtractRedChannel( color );
+		const uint64_t green	= m_input_operator.ExtractGreenChannel( color );
+		const uint64_t blue		= m_input_operator.ExtractBlueChannel( color );
+
+		converted_color = m_output_operator.InsertRedChannel( converted_color, red );
+		converted_color = m_output_operator.InsertGreenChannel( converted_color, green );
+		converted_color = m_output_operator.InsertBlueChannel( converted_color, blue );
+
+		return converted_color;
 	}
 
 	const uint64_t ColorConverter::TransformChannels( const uint32_t color ) const
