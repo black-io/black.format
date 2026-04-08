@@ -117,9 +117,10 @@ namespace
 
 	const uint64_t ColorConverter::ConvertFromMonochrome( const uint32_t color ) const
 	{
+		uint64_t converted_color = 0;
+
 		const uint32_t magnitude = uint32_t( m_input_operator.MaskWhiteChannel( color ) );
 
-		uint64_t converted_color = 0;
 		converted_color = m_output_operator.InsertRedChannel( converted_color, magnitude );
 		converted_color = m_output_operator.InsertGreenChannel( converted_color, magnitude );
 		converted_color = m_output_operator.InsertBlueChannel( converted_color, magnitude );
