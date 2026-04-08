@@ -94,7 +94,7 @@ namespace Decoder
 		Black::PlainView<const std::byte> m_input_buffer; // Buffer of image input. Points to TGA file, where the image data stored.
 
 		const std::byte*	m_block_payload			= nullptr;						// Current head of input content.
-		size_t				m_block_rest_length		= 0;							// Rest size of currently observed RLE-block.
+		size_t				m_block_rest_size		= 0;							// Rest size of currently observed RLE-block.
 		size_t				m_input_element_size	= 0;							// Size of single element in input memory.
 		Internal::Bitrate	m_input_bitrage			= Internal::Bitrate::Undefined;	// Bit-rate of elements in input memory.
 
