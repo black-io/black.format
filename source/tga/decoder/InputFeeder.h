@@ -32,7 +32,7 @@ namespace Decoder
 		/**
 			@brief	Factory function to initialize the feeder for straight unpacked memory.
 
-			@param	input_buffer	view of TGA image memory to be used by feeder as input for decoding pipeline.
+			@param	input_buffer	View of TGA image memory to be used by feeder as input for decoding pipeline.
 			@param	input_bitrate	Image bit-rate from TGA header.
 			@result					The value returned is ready to work input feeder.
 		*/
@@ -41,7 +41,7 @@ namespace Decoder
 		/**
 			@brief	Factory function to initialize the feeder for memory packed using RLE algorithm.
 
-			@param	input_buffer	view of TGA image memory to be used by feeder as input for decoding pipeline.
+			@param	input_buffer	View of TGA image memory to be used by feeder as input for decoding pipeline.
 			@param	input_bitrate	Image bit-rate from TGA header.
 			@result					The value returned is ready to work input feeder.
 		*/
