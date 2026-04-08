@@ -84,6 +84,13 @@ namespace
 
 			return Black::BooleanStatus::Success;
 		}
+		else if( !in_format.is_monochrome && out_format.is_monochrome )
+		{
+			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the RGB->W color converter." );
+			converter = ColorConverter::SetupRgbToMonochromeConverter( header, output_format );
+
+			return Black::BooleanStatus::Success;
+		}
 
 		// Alpha settings are irrelevant for this comparison.
 		out_format.size_bits			= 0;
