@@ -74,7 +74,7 @@ namespace
 		Black::CopyMemory( &color, color_buffer, m_input_operator.GetFormat().size_bytes );
 		CRET( !m_input_operator.GetFormat().is_index, uint32_t( color ) );
 
-		const size_t index		= size_t( m_input_operator.MaskIndexChannel( color ) );
+		const size_t index		= size_t( m_input_operator.MaskIndex( color ) );
 		const uint64_t alpha	= m_input_operator.ExtractAlphaChannel( color );
 
 		color = PeekPaletteElement( index );

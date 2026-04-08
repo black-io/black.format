@@ -186,7 +186,7 @@ namespace
 		return color & m_white_channel_mask;
 	}
 
-	const uint64_t ColorFormatOperator::MaskIndexChannel( const uint64_t color ) const
+	const uint64_t ColorFormatOperator::MaskIndex( const uint64_t color ) const
 	{
 		return color & m_index_mask;
 	}

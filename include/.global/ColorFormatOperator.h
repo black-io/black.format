@@ -276,7 +276,7 @@ inline namespace Global
 			@param	color	Given color with valuable palette index.
 			@return			The value returned is valid color, where only palette index saved from given one.
 		*/
-		const uint64_t MaskIndexChannel( const uint64_t color ) const;
+		const uint64_t MaskIndex( const uint64_t color ) const;
 
 
 		// Get the mask of red channel.
