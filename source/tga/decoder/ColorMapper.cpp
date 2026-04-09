@@ -28,7 +28,7 @@ namespace
 		return mapper;
 	}
 
-	ColorMapper ColorMapper::SetupPaletteMapper( const Internal::Header& header, Black::PlainView<const std::byte> palette_buffer )
+	ColorMapper ColorMapper::BuildPaletteMapper( const Internal::Header& header, Black::PlainView<const std::byte> palette_buffer )
 	{
 		ColorMapper mapper;
 

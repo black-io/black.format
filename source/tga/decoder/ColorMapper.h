@@ -44,7 +44,7 @@ namespace Decoder
 			@param	palette_buffer	Memory of palette from TGA file.
 			@return					The value returned is ready to work color mapper.
 		*/
-		static ColorMapper SetupPaletteMapper( const Internal::Header& header, Black::PlainView<const std::byte> palette_buffer );
+		static ColorMapper BuildPaletteMapper( const Internal::Header& header, Black::PlainView<const std::byte> palette_buffer );
 
 	// Public life-time management.
 	public:

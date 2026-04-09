@@ -44,7 +44,7 @@ namespace
 		{
 		case Internal::ContentType::Paletted:
 			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the palette color mapper." );
-			mapper = ColorMapper::SetupPaletteMapper( header, palette_buffer );
+			mapper = ColorMapper::BuildPaletteMapper( header, palette_buffer );
 
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::TrueColor:
