@@ -16,6 +16,16 @@ namespace
 }
 
 
+	OutputBuilder OutputBuilder::SetupDirectFeeder( Black::PlainView<std::byte> output_buffer, const Black::ColorFormat output_format )
+	{
+		OutputBuilder builder;
+
+		builder.m_output_buffer	= std::move( output_buffer );
+		builder.m_output_format	= output_format;
+
+		return builder;
+	}
+
 	OutputBuilder::OutputBuilder( OutputBuilder&& other ) noexcept
 		: m_output_buffer{ std::move( other.m_output_buffer ) }
 		, m_output_format{ std::exchange( other.m_output_format, Black::ColorFormats::UNDEFINED ) }
