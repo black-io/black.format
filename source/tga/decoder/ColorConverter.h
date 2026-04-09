@@ -53,7 +53,7 @@ namespace Decoder
 			@param	output_format	Format of converter output.
 			@return					The value returned is ready to work color converter.
 		*/
-		static ColorConverter SetupMonochromeToRgbConverter( const Internal::Header& header, const Black::ColorFormat output_format );
+		static ColorConverter BuildMonochromeToRgbConverter( const Internal::Header& header, const Black::ColorFormat output_format );
 
 		/**
 			@brief	Factory function to initialize the converter in direct mode.
