@@ -86,7 +86,7 @@ namespace Decoder
 			@param	output_format	Format of converter output.
 			@return					The value returned is ready to work color converter.
 		*/
-		static ColorConverter SetupTransformConverter( const Internal::Header& header, const Black::ColorFormat output_format );
+		static ColorConverter BuildTransformConverter( const Internal::Header& header, const Black::ColorFormat output_format );
 
 	// Public life-time management.
 	public:

@@ -128,7 +128,7 @@ namespace
 
 		// So, setup the most slow and most comprehensive converter.
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the transforming color converter." );
-		converter = ColorConverter::SetupTransformConverter( header, output_format );
+		converter = ColorConverter::BuildTransformConverter( header, output_format );
 		return BooleanStatus::Success;
 	}
 

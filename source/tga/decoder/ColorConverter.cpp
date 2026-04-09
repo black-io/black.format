@@ -60,7 +60,7 @@ namespace
 		return converter;
 	}
 
-	ColorConverter ColorConverter::SetupTransformConverter( const Internal::Header& header, const Black::ColorFormat output_format )
+	ColorConverter ColorConverter::BuildTransformConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
 		ColorConverter converter;
 
