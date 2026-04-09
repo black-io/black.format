@@ -121,7 +121,7 @@ namespace
 		if( in_format == out_format )
 		{
 			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the channel-remap color converter." );
-			converter = ColorConverter::SetupRemappingConverter( header, output_format );
+			converter = ColorConverter::BuildRemappingConverter( header, output_format );
 
 			return Black::BooleanStatus::Success;
 		}

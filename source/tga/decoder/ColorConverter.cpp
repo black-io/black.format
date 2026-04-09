@@ -49,7 +49,7 @@ namespace
 		return converter;
 	}
 
-	ColorConverter ColorConverter::SetupRemappingConverter( const Internal::Header& header, const Black::ColorFormat output_format )
+	ColorConverter ColorConverter::BuildRemappingConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
 		ColorConverter converter;
 
