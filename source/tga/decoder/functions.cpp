@@ -49,12 +49,12 @@ namespace
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::TrueColor:
 			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the direct color mapper." );
-			mapper = ColorMapper::SetupDirectMapper( header );
+			mapper = ColorMapper::BuildDirectMapper( header );
 
 			return Black::BooleanStatus::Success;
 		case Internal::ContentType::Grayscale:
 			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the direct color mapper." );
-			mapper = ColorMapper::SetupDirectMapper( header );
+			mapper = ColorMapper::BuildDirectMapper( header );
 
 			return Black::BooleanStatus::Success;
 		default:

@@ -35,7 +35,7 @@ namespace Decoder
 			@param	header	TGA file header, given from input image.
 			@return			The value returned is ready to work color mapper.
 		*/
-		static ColorMapper SetupDirectMapper( const Internal::Header& header );
+		static ColorMapper BuildDirectMapper( const Internal::Header& header );
 
 		/**
 			@brief	Factory function to initialize the mapper for mapping the input data into palette colors.

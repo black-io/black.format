@@ -16,7 +16,7 @@ namespace
 }
 
 
-	ColorMapper ColorMapper::SetupDirectMapper( const Internal::Header& header )
+	ColorMapper ColorMapper::BuildDirectMapper( const Internal::Header& header )
 	{
 		ColorMapper mapper;
 
