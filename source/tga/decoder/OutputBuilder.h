@@ -24,6 +24,11 @@ namespace Decoder
 	public:
 		friend inline void swap( OutputBuilder& left, OutputBuilder& right )	{ left.Swap( right ); };
 
+	// Public static interface.
+	public:
+		//
+		static OutputBuilder SetupDirectFeeder( Black::PlainView<std::byte> output_buffer, const Black::ColorFormat output_format );
+
 	// Public life-time management.
 	public:
 		inline OutputBuilder() noexcept								= default;
