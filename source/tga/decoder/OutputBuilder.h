@@ -47,13 +47,13 @@ namespace Decoder
 
 
 		// Produce the single pixel of output image.
-		void ProduceElement( const uint32_t color, const CoordinateCursor& cursor );
+		void ProduceElement( const uint32_t color, const CoordinateCursor& cursor ) const;
 
 	// Private state.
 	private:
-		Black::PlainView<std::byte>	m_output_buffer;	// Memory of output image.
+		Black::PlainView<std::byte>	m_output_buffer; // Memory of output image.
 
-		Black::ColorFormat			m_output_format		= Black::ColorFormats::UNDEFINED;	// Output image format.
+		Black::ColorFormat m_output_format = Black::ColorFormats::UNDEFINED; // Output image format.
 	};
 }
 }
