@@ -87,7 +87,7 @@ namespace
 		else if( !in_format.is_monochrome && out_format.is_monochrome )
 		{
 			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the RGB->W color converter." );
-			converter = ColorConverter::SetupRgbToMonochromeConverter( header, output_format );
+			converter = ColorConverter::BuildRgbToMonochromeConverter( header, output_format );
 
 			return Black::BooleanStatus::Success;
 		}

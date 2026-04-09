@@ -16,7 +16,7 @@ namespace
 }
 
 
-	ColorConverter ColorConverter::SetupRgbToMonochromeConverter( const Internal::Header& header, const Black::ColorFormat output_format )
+	ColorConverter ColorConverter::BuildRgbToMonochromeConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
 		ColorConverter converter;
 
