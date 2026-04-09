@@ -16,7 +16,7 @@ namespace
 }
 
 
-	OutputBuilder OutputBuilder::SetupDirectFeeder( Black::PlainView<std::byte> output_buffer, const Black::ColorFormat output_format )
+	OutputBuilder OutputBuilder::BuildDirectFeeder( Black::PlainView<std::byte> output_buffer, const Black::ColorFormat output_format )
 	{
 		OutputBuilder builder;
 

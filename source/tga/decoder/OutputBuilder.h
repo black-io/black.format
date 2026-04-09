@@ -33,7 +33,7 @@ namespace Decoder
 			@param	output_format	Format of output image.
 			@return					The value returned is ready to work output builder.
 		*/
-		static OutputBuilder SetupDirectFeeder( Black::PlainView<std::byte> output_buffer, const Black::ColorFormat output_format );
+		static OutputBuilder BuildDirectFeeder( Black::PlainView<std::byte> output_buffer, const Black::ColorFormat output_format );
 
 	// Public life-time management.
 	public:

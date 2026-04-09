@@ -136,7 +136,7 @@ namespace
 	{
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the trivial output builder." );
 
-		builder = OutputBuilder::SetupDirectFeeder( image_buffer, output_format );
+		builder = OutputBuilder::BuildDirectFeeder( image_buffer, output_format );
 
 		return BooleanStatus::Success;
 	}
