@@ -135,9 +135,8 @@ namespace
 	const Black::BooleanStatus SetupOutputBuilder( OutputBuilder& builder, const Black::PlainView<std::byte>& image_buffer, const Black::ColorFormat output_format )
 	{
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the trivial output builder." );
-		builder = {};
-		builder.UseOutputBuffer( image_buffer );
-		builder.UseOutputFormat( output_format );
+
+		builder = OutputBuilder::SetupDirectFeeder( image_buffer, output_format );
 
 		return BooleanStatus::Success;
 	}
