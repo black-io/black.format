@@ -26,7 +26,13 @@ namespace Decoder
 
 	// Public static interface.
 	public:
-		//
+		/**
+			@brief	Factory function to initialize the builder for contiguous memory of output image.
+
+			@param	output_buffer	Memory view, where the output image should be stored.
+			@param	output_format	Format of output image.
+			@return					The value returned is ready to work output builder.
+		*/
 		static OutputBuilder SetupDirectFeeder( Black::PlainView<std::byte> output_buffer, const Black::ColorFormat output_format );
 
 	// Public life-time management.
