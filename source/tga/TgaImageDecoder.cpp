@@ -80,7 +80,6 @@ namespace
 			Decoder::CoordinateCursor cursor{ m_input_header, m_output_width, m_output_height };
 
 			cursor.UseInputFeeder( input_feeder );
-			output_builder.UseCursor( cursor );
 			for( cursor.Rewind(); !cursor.IsFinished(); cursor.StepForward() )
 			{
 				// Pull the color from input.
@@ -88,11 +87,9 @@ namespace
 				const uint32_t color				= color_mapper.MapColor( color_buffer );
 
 				// Push the color to output.
-				const uint32_t converted_color		= color_converter.ConvertColor( color );
-				const Black::BooleanStatus status	= output_builder.ProduceElement( converted_color );
-				CRETE( Black::IsFailed( status ), Black::BooleanStatus::Failure, LOG_CHANNEL, "Pipeline failed processing at position {}.", cursor );
+				const uint32_t converted_color = color_converter.ConvertColor( color );
+				output_builder.ProduceElement( converted_color, cursor );
 			}
-			output_builder.RefuseCursor();
 		}
 		BLACK_LOG_DEBUG( LOG_CHANNEL, "Decode finished." );
 
