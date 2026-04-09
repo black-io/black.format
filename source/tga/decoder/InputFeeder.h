@@ -36,7 +36,7 @@ namespace Decoder
 			@param	input_bitrate	Image bit-rate from TGA header.
 			@result					The value returned is ready to work input feeder.
 		*/
-		static InputFeeder SetupStraightFeeder( Black::PlainView<const std::byte> input_buffer, const Internal::Bitrate input_bitrate );
+		static InputFeeder BuildStraightFeeder( Black::PlainView<const std::byte> input_buffer, const Internal::Bitrate input_bitrate );
 
 		/**
 			@brief	Factory function to initialize the feeder for memory packed using RLE algorithm.

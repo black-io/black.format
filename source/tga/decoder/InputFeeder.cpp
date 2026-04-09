@@ -16,7 +16,7 @@ namespace
 }
 
 
-	InputFeeder InputFeeder::SetupStraightFeeder( Black::PlainView<const std::byte> input_buffer, const Internal::Bitrate input_bitrate )
+	InputFeeder InputFeeder::BuildStraightFeeder( Black::PlainView<const std::byte> input_buffer, const Internal::Bitrate input_bitrate )
 	{
 		InputFeeder feeder;
 

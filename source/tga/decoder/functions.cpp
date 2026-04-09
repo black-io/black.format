@@ -22,7 +22,7 @@ namespace
 		{
 		case Internal::ContentCompression::None:
 			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the straight input feeder." );
-			feeder = InputFeeder::SetupStraightFeeder( image_buffer, header.image.bitrate );
+			feeder = InputFeeder::BuildStraightFeeder( image_buffer, header.image.bitrate );
 
 			return Black::BooleanStatus::Success;
 		case Internal::ContentCompression::Rle:
