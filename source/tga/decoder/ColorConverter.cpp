@@ -38,7 +38,7 @@ namespace
 		return converter;
 	}
 
-	ColorConverter ColorConverter::SetupDirectConverter( const Internal::Header& header, const Black::ColorFormat output_format )
+	ColorConverter ColorConverter::BuildDirectConverter( const Internal::Header& header, const Black::ColorFormat output_format )
 	{
 		ColorConverter converter;
 

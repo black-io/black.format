@@ -107,7 +107,7 @@ namespace
 		if( in_format == out_format )
 		{
 			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the direct color converter." );
-			converter = ColorConverter::SetupDirectConverter( header, output_format );
+			converter = ColorConverter::BuildDirectConverter( header, output_format );
 
 			return Black::BooleanStatus::Success;
 		}
