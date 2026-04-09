@@ -29,7 +29,7 @@ namespace
 		return feeder;
 	}
 
-	InputFeeder InputFeeder::SetupRleFeeder( Black::PlainView<const std::byte> input_buffer, const Internal::Bitrate input_bitrate )
+	InputFeeder InputFeeder::BuildRleFeeder( Black::PlainView<const std::byte> input_buffer, const Internal::Bitrate input_bitrate )
 	{
 		InputFeeder feeder;
 

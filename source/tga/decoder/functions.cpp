@@ -27,7 +27,7 @@ namespace
 			return Black::BooleanStatus::Success;
 		case Internal::ContentCompression::Rle:
 			BLACK_LOG_DEBUG( LOG_CHANNEL, "Configure the RLE input feeder." );
-			feeder = InputFeeder::SetupRleFeeder( image_buffer, header.image.bitrate );
+			feeder = InputFeeder::BuildRleFeeder( image_buffer, header.image.bitrate );
 
 			return Black::BooleanStatus::Success;
 		default:
