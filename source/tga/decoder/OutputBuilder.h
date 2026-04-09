@@ -45,26 +45,13 @@ namespace Decoder
 		// Swap the state of this builder with other.
 		void Swap( OutputBuilder& other );
 
-		// Instruct the builder to stop the using of previously given coordinate cursor.
-		void RefuseCursor();
 
-		// Instruct the builder to use given coordinate cursor.
-		void UseCursor( const CoordinateCursor& cursor );
-
-		// Instruct the builder to use given buffer as output image memory.
-		void UseOutputBuffer( Black::PlainView<std::byte> output_buffer );
-
-		// Instruct he builder to use given format of output image.
-		void UseOutputFormat( const Black::ColorFormat output_format );
-
-
-		// Produce the single pixel of output image, using position of coordinate cursor along with given color.
-		const Black::BooleanStatus ProduceElement( const uint32_t color );
+		// Produce the single pixel of output image.
+		void ProduceElement( const uint32_t color, const CoordinateCursor& cursor );
 
 	// Private state.
 	private:
-		const CoordinateCursor*		m_cursor			= nullptr;							// Configured coordinate cursor.
-		Black::PlainView<std::byte>	m_output_buffer;										// Memory of output image.
+		Black::PlainView<std::byte>	m_output_buffer;	// Memory of output image.
 
 		Black::ColorFormat			m_output_format		= Black::ColorFormats::UNDEFINED;	// Output image format.
 	};
