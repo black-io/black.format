@@ -151,7 +151,7 @@ inline namespace Tga
 	private:
 		Black::PlainView<const std::byte>	m_file_memory;	// TGA file memory.
 
-	// Private on-state.
+	// Private non-state.
 	private:
 		mutable const Internal::Header*				m_header				= nullptr;	// Header of file, if parsed.
 		mutable Black::PlainView<const std::byte>	m_id;								// Image id data.
