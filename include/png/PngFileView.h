@@ -29,16 +29,15 @@ inline namespace Png
 	// Public life-time management.
 	public:
 		inline PngFileView() noexcept						= default;;
-		inline PngFileView( PngFileView&& other ) noexcept	= default;
+		PngFileView( PngFileView&& other ) noexcept;
 
-		explicit PngFileView( Black::PlainView<const std::byte> file_memory );
-		PngFileView( Black::PlainView<const std::byte> file_memory, const Black::ConstructInplace );
+		explicit PngFileView( Black::PlainView<const std::byte> file_memory ) noexcept;
+		PngFileView( Black::PlainView<const std::byte> file_memory, const Black::ConstructInplace ) noexcept;
 
 		inline ~PngFileView() noexcept = default;
 
 
-		inline PngFileView& operator = ( PngFileView&& other ) noexcept	= default;
-
+		PngFileView& operator = ( PngFileView&& other ) noexcept;
 		PngFileView& operator = ( Black::PlainView<const std::byte> file_memory ) noexcept;
 
 	// Public interface.
@@ -64,6 +63,20 @@ inline namespace Png
 
 		//
 		inline const bool IsValid() const	{ return m_is_valid; };
+
+	// Private interface.
+	private:
+		//
+		void InvalidateCache() const;
+
+		//
+		void EnsureFileMemoryParsed() const;
+
+		//
+		void ParseFileMemory() const;
+
+		//
+		void TestFileMemory() const;
 
 	// Private state.
 	private:
