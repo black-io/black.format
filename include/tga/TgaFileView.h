@@ -135,7 +135,7 @@ inline namespace Tga
 
 	// Private interface.
 	private:
-		// reset only non-state fields.
+		// Reset only non-state fields.
 		void InvalidateCache() const;
 
 		// Make the guarantee the underlying TGA file is parsed once.
