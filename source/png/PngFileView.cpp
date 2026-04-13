@@ -196,6 +196,13 @@ namespace
 
 	void PngFileView::InvalidateCache() const
 	{
+		m_cunks.clear();
+
+		m_header	= nullptr;
+		m_palette	= {};
+		m_image		= {};
+		m_is_valid	= false;
+		m_is_parsed	= false;
 	}
 
 	void PngFileView::EnsureFileMemoryParsed() const
