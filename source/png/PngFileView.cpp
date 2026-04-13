@@ -215,7 +215,14 @@ namespace
 		CRETW( !m_is_valid, , LOG_CHANNEL, "Unable to parse invalid memory." );
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "Perform file parsing." );
 
+		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&PngFileView::InvalidateCache>( *this ) };
+
+		CRETW( !IsHeaderValid( m_file_memory ), , LOG_CHANNEL, "Unable to determine TGA header." );
+
+
+
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
+		reset_contract.Cancel();
 		m_is_parsed = true;
 	}
 
