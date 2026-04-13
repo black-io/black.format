@@ -193,6 +193,22 @@ namespace
 	{
 		return m_file_memory.IsEmpty() || ( QueryHeader() == nullptr ) || GetImageBuffer().IsEmpty();
 	}
+
+	void PngFileView::InvalidateCache() const
+	{
+	}
+
+	void PngFileView::EnsureFileMemoryParsed() const
+	{
+	}
+
+	void PngFileView::ParseFileMemory() const
+	{
+	}
+
+	void PngFileView::TestFileMemory() const
+	{
+	}
 }
 }
 }
