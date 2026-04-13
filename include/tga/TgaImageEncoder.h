@@ -22,7 +22,7 @@ inline namespace Tga
 	public:
 		inline TgaImageEncoder() noexcept								= default;
 		inline TgaImageEncoder( const TgaImageEncoder& other ) noexcept	= default;
-		inline TgaImageEncoder( TgaImageEncoder&& other ) noexcept		= default;
+		TgaImageEncoder( TgaImageEncoder&& other ) noexcept;
 
 		explicit TgaImageEncoder( const TgaStructure::Header& output_header );
 

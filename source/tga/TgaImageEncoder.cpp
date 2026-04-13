@@ -14,6 +14,12 @@ namespace
 }
 
 
+	TgaImageEncoder::TgaImageEncoder( TgaImageEncoder&& other ) noexcept
+		: m_output_header{ std::exchange( other.m_output_header, Internal::Header{} ) }
+		, m_output_buffer{ std::move( other.m_output_buffer ) }
+	{
+	}
+
 	TgaImageEncoder::TgaImageEncoder( const TgaStructure::Header& output_header )
 		: m_output_header{ output_header }
 	{
