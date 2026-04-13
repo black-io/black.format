@@ -16,6 +16,33 @@ namespace
 
 	const bool PngFileView::IsHeaderValid( const Black::PlainView<const std::byte>& file_memory )
 	{
+		Black::PlainView<const std::byte> buffer{ file_memory };
+
+		constexpr size_t file_preambula_size = std::size( Internal::FILE_PREAMBULA );
+		CRET( buffer.GetLength() < file_preambula_size, false );
+		CRET( !Black::IsMemoryEqual( buffer.GetMemory(), Internal::FILE_PREAMBULA, file_preambula_size ), false );
+		buffer = buffer.TruncatePrefix( file_preambula_size );
+
+		constexpr size_t chunk_header_size = sizeof( Internal::Chunk::content_size ) + sizeof( Internal::Chunk::type_code );
+		CRET( buffer.GetLength() < chunk_header_size, false );
+		Internal::Chunk header_chunk;
+		Black::CopyMemory( &header_chunk, buffer.GetMemory(), chunk_header_size );
+		buffer = buffer.TruncatePrefix( chunk_header_size );
+
+		CRET( header_chunk.content_size != sizeof( Internal::ImageHeader ), false );
+		CRET( header_chunk.type_code = Internal::TYPE_CODE_IHDR, false );
+		CRET( buffer.GetLength() < header_chunk.content_size, false );
+
+		constexpr size_t chunk_checksumm_size = sizeof( Internal::Chunk::checksumm );
+		const Internal::ImageHeader* const header = reinterpret_cast<const Internal::ImageHeader*>( buffer.GetMemory() );
+		buffer = buffer.TruncatePrefix( header_chunk.content_size );
+		CRET( header->width == 0, false );
+		CRET( header->height == 0, false );
+
+		CRET( buffer.GetLength() < chunk_checksumm_size, false );
+		Black::CopyMemory( &header_chunk.checksumm, buffer.GetMemory(), chunk_checksumm_size );
+
+		return true;
 	}
 
 	const bool PngFileView::IsFooterValid( const Black::PlainView<const std::byte>& file_memory )
