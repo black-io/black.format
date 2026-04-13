@@ -95,18 +95,22 @@ namespace
 
 	const bool PngFileView::HasValidHeader() const
 	{
+		return !m_cunks.empty() && m_cunks.front().type_code == Internal::TYPE_CODE_IHDR;
 	}
 
 	const bool PngFileView::HasValidFooter() const
 	{
+		return !m_cunks.empty() && m_cunks.back().type_code == Internal::TYPE_CODE_IEND;
 	}
 
 	const bool PngFileView::IsValidFile() const
 	{
+		return HasValidHeader() && !GetImageBuffer().IsEmpty();
 	}
 
 	const bool PngFileView::IsEmpty() const
 	{
+		return m_file_memory.IsEmpty() || ( QueryHeader() == nullptr ) || GetImageBuffer().IsEmpty();
 	}
 }
 }
