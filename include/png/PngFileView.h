@@ -102,7 +102,7 @@ inline namespace Png
 
 	// Private non-state.
 	private:
-		mutable std::vector<Internal::Chunk>		m_cunks;
+		mutable std::vector<Internal::ChunkEntry>	m_cunks;
 		mutable const Internal::ImageHeader*		m_header	= nullptr;
 		mutable Black::PlainView<const std::byte>	m_palette;
 		mutable Black::PlainView<const std::byte>	m_image;
