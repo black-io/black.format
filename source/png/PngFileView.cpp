@@ -66,6 +66,10 @@ namespace
 
 	const bool PngFileView::IsFileValid( const Black::PlainView<const std::byte>& file_memory )
 	{
+		CRET( !IsHeaderValid( file_memory ), false );
+		CRET( !IsFooterValid( file_memory ), false );
+
+		return true;
 	}
 
 	PngFileView::PngFileView( PngFileView&& other ) noexcept
