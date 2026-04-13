@@ -180,7 +180,8 @@ namespace
 
 	const bool PngFileView::HasValidFooter() const
 	{
-		return !m_cunks.empty() && m_cunks.back().type_code == Internal::TYPE_CODE_IEND;
+		const Black::PlainView<const PngFileView::ChunkEntry> chunks{ GetChunks() };
+		return !chunks.empty() && chunks.back().type_code == Internal::TYPE_CODE_IEND;
 	}
 
 	const bool PngFileView::IsValidFile() const
