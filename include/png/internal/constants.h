@@ -16,6 +16,12 @@ namespace Internal
 	inline constexpr uint32_t TYPE_CODE_IHDR = 'RDHI';
 
 	//
+	inline constexpr uint32_t TYPE_CODE_PLTE = 'ETLP';
+
+	//
+	inline constexpr uint32_t TYPE_CODE_IDAT = 'TADI';
+
+	//
 	inline constexpr uint32_t TYPE_CODE_IEND = 'DNEI';
 }
 }
