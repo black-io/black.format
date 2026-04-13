@@ -163,6 +163,20 @@ namespace
 		return true;
 	}
 
+	TgaFileView::TgaFileView( TgaFileView&& other ) noexcept
+		: m_file_memory{ std::move( other.m_file_memory ) }
+		, m_header{ std::exchange( other.m_header, nullptr ) }
+		, m_id{ std::move( other.m_id ) }
+		, m_palette{ std::move( other.m_palette ) }
+		, m_image{ std::move( other.m_image ) }
+		, m_developer_directory{ std::move( other.m_developer_directory ) }
+		, m_extension_area{ std::move( other.m_extension_area ) }
+		, m_footer{ std::exchange( other.m_footer, nullptr ) }
+		, m_is_valid{ std::exchange( other.m_is_valid, false ) }
+		, m_is_parsed{ std::exchange( other.m_is_parsed, false ) }
+	{
+	}
+
 	TgaFileView::TgaFileView( Black::PlainView<const std::byte> file_memory )
 		: m_file_memory{ std::move( file_memory ) }
 	{

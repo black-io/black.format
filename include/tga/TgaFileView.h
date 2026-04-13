@@ -67,7 +67,7 @@ inline namespace Tga
 	public:
 		inline TgaFileView() noexcept							= default;
 		inline TgaFileView( const TgaFileView& other ) noexcept	= default;
-		inline TgaFileView( TgaFileView&& other ) noexcept		= default;
+		TgaFileView( TgaFileView&& other ) noexcept;
 
 		explicit TgaFileView( Black::PlainView<const std::byte> file_memory );
 		TgaFileView( Black::PlainView<const std::byte> file_memory, const Black::ConstructInplace );
