@@ -66,6 +66,9 @@ inline namespace Png
 		//
 		const Black::PlainView<const std::byte> GetImageBuffer() const;
 
+		//
+		Black::PlainView<const ChunkEntry> GetChunks() const;
+
 
 		//
 		const bool HasValidHeader() const;
