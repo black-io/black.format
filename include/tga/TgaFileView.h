@@ -74,7 +74,8 @@ inline namespace Tga
 		inline ~TgaFileView() noexcept = default;
 
 
-		inline TgaFileView& operator = ( TgaFileView&& other ) noexcept	{ return Black::CopyAndSwap( *this, std::move( other ) ); };
+		inline TgaFileView& operator = ( const TgaFileView& other ) noexcept	= default;
+		inline TgaFileView& operator = ( TgaFileView&& other ) noexcept			{ return Black::CopyAndSwap( *this, std::move( other ) ); };
 
 		TgaFileView& operator = ( Black::PlainView<const std::byte> file_memory ) noexcept;
 
