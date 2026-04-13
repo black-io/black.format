@@ -30,7 +30,7 @@ inline namespace Tga
 
 
 		inline TgaImageEncoder& operator = ( const TgaImageEncoder& other ) noexcept		= default;
-		inline TgaImageEncoder& operator = ( TgaImageEncoder&& other ) noexcept				= default;
+		inline TgaImageEncoder& operator = ( TgaImageEncoder&& other ) noexcept				{ return Black::CopyAndSwap( *this, std::move( other ) ); };
 
 		inline TgaImageEncoder& operator = ( const TgaStructure::Header& output_header )	{ return Black::CopyAndSwap( *this, output_header ); };
 
