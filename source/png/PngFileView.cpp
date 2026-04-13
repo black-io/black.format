@@ -33,7 +33,7 @@ namespace
 		CRET( header_chunk.type_code = Internal::TYPE_CODE_IHDR, false );
 		CRET( buffer.GetLength() < header_chunk.content_size, false );
 
-		constexpr size_t chunk_checksumm_size = sizeof( Internal::Chunk::checksumm );
+		constexpr size_t chunk_checksumm_size = sizeof( Internal::ChunkEntry::checksumm );
 		const Internal::ImageHeader* const header = reinterpret_cast<const Internal::ImageHeader*>( buffer.GetMemory() );
 		buffer = buffer.TruncatePrefix( header_chunk.content_size );
 		CRET( header->width == 0, false );
