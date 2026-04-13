@@ -174,7 +174,8 @@ namespace
 
 	const bool PngFileView::HasValidHeader() const
 	{
-		return !m_cunks.empty() && m_cunks.front().type_code == Internal::TYPE_CODE_IHDR;
+		const Black::PlainView<const PngFileView::ChunkEntry> chunks{ GetChunks() };
+		return !chunks.empty() && chunks.front().type_code == Internal::TYPE_CODE_IHDR;
 	}
 
 	const bool PngFileView::HasValidFooter() const
