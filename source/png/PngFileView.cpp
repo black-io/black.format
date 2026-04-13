@@ -235,6 +235,24 @@ namespace
 			CRETW( chunks_buffer.GetLength() < sizeof( Internal::ChunkFooter ), , LOG_CHANNEL, "The rest length of file is less than footer of chunk." );
 			chunk.footer = reinterpret_cast<const Internal::ChunkFooter*>( chunks_buffer.GetMemory() );
 			chunks_buffer = chunks_buffer.TruncatePrefix( sizeof( Internal::ChunkFooter ) );
+
+			switch( chunk.header->type_code )
+			{
+			case Internal::TYPE_CODE_IHDR:
+				BLACK_LOG_DEBUG( LOG_CHANNEL, "Image header found at chunk #{}.", m_cunks.size() );
+				m_header = reinterpret_cast<const Internal::ImageHeader*>( chunk.content.GetMemory() );
+				break;
+			case Internal::TYPE_CODE_IDAT:
+				BLACK_LOG_DEBUG( LOG_CHANNEL, "Image data found at chunk #{}.", m_cunks.size() );
+				m_image = chunk.content;
+				break;
+			case Internal::TYPE_CODE_PLTE:
+				BLACK_LOG_DEBUG( LOG_CHANNEL, "Palette found at chunk #{}.", m_cunks.size() );
+				m_palette = chunk.content;
+				break;
+			default:
+				break;
+			}
 		}
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
