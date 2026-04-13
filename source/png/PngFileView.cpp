@@ -207,6 +207,8 @@ namespace
 
 	void PngFileView::EnsureFileMemoryParsed() const
 	{
+		CRET( !m_is_valid || m_is_parsed );
+		ParseFileMemory();
 	}
 
 	void PngFileView::ParseFileMemory() const
