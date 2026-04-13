@@ -219,7 +219,23 @@ namespace
 
 		CRETW( !IsHeaderValid( m_file_memory ), , LOG_CHANNEL, "Unable to determine TGA header." );
 
+		Black::PlainView<const std::byte> chunks_buffer{ m_file_memory.TruncatePrefix( std::size( Internal::FILE_PREAMBULA ) ) };
+		while( !chunks_buffer.IsEmpty() )
+		{
+			Internal::ChunkEntry& chunk = m_cunks.emplace_back();
 
+			CRETW( chunks_buffer.GetLength() < sizeof( Internal::ChunkHeader ), , LOG_CHANNEL, "The rest length of file is less than header of chunk." );
+			chunk.header = reinterpret_cast<const Internal::ChunkHeader*>( chunks_buffer.GetMemory() );
+			chunks_buffer = chunks_buffer.TruncatePrefix( sizeof( Internal::ChunkHeader ) );
+
+			CRETW( chunks_buffer.GetLength() < chunk.header->content_size, , LOG_CHANNEL, "Size of chunk content exceeds the size of file." );
+			chunk.content = chunks_buffer.GetSubview( 0, chunk.header->content_size );
+			chunks_buffer = chunks_buffer.TruncatePrefix( chunk.header->content_size );
+
+			CRETW( chunks_buffer.GetLength() < sizeof( Internal::ChunkFooter ), , LOG_CHANNEL, "The rest length of file is less than footer of chunk." );
+			chunk.footer = reinterpret_cast<const Internal::ChunkFooter*>( chunks_buffer.GetMemory() );
+			chunks_buffer = chunks_buffer.TruncatePrefix( sizeof( Internal::ChunkFooter ) );
+		}
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
 		reset_contract.Cancel();
