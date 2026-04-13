@@ -173,13 +173,13 @@ namespace
 	const bool PngFileView::HasValidHeader() const
 	{
 		const Black::PlainView<const PngFileView::ChunkEntry> chunks{ GetChunks() };
-		return !chunks.empty() && chunks.front().type_code == Internal::TYPE_CODE_IHDR;
+		return !chunks.empty() && chunks.front().header->type_code == Internal::TYPE_CODE_IHDR;
 	}
 
 	const bool PngFileView::HasValidFooter() const
 	{
 		const Black::PlainView<const PngFileView::ChunkEntry> chunks{ GetChunks() };
-		return !chunks.empty() && chunks.back().type_code == Internal::TYPE_CODE_IEND;
+		return !chunks.empty() && chunks.back().header->type_code == Internal::TYPE_CODE_IEND;
 	}
 
 	const bool PngFileView::IsValidFile() const
