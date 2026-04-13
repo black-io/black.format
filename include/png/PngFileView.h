@@ -43,7 +43,9 @@ inline namespace Png
 		inline ~PngFileView() noexcept = default;
 
 
+		inline PngFileView& operator = ( const PngFileView& other ) noexcept	= default;
 		PngFileView& operator = ( PngFileView&& other ) noexcept;
+
 		PngFileView& operator = ( Black::PlainView<const std::byte> file_memory ) noexcept;
 
 	// Public interface.
