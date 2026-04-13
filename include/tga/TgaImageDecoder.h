@@ -115,7 +115,7 @@ inline namespace Tga
 
 	// Private state.
 	private:
-		Internal::Header				m_input_header;		// Header of input TGA image.
+		Internal::Header				m_input_header	{};	// Header of input TGA image.
 		Black::PlainVector<std::byte>	m_output_buffer;	// buffer to store decoded image.
 
 		size_t	m_output_width		= 0;	// Width of decoded image. X-length.
