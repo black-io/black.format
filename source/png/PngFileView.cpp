@@ -92,7 +92,6 @@ namespace
 	{
 	}
 
-
 	const bool PngFileView::HasValidHeader() const
 	{
 		return !m_cunks.empty() && m_cunks.front().type_code == Internal::TYPE_CODE_IHDR;
