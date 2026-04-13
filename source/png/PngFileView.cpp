@@ -78,6 +78,12 @@ namespace
 
 	const PngStructure::Header* const PngFileView::QueryHeader() const
 	{
+		CRET( !m_is_valid, nullptr );
+
+		EnsureFileMemoryParsed();
+		CRET( !m_is_parsed, nullptr );
+
+		return m_header;
 	}
 
 	const PngStructure::Header& PngFileView::GetHeader() const
