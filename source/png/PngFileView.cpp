@@ -61,6 +61,8 @@ namespace
 
 	void PngFileView::Reset()
 	{
+		m_file_memory = {};
+		InvalidateCache();
 	}
 
 	void PngFileView::Swap( PngFileView& other )
