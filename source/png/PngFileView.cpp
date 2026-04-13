@@ -162,6 +162,16 @@ namespace
 		return m_image;
 	}
 
+	Black::PlainView<const PngFileView::ChunkEntry> PngFileView::GetChunks() const
+	{
+		CRET( !m_is_valid, {} );
+
+		EnsureFileMemoryParsed();
+		CRET( !m_is_parsed, {} );
+
+		return { m_cunks.data(), m_cunks.size() };
+	}
+
 	const bool PngFileView::HasValidHeader() const
 	{
 		return !m_cunks.empty() && m_cunks.front().type_code == Internal::TYPE_CODE_IHDR;
