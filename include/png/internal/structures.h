@@ -12,6 +12,16 @@ namespace Internal
 	/**
 	*/
 	#pragma pack( push, 1 )
+	struct ChunkHeader final
+	{
+		uint32_t	content_size;
+		uint32_t	type_code;
+	};
+	#pragma pack( pop )
+
+	/**
+	*/
+	#pragma pack( push, 1 )
 	struct ImageHeader final
 	{
 		uint32_t	width;
