@@ -11,6 +11,11 @@ inline namespace Png
 	*/
 	class PngFileView final
 	{
+	// Public inner types.
+	public:
+		//
+		using ChunkEntry = Internal::ChunkEntry;
+
 	// Friendship interface.
 	public:
 		friend inline void swap( PngFileView& left, PngFileView& right )	{ left.Swap( right ); };
