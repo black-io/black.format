@@ -22,6 +22,15 @@ namespace Internal
 	/**
 	*/
 	#pragma pack( push, 1 )
+	struct ChunkFooter final
+	{
+		uint32_t	checksum;
+	};
+	#pragma pack( pop )
+
+	/**
+	*/
+	#pragma pack( push, 1 )
 	struct ImageHeader final
 	{
 		uint32_t	width;
