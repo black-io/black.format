@@ -88,6 +88,12 @@ namespace
 
 	const PngStructure::Header& PngFileView::GetHeader() const
 	{
+		EXPECTS( m_is_valid );
+
+		const PngStructure::Header* const header = QueryHeader();
+		ENSURES( header != nullptr );
+
+		return *header;
 	}
 
 	const Black::PlainView<const std::byte> PngFileView::GetPaletteBuffer() const
