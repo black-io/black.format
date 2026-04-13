@@ -98,6 +98,12 @@ namespace
 
 	const Black::PlainView<const std::byte> PngFileView::GetPaletteBuffer() const
 	{
+		CRET( !m_is_valid, {} );
+
+		EnsureFileMemoryParsed();
+		CRET( !m_is_parsed, {} );
+
+		return m_palette;
 	}
 
 	const Black::PlainView<const std::byte> PngFileView::GetImageBuffer() const
