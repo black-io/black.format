@@ -76,6 +76,23 @@ namespace
 		Black::Swap( m_is_parsed, other.m_is_parsed );
 	}
 
+	const PngStructure::Header* const PngFileView::QueryHeader() const
+	{
+	}
+
+	const PngStructure::Header& PngFileView::GetHeader() const
+	{
+	}
+
+	const Black::PlainView<const std::byte> PngFileView::GetPaletteBuffer() const
+	{
+	}
+
+	const Black::PlainView<const std::byte> PngFileView::GetImageBuffer() const
+	{
+	}
+
+
 	const bool PngFileView::HasValidHeader() const
 	{
 	}
