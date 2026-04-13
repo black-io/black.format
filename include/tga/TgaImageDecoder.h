@@ -33,7 +33,7 @@ inline namespace Tga
 	public:
 		inline TgaImageDecoder() noexcept								= default;
 		inline TgaImageDecoder( const TgaImageDecoder& other ) noexcept	= default;
-		inline TgaImageDecoder( TgaImageDecoder&& other ) noexcept		= default;
+		TgaImageDecoder( TgaImageDecoder&& other ) noexcept;
 
 		explicit TgaImageDecoder( const TgaStructure::Header& input_header );
 

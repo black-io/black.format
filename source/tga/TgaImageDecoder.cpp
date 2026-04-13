@@ -16,6 +16,16 @@ namespace
 }
 
 
+	TgaImageDecoder::TgaImageDecoder( TgaImageDecoder&& other ) noexcept
+		: m_input_header{ std::exchange( other.m_input_header, Internal::Header{} ) }
+		, m_output_buffer{ std::move( other.m_output_buffer ) }
+		, m_output_width{ std::exchange( other.m_output_width, 0 ) }
+		, m_output_height{ std::exchange( other.m_output_height, 0 ) }
+		, m_output_row_size{ std::exchange( other.m_output_row_size, 0 ) }
+		, m_output_format{ std::exchange( other.m_output_format, Black::ColorFormats::UNDEFINED ) }
+	{
+	}
+
 	TgaImageDecoder::TgaImageDecoder( const TgaStructure::Header& input_header )
 		: m_input_header{ input_header }
 	{
