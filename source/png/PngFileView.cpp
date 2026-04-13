@@ -93,11 +93,6 @@ namespace
 		EnsureFileMemoryParsed();
 	}
 
-	PngFileView& PngFileView::operator=( PngFileView&& other ) noexcept
-	{
-		return Black::CopyAndSwap( *this, std::move( other ) );
-	}
-
 	PngFileView& PngFileView::operator=( Black::PlainView<const std::byte> file_memory ) noexcept
 	{
 		return Black::CopyAndSwap( *this, std::move( file_memory ) );

@@ -44,7 +44,7 @@ inline namespace Png
 
 
 		inline PngFileView& operator = ( const PngFileView& other ) noexcept	= default;
-		PngFileView& operator = ( PngFileView&& other ) noexcept;
+		inline PngFileView& operator = ( PngFileView&& other ) noexcept			{ return Black::CopyAndSwap( *this, std::move( other ) ); };
 
 		PngFileView& operator = ( Black::PlainView<const std::byte> file_memory ) noexcept;
 
