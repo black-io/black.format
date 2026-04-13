@@ -47,19 +47,17 @@ namespace
 
 	const bool PngFileView::IsFooterValid( const Black::PlainView<const std::byte>& file_memory )
 	{
-		constexpr size_t chunk_header_size = sizeof( Internal::ChunkEntry::content_size ) + sizeof( Internal::ChunkEntry::type_code );
-		constexpr size_t chunk_checksumm_size = sizeof( Internal::ChunkEntry::checksumm );
-		constexpr size_t chunk_size = chunk_header_size + chunk_checksumm_size;
+		constexpr size_t chunk_size = sizeof( Internal::ChunkHeader ) + sizeof( Internal::ChunkFooter );
 
 		CRET( file_memory.GetLength() < chunk_size, false );
-		const Black::PlainView<const std::byte> chunk_buffer{ file_memory.GetSubview( file_memory.GetLength() - chunk_size, chunk_size ) };
+		const Black::PlainView<const std::byte> buffer{ file_memory.GetSubview( file_memory.GetLength() - chunk_size, chunk_size ) };
 
-		Internal::ChunkEntry footer_chunk;
-		Black::CopyMemory( &footer_chunk, chunk_buffer.GetMemory(), chunk_header_size );
-		Black::CopyMemory( &footer_chunk.checksumm, &chunk_buffer[ chunk_header_size ], chunk_checksumm_size );
+		Internal::ChunkEntry chunk;
+		chunk.header = reinterpret_cast<const Internal::ChunkHeader*>( buffer.GetMemory() );
+		chunk.footer = reinterpret_cast<const Internal::ChunkFooter*>( &buffer[ sizeof( Internal::ChunkHeader ) ] );
 
-		CRET( footer_chunk.content_size != 0, false );
-		CRET( footer_chunk.type_code != Internal::TYPE_CODE_IEND, false );
+		CRET( chunk.header->content_size != 0, false );
+		CRET( chunk.header->type_code != Internal::TYPE_CODE_IEND, false );
 
 		return true;
 	}
