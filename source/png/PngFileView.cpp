@@ -215,6 +215,13 @@ namespace
 
 	void PngFileView::TestFileMemory() const
 	{
+		m_is_valid = false;
+
+		CRET( m_file_memory.IsEmpty() );
+		CRET( !IsHeaderValid( m_file_memory ) );
+		CRET( !IsFooterValid( m_file_memory ) );
+
+		m_is_valid = true;
 	}
 }
 }
