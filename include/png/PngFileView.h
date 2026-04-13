@@ -33,7 +33,8 @@ inline namespace Png
 
 	// Public life-time management.
 	public:
-		inline PngFileView() noexcept						= default;;
+		inline PngFileView() noexcept							= default;
+		inline PngFileView( const PngFileView& other ) noexcept	= default;
 		PngFileView( PngFileView&& other ) noexcept;
 
 		explicit PngFileView( Black::PlainView<const std::byte> file_memory ) noexcept;
