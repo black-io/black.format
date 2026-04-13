@@ -23,9 +23,9 @@ namespace
 		CRET( !Black::IsMemoryEqual( buffer.GetMemory(), Internal::FILE_PREAMBULA, file_preambula_size ), false );
 		buffer = buffer.TruncatePrefix( file_preambula_size );
 
-		constexpr size_t chunk_header_size = sizeof( Internal::Chunk::content_size ) + sizeof( Internal::Chunk::type_code );
+		constexpr size_t chunk_header_size = sizeof( Internal::ChunkEntry::content_size ) + sizeof( Internal::ChunkEntry::type_code );
 		CRET( buffer.GetLength() < chunk_header_size, false );
-		Internal::Chunk header_chunk;
+		Internal::ChunkEntry header_chunk;
 		Black::CopyMemory( &header_chunk, buffer.GetMemory(), chunk_header_size );
 		buffer = buffer.TruncatePrefix( chunk_header_size );
 
