@@ -47,14 +47,14 @@ namespace
 
 	const bool PngFileView::IsFooterValid( const Black::PlainView<const std::byte>& file_memory )
 	{
-		constexpr size_t chunk_header_size = sizeof( Internal::Chunk::content_size ) + sizeof( Internal::Chunk::type_code );
-		constexpr size_t chunk_checksumm_size = sizeof( Internal::Chunk::checksumm );
+		constexpr size_t chunk_header_size = sizeof( Internal::ChunkEntry::content_size ) + sizeof( Internal::ChunkEntry::type_code );
+		constexpr size_t chunk_checksumm_size = sizeof( Internal::ChunkEntry::checksumm );
 		constexpr size_t chunk_size = chunk_header_size + chunk_checksumm_size;
 
 		CRET( file_memory.GetLength() < chunk_size, false );
 		const Black::PlainView<const std::byte> chunk_buffer{ file_memory.GetSubview( file_memory.GetLength() - chunk_size, chunk_size ) };
 
-		Internal::Chunk footer_chunk;
+		Internal::ChunkEntry footer_chunk;
 		Black::CopyMemory( &footer_chunk, chunk_buffer.GetMemory(), chunk_header_size );
 		Black::CopyMemory( &footer_chunk.checksumm, &chunk_buffer[ chunk_header_size ], chunk_checksumm_size );
 
