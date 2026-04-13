@@ -108,6 +108,12 @@ namespace
 
 	const Black::PlainView<const std::byte> PngFileView::GetImageBuffer() const
 	{
+		CRET( !m_is_valid, {} );
+
+		EnsureFileMemoryParsed();
+		CRET( !m_is_parsed, {} );
+
+		return m_image;
 	}
 
 	const bool PngFileView::HasValidHeader() const
