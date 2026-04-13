@@ -211,6 +211,12 @@ namespace
 
 	void PngFileView::ParseFileMemory() const
 	{
+		m_is_parsed = false;
+		CRETW( !m_is_valid, , LOG_CHANNEL, "Unable to parse invalid memory." );
+		BLACK_LOG_VERBOSE( LOG_CHANNEL, "Perform file parsing." );
+
+		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
+		m_is_parsed = true;
 	}
 
 	void PngFileView::TestFileMemory() const
