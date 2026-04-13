@@ -23,24 +23,24 @@ namespace
 		CRET( !Black::IsMemoryEqual( buffer.GetMemory(), Internal::FILE_PREAMBULA, file_preambula_size ), false );
 		buffer = buffer.TruncatePrefix( file_preambula_size );
 
-		constexpr size_t chunk_header_size = sizeof( Internal::ChunkEntry::content_size ) + sizeof( Internal::ChunkEntry::type_code );
+		constexpr size_t chunk_header_size = sizeof( Internal::ChunkHeader );
 		CRET( buffer.GetLength() < chunk_header_size, false );
-		Internal::ChunkEntry header_chunk;
-		Black::CopyMemory( &header_chunk, buffer.GetMemory(), chunk_header_size );
+		Internal::ChunkEntry chunk;
+		chunk.header = reinterpret_cast<const Internal::ChunkHeader*>( buffer.GetMemory() );
 		buffer = buffer.TruncatePrefix( chunk_header_size );
 
-		CRET( header_chunk.content_size != sizeof( Internal::ImageHeader ), false );
-		CRET( header_chunk.type_code = Internal::TYPE_CODE_IHDR, false );
-		CRET( buffer.GetLength() < header_chunk.content_size, false );
+		CRET( chunk.header->content_size != sizeof( Internal::ImageHeader ), false );
+		CRET( chunk.header->type_code == Internal::TYPE_CODE_IHDR, false );
+		CRET( buffer.GetLength() < chunk.header->content_size, false );
 
-		constexpr size_t chunk_checksumm_size = sizeof( Internal::ChunkEntry::checksumm );
 		const Internal::ImageHeader* const header = reinterpret_cast<const Internal::ImageHeader*>( buffer.GetMemory() );
-		buffer = buffer.TruncatePrefix( header_chunk.content_size );
+		buffer = buffer.TruncatePrefix( chunk.header->content_size );
 		CRET( header->width == 0, false );
 		CRET( header->height == 0, false );
 
-		CRET( buffer.GetLength() < chunk_checksumm_size, false );
-		Black::CopyMemory( &header_chunk.checksumm, buffer.GetMemory(), chunk_checksumm_size );
+		constexpr size_t chunk_footer_size = sizeof( Internal::ChunkFooter );
+		CRET( buffer.GetLength() < chunk_footer_size, false );
+		chunk.footer = reinterpret_cast<const Internal::ChunkFooter*>( buffer.GetMemory() );
 
 		return true;
 	}
