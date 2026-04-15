@@ -50,6 +50,7 @@ inline namespace Global
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
 	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>& ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::operator=( TValue value ) noexcept
 	{
+		return Black::CopyAndSwap( *this, value );
 	}
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
