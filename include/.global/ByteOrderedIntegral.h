@@ -36,7 +36,7 @@ inline namespace Global
 	// Public interface.
 	public:
 		//
-		void Swap( PngFileView& other );
+		inline void Swap( ByteOrderedIntegral& other );
 
 
 		//
