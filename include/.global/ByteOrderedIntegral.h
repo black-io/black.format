@@ -40,7 +40,7 @@ inline namespace Global
 
 
 		//
-		inline void StoreAsIs( TValue value );
+		inline void SetValueAsIs( TValue value );
 
 
 		//
