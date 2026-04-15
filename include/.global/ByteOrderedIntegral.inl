@@ -68,6 +68,7 @@ inline namespace Global
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
 	inline TValue ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::GetValue() const
 	{
+		return Black::GetTransformedEndianness<Black::BUILD_ENDIANNESS, VALUE_ENDIANNESS>( m_value );
 	}
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
