@@ -15,6 +15,7 @@ inline namespace Global
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
 	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::ByteOrderedIntegral( ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>&& other ) noexcept
+		: m_value{ std::exchange( other.m_value, 0 ) }
 	{
 	}
 
