@@ -57,7 +57,7 @@ inline namespace Global
 	}
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
-	inline void ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::StoreAsIs( TValue value )
+	inline void ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::SetValueAsIs( TValue value )
 	{
 	}
 
