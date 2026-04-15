@@ -23,6 +23,10 @@ inline namespace Global
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
 	class ByteOrderedIntegral final
 	{
+		static_assert( std::is_integral_v<TValue>, "Type of stored value should be integral." );
+		static_assert( !std::is_const_v<TValue>, "Type of stored value may not be constant." );
+		static_assert( sizeof( TValue ) > 1, "Type of stored value should be at last of word size." );
+
 	// Friendship interface.
 	public:
 		friend inline void swap( ByteOrderedIntegral& left, ByteOrderedIntegral& right )	{ left.Swap( right ); };
