@@ -24,7 +24,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ChunkFooter final
 	{
-		uint32_t	checksum;
+		Black::BigEndianIntegral<uint32_t>	checksum;
 	};
 	#pragma pack( pop )
 
