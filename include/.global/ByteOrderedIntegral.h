@@ -46,6 +46,9 @@ inline namespace Global
 		//
 		inline TValue GetValue() const;
 
+		//
+		inline TValue GetValueAsIs() const;
+
 
 		inline operator TValue () const;
 
