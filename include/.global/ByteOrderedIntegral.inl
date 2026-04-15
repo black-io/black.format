@@ -44,6 +44,7 @@ inline namespace Global
 		ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>&& other
 	) noexcept
 	{
+		return Black::CopyAndSwap( *this, std::move( other ) );
 	}
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
