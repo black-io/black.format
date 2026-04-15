@@ -21,6 +21,7 @@ inline namespace Global
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
 	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::ByteOrderedIntegral( TValue value ) noexcept
+		: m_value{ Black::GetTransformedEndianness<VALUE_ENDIANNESS>( value ) }
 	{
 	}
 
