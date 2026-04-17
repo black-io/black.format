@@ -35,6 +35,7 @@ namespace Internal
 	//
 	enum class ChunkTypeFlag : uint32_t
 	{
+		None		= 0,
 		Ancillary	= 0x00000020U,
 		Private		= 0x00002000U,
 		Reserved	= 0x00200000U,
