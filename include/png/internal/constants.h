@@ -21,6 +21,16 @@ namespace Internal
 	};
 
 	//
+	enum class ColorType : uint8_t
+	{
+		Grayscale		= 0,
+		RGB				= 2,
+		Paletted		= 3,
+		GrayscaleAlpha	= 4,
+		ARGB			= 6,
+	};
+
+	//
 	inline constexpr uint8_t FILE_PREAMBULA[] { 137, 80, 78, 71, 13, 10, 26, 10 };
 
 	//
