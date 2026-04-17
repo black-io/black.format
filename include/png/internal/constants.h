@@ -10,6 +10,17 @@ inline namespace Png
 namespace Internal
 {
 	//
+	enum class BitDepth : uint8_t
+	{
+		Undefined	= 0,
+		Bit			= 1,
+		QuarterByte	= 2,
+		HalfByte	= 4,
+		Byte		= 8,
+		Word		= 16,
+	};
+
+	//
 	inline constexpr uint8_t FILE_PREAMBULA[] { 137, 80, 78, 71, 13, 10, 26, 10 };
 
 	//
