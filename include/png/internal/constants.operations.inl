@@ -13,6 +13,11 @@ namespace Internal
 	{
 		return ChunkTypeFlag{ Black::GetEnumValue( type_code ) & Black::GetEnumValue( type_flag ) };
 	}
+
+	inline const ColorTypeFlag operator & ( const ColorType color_type, const ColorTypeFlag type_flag )
+	{
+		return ColorTypeFlag{ Black::GetEnumValue( color_type ) & Black::GetEnumValue( type_flag ) };
+	}
 }
 }
 }
