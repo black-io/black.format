@@ -31,6 +31,14 @@ namespace Internal
 	};
 
 	//
+	enum class ColorTypeFlag : uint8_t
+	{
+		Palette		= 0x01U,
+		TrueColor	= 0x02U,
+		Alpha		= 0x04U,
+	};
+
+	//
 	inline constexpr uint8_t FILE_PREAMBULA[] { 137, 80, 78, 71, 13, 10, 26, 10 };
 
 	//
