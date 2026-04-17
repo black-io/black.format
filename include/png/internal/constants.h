@@ -45,6 +45,16 @@ namespace Internal
 	};
 
 	//
+	enum class FilterMethod : uint8_t
+	{
+		None = 0,
+		Sub,
+		Up,
+		Average,
+		Paeth,
+	};
+
+	//
 	inline constexpr uint8_t FILE_PREAMBULA[] { 137, 80, 78, 71, 13, 10, 26, 10 };
 
 	//
