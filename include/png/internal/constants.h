@@ -39,6 +39,12 @@ namespace Internal
 	};
 
 	//
+	enum class CompressionMethod : uint8_t
+	{
+		Deflate = 0,
+	};
+
+	//
 	inline constexpr uint8_t FILE_PREAMBULA[] { 137, 80, 78, 71, 13, 10, 26, 10 };
 
 	//
