@@ -10,6 +10,30 @@ inline namespace Png
 namespace Internal
 {
 	//
+	enum class ChunkTypeCode : uint32_t
+	{
+		ImageHeader					= 'RDHI',
+		Palette						= 'ETLP',
+		ImageData					= 'TADI',
+		ImageEnd					= 'DNEI',
+		Transparency				= 'SNRt',
+		ImageGamma					= 'AMAg',
+		Chromaticities				= 'MRHc',
+		SrgbColorSpace				= 'BGRs',
+		EmbeddedIcc					= 'PCCi',
+		TextualData					= 'tXEt',
+		CompressedTextualData		= 'tXTz',
+		InternationalTextualData	= 'tXTi',
+		BackgroundColor				= 'DGKb',
+		PhysicalDimensions			= 'sYHp',
+		SignificantBits				= 'TIBs',
+		SuggestedPalette			= 'TLPs',
+		PaletteHistogram			= 'TSIh',
+		LastModificationTime		= 'EMIt',
+
+	};
+
+	//
 	enum class BitDepth : uint8_t
 	{
 		Undefined	= 0,
