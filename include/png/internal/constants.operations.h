@@ -71,6 +71,10 @@ namespace Internal
 		@retrn			The value returned is name of given filter.
 	*/
 	std::string_view format_as( const FilterMethod value );
+
+
+	inline const ChunkTypeFlag operator & ( const ChunkTypeCode type_code, const ChunkTypeFlag type_flag );
+	inline const ColorTypeFlag operator & ( const ColorType color_type, const ColorTypeFlag type_flag );
 }
 }
 }
