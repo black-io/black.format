@@ -24,7 +24,11 @@ namespace Internal
 // Internal stuff.
 #include "internal/constants.h"
 #include "internal/structures.h"
+#include "internal/constants.operations.h"
 
 // PNG file format types.
 #include "PngStructure.h"
 #include "PngFileView.h"
+
+// Deferred inline implementations.
+#include "internal/constants.operations.inl"
