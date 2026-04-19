@@ -75,6 +75,64 @@ inline namespace Global
 	private:
 		TValue m_value; // Stored value.
 	};
+
+	/**
+	*/
+	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
+	class ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_enum_v<TValue>>> final
+	{
+		static_assert( !std::is_const_v<TValue>, "Type of stored value may not be constant." );
+		static_assert( sizeof( TValue ) > 1, "Type of stored value should be at last of word size." );
+
+	// Friendship interface.
+	public:
+		friend inline void swap( ByteOrderedIntegral& left, ByteOrderedIntegral& right )	{ left.Swap( right ); };
+
+	// Public life-time management.
+	public:
+		inline ByteOrderedIntegral() noexcept;
+		inline ByteOrderedIntegral( const ByteOrderedIntegral& other ) noexcept;
+		inline ByteOrderedIntegral( ByteOrderedIntegral&& other ) noexcept;
+
+		inline ByteOrderedIntegral( TValue value ) noexcept;
+		inline ByteOrderedIntegral( TValue value, const Black::StoreAsIs ) noexcept;
+
+		inline ~ByteOrderedIntegral() noexcept;
+
+
+		inline ByteOrderedIntegral& operator = ( const ByteOrderedIntegral& other ) noexcept;
+		inline ByteOrderedIntegral& operator = ( ByteOrderedIntegral&& other ) noexcept;
+
+		inline ByteOrderedIntegral& operator = ( TValue value ) noexcept;
+
+	// Public interface.
+	public:
+		// Swap the state of this value with other.
+		inline void Swap( ByteOrderedIntegral& other );
+
+
+		// Store the given value as is. This method ignores any difference in endianness.
+		inline void SetValueAsIs( TValue value );
+
+
+		// Get the value converted in endianness of target platform.
+		inline TValue GetValue() const;
+
+		// Get the value as is. This method ignores any difference in endianness.
+		inline TValue GetValueAsIs() const;
+
+
+		inline operator TValue () const;
+
+	// Private inner types.
+	private:
+		// Type of buffer to store the value.
+		using ValueBuffer = std::underlying_type_t<TValue>;
+
+	// Private state.
+	private:
+		ValueBuffer m_value; // Stored value.
+	};
 }
 }
 }
