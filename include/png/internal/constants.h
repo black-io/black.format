@@ -89,6 +89,13 @@ namespace Internal
 	};
 
 	//
+	enum class InterlaceMethod : uint8_t
+	{
+		Disabled	= 0,
+		Adam7,
+	};
+
+	//
 	inline constexpr uint8_t FILE_PREAMBULA[] { 137, 80, 78, 71, 13, 10, 26, 10 };
 }
 }
