@@ -20,10 +20,14 @@ inline namespace Global
 		@tparam	TValue				Type of stored value.
 		@tparam	VALUE_ENDIANNESS	Fixed endianness of stored value.
 	*/
+	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS, typename = void >
+	class ByteOrderedIntegral;
+
+	/**
+	*/
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
-	class ByteOrderedIntegral final
+	class ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>> final
 	{
-		static_assert( std::is_integral_v<TValue>, "Type of stored value should be integral." );
 		static_assert( !std::is_const_v<TValue>, "Type of stored value may not be constant." );
 		static_assert( sizeof( TValue ) > 1, "Type of stored value should be at last of word size." );
 
@@ -69,7 +73,7 @@ inline namespace Global
 
 	// Private state.
 	private:
-		TValue	m_value;	// Stored value.
+		TValue m_value; // Stored value.
 	};
 }
 }
