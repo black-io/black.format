@@ -106,6 +106,27 @@ namespace
 
 		return "Unknown";
 	}
+
+	std::string_view format_as( const ColorType value )
+	{
+		switch( value )
+		{
+		case ColorType::Grayscale:
+			return "Grayscale";
+		case ColorType::RGB:
+			return "RGB";
+		case ColorType::Paletted:
+			return "Paletted";
+		case ColorType::GrayscaleAlpha:
+			return "Transparent grayscale";
+		case ColorType::ARGB:
+			return "Transparent RGB";
+		default:
+			break;
+		}
+
+		return "Unknown";
+	}
 }
 }
 }
