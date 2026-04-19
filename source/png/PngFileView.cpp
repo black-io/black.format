@@ -115,7 +115,7 @@ namespace
 		Black::Swap( m_is_parsed, other.m_is_parsed );
 	}
 
-	const PngStructure::Header* const PngFileView::QueryHeader() const
+	const PngStructure::Image::Header* const PngFileView::QueryHeader() const
 	{
 		CRET( !m_is_valid, nullptr );
 
