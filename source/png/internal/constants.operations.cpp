@@ -159,6 +159,27 @@ namespace
 
 		return "Unknown";
 	}
+
+	std::string_view format_as( const FilterMethod value )
+	{
+		switch( value )
+		{
+		case FilterMethod::None:
+			return "None";
+		case FilterMethod::Sub:
+			return "Sub";
+		case FilterMethod::Up:
+			return "Up";
+		case FilterMethod::Average:
+			return "Average";
+		case FilterMethod::Paeth:
+			return "Paeth";
+		default:
+			break;
+		}
+
+		return "Unknown";
+	}
 }
 }
 }
