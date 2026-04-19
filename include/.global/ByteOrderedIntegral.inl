@@ -24,7 +24,7 @@ inline namespace Global
 	}
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
-	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::ByteOrderedIntegral( TValue value ) noexcept
+	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>::ByteOrderedIntegral( TValue value ) noexcept
 		: m_value{ Black::GetTransformedEndianness<VALUE_ENDIANNESS>( value ) }
 	{
 	}
