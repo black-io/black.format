@@ -90,7 +90,7 @@ inline namespace Global
 	}
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
-	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::operator TValue () const
+	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>::operator TValue () const
 	{
 		return GetValue();
 	}
