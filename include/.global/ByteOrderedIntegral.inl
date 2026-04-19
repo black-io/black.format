@@ -42,8 +42,9 @@ inline namespace Global
 	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>::~ByteOrderedIntegral() noexcept = default;
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
-	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>& ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::operator=(
-		const ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>& other
+	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>&
+	ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>::operator=(
+		const ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>& other
 	) noexcept = default;
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
