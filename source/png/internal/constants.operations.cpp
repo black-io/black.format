@@ -146,6 +146,19 @@ namespace
 
 		return "Unknown";
 	}
+
+	std::string_view format_as( const CompressionMethod value )
+	{
+		switch( value )
+		{
+		case CompressionMethod::Deflate:
+			return "Deflate";
+		default:
+			break;
+		}
+
+		return "Unknown";
+	}
 }
 }
 }
