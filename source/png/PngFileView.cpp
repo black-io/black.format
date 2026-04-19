@@ -233,15 +233,15 @@ namespace
 
 			switch( chunk.header->type_code )
 			{
-			case Internal::TYPE_CODE_IHDR:
+			case Internal::ChunkTypeCode::ImageHeader:
 				BLACK_LOG_DEBUG( LOG_CHANNEL, "Image header found at chunk #{}.", m_cunks.size() );
 				m_header = reinterpret_cast<const Internal::ImageHeader*>( chunk.content.GetMemory() );
 				break;
-			case Internal::TYPE_CODE_IDAT:
+			case Internal::ChunkTypeCode::ImageData:
 				BLACK_LOG_DEBUG( LOG_CHANNEL, "Image data found at chunk #{}.", m_cunks.size() );
 				m_image = chunk.content;
 				break;
-			case Internal::TYPE_CODE_PLTE:
+			case Internal::ChunkTypeCode::Palette:
 				BLACK_LOG_DEBUG( LOG_CHANNEL, "Palette found at chunk #{}.", m_cunks.size() );
 				m_palette = chunk.content;
 				break;
