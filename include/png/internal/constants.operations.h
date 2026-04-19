@@ -72,6 +72,15 @@ namespace Internal
 	*/
 	std::string_view format_as( const FilterMethod value );
 
+	/**
+		@brief	Perform the valid formatting of PNG interlace method.
+		This function performs the formatting API for {fmt} library.
+
+		@param	value	Given interlace to be formatted.
+		@retrn			The value returned is name of given interlace.
+	*/
+	std::string_view format_as( const InterlaceMethod value );
+
 
 	inline const ChunkTypeFlag operator & ( const ChunkTypeCode type_code, const ChunkTypeFlag type_flag );
 	inline const ColorTypeFlag operator & ( const ColorType color_type, const ColorTypeFlag type_flag );
