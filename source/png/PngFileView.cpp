@@ -57,7 +57,7 @@ namespace
 		chunk.footer = reinterpret_cast<const Internal::ChunkFooter*>( &buffer[ sizeof( Internal::ChunkHeader ) ] );
 
 		CRET( chunk.header->content_size != 0, false );
-		CRET( chunk.header->type_code != Internal::TYPE_CODE_IEND, false );
+		CRET( chunk.header->type_code != Internal::ChunkTypeCode::ImageEnd, false );
 
 		return true;
 	}
