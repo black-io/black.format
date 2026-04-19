@@ -180,6 +180,21 @@ namespace
 
 		return "Unknown";
 	}
+
+	std::string_view format_as( const InterlaceMethod value )
+	{
+		switch( value )
+		{
+		case InterlaceMethod::Disabled:
+			return "No interlace";
+		case InterlaceMethod::Adam7:
+			return "Adam7 interlacing";
+		default:
+			break;
+		}
+
+		return "Unknown";
+	}
 }
 }
 }
