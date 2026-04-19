@@ -35,11 +35,11 @@ namespace Internal
 	{
 		Black::BigEndianIntegral<uint32_t>	width;
 		Black::BigEndianIntegral<uint32_t>	height;
-		uint8_t								bit_depth;			// TODO: Express the enumeration.
-		uint8_t								color_type;			// TODO: Express the enumeration.
-		uint8_t								compression_method;	// TODO: Express the enumeration.
-		uint8_t								filter_method;		// TODO: Express the enumeration.
-		uint8_t								interlace_method;	// TODO: Express the enumeration.
+		BitDepth							bit_depth;
+		ColorType							color_type;
+		CompressionMethod					compression_method;
+		FilterMethod						filter_method;
+		InterlaceMethod						interlace_method;
 	};
 	#pragma pack( pop )
 
