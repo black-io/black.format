@@ -16,7 +16,9 @@ inline namespace Global
 	) noexcept = default;
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
-	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::ByteOrderedIntegral( ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>&& other ) noexcept
+	inline ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>::ByteOrderedIntegral(
+		ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>&& other
+	) noexcept
 		: m_value{ std::exchange( other.m_value, 0 ) }
 	{
 	}
