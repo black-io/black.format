@@ -83,6 +83,29 @@ namespace
 
 		return "Unknown";
 	}
+
+	std::string_view format_as( const BitDepth value )
+	{
+		switch( value )
+		{
+		case BitDepth::Undefined:
+			return "Undefined";
+		case BitDepth::Bit:
+			return "1Bpp";
+		case BitDepth::QuarterByte:
+			return "2Bpp";
+		case BitDepth::HalfByte:
+			return "4Bpp";
+		case BitDepth::Byte:
+			return "8Bpp";
+		case BitDepth::Word:
+			return "16Bpp";
+		default:
+			break;
+		}
+
+		return "Unknown";
+	}
 }
 }
 }
