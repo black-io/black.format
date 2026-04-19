@@ -12,13 +12,45 @@ inline namespace Png
 	struct PngStructure final
 	{
 		//
-		using ChunkHeader = Internal::ChunkHeader;
+		struct Chunk final
+		{
+			//
+			using TypeCode = Internal::ChunkTypeCode;
+
+			//
+			using TypeCodeFlag = Internal::ChunkTypeFlag;
+
+			//
+			using Header = Internal::ChunkHeader;
+
+			//
+			using Footer = Internal::ChunkFooter;
+		};
 
 		//
-		using ChunkFooter = Internal::ChunkFooter;
+		struct Image final
+		{
+			//
+			using BitDepth = Internal::BitDepth;
 
-		//
-		using Header = Internal::ImageHeader;
+			//
+			using ColorType = Internal::ColorType;
+
+			//
+			using ColorTypeFlag = Internal::ColorTypeFlag;
+
+			//
+			using CompressionMethod = Internal::CompressionMethod;
+
+			//
+			using FilterMethod = Internal::FilterMethod;
+
+			//
+			using InterlaceMthod = Internal::InterlaceMethod;
+
+			//
+			using Header = Internal::ImageHeader;
+		};
 
 		//
 		using ChunkEntry = Internal::ChunkEntry;
