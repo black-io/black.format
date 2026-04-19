@@ -62,6 +62,27 @@ namespace
 
 		return "Unknown";
 	}
+
+	std::string_view format_as( const ChunkTypeFlag value )
+	{
+		switch( value )
+		{
+		case ChunkTypeFlag::None:
+			return "None";
+		case ChunkTypeFlag::Ancillary:
+			return "Ancillary";
+		case ChunkTypeFlag::Private:
+			return "Private";
+		case ChunkTypeFlag::Reserved:
+			return "Reserved";
+		case ChunkTypeFlag::CopySafe:
+			return "Safe to copy";
+		default:
+			break;
+		}
+
+		return "Unknown";
+	}
 }
 }
 }
