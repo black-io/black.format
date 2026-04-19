@@ -90,6 +90,19 @@ inline namespace Global
 	};
 
 	/**
+		@brief	Byte-ordered integral value template.
+
+		This partial specialization will be chosen for any kind of enumeration type.
+
+		This template represents the type of value object, which store the underlying value in potentially different endianness than target platform use.
+		In particular case, the endianness of stored value may be the same as one of target platform.
+		But the major thing here is to fix the endianness out of target platform bounding.
+
+		The role of byte-ordered integral value is crucial in networking of file formats.
+		Underlying type should be trivial, integral and may not be pointer.
+
+		@tparam	TValue				Type of stored value.
+		@tparam	VALUE_ENDIANNESS	Fixed endianness of stored value.
 	*/
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
 	class ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_enum_v<TValue>>> final
