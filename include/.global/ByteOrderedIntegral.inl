@@ -64,7 +64,9 @@ inline namespace Global
 	}
 
 	template< typename TValue, const Black::PlatformEndianness VALUE_ENDIANNESS >
-	inline void ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>::Swap( ByteOrderedIntegral<TValue, VALUE_ENDIANNESS>& other )
+	inline void ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>::Swap(
+		ByteOrderedIntegral<TValue, VALUE_ENDIANNESS, std::enable_if_t<std::is_integral_v<TValue>>>& other
+	)
 	{
 		Black::Swap( m_value, other.m_value );
 	}
