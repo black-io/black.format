@@ -127,6 +127,25 @@ namespace
 
 		return "Unknown";
 	}
+
+	std::string_view format_as( const ColorTypeFlag value )
+	{
+		switch( value )
+		{
+		case ColorTypeFlag::None:
+			return "None";
+		case ColorTypeFlag::Palette:
+			return "Palette";
+		case ColorTypeFlag::TrueColor:
+			return "TrueColor";
+		case ColorTypeFlag::Alpha:
+			return "Alpha";
+		default:
+			break;
+		}
+
+		return "Unknown";
+	}
 }
 }
 }
