@@ -81,7 +81,7 @@ namespace Internal
 	//
 	enum class FilterMethod : uint8_t
 	{
-		None = 0,
+		None	= 0,
 		Sub,
 		Up,
 		Average,
