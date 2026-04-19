@@ -30,7 +30,7 @@ namespace
 		buffer = buffer.TruncatePrefix( chunk_header_size );
 
 		CRET( chunk.header->content_size != sizeof( Internal::ImageHeader ), false );
-		CRET( chunk.header->type_code == Internal::TYPE_CODE_IHDR, false );
+		CRET( chunk.header->type_code == Internal::ChunkTypeCode::ImageHeader, false );
 		CRET( buffer.GetLength() < chunk.header->content_size, false );
 
 		const Internal::ImageHeader* const header = reinterpret_cast<const Internal::ImageHeader*>( buffer.GetMemory() );
