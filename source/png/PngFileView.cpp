@@ -174,7 +174,7 @@ namespace
 	const bool PngFileView::HasValidFooter() const
 	{
 		const Black::PlainView<const PngFileView::ChunkEntry> chunks{ GetChunks() };
-		return !chunks.empty() && chunks.back().header->type_code == Internal::TYPE_CODE_IEND;
+		return !chunks.empty() && chunks.back().header->type_code == Internal::ChunkTypeCode::ImageEnd;
 	}
 
 	const bool PngFileView::IsValidFile() const
