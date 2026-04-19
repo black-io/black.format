@@ -58,10 +58,10 @@ inline namespace Png
 
 
 		//
-		const PngStructure::Header* const QueryHeader() const;
+		const PngStructure::Image::Header* const QueryHeader() const;
 
 		//
-		const PngStructure::Header& GetHeader() const;
+		const PngStructure::Image::Header& GetHeader() const;
 
 		//
 		const Black::PlainView<const std::byte> GetPaletteBuffer() const;
