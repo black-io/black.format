@@ -33,7 +33,14 @@ inline namespace Png
 		*/
 		static const bool IsHeaderValid( const Black::PlainView<const std::byte>& file_memory );
 
-		//
+		/**
+			@brief	Whether the given image header satisfy the requirements of PNG file format specification.
+
+			All requirements of image header are described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+
+			@param	header	Given header of be checked.
+			@result			`true` in case of valid values stored in given header.
+		*/
 		static const bool IsHeaderValid( const Black::PngStructure::Image::Header& header );
 
 		//
