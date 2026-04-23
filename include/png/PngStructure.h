@@ -56,7 +56,7 @@ inline namespace Png
 			using Header = Internal::ImageHeader;
 		};
 
-		//
+		// Regular chunk of PNG file.
 		using ChunkEntry = Internal::ChunkEntry;
 	};
 }
