@@ -147,11 +147,19 @@ namespace Internal
 		Paeth,			// (6.6) Paeth. Computes a simple linear function of the three neighboring pixels (left, above, upper left).
 	};
 
-	//
+	/**
+		@brief	Image interlacing method.
+
+		This enumeration described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+
+		Currently only one method declared by PNG file format specification.
+
+		PNG file specification allows no other valid values of this enumeration.
+	*/
 	enum class InterlaceMethod : uint8_t
 	{
-		Disabled	= 0,
-		Adam7,
+		Disabled	= 0,	// No interlace used.
+		Adam7,				// Adam7 interlace algorithm used.
 	};
 
 	//
