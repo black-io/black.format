@@ -36,7 +36,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ChunkFooter final
 	{
-		Black::BigEndianIntegral<uint32_t>	checksum;
+		Black::BigEndianIntegral<uint32_t>	checksum;	// A 4-byte CRC (Cyclic Redundancy Check) calculated on the preceding bytes in the chunk.
 	};
 	#pragma pack( pop )
 
