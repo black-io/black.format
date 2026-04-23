@@ -131,7 +131,7 @@ inline namespace Png
 		// Perform the PNG file parsing.
 		void ParseFileMemory() const;
 
-		//
+		// Perform the quick tests for underlying PNG file to ensure it may be parsed.
 		void TestFileMemory() const;
 
 	// Private state.
