@@ -101,7 +101,7 @@ inline namespace Tga
 		// Get the buffer of image identification data. The result may be empty if no id stored in file.
 		const Black::PlainView<const std::byte> GetIdBuffer() const;
 
-		// Get the buffer of image palette. The result may be empty if not palette provided in file.
+		// Get the buffer of image palette. The result may be empty if no palette provided in file.
 		const Black::PlainView<const std::byte> GetPaletteBuffer() const;
 
 		// Get the buffer of stored image. The result may be empty in case the content type in header is set to `Empty`.
