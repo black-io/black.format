@@ -9,27 +9,37 @@ inline namespace Png
 {
 namespace Internal
 {
-	//
+	/**
+		@brief	PNG file chunk type code.
+
+		This enumeration described in section 4 (Chunk Specifications) of PNG 1.2 file format specification.
+		Values of enumeration reflects all discussed in specification codes, but not the all possible codes of PNG file format.
+
+		All chunks of PNG format are ancillary or critical. Critical chunks can be always found in any PNG file. Ancillary chunks are optional
+		and may by missed in PNG file.
+	*/
 	enum class ChunkTypeCode : uint32_t
 	{
-		ImageHeader					= 'IHDR',
-		Palette						= 'PLTE',
-		ImageData					= 'IDAT',
-		ImageEnd					= 'IEND',
-		Transparency				= 'tRNS',
-		ImageGamma					= 'gAMA',
-		Chromaticities				= 'cHRM',
-		SrgbColorSpace				= 'sRGB',
-		EmbeddedIcc					= 'iCCP',
-		TextualData					= 'tEXt',
-		CompressedTextualData		= 'zTXt',
-		InternationalTextualData	= 'iTXt',
-		BackgroundColor				= 'bKGD',
-		PhysicalDimensions			= 'pHYs',
-		SignificantBits				= 'sBIT',
-		SuggestedPalette			= 'sPLT',
-		PaletteHistogram			= 'hIST',
-		LastModificationTime		= 'tIME',
+		// Critical chunks.
+		ImageHeader					= 'IHDR',	// (4.1.1) Image header.
+		Palette						= 'PLTE',	// (4.1.2) Image palette.
+		ImageData					= 'IDAT',	// (4.1.3) Image data.
+		ImageEnd					= 'IEND',	// (4.1.4) End of image.
+		// Ancillary chunks.
+		Transparency				= 'tRNS',	// (4.2.1) Transparency.
+		ImageGamma					= 'gAMA',	// (4.2.2.1) Image gamma.
+		Chromaticities				= 'cHRM',	// (4.2.2.2) Primary chromaticities.
+		SrgbColorSpace				= 'sRGB',	// (4.2.2.3) Standard RGB color space.
+		EmbeddedIcc					= 'iCCP',	// (4.2.2.4) Embedded ICC profile.
+		TextualData					= 'tEXt',	// (4.2.3.1) Textual data.
+		CompressedTextualData		= 'zTXt',	// (4.2.3.2) Compressed textual data.
+		InternationalTextualData	= 'iTXt',	// (4.2.3.3) International textual data.
+		BackgroundColor				= 'bKGD',	// (4.2.4.1) Background color.
+		PhysicalDimensions			= 'pHYs',	// (4.2.4.2) Physical pixel dimensions.
+		SignificantBits				= 'sBIT',	// (4.2.4.3) Significant bits.
+		SuggestedPalette			= 'sPLT',	// (4.2.4.4) Suggested palette.
+		PaletteHistogram			= 'hIST',	// (4.2.4.5) Palette histogram.
+		LastModificationTime		= 'tIME',	// (4.2.4.6) Image last-modification time.
 	};
 
 	//
