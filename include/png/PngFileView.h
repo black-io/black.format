@@ -85,7 +85,7 @@ inline namespace Png
 		// Perform the full reset of file view. As result, the view become like just default-constructed.
 		void Reset();
 
-		//
+		// Swap the state of this view with other one.
 		void Swap( PngFileView& other );
 
 
