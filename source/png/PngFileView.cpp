@@ -52,6 +52,7 @@ namespace
 		CRET( header.height > ( 1 << 31 ), false );
 
 		CRET( !Internal::IsBitDepthValid( header.bit_depth ), false );
+		CRET( !Internal::IsColorTypeValid( header.color_type ), false );
 
 		return true;
 	}
