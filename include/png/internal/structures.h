@@ -14,7 +14,8 @@ namespace Internal
 
 		This structure described in section 3.2 (Chunk layout) of PNG 1.2 file format specification.
 
-		Chunk header precedes the chunk data. This structure always used to read the chunk header properly.
+		Chunk header precedes the chunk data.
+		This structure always used to map the memory of file and read the fields directly.
 	*/
 	#pragma pack( push, 1 )
 	struct ChunkHeader final
