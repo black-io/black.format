@@ -171,7 +171,7 @@ namespace
 		return m_image;
 	}
 
-	Black::PlainView<const PngFileView::ChunkEntry> PngFileView::GetChunks() const
+	Black::PlainView<const Black::PngStructure::ChunkEntry> PngFileView::GetChunks() const
 	{
 		CRET( !m_is_valid, {} );
 
@@ -183,13 +183,13 @@ namespace
 
 	const bool PngFileView::HasValidHeader() const
 	{
-		const Black::PlainView<const PngFileView::ChunkEntry> chunks{ GetChunks() };
+		const Black::PlainView<const Internal::ChunkEntry> chunks{ GetChunks() };
 		return !chunks.empty() && chunks.front().header->type_code == Internal::ChunkTypeCode::ImageHeader;
 	}
 
 	const bool PngFileView::HasValidFooter() const
 	{
-		const Black::PlainView<const PngFileView::ChunkEntry> chunks{ GetChunks() };
+		const Black::PlainView<const Internal::ChunkEntry> chunks{ GetChunks() };
 		return !chunks.empty() && chunks.back().header->type_code == Internal::ChunkTypeCode::ImageEnd;
 	}
 
