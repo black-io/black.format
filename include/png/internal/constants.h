@@ -130,14 +130,21 @@ namespace Internal
 		Deflate = 0,	// ZLib Deflate/Inflate.
 	};
 
-	//
+	/**
+		@brief	Image filtering method.
+
+		This enumeration described in section 6 (Filter Algorithms) of PNG 1.2 file format specification.
+		The purpose of these filters is to prepare the image data for optimum compression.
+
+		PNG file specification allows no other valid values of this enumeration.
+	*/
 	enum class FilterMethod : uint8_t
 	{
-		None	= 0,
-		Sub,
-		Up,
-		Average,
-		Paeth,
+		None	= 0,	// (6.2) None. The scanline is transmitted unmodified.
+		Sub,			// (6.3) Sub. Transmits the difference between each byte and the value of the corresponding byte of the prior pixel.
+		Up,				// (6.4) Up. Is just like the Sub() filter except that the pixel immediately above the current pixel.
+		Average,		// (6.5) Average. Uses the average of the two neighboring pixels (left and above) to predict the value of a pixel.
+		Paeth,			// (6.6) Paeth. Computes a simple linear function of the three neighboring pixels (left, above, upper left).
 	};
 
 	//
