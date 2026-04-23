@@ -105,7 +105,7 @@ inline namespace Png
 		Black::PlainView<const PngStructure::ChunkEntry> GetChunks() const;
 
 
-		//
+		// Whether the viewed file carries valid PNG header.
 		const bool HasValidHeader() const;
 
 		//
