@@ -31,28 +31,28 @@ inline namespace Png
 			using Footer = Internal::ChunkFooter;
 		};
 
-		//
+		// Support of PNG images.
 		struct Image final
 		{
-			//
+			// Enumeration of PNG image bit depths.
 			using BitDepth = Internal::BitDepth;
 
-			//
+			// Enumeration of PNG image color types.
 			using ColorType = Internal::ColorType;
 
-			//
+			// Enumeration of color type flags.
 			using ColorTypeFlag = Internal::ColorTypeFlag;
 
-			//
+			// Enumeration of PNG image compression methods.
 			using CompressionMethod = Internal::CompressionMethod;
 
-			//
+			// Enumeration of PNG image filtering methods.
 			using FilterMethod = Internal::FilterMethod;
 
-			//
+			// Enumeration of PNG image interlacing methods.
 			using InterlaceMthod = Internal::InterlaceMethod;
 
-			//
+			// Header of PNG image.
 			using Header = Internal::ImageHeader;
 		};
 
