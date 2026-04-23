@@ -200,7 +200,7 @@ namespace
 
 	const bool PngFileView::IsEmpty() const
 	{
-		return m_file_memory.IsEmpty() || ( QueryHeader() == nullptr ) || GetImageBuffer().IsEmpty();
+		return !m_is_valid || m_file_memory.IsEmpty();
 	}
 
 	void PngFileView::InvalidateCache() const
