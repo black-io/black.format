@@ -10,6 +10,11 @@ inline namespace Png
 namespace Internal
 {
 	/**
+		@brief	Header of PNG chunk.
+
+		This structure described in section 3.2 (Chunk layout) of PNG 1.2 file format specification.
+
+		Chunk header precedes the chunk data. This structure always used to read the chunk header properly.
 	*/
 	#pragma pack( push, 1 )
 	struct ChunkHeader final
