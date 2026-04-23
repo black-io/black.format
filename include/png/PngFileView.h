@@ -136,17 +136,17 @@ inline namespace Png
 
 	// Private state.
 	private:
-		Black::PlainView<const std::byte>	m_file_memory;
+		Black::PlainView<const std::byte>	m_file_memory;	// PNG file memory.
 
 	// Private non-state.
 	private:
-		mutable std::vector<Internal::ChunkEntry>	m_cunks;
-		mutable const Internal::ImageHeader*		m_header	= nullptr;
-		mutable Black::PlainView<const std::byte>	m_palette;
-		mutable Black::PlainView<const std::byte>	m_image;
+		mutable std::vector<Internal::ChunkEntry>	m_cunks;				// Collection of chunks found in viewed file.
+		mutable const Internal::ImageHeader*		m_header	= nullptr;	// Image header found in viewed file.
+		mutable Black::PlainView<const std::byte>	m_palette;				// Image palette found in viewed file.
+		mutable Black::PlainView<const std::byte>	m_image;				// Image data found in viewed file.
 
-		mutable bool	m_is_valid	= false;
-		mutable bool	m_is_parsed	= false;
+		mutable bool	m_is_valid	= false;	// Whether the `m_file_memory` can be parsed.
+		mutable bool	m_is_parsed	= false;	// Whether the PNG file already parsed.
 	};
 }
 }
