@@ -125,7 +125,7 @@ inline namespace Png
 		// Reset only non-state fields.
 		void InvalidateCache() const;
 
-		//
+		// Make the guarantee the viewed memory of PNG file is parsed only once.
 		void EnsureFileMemoryParsed() const;
 
 		//
