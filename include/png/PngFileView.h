@@ -122,7 +122,7 @@ inline namespace Png
 
 	// Private interface.
 	private:
-		//
+		// Reset only non-state fields.
 		void InvalidateCache() const;
 
 		//
