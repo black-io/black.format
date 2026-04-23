@@ -41,6 +41,12 @@ namespace Internal
 	#pragma pack( pop )
 
 	/**
+		@brief	PNG image header.
+
+		This structure described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+
+		Image header always placed as field `Chunk data` of chunk with `IDAT` type code.
+		This structure always used to map the memory of file and read the fields directly.
 	*/
 	#pragma pack( push, 1 )
 	struct ImageHeader final
