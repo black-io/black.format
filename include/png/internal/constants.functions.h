@@ -9,7 +9,8 @@ inline namespace Png
 {
 namespace Internal
 {
-
+	//
+	const bool IsBitDepthValid( const BitDepth bit_depth );
 }
 }
 }
