@@ -53,7 +53,14 @@ inline namespace Png
 		*/
 		static const bool IsFooterValid( const Black::PlainView<const std::byte>& file_memory );
 
-		//
+		/**
+			@brief	Whether the memory of file represents the valid PNG format.
+
+			This function does not perform the whole file parsing, but only looks for certain chunks in valid places it should be found.
+
+			@param	file_memory	Memory of file to be checked.
+			@result				`true` in case of valid PNG format found in given memory.
+		*/
 		static const bool IsFileValid( const Black::PlainView<const std::byte>& file_memory );
 
 	// Public life-time management.
