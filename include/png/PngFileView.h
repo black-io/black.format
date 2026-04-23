@@ -89,7 +89,7 @@ inline namespace Png
 		void Swap( PngFileView& other );
 
 
-		//
+		// Query the header of viewed file. May return `nullptr` in case of invalid or empty file.
 		const PngStructure::Image::Header* const QueryHeader() const;
 
 		//
