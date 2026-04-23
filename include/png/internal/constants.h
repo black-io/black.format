@@ -84,6 +84,9 @@ namespace Internal
 		This enumeration described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
 		The values of this enumeration are bit-combinations of `ColorTypeFlag` bits.
 
+		Each of this values can be examined with mask of `ColorTypeFlag` value to determine details of color type.
+		There are bitwise `&` operation defined for operands of `ColorType` and `ColorTypeFlag` that will return `0` of value of `ColorTypeFlag` operand.
+
 		PNG file specification allows no other valid values of this enumeration.
 	*/
 	enum class ColorType : uint8_t
