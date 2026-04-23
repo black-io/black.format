@@ -17,6 +17,9 @@ namespace Internal
 
 	//
 	const bool HasValidColorCombination( const BitDepth bit_depth, const ColorType color_type );
+
+	//
+	const bool IsCompressionMethodValid( const CompressionMethod compression_method );
 }
 }
 }
