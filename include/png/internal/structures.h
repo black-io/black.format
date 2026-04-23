@@ -68,9 +68,9 @@ namespace Internal
 	*/
 	struct ChunkEntry final
 	{
-		const ChunkHeader*					header;
-		Black::PlainView<const std::byte>	content;
-		const ChunkFooter*					footer;
+		const ChunkHeader*					header;		// Header of chunk. Length + Chunk Type fields.
+		Black::PlainView<const std::byte>	content;	// Chunk Data.
+		const ChunkFooter*					footer;		// Footer of chunk. CRC field.
 	};
 }
 }
