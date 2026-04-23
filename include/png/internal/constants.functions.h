@@ -23,6 +23,9 @@ namespace Internal
 
 	//
 	const bool IsFilterMethodValid( const FilterMethod filter_method );
+
+	//
+	const bool IsInterlaceMethodValid( const InterlaceMethod interlace_method );
 }
 }
 }
