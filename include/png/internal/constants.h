@@ -78,14 +78,21 @@ namespace Internal
 		Word		= 16,	// 16Bpp.
 	};
 
-	//
+	/**
+		@brief	Type of image representation in PNG file.
+
+		This enumeration described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+		The values of this enumeration are bit-combinations of `ColorTypeFlag` bits.
+
+		PNG file specification allows no other valid values of this enumeration.
+	*/
 	enum class ColorType : uint8_t
 	{
-		Grayscale		= 0,
-		RGB				= 2,
-		Paletted		= 3,
-		GrayscaleAlpha	= 4,
-		ARGB			= 6,
+		Grayscale		= 0,	// Stored image is grayscale.
+		RGB				= 2,	// Stored image is TrueColor RGB.
+		Paletted		= 3,	// Stored image is index matrix for TrueColor RGB palette.
+		GrayscaleAlpha	= 4,	// Stored image is grayscale with alpha-channel.
+		ARGB			= 6,	// Stored image is TrueColor RGB with alpha-channel.
 	};
 
 	//
