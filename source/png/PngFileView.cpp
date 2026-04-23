@@ -35,13 +35,17 @@ namespace
 
 		const Internal::ImageHeader* const header = reinterpret_cast<const Internal::ImageHeader*>( buffer.GetMemory() );
 		buffer = buffer.TruncatePrefix( chunk.header->content_size );
-		CRET( header->width == 0, false );
-		CRET( header->height == 0, false );
+		CRET( !IsHeaderValid( *header ), false );
 
 		constexpr size_t chunk_footer_size = sizeof( Internal::ChunkFooter );
 		CRET( buffer.GetLength() < chunk_footer_size, false );
 		chunk.footer = reinterpret_cast<const Internal::ChunkFooter*>( buffer.GetMemory() );
 
+		return true;
+	}
+
+	const bool PngFileView::IsHeaderValid( const Black::PngStructure::Image::Header& header )
+	{
 		return true;
 	}
 

@@ -34,6 +34,9 @@ inline namespace Png
 		static const bool IsHeaderValid( const Black::PlainView<const std::byte>& file_memory );
 
 		//
+		static const bool IsHeaderValid( const Black::PngStructure::Image::Header& header );
+
+		//
 		static const bool IsFooterValid( const Black::PlainView<const std::byte>& file_memory );
 
 		//
