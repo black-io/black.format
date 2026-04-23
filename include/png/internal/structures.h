@@ -20,8 +20,8 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ChunkHeader final
 	{
-		Black::BigEndianIntegral<uint32_t>		content_size;
-		Black::BigEndianIntegral<ChunkTypeCode>	type_code;
+		Black::BigEndianIntegral<uint32_t>		content_size;	// A 4-byte unsigned integer giving the number of bytes in the chunk's data field.
+		Black::BigEndianIntegral<ChunkTypeCode>	type_code;		// A 4-byte chunk type code.
 	};
 	#pragma pack( pop )
 
