@@ -61,7 +61,11 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
-	//
+	/**
+		@brief	Regular chunk entry of PNG file.
+
+		This entry implements the chunk of PNG file.
+	*/
 	struct ChunkEntry final
 	{
 		const ChunkHeader*					header;
