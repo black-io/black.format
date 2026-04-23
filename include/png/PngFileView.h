@@ -8,6 +8,11 @@ inline namespace Format
 inline namespace Png
 {
 	/**
+		@brief	View of regular PNG file.
+
+		This type can be used to verify that some particular file satisfy the basic requirements of valid PNG file or even has valid internal structure of PNG file.
+		The view doesn't own given memory. It doesn't copy the memory of file nor create some expensive objects.
+		It can't decode stored image or change the content of chunks. This view just gives to user the easiest way to access the data of stored image.
 	*/
 	class PngFileView final
 	{

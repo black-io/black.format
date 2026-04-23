@@ -11,7 +11,7 @@ inline namespace Tga
 		@brief	View of regular TGA file.
 
 		This type can be used to test whether the arbitrary file satisfy the TGA format requirements or even get the full internal structure of TGA file.
-		This view does nothing with store image. This view just gives to user the easiest way to access the data of stored image.
+		This view does nothing with stored image. This view just gives to user the easiest way to access the data of stored image.
 		`TgaImageDecoder` type can be used to decode the stored image from buffers and headers this view provide.
 
 		The view can determine version of TGA format the viewed file was saved.
