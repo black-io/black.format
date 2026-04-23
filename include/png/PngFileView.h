@@ -108,7 +108,7 @@ inline namespace Png
 		// Whether the viewed file carries valid PNG header.
 		const bool HasValidHeader() const;
 
-		//
+		// Whether the viewed file carries valid PNG footer.
 		const bool HasValidFooter() const;
 
 		//
