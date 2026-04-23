@@ -60,15 +60,22 @@ namespace Internal
 		CopySafe	= 0x20000000U,	// Safe-to-copy bit: bit 5 of fourth byte.
 	};
 
-	//
+	/**
+		@brief	Bit depth of image.
+
+		This enumeration described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+		The values of this enumeration directly means bitness of decompressed image.
+
+		PNG file specification allows no other valid values of this enumeration.
+	*/
 	enum class BitDepth : uint8_t
 	{
-		Undefined	= 0,
-		Bit			= 1,
-		QuarterByte	= 2,
-		HalfByte	= 4,
-		Byte		= 8,
-		Word		= 16,
+		Undefined	= 0,	// Undefined, or invalid, bit-rate of image.
+		Bit			= 1,	// 1Bpp.
+		QuarterByte	= 2,	// 2Bpp.
+		HalfByte	= 4,	// 4Bpp.
+		Byte		= 8,	// 8Bpp.
+		Word		= 16,	// 16Bpp.
 	};
 
 	//
