@@ -95,7 +95,7 @@ inline namespace Png
 		// Get the header of file. Can be used only for valid and not empty file.
 		const PngStructure::Image::Header& GetHeader() const;
 
-		//
+		// Get the buffer of image palette. The result may be empty if no palette provided in file.
 		const Black::PlainView<const std::byte> GetPaletteBuffer() const;
 
 		//
