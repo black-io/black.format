@@ -114,7 +114,7 @@ inline namespace Png
 		// Whether the viewed file satisfies the conditions of valid PNG file.
 		const bool IsValidFile() const;
 
-		//
+		// Whether the TGA file is invalid or empty.
 		const bool IsEmpty() const;
 
 		//
