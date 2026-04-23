@@ -15,19 +15,19 @@ inline namespace Png
 	*/
 	struct PngStructure final
 	{
-		//
+		// Support of PNG chunks.
 		struct Chunk final
 		{
-			//
+			// Enumeration of chunk type codes.
 			using TypeCode = Internal::ChunkTypeCode;
 
-			//
+			// Enumeration of chunk property bits.
 			using PropertyBit = Internal::ChunkPropertyBit;
 
-			//
+			// Header of PNG file chunk.
 			using Header = Internal::ChunkHeader;
 
-			//
+			// Footer of PNG file chunk.
 			using Footer = Internal::ChunkFooter;
 		};
 
