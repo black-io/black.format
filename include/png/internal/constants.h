@@ -162,7 +162,17 @@ namespace Internal
 		Adam7,				// Adam7 interlace algorithm used.
 	};
 
-	//
+	/**
+		@brief	PNG file preamble.
+
+		This constant described in section 3.1 (PNG file signature) of PNG 1.2 file format specification.
+		Every valid PNG file begins with this eight bytes. After the preamble chunks are directly placed.
+
+		The first eight bytes of a PNG file always contain the following values:
+		   (decimal)              137  80  78  71  13  10  26  10
+		   (hexadecimal)           89  50  4e  47  0d  0a  1a  0a
+		   (ASCII C notation)    \211   P   N   G  \r  \n \032 \n
+	*/
 	inline constexpr uint8_t FILE_PREAMBULA[] { 137, 80, 78, 71, 13, 10, 26, 10 };
 }
 }
