@@ -18,7 +18,7 @@ inline namespace Png
 			using TypeCode = Internal::ChunkTypeCode;
 
 			//
-			using TypeCodeFlag = Internal::ChunkTypeFlag;
+			using PropertyBit = Internal::ChunkPropertyBit;
 
 			//
 			using Header = Internal::ChunkHeader;

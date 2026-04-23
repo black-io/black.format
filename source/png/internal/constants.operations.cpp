@@ -63,19 +63,19 @@ namespace
 		return "Unknown";
 	}
 
-	std::string_view format_as( const ChunkTypeFlag value )
+	std::string_view format_as( const ChunkPropertyBit value )
 	{
 		switch( value )
 		{
-		case ChunkTypeFlag::None:
+		case ChunkPropertyBit::None:
 			return "None";
-		case ChunkTypeFlag::Ancillary:
+		case ChunkPropertyBit::Ancillary:
 			return "Ancillary";
-		case ChunkTypeFlag::Private:
+		case ChunkPropertyBit::Private:
 			return "Private";
-		case ChunkTypeFlag::Reserved:
+		case ChunkPropertyBit::Reserved:
 			return "Reserved";
-		case ChunkTypeFlag::CopySafe:
+		case ChunkPropertyBit::CopySafe:
 			return "Safe to copy";
 		default:
 			break;

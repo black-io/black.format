@@ -48,9 +48,10 @@ namespace Internal
 		This enumeration described in section 3.3 (Chunk naming conventions) of PNG 1.2 file format specification.
 		Each value of this enumeration can be used as mask for value of `ChunkTypeCode` to check required option in type code.
 
-		There are bitwise `&` operations defined for operands `ChunkTypeCode` and `ChunkTypeFlag` that will return wither `0` or value of `ChunkTypeFlag` operand.
+		There are bitwise `&` operations defined for operands `ChunkTypeCode` and `ChunkPropertyBit` that will return
+		either `0` or value of `ChunkPropertyBit` operand.
 	*/
-	enum class ChunkTypeFlag : uint32_t
+	enum class ChunkPropertyBit : uint32_t
 	{
 		None		= 0,			// None property.
 		Ancillary	= 0x00000020U,	// Ancillary bit: bit 5 of first byte.
