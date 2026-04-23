@@ -98,13 +98,22 @@ namespace Internal
 		ARGB			= 6,	// Stored image is TrueColor RGB with alpha-channel.
 	};
 
-	//
+	/**
+		@brief	Bit-flags for supported types of image colors.
+
+		This enumeration described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+		Each of values is bit to flag the details of `ColorType` value.
+
+		It can be used in bitwise `&` operator to determine the given color type has required property.
+
+		PNG file specification allows no other valid values of this enumeration.
+	*/
 	enum class ColorTypeFlag : uint8_t
 	{
-		None		= 0,
-		Palette		= 0x01U,
-		TrueColor	= 0x02U,
-		Alpha		= 0x04U,
+		None		= 0,		// None property.
+		Palette		= 0x01U,	// Image consists of palette.
+		TrueColor	= 0x02U,	// Image consists of RGB data.
+		Alpha		= 0x04U,	// Image carries alpha-channel.
 	};
 
 	//
