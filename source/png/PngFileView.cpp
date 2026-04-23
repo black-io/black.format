@@ -18,9 +18,9 @@ namespace
 	{
 		Black::PlainView<const std::byte> buffer{ file_memory };
 
-		constexpr size_t file_preambula_size = std::size( Internal::FILE_PREAMBULA );
+		constexpr size_t file_preambula_size = std::size( Internal::FILE_PREAMBLE );
 		CRET( buffer.GetLength() < file_preambula_size, false );
-		CRET( !Black::IsMemoryEqual( buffer.GetMemory(), Internal::FILE_PREAMBULA, file_preambula_size ), false );
+		CRET( !Black::IsMemoryEqual( buffer.GetMemory(), Internal::FILE_PREAMBLE, file_preambula_size ), false );
 		buffer = buffer.TruncatePrefix( file_preambula_size );
 
 		constexpr size_t chunk_header_size = sizeof( Internal::ChunkHeader );
@@ -214,7 +214,7 @@ namespace
 
 		CRETW( !IsHeaderValid( m_file_memory ), , LOG_CHANNEL, "Unable to determine TGA header." );
 
-		Black::PlainView<const std::byte> chunks_buffer{ m_file_memory.TruncatePrefix( std::size( Internal::FILE_PREAMBULA ) ) };
+		Black::PlainView<const std::byte> chunks_buffer{ m_file_memory.TruncatePrefix( std::size( Internal::FILE_PREAMBLE ) ) };
 		while( !chunks_buffer.IsEmpty() )
 		{
 			Internal::ChunkEntry& chunk = m_cunks.emplace_back();

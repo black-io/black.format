@@ -173,7 +173,7 @@ namespace Internal
 		   (hexadecimal)           89  50  4e  47  0d  0a  1a  0a
 		   (ASCII C notation)    \211   P   N   G  \r  \n \032 \n
 	*/
-	inline constexpr uint8_t FILE_PREAMBULA[] { 137, 80, 78, 71, 13, 10, 26, 10 };
+	inline constexpr uint8_t FILE_PREAMBLE[] { 137, 80, 78, 71, 13, 10, 26, 10 };
 }
 }
 }
