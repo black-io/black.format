@@ -16,11 +16,6 @@ inline namespace Png
 	*/
 	class PngFileView final
 	{
-	// Public inner types.
-	public:
-		//
-		using ChunkEntry = Internal::ChunkEntry;
-
 	// Friendship interface.
 	public:
 		friend inline void swap( PngFileView& left, PngFileView& right )	{ left.Swap( right ); };
@@ -75,7 +70,7 @@ inline namespace Png
 		const Black::PlainView<const std::byte> GetImageBuffer() const;
 
 		//
-		Black::PlainView<const ChunkEntry> GetChunks() const;
+		Black::PlainView<const PngStructure::ChunkEntry> GetChunks() const;
 
 
 		//
