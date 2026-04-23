@@ -29,7 +29,7 @@ inline namespace Png
 			It succeeds only for valid PNG files.
 
 			@param	file_memory	Memory of file to be checked.
-			@return				`true` in case of valid PNG header found in valid place of given memory.
+			@result				`true` in case of valid PNG header found in valid place of given memory.
 		*/
 		static const bool IsHeaderValid( const Black::PlainView<const std::byte>& file_memory );
 
