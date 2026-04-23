@@ -16,7 +16,10 @@ inline namespace Global
 		Such behavior is crucial for file- or network formats, where the values should be stored in particular endianness regardless
 		to platform-specific endianness.
 
-		@tparam	TValue	Type of underlying value.
+		This type safely consumes enumerations as well. It converts the order of bytes in enumerations, so for user of this type there will be no problem
+		to use enumeration.
+
+		@tparam	TValue	Type of underlying value. May be integral or enumeration.
 	*/
 	template< typename TValue >
 	using LittleEndianIntegral = ByteOrderedIntegral<TValue, Black::PlatformEndianness::LittleEndian>;
