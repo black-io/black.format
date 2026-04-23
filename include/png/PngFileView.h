@@ -128,7 +128,7 @@ inline namespace Png
 		// Make the guarantee the viewed memory of PNG file is parsed only once.
 		void EnsureFileMemoryParsed() const;
 
-		//
+		// Perform the PNG file parsing.
 		void ParseFileMemory() const;
 
 		//
