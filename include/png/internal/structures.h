@@ -26,6 +26,12 @@ namespace Internal
 	#pragma pack( pop )
 
 	/**
+		@brief	Footer of PNG chunk.
+
+		This structure described in section 3.2 (Chunk layout) of PNG 1.2 file format specification.
+
+		Chunk footer always placed at the tail of chunk, right after the chunk data.
+		This structure always used to map the memory of file and read the fields directly.
 	*/
 	#pragma pack( push, 1 )
 	struct ChunkFooter final
