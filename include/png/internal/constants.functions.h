@@ -20,6 +20,9 @@ namespace Internal
 
 	//
 	const bool IsCompressionMethodValid( const CompressionMethod compression_method );
+
+	//
+	const bool IsFilterMethodValid( const FilterMethod filter_method );
 }
 }
 }
