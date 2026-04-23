@@ -43,10 +43,10 @@ namespace Internal
 	};
 
 	/**
-		@brief	PNG file chunk options.
+		@brief	PNG file chunk property bits.
 
 		This enumeration described in section 3.3 (Chunk naming conventions) of PNG 1.2 file format specification.
-		Each flag of this enumeration can be used as mask for value of `ChunkTypeCode` to check required option in type code.
+		Each value of this enumeration can be used as mask for value of `ChunkTypeCode` to check required option in type code.
 
 		There are bitwise `&` operations defined for operands `ChunkTypeCode` and `ChunkTypeFlag` that will return wither `0` or value of `ChunkTypeFlag` operand.
 	*/
