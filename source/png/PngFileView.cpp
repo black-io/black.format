@@ -46,6 +46,11 @@ namespace
 
 	const bool PngFileView::IsHeaderValid( const Black::PngStructure::Image::Header& header )
 	{
+		CRET( header.width == 0, false );
+		CRET( header.width > ( 1 << 31 ), false );
+		CRET( header.height == 0, false );
+		CRET( header.height > ( 1 << 31 ), false );
+
 		return true;
 	}
 
