@@ -64,6 +64,8 @@ namespace Internal
 	/**
 		@brief	Regular chunk entry of PNG file.
 
+		Each field always represent the direct memory of PNG file.
+
 		This entry implements the chunk of PNG file.
 	*/
 	struct ChunkEntry final
