@@ -22,7 +22,15 @@ inline namespace Png
 
 	// Public static interface.
 	public:
-		//
+		/**
+			@brief	Whether the memory of file carries valid header of PNG format.
+
+			This function perform the most basic checks at the beginning of given file.
+			It succeeds only for valid PNG files.
+
+			@param	file_memory	Memory of file to be checked.
+			@return				`true` in case of valid PNG header found in valid place of given memory.
+		*/
 		static const bool IsHeaderValid( const Black::PlainView<const std::byte>& file_memory );
 
 		//
