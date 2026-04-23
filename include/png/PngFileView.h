@@ -92,7 +92,7 @@ inline namespace Png
 		// Query the header of viewed file. May return `nullptr` in case of invalid or empty file.
 		const PngStructure::Image::Header* const QueryHeader() const;
 
-		//
+		// Get the header of file. Can be used only for valid and not empty file.
 		const PngStructure::Image::Header& GetHeader() const;
 
 		//
