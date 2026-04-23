@@ -51,13 +51,13 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ImageHeader final
 	{
-		Black::BigEndianIntegral<uint32_t>	width;
-		Black::BigEndianIntegral<uint32_t>	height;
-		BitDepth							bit_depth;
-		ColorType							color_type;
-		CompressionMethod					compression_method;
-		FilterMethod						filter_method;
-		InterlaceMethod						interlace_method;
+		Black::BigEndianIntegral<uint32_t>	width;				// Width of image in pixels.
+		Black::BigEndianIntegral<uint32_t>	height;				// Height of image in pixels.
+		BitDepth							bit_depth;			// Number of bits per sample or per palette index (not per pixel).
+		ColorType							color_type;			// Interpretation of the image data.
+		CompressionMethod					compression_method;	// Method used to compress the image data.
+		FilterMethod						filter_method;		// Preprocessing method applied to the image data before compression.
+		InterlaceMethod						interlace_method;	// Transmission order of the image data.
 	};
 	#pragma pack( pop )
 
