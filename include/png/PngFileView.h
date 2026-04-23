@@ -98,7 +98,7 @@ inline namespace Png
 		// Get the buffer of image palette. The result may be empty if no palette provided in file.
 		const Black::PlainView<const std::byte> GetPaletteBuffer() const;
 
-		//
+		// Get the buffer of stored image. The result may be empty in case of invalid or empty file.
 		const Black::PlainView<const std::byte> GetImageBuffer() const;
 
 		//
