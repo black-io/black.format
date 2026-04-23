@@ -54,6 +54,7 @@ namespace
 		CRET( !Internal::IsBitDepthValid( header.bit_depth ), false );
 		CRET( !Internal::IsColorTypeValid( header.color_type ), false );
 		CRET( !Internal::HasValidColorCombination( header.bit_depth, header.color_type ), false );
+		CRET( !Internal::IsCompressionMethodValid( header.compression_method ), false );
 
 		return true;
 	}
