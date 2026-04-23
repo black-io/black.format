@@ -8,6 +8,10 @@ inline namespace Format
 inline namespace Png
 {
 	/**
+		@brief	Representation of PNG file internal structure.
+
+		Here are collected internal types of PNG file format. All of it aggregated in certain structures, as PNG 1.2 file format specification describes.
+		In any case any of internal PNG-file types needed by consumer's code, it may be accessed via `PngStructure`.
 	*/
 	struct PngStructure final
 	{
