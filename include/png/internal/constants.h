@@ -116,10 +116,18 @@ namespace Internal
 		Alpha		= 0x04U,	// Image carries alpha-channel.
 	};
 
-	//
+	/**
+		@brief	Image compression method.
+
+		This enumeration described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+
+		Currently only one compression declared by PNG file format specification.
+
+		PNG file specification allows no other valid values of this enumeration.
+	*/
 	enum class CompressionMethod : uint8_t
 	{
-		Deflate = 0,
+		Deflate = 0,	// ZLib Deflate/Inflate.
 	};
 
 	//
