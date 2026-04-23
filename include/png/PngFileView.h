@@ -43,7 +43,14 @@ inline namespace Png
 		*/
 		static const bool IsHeaderValid( const Black::PngStructure::Image::Header& header );
 
-		//
+		/**
+			@brief	Whether the memory of file carries valid footer of PNG format.
+
+			This function just looks up the IEND chunk at the end of file.
+
+			@param	file_memory	Memory of file to be checked.
+			@result				`true` in case of valid PNG footer found in valid place of given memory.
+		*/
 		static const bool IsFooterValid( const Black::PlainView<const std::byte>& file_memory );
 
 		//
