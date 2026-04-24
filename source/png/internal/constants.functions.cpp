@@ -54,6 +54,12 @@ namespace
 		constexpr CompressionMethod valid_values[] { CompressionMethod::Deflate };
 		return Black::HasItem( valid_values, compression_method );
 	}
+
+	const bool IsFilterMethodValid( const FilterMethod filter_method )
+	{
+		constexpr FilterMethod valid_values[] { FilterMethod::Adaptive };
+		return Black::HasItem( valid_values, filter_method );
+	}
 }
 }
 }
