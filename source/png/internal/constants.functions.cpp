@@ -29,6 +29,25 @@ namespace
 		constexpr ColorType valid_values[] { ColorType::Grayscale, ColorType::RGB, ColorType::Paletted, ColorType::GrayscaleAlpha, ColorType::ARGB };
 		return Black::HasItem( valid_values, color_type );
 	}
+
+	const bool HasValidColorCombination( const BitDepth bit_depth, const ColorType color_type )
+	{
+		constexpr std::pair<ColorType, BitDepth> valid_values[] {
+			{ ColorType::Grayscale, BitDepth::Bit },		{ ColorType::Grayscale, BitDepth::QuarterByte },	{ ColorType::Grayscale, BitDepth::HalfByte },
+			{ ColorType::Grayscale, BitDepth::Byte },		{ ColorType::Grayscale, BitDepth::Word },
+
+			{ ColorType::RGB, BitDepth::Byte },				{ ColorType::RGB, BitDepth::Word },
+
+			{ ColorType::Paletted, BitDepth::Bit },			{ ColorType::Paletted, BitDepth::QuarterByte },		{ ColorType::Paletted, BitDepth::HalfByte },
+			{ ColorType::Paletted, BitDepth::Byte },
+
+			{ ColorType::GrayscaleAlpha, BitDepth::Byte },	{ ColorType::GrayscaleAlpha, BitDepth::Word },
+
+			{ ColorType::ARGB, BitDepth::Byte },			{ ColorType::ARGB, BitDepth::Word },
+		};
+
+		return Black::HasItem( valid_values, { color_type, bit_depth } );
+	}
 }
 }
 }
