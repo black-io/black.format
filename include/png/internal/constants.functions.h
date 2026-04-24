@@ -65,7 +65,19 @@ namespace Internal
 	*/
 	const bool HasValidColorCombination( const BitDepth bit_depth, const ColorType color_type );
 
-	//
+	/**
+		@brief	Whether the given compression method is valid.
+
+		This check complies to section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+		Compression method is a single-byte integer that indicates the method used to compress the image data.
+		At present, only compression method 0 (deflate/inflate compression with a sliding window of at most 32768 bytes) is defined.
+		All standard PNG images must be compressed with this scheme.
+		The compression method field is provided for possible future expansion or proprietary variants.
+		Decoders must check this byte and report an error if it holds an unrecognized code.
+
+		@param	compression_method	Given method type to be checked.
+		@return						`true` for valid combination. `false` in other cases.
+	*/
 	const bool IsCompressionMethodValid( const CompressionMethod compression_method );
 
 	//
