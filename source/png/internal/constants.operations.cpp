@@ -164,16 +164,8 @@ namespace
 	{
 		switch( value )
 		{
-		case FilterMethod::None:
-			return "None";
-		case FilterMethod::Sub:
-			return "Sub";
-		case FilterMethod::Up:
-			return "Up";
-		case FilterMethod::Average:
-			return "Average";
-		case FilterMethod::Paeth:
-			return "Paeth";
+		case FilterMethod::Adaptive:
+			return "Adaptive";
 		default:
 			break;
 		}
