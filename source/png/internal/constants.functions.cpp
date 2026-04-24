@@ -60,6 +60,12 @@ namespace
 		constexpr FilterMethod valid_values[] { FilterMethod::Adaptive };
 		return Black::HasItem( valid_values, filter_method );
 	}
+
+	const bool IsInterlaceMethodValid( const InterlaceMethod interlace_method )
+	{
+		constexpr InterlaceMethod valid_values[] { InterlaceMethod::Disabled, InterlaceMethod::Adam7 };
+		return Black::HasItem( valid_values, interlace_method );
+	}
 }
 }
 }
