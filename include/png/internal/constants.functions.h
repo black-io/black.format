@@ -93,7 +93,18 @@ namespace Internal
 	*/
 	const bool IsFilterMethodValid( const FilterMethod filter_method );
 
-	//
+	/**
+		@brief	Whether the given interlace methods is valid.
+
+		This check complies to section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+		Interlace method is a single-byte integer that indicates the transmission order of the image data.
+		Two values are currently defined:
+		- 0 (no interlace),
+		- 1 (Adam7 interlace).
+
+		@param	interlace_method	Given method type to be checked.
+		@return						`true` for valid combination. `false` in other cases.
+	*/
 	const bool IsInterlaceMethodValid( const InterlaceMethod interlace_method );
 }
 }
