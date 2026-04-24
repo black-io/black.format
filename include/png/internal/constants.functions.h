@@ -37,7 +37,32 @@ namespace Internal
 	*/
 	const bool IsColorTypeValid( const ColorType color_type );
 
-	//
+	/**
+		@brief	Whether the combination of color type and bit depth is valid.
+
+		This check complies to section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+		Bit depth restrictions for each color type are imposed to simplify implementations and to prohibit combinations that do not compress well.
+		Decoders must support all valid combinations of bit depth and color type. The allowed combinations are:
+			Color	Allowed		Interpretation
+			Type	Bit Depths
+
+			0		1,2,4,8,16	Each pixel is a grayscale sample.
+
+			2		8,16		Each pixel is an R,G,B triple.
+
+			3		1,2,4,8		Each pixel is a palette index;
+								a PLTE chunk must appear.
+
+			4		8,16		Each pixel is a grayscale sample,
+								followed by an alpha sample.
+
+			6		8,16		Each pixel is an R,G,B triple,
+								followed by an alpha sample.
+
+		@param	bit_depth	Given depth to be checked.
+		@param	color_type	Given color type to be checked.
+		@return				`true` for valid combination. `false` in other cases.
+	*/
 	const bool HasValidColorCombination( const BitDepth bit_depth, const ColorType color_type );
 
 	//
