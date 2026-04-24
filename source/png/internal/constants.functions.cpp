@@ -48,6 +48,12 @@ namespace
 
 		return Black::HasItem( valid_values, { color_type, bit_depth } );
 	}
+
+	const bool IsCompressionMethodValid( const CompressionMethod compression_method )
+	{
+		constexpr CompressionMethod valid_values[] { CompressionMethod::Deflate };
+		return Black::HasItem( valid_values, compression_method );
+	}
 }
 }
 }
