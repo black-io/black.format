@@ -80,7 +80,17 @@ namespace Internal
 	*/
 	const bool IsCompressionMethodValid( const CompressionMethod compression_method );
 
-	//
+	/**
+		@brief	Whether the given filter method is valid.
+
+		This check complies to section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+		Filter method is a single-byte integer that indicates the preprocessing method applied to the image data before compression.
+		At present, only filter method 0 (adaptive filtering with five basic filter types) is defined.
+		As with the compression method field, decoders must check this byte and report an error if it holds an unrecognized code.
+
+		@param	filter_method	Given method type to be checked.
+		@return					`true` for valid combination. `false` in other cases.
+	*/
 	const bool IsFilterMethodValid( const FilterMethod filter_method );
 
 	//
