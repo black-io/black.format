@@ -133,8 +133,9 @@ namespace Internal
 	/**
 		@brief	Image filtering method.
 
-		This enumeration described in section 6 (Filter Algorithms) of PNG 1.2 file format specification.
-		The purpose of these filters is to prepare the image data for optimum compression.
+		This enumeration described in section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+
+		At present, only filter method 0 (adaptive filtering with five basic filter types) is defined.
 
 		PNG file specification allows no other valid values of this enumeration.
 	*/
