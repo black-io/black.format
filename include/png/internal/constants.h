@@ -141,7 +141,7 @@ namespace Internal
 	*/
 	enum class FilterMethod : uint8_t
 	{
-		Adaptive = 0,
+		Adaptive = 0,	// Adaptive filtering with five basic filter types.
 	};
 
 	/**
