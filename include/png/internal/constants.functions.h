@@ -9,7 +9,16 @@ inline namespace Png
 {
 namespace Internal
 {
-	//
+	/**
+		@brief	Whether the given bit depth is valid.
+
+		This check complies to section 4.1.1 (IHDR Image header) of PNG 1.2 file format specification.
+		Bit depth is a single-byte integer giving the number of bits per sample or per palette index (not per pixel).
+		Valid values are 1, 2, 4, 8, and 16, although not all values are allowed for all color types.
+
+		@param	bit_depth	Given depth to be checked.
+		@return				`true` for valid values. `false` in other cases.
+	*/
 	const bool IsBitDepthValid( const BitDepth bit_depth );
 
 	//
