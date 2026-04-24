@@ -9,6 +9,12 @@ inline namespace Png
 {
 namespace Internal
 {
+namespace
+{
+	// Logging channel.
+	constexpr const char* LOG_CHANNEL = "Black/PNG/Functions";
+}
+
 
 }
 }
