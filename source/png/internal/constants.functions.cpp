@@ -18,6 +18,11 @@ namespace
 }
 
 
+	const bool IsBitDepthValid( const BitDepth bit_depth )
+	{
+		constexpr BitDepth valid_values[] { BitDepth::Bit, BitDepth::QuarterByte, BitDepth::HalfByte, BitDepth::Byte, BitDepth::Word };
+		return Black::HasItem( valid_values, bit_depth );
+	}
 }
 }
 }
