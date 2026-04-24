@@ -1,5 +1,7 @@
 #include <black/format/png.h>
 
+#include <black/core/algorithms.h>
+
 
 namespace Black
 {
