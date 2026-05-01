@@ -114,8 +114,10 @@ namespace
 
 		// Now compare it without red-blue channel positions.
 		out_format.red_channel_index	= 0;
+		out_format.green_channel_index	= 0;
 		out_format.blue_channel_index	= 0;
 		in_format.red_channel_index		= 0;
+		in_format.green_channel_index	= 0;
 		in_format.blue_channel_index	= 0;
 
 		if( in_format == out_format )
