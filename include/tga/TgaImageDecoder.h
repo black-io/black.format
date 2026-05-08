@@ -31,8 +31,8 @@ inline namespace Tga
 
 	// Public life-time management.
 	public:
-		inline TgaImageDecoder() noexcept								= default;
-		inline TgaImageDecoder( const TgaImageDecoder& other ) noexcept	= default;
+		inline TgaImageDecoder() noexcept						= default;
+		inline TgaImageDecoder( const TgaImageDecoder& other )	= default;
 		TgaImageDecoder( TgaImageDecoder&& other ) noexcept;
 
 		explicit TgaImageDecoder( const TgaStructure::Header& input_header );
