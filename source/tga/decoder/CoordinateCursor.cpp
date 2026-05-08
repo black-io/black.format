@@ -41,7 +41,7 @@ namespace
 		, m_output_height{ output_height }
 		, m_output_length{ m_output_width * m_output_height }
 		, m_interlace_height{ m_input_height >> header.image.flags.interlace_mode }
-		, m_interlace_step{ 1ULL << header.image.flags.interlace_mode }
+		, m_interlace_step{ size_t( 1 ) << header.image.flags.interlace_mode }
 		, m_output_column_step{ ( ( header.image.flags.origin_position & 0x01ULL ) == 0 )? +1 : -1 }
 	{
 		EXPECTS_DEBUG( m_interlace_step != 0 );
