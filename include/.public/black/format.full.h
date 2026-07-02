@@ -8,6 +8,7 @@
 #include "../../zip/zip.h"
 #include "../../tga/tga.h"
 #include "../../png/png.h"
+#include "../../jpeg/jpeg.h"
 
 // The epilogue of library.
 #include "../../.epilogue.h"
