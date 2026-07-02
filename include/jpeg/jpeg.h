@@ -26,5 +26,6 @@ namespace Internal
 #include "internal/structures.h"
 
 // JPEG file format types.
+#include "JpegStructure.h"
 
 // Deferred inline implementations.
