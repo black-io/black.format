@@ -14,6 +14,12 @@ namespace Internal
 		std::byte	prefix;
 		MarkerCode	code;
 	};
+
+	struct SegmentHeader final
+	{
+		Marker								marker;
+		Black::BigEndianIntegral<uint16_t>	length;
+	};
 }
 }
 }
