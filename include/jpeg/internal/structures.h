@@ -17,11 +17,13 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	#pragma pack( push, 1 )
 	struct SegmentHeader final
 	{
 		Marker								marker;
 		Black::BigEndianIntegral<uint16_t>	length;
 	};
+	#pragma pack( pop )
 }
 }
 }
