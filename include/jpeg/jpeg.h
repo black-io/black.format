@@ -22,6 +22,7 @@ namespace Internal
 
 
 // Internal stuff.
+#include "internal/constants.h"
 
 // JPEG file format types.
 
