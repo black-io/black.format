@@ -23,6 +23,6 @@ namespace Internal
 
 // Internal stuff.
 
-// PNG file format types.
+// JPEG file format types.
 
 // Deferred inline implementations.
