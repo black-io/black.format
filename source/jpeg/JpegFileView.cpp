@@ -51,6 +51,12 @@ namespace
 	{
 		return Black::CopyAndSwap( *this, std::move( file_memory ) );
 	}
+
+	void JpegFileView::Reset()
+	{
+		m_file_memory = {};
+		InvalidateCache();
+	}
 }
 }
 }
