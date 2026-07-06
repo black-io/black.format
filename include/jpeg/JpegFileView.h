@@ -33,6 +33,10 @@ inline namespace Jpeg
 		inline JpegFileView& operator = ( JpegFileView&& other ) noexcept	{ return Black::CopyAndSwap( *this, std::move( other ) ); };
 
 		JpegFileView& operator = ( Black::PlainView<const std::byte> file_memory ) noexcept;
+
+	// Private state.
+	private:
+		Black::PlainView<const std::byte>	m_file_memory;
 	};
 }
 }
