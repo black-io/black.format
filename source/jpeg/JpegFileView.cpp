@@ -40,6 +40,12 @@ namespace
 	{
 		TestFileMemory();
 	}
+
+	JpegFileView::JpegFileView( Black::PlainView<const std::byte> file_memory, const Black::ConstructInplace ) noexcept
+		: JpegFileView{ std::move( file_memory ) }
+	{
+		EnsureFileMemoryParsed();
+	}
 }
 }
 }
