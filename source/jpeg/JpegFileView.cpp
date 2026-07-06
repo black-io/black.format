@@ -25,6 +25,15 @@ namespace
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
 		return false;
 	}
+
+	JpegFileView::JpegFileView( JpegFileView&& other ) noexcept
+		: m_file_memory{ std::move( other.m_file_memory ) }
+		, m_markers{ std::move( other.m_markers ) }
+		, m_segments{ std::move( other.m_segments ) }
+		, m_is_valid{ std::exchange( other.m_is_valid, false ) }
+		, m_is_parsed{ std::exchange( other.m_is_parsed, false ) }
+	{
+	}
 }
 }
 }
