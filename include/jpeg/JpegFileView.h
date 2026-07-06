@@ -9,6 +9,14 @@ inline namespace Jpeg
 {
 	class JpegFileView final
 	{
+	// Public static interface.
+	public:
+		//
+		static const bool IsHeaderValid( const Black::PlainView<const std::byte>& file_memory );
+
+		//
+		static const bool IsFileValid( const Black::PlainView<const std::byte>& file_memory );
+
 	// Public life-time management.
 	public:
 		inline JpegFileView() noexcept						= default;
