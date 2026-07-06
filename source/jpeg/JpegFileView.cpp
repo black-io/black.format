@@ -34,6 +34,12 @@ namespace
 		, m_is_parsed{ std::exchange( other.m_is_parsed, false ) }
 	{
 	}
+
+	JpegFileView::JpegFileView( Black::PlainView<const std::byte> file_memory ) noexcept
+		: m_file_memory{ std::move( file_memory ) }
+	{
+		TestFileMemory();
+	}
 }
 }
 }
