@@ -53,6 +53,16 @@ inline namespace Jpeg
 		//
 		const Black::PlainView<const Internal::SegmentEntry> GetSegments() const;
 
+
+		//
+		const bool IsValidFile() const;
+
+		//
+		const bool IsEmpty() const;
+
+		//
+		inline const bool IsValid() const	{ return m_is_valid; };
+
 	// Private interface.
 	private:
 		//
