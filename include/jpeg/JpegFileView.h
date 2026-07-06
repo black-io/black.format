@@ -34,6 +34,14 @@ inline namespace Jpeg
 
 		JpegFileView& operator = ( Black::PlainView<const std::byte> file_memory ) noexcept;
 
+	// Public interface.
+	public:
+		//
+		void Reset();
+
+		//
+		void Swap( PngFileView& other );
+
 	// Private interface.
 	private:
 		//
