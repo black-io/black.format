@@ -16,8 +16,7 @@ namespace
 
 	const bool JpegFileView::IsHeaderValid( const Black::PlainView<const std::byte>& file_memory )
 	{
-		Black::PlainView<const std::byte> buffer{ file_memory };
-
+		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
 		return false;
 	}
 
