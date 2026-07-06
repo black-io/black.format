@@ -9,6 +9,10 @@ inline namespace Jpeg
 {
 	class JpegFileView final
 	{
+	// Friendship interface.
+	public:
+		friend inline void swap( JpegFileView& left, JpegFileView& right )	{ left.Swap( right ); };
+
 	// Public static interface.
 	public:
 		//
