@@ -24,6 +24,12 @@ namespace Internal
 		Black::BigEndianIntegral<uint16_t>	length;
 	};
 	#pragma pack( pop )
+
+	struct SegmentEntry final
+	{
+		const SegmentHeader*				header;
+		Black::PlainView<const std::byte>	content;
+	};
 }
 }
 }
