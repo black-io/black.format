@@ -57,6 +57,15 @@ namespace
 		m_file_memory = {};
 		InvalidateCache();
 	}
+
+	void JpegFileView::Swap( JpegFileView& other )
+	{
+		Black::Swap( m_file_memory, other.m_file_memory );
+		Black::Swap( m_markers, other.m_markers );
+		Black::Swap( m_segments, other.m_segments );
+		Black::Swap( m_is_valid, other.m_is_valid );
+		Black::Swap( m_is_parsed, other.m_is_parsed );
+	}
 }
 }
 }
