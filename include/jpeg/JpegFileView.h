@@ -40,7 +40,7 @@ inline namespace Jpeg
 		void Reset();
 
 		//
-		void Swap( PngFileView& other );
+		void Swap( JpegFileView& other );
 
 	// Private interface.
 	private:
