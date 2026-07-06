@@ -46,6 +46,13 @@ inline namespace Jpeg
 		//
 		void Swap( JpegFileView& other );
 
+
+		//
+		const Black::PlainView<const Internal::Marker*> GetMarkers() const;
+
+		//
+		const Black::PlainView<const Internal::SegmentEntry> GetSegments() const;
+
 	// Private interface.
 	private:
 		//
