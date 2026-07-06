@@ -20,6 +20,11 @@ namespace
 
 		return false;
 	}
+
+	const bool JpegFileView::IsFileValid( const Black::PlainView<const std::byte>& file_memory )
+	{
+		return false;
+	}
 }
 }
 }
