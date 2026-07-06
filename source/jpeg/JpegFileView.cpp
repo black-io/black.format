@@ -16,6 +16,9 @@ namespace
 
 	const bool JpegFileView::IsHeaderValid( const Black::PlainView<const std::byte>& file_memory )
 	{
+		Black::PlainView<const std::byte> buffer{ file_memory };
+
+		return false;
 	}
 }
 }
