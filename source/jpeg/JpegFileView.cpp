@@ -97,6 +97,15 @@ namespace
 	{
 		return !m_is_valid || m_file_memory.empty();
 	}
+
+	void JpegFileView::InvalidateCache() const
+	{
+		m_markers.clear();
+		m_segments.clear();
+
+		m_is_valid	= false;
+		m_is_parsed	= false;
+	}
 }
 }
 }
