@@ -92,6 +92,11 @@ namespace
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
 		return false;
 	}
+
+	const bool JpegFileView::IsEmpty() const
+	{
+		return !m_is_valid || m_file_memory.empty();
+	}
 }
 }
 }
