@@ -119,9 +119,12 @@ namespace
 		CRETW( !m_is_valid, , LOG_CHANNEL, "Unable to parse invalid memory." );
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "Perform file parsing." );
 
+		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&JpegFileView::InvalidateCache>( *this ) };
+
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
+		reset_contract.Cancel();
 		m_is_parsed = true;
 	}
 
