@@ -117,6 +117,11 @@ namespace
 	{
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
 	}
+
+	void JpegFileView::TestFileMemory() const
+	{
+		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
+	}
 }
 }
 }
