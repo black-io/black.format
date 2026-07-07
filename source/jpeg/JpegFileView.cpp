@@ -120,7 +120,11 @@ namespace
 
 	void JpegFileView::TestFileMemory() const
 	{
+		m_is_valid = false;
+
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
+
+		m_is_valid = true;
 	}
 }
 }
