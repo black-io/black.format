@@ -11,6 +11,9 @@ inline namespace Jpeg
 	{
 		//
 		using Marker = Internal::Marker;
+
+		//
+		using SegmentHeader = Internal::SegmentHeader;
 	};
 }
 }
