@@ -112,6 +112,11 @@ namespace
 		CRET( !m_is_valid || m_is_parsed );
 		ParseFileMemory();
 	}
+
+	void JpegFileView::ParseFileMemory() const
+	{
+		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
+	}
 }
 }
 }
