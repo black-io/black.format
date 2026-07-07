@@ -228,7 +228,7 @@ namespace
 
 		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&PngFileView::InvalidateCache>( *this ) };
 
-		CRETW( !IsHeaderValid( m_file_memory ), , LOG_CHANNEL, "Unable to determine TGA header." );
+		CRETW( !IsHeaderValid( m_file_memory ), , LOG_CHANNEL, "Unable to determine PNG header." );
 
 		Black::PlainView<const std::byte> chunks_buffer{ m_file_memory.TruncatePrefix( std::size( Internal::FILE_PREAMBLE ) ) };
 		while( !chunks_buffer.IsEmpty() )
