@@ -115,7 +115,11 @@ namespace
 
 	void JpegFileView::ParseFileMemory() const
 	{
+		m_is_parsed = false;
+
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
+
+		m_is_parsed = true;
 	}
 
 	void JpegFileView::TestFileMemory() const
