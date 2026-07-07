@@ -77,7 +77,7 @@ namespace
 		return { m_markers.data(), m_markers.size() };
 	}
 
-	const Black::PlainView<const Internal::SegmentEntry> JpegFileView::GetSegments() const
+	const Black::PlainView<const JpegStructure::SegmentEntry> JpegFileView::GetSegments() const
 	{
 		CRET( !m_is_valid, {} );
 
