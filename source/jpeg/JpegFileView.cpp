@@ -66,6 +66,16 @@ namespace
 		Black::Swap( m_is_valid, other.m_is_valid );
 		Black::Swap( m_is_parsed, other.m_is_parsed );
 	}
+
+	const Black::PlainView<const Internal::Marker*> JpegFileView::GetMarkers() const
+	{
+		CRET( !m_is_valid, {} );
+
+		EnsureFileMemoryParsed();
+		CRET( !m_is_parsed, {} );
+
+		return { m_markers.data(), m_markers.size() };
+	}
 }
 }
 }
