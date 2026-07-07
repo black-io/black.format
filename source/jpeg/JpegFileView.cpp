@@ -106,6 +106,12 @@ namespace
 		m_is_valid	= false;
 		m_is_parsed	= false;
 	}
+
+	void JpegFileView::EnsureFileMemoryParsed() const
+	{
+		CRET( !m_is_valid || m_is_parsed );
+		ParseFileMemory();
+	}
 }
 }
 }
