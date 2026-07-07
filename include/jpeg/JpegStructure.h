@@ -9,6 +9,8 @@ inline namespace Jpeg
 {
 	struct JpegStructure final
 	{
+		//
+		using Marker = Internal::Marker;
 	};
 }
 }
