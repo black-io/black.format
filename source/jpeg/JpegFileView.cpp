@@ -14,6 +14,14 @@ namespace
 }
 
 
+namespace
+{
+	std::pair<std::vector<const Internal::Marker*>, std::vector<Internal::SegmentEntry>> CollectSegments( const Black::PlainView<const std::byte>& file_memory )
+	{
+	}
+}
+
+
 	const bool JpegFileView::IsHeaderValid( const Black::PlainView<const std::byte>& file_memory )
 	{
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
