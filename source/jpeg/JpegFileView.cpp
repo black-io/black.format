@@ -116,6 +116,7 @@ namespace
 	void JpegFileView::ParseFileMemory() const
 	{
 		m_is_parsed = false;
+		CRETW( !m_is_valid, , LOG_CHANNEL, "Unable to parse invalid memory." );
 
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
 
