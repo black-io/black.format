@@ -122,7 +122,7 @@ namespace
 	{
 		m_is_valid = false;
 
-		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
+		CRET( !IsHeaderValid( m_file_memory ) );
 
 		m_is_valid = true;
 	}
