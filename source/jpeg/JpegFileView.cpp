@@ -76,6 +76,16 @@ namespace
 
 		return { m_markers.data(), m_markers.size() };
 	}
+
+	const Black::PlainView<const Internal::SegmentEntry> JpegFileView::GetSegments() const
+	{
+		CRET( !m_is_valid, {} );
+
+		EnsureFileMemoryParsed();
+		CRET( !m_is_parsed, {} );
+
+		return { m_segments.data(), m_segments.size() };
+	}
 }
 }
 }
