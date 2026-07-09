@@ -120,6 +120,7 @@ namespace
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "Perform file parsing." );
 
 		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&JpegFileView::InvalidateCache>( *this ) };
+		CRETW( m_file_memory.GetLength() < sizeof( Internal::Marker ), , LOG_CHANNEL, "Size of file is too low." );
 
 		Black::PlainView<const std::byte> segments_buffer{ m_file_memory };
 		while( !segments_buffer.IsEmpty() )
