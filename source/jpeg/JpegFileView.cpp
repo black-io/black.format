@@ -128,6 +128,7 @@ namespace
 			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
 
 			const Internal::Marker& marker = *reinterpret_cast<const Internal::Marker*>( segments_buffer.GetMemory() );
+			segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::Marker ) );
 		}
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
