@@ -136,6 +136,7 @@ namespace
 			}
 
 			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
+			Internal::SegmentEntry& segment = m_segments.emplace_back();
 		}
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
