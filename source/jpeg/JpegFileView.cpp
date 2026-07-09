@@ -130,6 +130,10 @@ namespace
 			const Internal::Marker& marker = *reinterpret_cast<const Internal::Marker*>( segments_buffer.GetMemory() );
 			segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::Marker ) );
 			m_markers.push_back( &marker );
+
+			{
+				const Internal::Marker& next_marker = *reinterpret_cast<const Internal::Marker*>( segments_buffer.GetMemory() );
+			}
 		}
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
