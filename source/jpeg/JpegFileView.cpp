@@ -121,7 +121,7 @@ namespace
 
 		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&JpegFileView::InvalidateCache>( *this ) };
 
-		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
+		Black::PlainView<const std::byte> segments_buffer{ m_file_memory };
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
 		reset_contract.Cancel();
