@@ -124,6 +124,7 @@ namespace
 		Black::PlainView<const std::byte> segments_buffer{ m_file_memory };
 		while( !segments_buffer.IsEmpty() )
 		{
+			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
 		}
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
