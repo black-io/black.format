@@ -139,6 +139,7 @@ namespace
 			Internal::SegmentEntry& segment = m_segments.emplace_back();
 			segment.header	= &segment_header;
 			segment.content	= segments_buffer.GetSubview( 0, segment_header.length ).TruncatePrefix( sizeof( segment_header.length ) );
+			segments_buffer = segments_buffer.TruncatePrefix( segment_header.length );
 		}
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
