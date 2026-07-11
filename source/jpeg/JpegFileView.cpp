@@ -147,6 +147,8 @@ namespace
 			}
 
 			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
+			CBRK( segment_header.length > segments_buffer.GetLength() );
+
 			Internal::SegmentEntry& segment = m_segments.emplace_back();
 			segment.header	= &segment_header;
 			segment.content	= segments_buffer.GetSubview( 0, segment_header.length ).TruncatePrefix( sizeof( segment_header.length ) );
