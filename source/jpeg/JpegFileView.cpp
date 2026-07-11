@@ -128,7 +128,11 @@ namespace
 			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
 
 			const Internal::Marker& marker = *reinterpret_cast<const Internal::Marker*>( segments_buffer.GetMemory() );
-			segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::Marker ) );
+			CBRK( marker.prefix != Internal::MARKER_PREFIX );
+			CBRK( marker.code == Internal::INVALID_CODE_1 );
+			CBRK( marker.code == Internal::INVALID_CODE_2 );
+			CBRK( marker.code < Internal::MIN_CODE );
+
 			m_markers.push_back( &marker );
 
 			{
