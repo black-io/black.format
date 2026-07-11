@@ -139,6 +139,11 @@ namespace
 
 			{
 				const Internal::Marker& next_marker = *reinterpret_cast<const Internal::Marker*>( segments_buffer.GetMemory() );
+
+				const bool has_valid_prefix	= next_marker.prefix == Internal::MARKER_PREFIX;
+				const bool has_code			= ( next_marker.code != Internal::INVALID_CODE_1 ) && ( next_marker.code != Internal::INVALID_CODE_2 );
+				const bool has_valid_code	= has_code && ( next_marker.code >= Internal::MIN_CODE );
+				CCON( has_valid_prefix && has_valid_code );
 			}
 
 			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
