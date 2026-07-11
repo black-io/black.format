@@ -134,6 +134,8 @@ namespace
 			CBRK( marker.code < Internal::MIN_CODE );
 
 			m_markers.push_back( &marker );
+			segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::Marker ) );
+			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
 
 			{
 				const Internal::Marker& next_marker = *reinterpret_cast<const Internal::Marker*>( segments_buffer.GetMemory() );
