@@ -28,10 +28,10 @@ namespace
 		buffer = buffer.TruncatePrefix( marker_size );
 		CRET( buffer.GetLength() < sizeof( Internal::SegmentHeader ), false );
 
-		const Internal::Marker& app_marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
-		CRET( app_marker.prefix != Internal::MARKER_PREFIX, false );
+		const Internal::SegmentHeader& app_segment_header = *reinterpret_cast<const Internal::SegmentHeader*>( buffer.GetMemory() );
+		CRET( app_segment_header.marker.prefix != Internal::MARKER_PREFIX, false );
 
-		switch( app_marker.code )
+		switch( app_segment_header.marker.code )
 		{
 		case Internal::MarkerCode::App0:
 			break;
