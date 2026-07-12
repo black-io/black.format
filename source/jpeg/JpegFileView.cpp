@@ -28,6 +28,9 @@ namespace
 		buffer = buffer.TruncatePrefix( marker_size );
 		CRET( buffer.GetLength() < marker_size, false );
 
+		const Internal::Marker& app_marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
+		CRET( app_marker.prefix != Internal::MARKER_PREFIX, false );
+
 		return true;
 	}
 
