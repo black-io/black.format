@@ -25,6 +25,9 @@ namespace
 		CRET( soi_marker.prefix != Internal::MARKER_PREFIX, false );
 		CRET( soi_marker.code != Internal::MarkerCode::Soi, false );
 
+		buffer = buffer.TruncatePrefix( marker_size );
+		CRET( buffer.GetLength() < marker_size, false );
+
 		return true;
 	}
 
