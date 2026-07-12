@@ -19,7 +19,7 @@ namespace
 		constexpr size_t marker_size = sizeof( Internal::Marker );
 
 		Black::PlainView<const std::byte> buffer{ file_memory };
-		CRET( buffer.GetLength() < sizeof( Internal::Marker ), false );
+		CRET( buffer.GetLength() < marker_size, false );
 
 		return true;
 	}
