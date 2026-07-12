@@ -21,6 +21,10 @@ namespace
 		Black::PlainView<const std::byte> buffer{ file_memory };
 		CRET( buffer.GetLength() < marker_size, false );
 
+		const Internal::Marker& soi_marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
+		CRET( soi_marker.prefix != Internal::MARKER_PREFIX, false );
+		CRET( soi_marker.code != Internal::MarkerCode::Soi, false );
+
 		return true;
 	}
 
