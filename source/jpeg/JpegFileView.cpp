@@ -31,6 +31,9 @@ namespace
 		const Internal::SegmentHeader& app_segment_header = *reinterpret_cast<const Internal::SegmentHeader*>( buffer.GetMemory() );
 		CRET( app_segment_header.marker.prefix != Internal::MARKER_PREFIX, false );
 
+		buffer = buffer.TruncatePrefix( marker_size );
+		CRET( size_t( app_segment_header.length ) > buffer.GetLength(), false );
+
 		switch( app_segment_header.marker.code )
 		{
 		case Internal::MarkerCode::App0:
