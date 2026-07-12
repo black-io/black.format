@@ -26,7 +26,7 @@ namespace
 		CRET( soi_marker.code != Internal::MarkerCode::Soi, false );
 
 		buffer = buffer.TruncatePrefix( marker_size );
-		CRET( buffer.GetLength() < marker_size, false );
+		CRET( buffer.GetLength() < sizeof( Internal::SegmentHeader ), false );
 
 		const Internal::Marker& app_marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
 		CRET( app_marker.prefix != Internal::MARKER_PREFIX, false );
