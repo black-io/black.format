@@ -16,6 +16,8 @@ namespace
 
 	const bool JpegFileView::IsHeaderValid( const Black::PlainView<const std::byte>& file_memory )
 	{
+		constexpr size_t marker_size = sizeof( Internal::Marker );
+
 		Black::PlainView<const std::byte> buffer{ file_memory };
 		CRET( buffer.GetLength() < sizeof( Internal::Marker ), false );
 
