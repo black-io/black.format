@@ -31,6 +31,16 @@ namespace
 		const Internal::Marker& app_marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
 		CRET( app_marker.prefix != Internal::MARKER_PREFIX, false );
 
+		switch( app_marker.code )
+		{
+		case Internal::MarkerCode::App0:
+			break;
+		case Internal::MarkerCode::App1:
+			break;
+		default:
+			return false;
+		}
+
 		return true;
 	}
 
