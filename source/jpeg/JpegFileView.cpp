@@ -38,7 +38,9 @@ namespace
 		switch( app_segment_header.marker.code )
 		{
 		case Internal::MarkerCode::App0:
-			CRET( app_segment_header.length < ( sizeof( Internal::JfifHeader ) + sizeof( app_segment_header.length ) ), false );
+			{
+				CRET( app_segment_header.length < ( sizeof( Internal::JfifHeader ) + sizeof( app_segment_header.length ) ), false );
+			}
 			break;
 		case Internal::MarkerCode::App1:
 			break;
