@@ -81,6 +81,13 @@ namespace Internal
 	inline constexpr MarkerCode INVALID_CODE_1	= MarkerCode( 0x00U );
 	inline constexpr MarkerCode INVALID_CODE_2	= MarkerCode( 0xFFU );
 	inline constexpr MarkerCode MIN_CODE		= MarkerCode::Sof0;
+
+	enum class DensityUnit : uint8_t
+	{
+		None,		// Density measured in pixels as is.
+		Inch,		// Density per inch.
+		Centimeter,	// Density per centimeter.
+	};
 }
 }
 }
