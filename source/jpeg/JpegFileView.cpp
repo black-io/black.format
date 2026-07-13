@@ -34,6 +34,7 @@ namespace
 		buffer = buffer.TruncatePrefix( marker_size );
 		CRET( size_t( app_segment_header.length ) > buffer.GetLength(), false );
 
+		buffer = buffer.TruncatePrefix( sizeof( app_segment_header.length ) );
 		switch( app_segment_header.marker.code )
 		{
 		case Internal::MarkerCode::App0:
