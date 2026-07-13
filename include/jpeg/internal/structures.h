@@ -28,13 +28,21 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct JfifHeader final
 	{
-		char		signature[5];
-		uint8_t		version[2];
-		uint8_t		units;
-		uint16_t	width;
-		uint16_t	height;
-		uint8_t		thumbnail_width;
-		uint8_t		thumbnail_height;
+		char			signature[5];
+		uint8_t			version[2];
+		DensityUnit		units;
+
+		struct
+		{
+			uint16_t	x;
+			uint16_t	y;
+		}				density;
+
+		struct
+		{
+			uint8_t		x;
+			uint8_t		y;
+		}				thumbnail;
 	};
 	#pragma pack( pop )
 
