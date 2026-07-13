@@ -28,7 +28,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct JfifHeader final
 	{
-		char			signature[5];
+		char			identifier[5];
 		uint8_t			version[2];
 		DensityUnit		units;
 
