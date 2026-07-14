@@ -88,6 +88,8 @@ namespace Internal
 		Inch,		// Density per inch.
 		Centimeter,	// Density per centimeter.
 	};
+
+	constexpr const char* JFIF_HEADER_IDENTIFIER = "JFIF";
 }
 }
 }
