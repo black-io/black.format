@@ -90,6 +90,12 @@ namespace Internal
 	};
 
 	constexpr const char* JFIF_HEADER_IDENTIFIER = "JFIF";
+
+	enum class TiffEndianness : uint16_t
+	{
+		LittleEndian	= 0x4949U,	// Value 'II' that represent little-endian endianness.
+		BigEndian		= 0x4D4DU,	// Value 'MM' that represent big-endian endianness.
+	};
 }
 }
 }
