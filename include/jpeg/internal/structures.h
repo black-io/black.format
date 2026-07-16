@@ -63,6 +63,13 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	#pragma pack( push, 1 )
+	struct XmpHeader final
+	{
+		char	identifier[29];
+	};
+	#pragma pack( pop )
+
 	struct SegmentEntry final
 	{
 		const SegmentHeader*				header;
