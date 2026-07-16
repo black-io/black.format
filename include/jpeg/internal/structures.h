@@ -40,9 +40,9 @@ namespace Internal
 
 		struct
 		{
-			uint8_t		x;
-			uint8_t		y;
-		}				thumbnail;
+			uint8_t								x;
+			uint8_t								y;
+		}										thumbnail;
 	};
 	#pragma pack( pop )
 
