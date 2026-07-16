@@ -54,6 +54,15 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	#pragma pack( push, 1 )
+	struct ExifHeader final
+	{
+		char								identifier[6];
+		TiffHeader							tiff_header;
+		Black::BigEndianIntegral<uint32_t>	ifd_offset;
+	};
+	#pragma pack( pop )
+
 	struct SegmentEntry final
 	{
 		const SegmentHeader*				header;
