@@ -42,7 +42,7 @@ namespace
 		{
 		case Internal::MarkerCode::App0:
 			{
-				CRET( app_segment_header.length < ( sizeof( Internal::JfifHeader ) + sizeof( app_segment_header.length ) ), false );
+				CRET( header_size < sizeof( Internal::JfifHeader ), false );
 				const Internal::JfifHeader& jfif_header = *reinterpret_cast<const Internal::JfifHeader*>( buffer.GetMemory() );
 
 				CRET( !Black::IsMemoryEqual( jfif_header.identifier, Internal::JFIF_HEADER_IDENTIFIER, std::size( jfif_header.identifier ) ), false );
