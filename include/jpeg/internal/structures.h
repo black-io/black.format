@@ -46,6 +46,14 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	#pragma pack( push, 1 )
+	struct TiffHeader final
+	{
+		TiffEndianness						endianness;
+		Black::BigEndianIntegral<uint16_t>	signature;
+	};
+	#pragma pack( pop )
+
 	struct SegmentEntry final
 	{
 		const SegmentHeader*				header;
