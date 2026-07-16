@@ -35,6 +35,7 @@ namespace
 		CRET( size_t( app_segment_header.length ) > buffer.GetLength(), false );
 
 		CRET( size_t( app_segment_header.length ) < sizeof( app_segment_header.length ), false );
+		const size_t header_size = app_segment_header.length - sizeof( app_segment_header.length );
 
 		buffer = buffer.TruncatePrefix( sizeof( app_segment_header.length ) );
 		switch( app_segment_header.marker.code )
