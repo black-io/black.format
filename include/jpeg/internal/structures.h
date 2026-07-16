@@ -34,9 +34,9 @@ namespace Internal
 
 		struct
 		{
-			uint16_t	x;
-			uint16_t	y;
-		}				density;
+			Black::BigEndianIntegral<uint16_t>	x;
+			Black::BigEndianIntegral<uint16_t>	y;
+		}										density;
 
 		struct
 		{
