@@ -38,6 +38,7 @@ namespace
 		const size_t header_size = app_segment_header.length - sizeof( app_segment_header.length );
 
 		buffer = buffer.TruncatePrefix( sizeof( app_segment_header.length ) );
+		bool is_app_header_valid = false;
 		switch( app_segment_header.marker.code )
 		{
 		case Internal::MarkerCode::App0:
@@ -53,6 +54,7 @@ namespace
 		default:
 			return false;
 		}
+		CRET( !is_app_header_valid, false );
 
 		return true;
 	}
