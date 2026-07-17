@@ -70,6 +70,8 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct XmpHeader final
 	{
+		static constexpr size_t	IDENTIFIER_LENGTH = std::size( XMP_HEADER_IDENTIFIER );
+
 		char	identifier[29];
 	};
 	#pragma pack( pop )
