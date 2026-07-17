@@ -58,6 +58,7 @@ namespace
 			)
 			{
 				const Internal::ExifHeader& exif_header = *reinterpret_cast<const Internal::ExifHeader*>( buffer.GetMemory() );
+				CRET( exif_header.tiff_header.signature != Internal::TIFF_SIGNATURE, false );
 
 				is_app_header_valid = true;
 			}
