@@ -72,7 +72,7 @@ namespace Internal
 	{
 		static constexpr size_t	IDENTIFIER_LENGTH = std::size( XMP_HEADER_IDENTIFIER );
 
-		char	identifier[29];
+		char	identifier[ IDENTIFIER_LENGTH ];
 	};
 	#pragma pack( pop )
 
