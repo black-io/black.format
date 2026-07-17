@@ -89,7 +89,7 @@ namespace Internal
 		Centimeter,	// Density per centimeter.
 	};
 
-	constexpr const char* JFIF_HEADER_IDENTIFIER = "JFIF";
+	constexpr const char JFIF_HEADER_IDENTIFIER[] = "JFIF";
 
 	enum class TiffEndianness : uint16_t
 	{
