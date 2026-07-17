@@ -57,6 +57,8 @@ namespace
 				Black::IsMemoryEqual( buffer.GetMemory(), Internal::EXIF_HEADER_IDENTIFIER, Internal::ExifHeader::IDENTIFIER_LENGTH )
 			)
 			{
+				const Internal::ExifHeader& exif_header = *reinterpret_cast<const Internal::ExifHeader*>( buffer.GetMemory() );
+
 				is_app_header_valid = true;
 			}
 			else if(
