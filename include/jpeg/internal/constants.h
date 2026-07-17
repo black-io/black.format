@@ -97,7 +97,7 @@ namespace Internal
 		BigEndian		= 0x4D4DU,	// Value 'MM' that represent big-endian endianness.
 	};
 
-	constexpr const char* EXIF_HEADER_IDENTIFIER = "Exif";
+	constexpr const char* EXIF_HEADER_IDENTIFIER = "Exif\000";
 }
 }
 }
