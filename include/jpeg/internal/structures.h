@@ -28,6 +28,8 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct JfifHeader final
 	{
+		static constexpr size_t					IDENTIFIER_LENGTH = std::size( JFIF_HEADER_IDENTIFIER );
+
 		char									identifier[5];
 		uint8_t									version[2];
 		DensityUnit								units;
