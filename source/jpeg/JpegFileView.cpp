@@ -58,6 +58,12 @@ namespace
 			)
 			{
 			}
+			else if(
+				( header_size >= sizeof( Internal::XmpHeader ) ) &&
+				Black::IsMemoryEqual( buffer.GetMemory(), Internal::XMP_HEADER_IDENTIFIER, Internal::XmpHeader::IDENTIFIER_LENGTH )
+			)
+			{
+			}
 			break;
 		default:
 			return false;
