@@ -99,7 +99,7 @@ namespace Internal
 
 	constexpr const char EXIF_HEADER_IDENTIFIER[] = "Exif\000";
 
-	constexpr const char* XMP_HEADER_IDENTIFIER = "http://ns.adobe.com/xap/1.0/";
+	constexpr const char XMP_HEADER_IDENTIFIER[] = "http://ns.adobe.com/xap/1.0/";
 }
 }
 }
