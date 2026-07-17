@@ -57,6 +57,7 @@ namespace
 				Black::IsMemoryEqual( buffer.GetMemory(), Internal::EXIF_HEADER_IDENTIFIER, Internal::ExifHeader::IDENTIFIER_LENGTH )
 			)
 			{
+				is_app_header_valid = true;
 			}
 			else if(
 				( header_size >= sizeof( Internal::XmpHeader ) ) &&
