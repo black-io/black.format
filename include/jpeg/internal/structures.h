@@ -30,7 +30,7 @@ namespace Internal
 	{
 		static constexpr size_t					IDENTIFIER_LENGTH = std::size( JFIF_HEADER_IDENTIFIER );
 
-		char									identifier[5];
+		char									identifier[ IDENTIFIER_LENGTH ];
 		uint8_t									version[2];
 		DensityUnit								units;
 
