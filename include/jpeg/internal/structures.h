@@ -59,6 +59,8 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ExifHeader final
 	{
+		static constexpr size_t				IDENTIFIER_LENGTH = std::size( EXIF_HEADER_IDENTIFIER );
+
 		char								identifier[6];
 		TiffHeader							tiff_header;
 		Black::BigEndianIntegral<uint32_t>	ifd_offset;
