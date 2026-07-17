@@ -52,6 +52,12 @@ namespace
 			}
 			break;
 		case Internal::MarkerCode::App1:
+			if(
+				( header_size >= sizeof( Internal::ExifHeader ) ) &&
+				Black::IsMemoryEqual( buffer.GetMemory(), Internal::EXIF_HEADER_IDENTIFIER, Internal::ExifHeader::IDENTIFIER_LENGTH )
+			)
+			{
+			}
 			break;
 		default:
 			return false;
