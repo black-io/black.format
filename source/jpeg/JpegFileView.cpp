@@ -45,7 +45,7 @@ namespace
 				CRET( header_size < sizeof( Internal::JfifHeader ), false );
 				const Internal::JfifHeader& jfif_header = *reinterpret_cast<const Internal::JfifHeader*>( buffer.GetMemory() );
 
-				CRET( !Black::IsMemoryEqual( jfif_header.identifier, Internal::JFIF_HEADER_IDENTIFIER, std::size( jfif_header.identifier ) ), false );
+				CRET( !Black::IsMemoryEqual( jfif_header.identifier, Internal::JFIF_HEADER_IDENTIFIER ), false );
 			}
 			break;
 		case Internal::MarkerCode::App1:
