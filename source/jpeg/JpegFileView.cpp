@@ -47,6 +47,8 @@ namespace
 				const Internal::JfifHeader& jfif_header = *reinterpret_cast<const Internal::JfifHeader*>( buffer.GetMemory() );
 
 				CRET( !Black::IsMemoryEqual( jfif_header.identifier, Internal::JFIF_HEADER_IDENTIFIER ), false );
+
+				is_app_header_valid = true;
 			}
 			break;
 		case Internal::MarkerCode::App1:
