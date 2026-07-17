@@ -60,6 +60,9 @@ namespace
 				const Internal::ExifHeader& exif_header = *reinterpret_cast<const Internal::ExifHeader*>( buffer.GetMemory() );
 				CRET( exif_header.tiff_header.signature != Internal::TIFF_SIGNATURE, false );
 
+				const size_t min_ifd_offset = sizeof( Internal::ExifHeader ) - Internal::ExifHeader::IDENTIFIER_LENGTH;
+				CRET( exif_header.ifd_offset < min_ifd_offset, false );
+
 				is_app_header_valid = true;
 			}
 			else if(
