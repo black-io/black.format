@@ -61,7 +61,7 @@ namespace Internal
 	{
 		static constexpr size_t				IDENTIFIER_LENGTH = std::size( EXIF_HEADER_IDENTIFIER );
 
-		char								identifier[6];
+		char								identifier[ IDENTIFIER_LENGTH ];
 		TiffHeader							tiff_header;
 		Black::BigEndianIntegral<uint32_t>	ifd_offset;
 	};
