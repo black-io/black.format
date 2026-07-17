@@ -63,6 +63,7 @@ namespace
 				Black::IsMemoryEqual( buffer.GetMemory(), Internal::XMP_HEADER_IDENTIFIER, Internal::XmpHeader::IDENTIFIER_LENGTH )
 			)
 			{
+				is_app_header_valid = true;
 			}
 			break;
 		default:
