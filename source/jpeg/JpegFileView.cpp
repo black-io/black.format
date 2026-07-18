@@ -94,6 +94,8 @@ namespace
 		Black::PlainView<const std::byte> buffer{ file_memory };
 		while( !buffer.IsEmpty() )
 		{
+			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
+
 			const Internal::Marker& marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
 			const size_t marker_index = Black::GetEnumValue( marker.code ) - first_marker_index;
 
