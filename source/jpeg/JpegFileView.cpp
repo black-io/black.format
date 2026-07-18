@@ -104,6 +104,7 @@ namespace
 
 			marker_positions[ Black::GetEnumValue( marker.code ) - first_marker_index ] = std::distance( file_memory.GetMemory(), buffer.GetMemory() );
 			buffer = buffer.TruncatePrefix( sizeof( Internal::Marker ) );
+			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
 
 			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
 			buffer = buffer.TruncatePrefix( segment_header.length );
