@@ -85,6 +85,25 @@ namespace
 	{
 		CRET( !IsHeaderValid( file_memory ), false );
 
+		constexpr size_t first_marker_index	= Black::GetEnumValue( Internal::MIN_CODE );
+		constexpr size_t markers_count		= Black::GetEnumValue( Internal::MarkerCode::Com ) - first_marker_index + 1;
+
+		size_t marker_positions[ markers_count ];
+		std::fill( std::begin( marker_positions ), std::end( marker_positions ), ~size_t{} );
+
+		Black::PlainView<const std::byte> buffer{ file_memory };
+		while( !buffer.IsEmpty() )
+		{
+			const Internal::Marker& marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
+			const size_t marker_index = Black::GetEnumValue( marker.code ) - first_marker_index;
+
+			marker_positions[ marker_index ] = std::distance( file_memory.GetMemory(), buffer.GetMemory() );
+			buffer = buffer.TruncatePrefix( sizeof( Internal::Marker ) );
+
+			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
+			buffer = buffer.TruncatePrefix( segment_header.length );
+		}
+
 		return true;
 	}
 
