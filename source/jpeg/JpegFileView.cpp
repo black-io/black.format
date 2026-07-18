@@ -97,6 +97,11 @@ namespace
 			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
 
 			const Internal::Marker& marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
+			CBRK( marker.prefix != Internal::MARKER_PREFIX );
+			CBRK( marker.code == Internal::INVALID_CODE_1 );
+			CBRK( marker.code == Internal::INVALID_CODE_2 );
+			CBRK( marker.code < Internal::MIN_CODE );
+
 			const size_t marker_index = Black::GetEnumValue( marker.code ) - first_marker_index;
 
 			marker_positions[ marker_index ] = std::distance( file_memory.GetMemory(), buffer.GetMemory() );
