@@ -106,6 +106,15 @@ namespace
 			buffer = buffer.TruncatePrefix( sizeof( Internal::Marker ) );
 			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
 
+			{
+				const Internal::Marker& marker_candidate = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
+
+				const bool has_valid_prefix	= marker_candidate.prefix == Internal::MARKER_PREFIX;
+				const bool has_code			= ( marker_candidate.code != Internal::INVALID_CODE_1 ) && ( marker_candidate.code != Internal::INVALID_CODE_2 );
+				const bool has_valid_code	= has_code && ( marker_candidate.code >= Internal::MIN_CODE );
+				CCON( has_valid_prefix && has_valid_code );
+			}
+
 			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
 			buffer = buffer.TruncatePrefix( segment_header.length );
 		}
