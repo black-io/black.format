@@ -116,6 +116,8 @@ namespace
 			}
 
 			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
+			CBRK( segment_header.length > buffer.GetLength() );
+
 			buffer = buffer.TruncatePrefix( segment_header.length );
 		}
 
