@@ -107,6 +107,9 @@ namespace
 
 			switch( marker.code )
 			{
+			case Internal::MarkerCode::Eoi:
+				CRET( marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] >= marker_position, false );
+				break;
 			default:
 				break;
 			}
