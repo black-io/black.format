@@ -147,6 +147,7 @@ namespace
 				return marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] != ~size_t{};
 			}
 		);
+		CRET( !has_sof_marker, false );
 
 		return true;
 	}
