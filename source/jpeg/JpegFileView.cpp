@@ -105,6 +105,7 @@ namespace
 			const size_t marker_position = std::distance( file_memory.GetMemory(), buffer.GetMemory() );
 			marker_positions[ Black::GetEnumValue( marker.code ) - first_marker_index ] = marker_position;
 
+			bool has_sof_marker = false;
 			switch( marker.code )
 			{
 			case Internal::MarkerCode::Eoi:
@@ -113,6 +114,7 @@ namespace
 			default:
 				break;
 			}
+			CRET( !has_sof_marker, false );
 
 			buffer = buffer.TruncatePrefix( sizeof( Internal::Marker ) );
 			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
