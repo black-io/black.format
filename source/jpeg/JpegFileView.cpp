@@ -139,6 +139,7 @@ namespace
 			Internal::MarkerCode::Sof11,	Internal::MarkerCode::Sof13,	Internal::MarkerCode::Sof14,
 			Internal::MarkerCode::Sof15,
 		};
+
 		const bool has_sof_marker = std::none_of(
 			std::begin( sof_markers ),
 			std::end( sof_markers ),
@@ -147,6 +148,7 @@ namespace
 				return marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] != ~size_t{};
 			}
 		);
+
 		CRET( !has_sof_marker, false );
 
 		return true;
