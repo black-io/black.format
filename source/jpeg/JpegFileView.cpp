@@ -108,6 +108,33 @@ namespace
 			bool has_sof_marker = false;
 			switch( marker.code )
 			{
+			case Internal::MarkerCode::Sof0:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof1:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof2:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof3:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof5:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof6:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof7:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof9:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof10:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof11:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof13:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof14:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof15:
+				has_sof_marker = true;
+				break;
 			case Internal::MarkerCode::Eoi:
 				CRET( marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] >= marker_position, false );
 				break;
