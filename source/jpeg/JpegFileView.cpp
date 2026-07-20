@@ -132,6 +132,14 @@ namespace
 			buffer = buffer.TruncatePrefix( segment_header.length );
 		}
 
+		const Internal::MarkerCode sof_markers[] {
+			Internal::MarkerCode::Sof0,		Internal::MarkerCode::Sof1,		Internal::MarkerCode::Sof2,
+			Internal::MarkerCode::Sof3,		Internal::MarkerCode::Sof5,		Internal::MarkerCode::Sof6,
+			Internal::MarkerCode::Sof7,		Internal::MarkerCode::Sof9,		Internal::MarkerCode::Sof10,
+			Internal::MarkerCode::Sof11,	Internal::MarkerCode::Sof13,	Internal::MarkerCode::Sof14,
+			Internal::MarkerCode::Sof15,
+		};
+
 		return true;
 	}
 
