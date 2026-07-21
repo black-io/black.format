@@ -112,6 +112,19 @@ namespace
 			case Internal::MarkerCode::Eoi:
 				CRET( marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] >= marker_position, false );
 				break;
+			case Internal::MarkerCode::Sos:
+				{
+					const bool has_required_markers = Black::AnyOf(
+						{ Internal::MarkerCode::Dht, Internal::MarkerCode::Dqt, Internal::MarkerCode::Dri },
+						[&marker_positions, marker_position]( const Internal::MarkerCode code )
+						{
+							return marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] < marker_position;
+						}
+					);
+
+					CRET( !has_required_markers, false );
+				}
+				break;
 			default:
 				break;
 			}
