@@ -142,9 +142,8 @@ namespace
 			Internal::MarkerCode::Sof15,
 		};
 
-		const bool has_sof_marker = std::none_of(
-			std::begin( sof_markers ),
-			std::end( sof_markers ),
+		const bool has_sof_marker = Black::NoneOf(
+			sof_markers,
 			[&marker_positions]( const Internal::MarkerCode code )
 			{
 				return marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] != ~size_t{};
