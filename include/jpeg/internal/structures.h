@@ -91,6 +91,10 @@ namespace Internal
 		const SegmentHeader*				header;
 		Black::PlainView<const std::byte>	content;
 	};
+
+	struct ImageBlockEntry final
+	{
+	};
 }
 }
 }
