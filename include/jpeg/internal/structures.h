@@ -76,6 +76,12 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	#pragma pack( push, 1 )
+	struct FrameHeader final
+	{
+	};
+	#pragma pack( pop )
+
 	struct SegmentEntry final
 	{
 		const SegmentHeader*				header;
