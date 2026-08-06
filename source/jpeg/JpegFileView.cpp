@@ -246,6 +246,7 @@ namespace
 	{
 		m_markers.clear();
 		m_segments.clear();
+		m_image_blocks.clear();
 
 		m_is_valid	= false;
 		m_is_parsed	= false;
