@@ -79,6 +79,10 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct FrameHeader final
 	{
+		uint8_t								image_precision;
+		Black::BigEndianIntegral<uint16_t>	image_height;
+		Black::BigEndianIntegral<uint16_t>	image_width;
+		uint8_t								components_count;
 	};
 	#pragma pack( pop )
 
