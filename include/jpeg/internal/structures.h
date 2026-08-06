@@ -89,6 +89,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ScanHeader final
 	{
+		uint8_t	components_count;
 	};
 	#pragma pack( pop )
 
