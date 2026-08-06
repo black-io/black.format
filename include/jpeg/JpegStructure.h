@@ -16,6 +16,9 @@ inline namespace Jpeg
 		using SegmentHeader = Internal::SegmentHeader;
 
 		//
+		using FrameHeader = Internal::FrameHeader;
+
+		//
 		using SegmentEntry = Internal::SegmentEntry;
 
 		//
