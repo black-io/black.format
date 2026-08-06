@@ -172,6 +172,7 @@ namespace
 		: m_file_memory{ std::move( other.m_file_memory ) }
 		, m_markers{ std::move( other.m_markers ) }
 		, m_segments{ std::move( other.m_segments ) }
+		, m_image_blocks{ std::move( other.m_image_blocks ) }
 		, m_is_valid{ std::exchange( other.m_is_valid, false ) }
 		, m_is_parsed{ std::exchange( other.m_is_parsed, false ) }
 	{
