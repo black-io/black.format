@@ -110,6 +110,13 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ScanComponent final
 	{
+		uint8_t		id;
+
+		struct
+		{
+			uint8_t	ac_index	: 4;
+			uint8_t	dc_index	: 4;
+		}			dht_info;
 	};
 	#pragma pack( pop )
 
