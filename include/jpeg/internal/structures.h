@@ -96,6 +96,14 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ScanFooter final
 	{
+		uint8_t		section_start;
+		uint8_t		section_end;
+
+		struct
+		{
+			uint8_t	high_bits	: 4;
+			uint8_t	low_bits	: 4;
+		}			approximation;
 	};
 	#pragma pack( pop )
 
