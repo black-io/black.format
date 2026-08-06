@@ -85,6 +85,7 @@ inline namespace Jpeg
 	private:
 		mutable std::vector<const Internal::Marker*>	m_markers;
 		mutable std::vector<Internal::SegmentEntry>		m_segments;
+		mutable std::vector<Internal::ImageBlockEntry>	m_image_blocks;
 
 		mutable bool	m_is_valid	= false;
 		mutable bool	m_is_parsed	= false;
