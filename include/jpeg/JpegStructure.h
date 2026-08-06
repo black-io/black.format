@@ -17,6 +17,9 @@ inline namespace Jpeg
 
 		//
 		using SegmentEntry = Internal::SegmentEntry;
+
+		//
+		using ImageBlockEntry = Internal::ImageBlockEntry;
 	};
 }
 }
