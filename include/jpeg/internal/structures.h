@@ -100,6 +100,8 @@ namespace Internal
 
 	struct ImageBlockEntry final
 	{
+		const ScanHeader*					header;
+		Black::PlainView<const std::byte>	image;
 	};
 }
 }
