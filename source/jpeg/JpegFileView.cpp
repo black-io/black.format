@@ -343,12 +343,10 @@ namespace
 					segments_buffer = segments_buffer.TruncatePrefix( image_block.image.GetLength() );
 				}
 				break;
-				case Internal::MarkerCode::App0:
-					if( m_jfif_header == nullptr )
-					{
-						m_jfif_header = reinterpret_cast<const Internal::JfifHeader*>( segment.content.GetMemory() );
-					}
-					break;
+			case Internal::MarkerCode::App0:
+				CBRK( m_jfif_header != nullptr );
+				m_jfif_header = reinterpret_cast<const Internal::JfifHeader*>( segment.content.GetMemory() );
+				break;
 			default:
 				break;
 			}
