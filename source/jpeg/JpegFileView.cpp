@@ -208,6 +208,7 @@ namespace
 		Black::Swap( m_markers, other.m_markers );
 		Black::Swap( m_segments, other.m_segments );
 		Black::Swap( m_image_blocks, other.m_image_blocks );
+		Black::Swap( m_jfif_header, other.m_jfif_header );
 		Black::Swap( m_is_valid, other.m_is_valid );
 		Black::Swap( m_is_parsed, other.m_is_parsed );
 	}
