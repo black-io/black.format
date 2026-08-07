@@ -245,6 +245,12 @@ namespace
 
 	const const JpegStructure::JfifHeader* JpegFileView::QueryJfifHeader() const
 	{
+		CRET( !m_is_valid, nullptr );
+
+		EnsureFileMemoryParsed();
+		CRET( !m_is_parsed, nullptr );
+
+		return m_jfif_header;
 	}
 
 	const const JpegStructure::FrameHeader* JpegFileView::QueryFrameHeader() const
