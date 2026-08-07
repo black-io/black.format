@@ -18,6 +18,9 @@ namespace
 
 namespace
 {
+	const bool IsValidMarkerCode( const Internal::MarkerCode code )
+	{
+	}
 }
 
 
