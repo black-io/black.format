@@ -53,6 +53,9 @@ inline namespace Jpeg
 		//
 		const Black::PlainView<const JpegStructure::SegmentEntry> GetSegments() const;
 
+		//
+		const Black::PlainView<const JpegStructure::ImageBlockEntry> GetImageBlocks() const;
+
 
 		//
 		const bool IsValidFile() const;
