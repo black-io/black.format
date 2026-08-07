@@ -32,6 +32,10 @@ namespace
 		CRET( marker.prefix != Internal::MARKER_PREFIX, false );
 		return IsMarkerCodeValid( marker.code );
 	}
+
+	const Internal::Marker& PromoteMarker( const Black::PlainView<const std::byte>& buffer )
+	{
+	}
 }
 
 
