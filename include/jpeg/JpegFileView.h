@@ -57,7 +57,7 @@ inline namespace Jpeg
 		const Black::PlainView<const JpegStructure::ImageBlockEntry> GetImageBlocks() const;
 
 		//
-		const const JpegStructure::JfifHeader* QueryJfifHeader() const;
+		const JpegStructure::JfifHeader* QueryJfifHeader() const;
 
 		//
 		const const JpegStructure::FrameHeader* QueryFrameHeader() const;

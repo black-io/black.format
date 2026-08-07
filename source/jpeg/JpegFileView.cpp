@@ -243,7 +243,7 @@ namespace
 		return { m_image_blocks.data(), m_image_blocks.size() };
 	}
 
-	const const JpegStructure::JfifHeader* JpegFileView::QueryJfifHeader() const
+	const JpegStructure::JfifHeader* JpegFileView::QueryJfifHeader() const
 	{
 		CRET( !m_is_valid, nullptr );
 
