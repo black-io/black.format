@@ -74,7 +74,7 @@ namespace
 		buffer = buffer.TruncatePrefix( marker_size );
 		CRET( buffer.GetLength() < sizeof( Internal::SegmentHeader ), false );
 
-		const Internal::SegmentHeader& app_segment_header = *reinterpret_cast<const Internal::SegmentHeader*>( buffer.GetMemory() );
+		const Internal::SegmentHeader& app_segment_header = PromoteSegmentHeader( buffer );
 		CRET( app_segment_header.marker.prefix != Internal::MARKER_PREFIX, false );
 
 		buffer = buffer.TruncatePrefix( marker_size );
