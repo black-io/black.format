@@ -174,7 +174,7 @@ namespace
 			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
 
 			{
-				const Internal::Marker& marker_candidate = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
+				const Internal::Marker& marker_candidate = PromoteMarker( buffer );
 				CCON( IsMarkerValid( marker_candidate ) );
 			}
 
