@@ -233,6 +233,10 @@ namespace
 		return { m_segments.data(), m_segments.size() };
 	}
 
+	const Black::PlainView<const JpegStructure::ImageBlockEntry> JpegFileView::GetImageBlocks() const
+	{
+	}
+
 	const bool JpegFileView::IsValidFile() const
 	{
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
