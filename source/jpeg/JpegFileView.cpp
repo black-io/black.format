@@ -90,7 +90,7 @@ namespace
 		case Internal::MarkerCode::App0:
 			{
 				CRET( header_size < sizeof( Internal::JfifHeader ), false );
-				const Internal::JfifHeader& jfif_header = *reinterpret_cast<const Internal::JfifHeader*>( buffer.GetMemory() );
+				const Internal::JfifHeader& jfif_header = PromoteSegment<Internal::JfifHeader>( buffer, app_segment_header );
 
 				CRET( !Black::IsMemoryEqual( jfif_header.identifier, Internal::JFIF_HEADER_IDENTIFIER ), false );
 
