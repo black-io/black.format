@@ -284,6 +284,7 @@ namespace
 
 			m_markers.push_back( &marker );
 			segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::Marker ) );
+			CBRK( marker.code == Internal::MarkerCode::Eoi );
 			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
 
 			{
