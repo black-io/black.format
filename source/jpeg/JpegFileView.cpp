@@ -363,7 +363,7 @@ namespace
 		{
 			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
 
-			const Internal::Marker& marker = *reinterpret_cast<const Internal::Marker*>( segments_buffer.GetMemory() );
+			const Internal::Marker& marker = PromoteMarker( segments_buffer );
 			CBRK( !IsMarkerValid( marker ) );
 
 			m_markers.push_back( &marker );
