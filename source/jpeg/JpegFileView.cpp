@@ -20,6 +20,11 @@ namespace
 {
 	const bool IsValidMarkerCode( const Internal::MarkerCode code )
 	{
+		CRET( code == Internal::INVALID_CODE_1, false );
+		CRET( code == Internal::INVALID_CODE_2, false );
+		CRET( code < Internal::MIN_CODE, false );
+
+		return true;
 	}
 
 	const bool IsValidMarker( const Internal::Marker& marker )
