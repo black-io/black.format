@@ -372,7 +372,7 @@ namespace
 			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
 
 			{
-				const Internal::Marker& next_marker = *reinterpret_cast<const Internal::Marker*>( segments_buffer.GetMemory() );
+				const Internal::Marker& next_marker = PromoteMarker( segments_buffer );
 				CCON( IsMarkerValid( next_marker ) );
 			}
 
