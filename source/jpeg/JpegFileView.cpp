@@ -263,7 +263,7 @@ namespace
 		return m_frame_header;
 	}
 
-	const const JpegStructure::JfifHeader& JpegFileView::GetJfifHeader() const
+	const JpegStructure::JfifHeader& JpegFileView::GetJfifHeader() const
 	{
 		EXPECTS( m_is_valid );
 
