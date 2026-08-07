@@ -65,6 +65,9 @@ inline namespace Jpeg
 		//
 		const const JpegStructure::JfifHeader& GetJfifHeader() const;
 
+		//
+		const const JpegStructure::FrameHeader& GetFrameHeader() const;
+
 
 		//
 		const bool IsValidFile() const;
