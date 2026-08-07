@@ -241,6 +241,10 @@ namespace
 	{
 	}
 
+	const const JpegStructure::FrameHeader* JpegFileView::QueryFrameHeader() const
+	{
+	}
+
 	const const JpegStructure::JfifHeader& JpegFileView::GetJfifHeader() const
 	{
 	}
