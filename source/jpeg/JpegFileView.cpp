@@ -142,7 +142,7 @@ namespace
 		{
 			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
 
-			const Internal::Marker& marker = *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
+			const Internal::Marker& marker = PromoteMarker( buffer );
 			CBRK( !IsMarkerValid( marker ) );
 
 			const size_t marker_position = std::distance( file_memory.GetMemory(), buffer.GetMemory() );
