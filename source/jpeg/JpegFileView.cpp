@@ -250,6 +250,8 @@ namespace
 		m_segments.clear();
 		m_image_blocks.clear();
 
+		m_jfif_header	= nullptr;
+
 		m_is_valid	= false;
 		m_is_parsed	= false;
 	}
