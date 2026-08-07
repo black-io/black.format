@@ -103,7 +103,7 @@ namespace
 				Black::IsMemoryEqual( buffer.GetMemory(), Internal::EXIF_HEADER_IDENTIFIER, Internal::ExifHeader::IDENTIFIER_LENGTH )
 			)
 			{
-				const Internal::ExifHeader& exif_header = *reinterpret_cast<const Internal::ExifHeader*>( buffer.GetMemory() );
+				const Internal::ExifHeader& exif_header = PromoteSegment<Internal::ExifHeader>( buffer, app_segment_header );
 				CRET( exif_header.tiff_header.signature != Internal::TIFF_SIGNATURE, false );
 
 				const size_t min_ifd_offset = sizeof( Internal::ExifHeader ) - Internal::ExifHeader::IDENTIFIER_LENGTH;
