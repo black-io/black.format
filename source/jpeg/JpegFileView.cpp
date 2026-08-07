@@ -18,7 +18,7 @@ namespace
 
 namespace
 {
-	const bool IsValidMarkerCode( const Internal::MarkerCode code )
+	const bool IsMarkerCodeValid( const Internal::MarkerCode code )
 	{
 		CRET( code == Internal::INVALID_CODE_1, false );
 		CRET( code == Internal::INVALID_CODE_2, false );
