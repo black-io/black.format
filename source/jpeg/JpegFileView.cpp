@@ -35,6 +35,8 @@ namespace
 
 	const Internal::Marker& PromoteMarker( const Black::PlainView<const std::byte>& buffer )
 	{
+		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::Marker ) );
+		return *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
 	}
 
 	const Internal::SegmentHeader& PromoteSegmentHeader( const Black::PlainView<const std::byte>& buffer )
