@@ -423,7 +423,7 @@ namespace
 				break;
 			case Internal::MarkerCode::App0:
 				CBRK( m_jfif_header != nullptr );
-				m_jfif_header = reinterpret_cast<const Internal::JfifHeader*>( segment.content.GetMemory() );
+				m_jfif_header = &PromoteSegment<Internal::JfifHeader>( segment.content, segment_header );
 				break;
 			default:
 				break;
