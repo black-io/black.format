@@ -173,6 +173,7 @@ namespace
 		, m_markers{ std::move( other.m_markers ) }
 		, m_segments{ std::move( other.m_segments ) }
 		, m_image_blocks{ std::move( other.m_image_blocks ) }
+		, m_jfif_header{ std::exchange( other.m_jfif_header, nullptr ) }
 		, m_is_valid{ std::exchange( other.m_is_valid, false ) }
 		, m_is_parsed{ std::exchange( other.m_is_parsed, false ) }
 	{
