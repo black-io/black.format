@@ -41,6 +41,8 @@ namespace
 
 	const Internal::SegmentHeader& PromoteSegmentHeader( const Black::PlainView<const std::byte>& buffer )
 	{
+		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::SegmentHeader ) );
+		return *reinterpret_cast<const Internal::SegmentHeader*>( buffer.GetMemory() );
 	}
 }
 
