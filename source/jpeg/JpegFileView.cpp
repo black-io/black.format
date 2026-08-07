@@ -235,6 +235,12 @@ namespace
 
 	const Black::PlainView<const JpegStructure::ImageBlockEntry> JpegFileView::GetImageBlocks() const
 	{
+		CRET( !m_is_valid, {} );
+
+		EnsureFileMemoryParsed();
+		CRET( !m_is_parsed, {} );
+
+		return { m_image_blocks.data(), m_image_blocks.size() };
 	}
 
 	const const JpegStructure::JfifHeader* JpegFileView::QueryJfifHeader() const
