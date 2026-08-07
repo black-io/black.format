@@ -27,7 +27,7 @@ namespace
 		return true;
 	}
 
-	const bool IsValidMarker( const Internal::Marker& marker )
+	const bool IsMarkerValid( const Internal::Marker& marker )
 	{
 	}
 }
