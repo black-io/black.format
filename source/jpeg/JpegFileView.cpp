@@ -178,7 +178,7 @@ namespace
 				CCON( IsMarkerValid( marker_candidate ) );
 			}
 
-			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
+			const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( marker );
 			CBRK( segment_header.length > buffer.GetLength() );
 
 			buffer = buffer.TruncatePrefix( segment_header.length );
