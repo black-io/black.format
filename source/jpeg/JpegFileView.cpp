@@ -249,6 +249,10 @@ namespace
 	{
 	}
 
+	const const JpegStructure::FrameHeader& JpegFileView::GetFrameHeader() const
+	{
+	}
+
 	const bool JpegFileView::IsValidFile() const
 	{
 		BLACK_LOG_FATAL( LOG_CHANNEL, "Unimplemented method!" );
