@@ -301,6 +301,34 @@ namespace
 
 			switch( marker.code )
 			{
+			case Internal::MarkerCode::Sos:
+				{
+					Internal::ImageBlockEntry& image_block = m_image_blocks.emplace_back();
+
+					image_block.scan_header		= reinterpret_cast<const Internal::ScanHeader*>( segment.content.GetMemory() );
+					image_block.scan_components	= {
+						reinterpret_cast<const Internal::ScanComponent*>( segment.content.GetMemory() + sizeof( Internal::ScanHeader ) ),
+						size_t( image_block.scan_header->components_count )
+					};
+					image_block.scan_footer		= reinterpret_cast<const Internal::ScanFooter*>( image_block.scan_components.GetEnd() );
+
+					for( size_t index = 0; index < segments_buffer.GetLength(); ++index )
+					{
+						CBRK( ( index + 1 ) >= segments_buffer.GetLength() );
+
+						const Internal::Marker& candidate = *reinterpret_cast<const Internal::Marker*>( &segments_buffer.GetValueAt( index ) );
+						CCON( candidate.prefix != Internal::MARKER_PREFIX );
+						CCON( candidate.code == Internal::INVALID_CODE_1 );
+						CCON( candidate.code == Internal::INVALID_CODE_2 );
+						CCON( candidate.code < Internal::MIN_CODE );
+
+						image_block.image = segments_buffer.GetSubview( 0, index );
+						break;
+					}
+
+					segments_buffer = segments_buffer.TruncatePrefix( image_block.image.GetLength() );
+				}
+				break;
 			default:
 				break;
 			}
