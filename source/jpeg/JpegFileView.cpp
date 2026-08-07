@@ -36,6 +36,10 @@ namespace
 	const Internal::Marker& PromoteMarker( const Black::PlainView<const std::byte>& buffer )
 	{
 	}
+
+	const Internal::SegmentHeader& PromoteSegmentHeader( const Black::PlainView<const std::byte>& buffer )
+	{
+	}
 }
 
 
