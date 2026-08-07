@@ -88,6 +88,7 @@ inline namespace Jpeg
 		mutable std::vector<Internal::ImageBlockEntry>	m_image_blocks;
 
 		mutable const Internal::JfifHeader*		m_jfif_header	= nullptr;
+		mutable const Internal::FrameHeader*	m_frame_header	= nullptr;
 
 		mutable bool	m_is_valid	= false;
 		mutable bool	m_is_parsed	= false;
