@@ -394,7 +394,7 @@ namespace
 				[[fallthrough]];
 			case Internal::MarkerCode::Sof3:
 				CBRK( m_frame_header != nullptr );
-				m_frame_header = reinterpret_cast<const Internal::FrameHeader*>( segment.content.GetMemory() );
+				m_frame_header = &PromoteSegment<Internal::FrameHeader>( segment.content, segment_header );
 				break;
 			case Internal::MarkerCode::Sos:
 				{
