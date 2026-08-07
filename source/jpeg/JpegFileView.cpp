@@ -273,7 +273,7 @@ namespace
 		return *header;
 	}
 
-	const const JpegStructure::FrameHeader& JpegFileView::GetFrameHeader() const
+	const JpegStructure::FrameHeader& JpegFileView::GetFrameHeader() const
 	{
 		EXPECTS( m_is_valid );
 
