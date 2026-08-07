@@ -265,6 +265,12 @@ namespace
 
 	const const JpegStructure::JfifHeader& JpegFileView::GetJfifHeader() const
 	{
+		EXPECTS( m_is_valid );
+
+		const JpegStructure::JfifHeader* const header = QueryJfifHeader();
+		ENSURES( header != nullptr );
+
+		return *header;
 	}
 
 	const const JpegStructure::FrameHeader& JpegFileView::GetFrameHeader() const
