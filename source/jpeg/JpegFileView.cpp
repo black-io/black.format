@@ -155,7 +155,7 @@ namespace
 			Internal::MarkerCode::Sof15,
 		};
 
-		const bool has_sof_marker = Black::NoneOf(
+		const bool has_sof_marker = Black::AnyOf(
 			sof_markers,
 			[&marker_positions]( const Internal::MarkerCode code )
 			{
