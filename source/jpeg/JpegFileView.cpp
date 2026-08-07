@@ -44,6 +44,11 @@ namespace
 		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::SegmentHeader ) );
 		return *reinterpret_cast<const Internal::SegmentHeader*>( buffer.GetMemory() );
 	}
+
+	const Internal::SegmentHeader& PromoteSegmentHeader( const Internal::Marker& marker )
+	{
+		return reinterpret_cast<const Internal::SegmentHeader&>( marker );
+	}
 }
 
 
