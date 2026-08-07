@@ -305,6 +305,16 @@ namespace
 
 			switch( marker.code )
 			{
+			case Internal::MarkerCode::Sof0:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof1:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof2:
+				[[fallthrough]];
+			case Internal::MarkerCode::Sof3:
+				CBRK( m_frame_header != nullptr );
+				m_frame_header = reinterpret_cast<const Internal::FrameHeader*>( segment.content.GetMemory() );
+				break;
 			case Internal::MarkerCode::Sos:
 				{
 					Internal::ImageBlockEntry& image_block = m_image_blocks.emplace_back();
