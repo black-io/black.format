@@ -49,6 +49,14 @@ namespace
 	{
 		return reinterpret_cast<const Internal::SegmentHeader&>( marker );
 	}
+
+	template< typename TSegment >
+	const TSegment& PromoteSegment( const Black::PlainView<const std::byte>& buffer, const Internal::SegmentHeader& header )
+	{
+		EXPECTS_DEBUG( header.length >= ( sizeof( TSegment ) + sizeof( header.length ) ) );
+		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( TSegment ) );
+		return *reinterpret_cast<const TSegment*>( buffer.GetMemory() );
+	}
 }
 
 
