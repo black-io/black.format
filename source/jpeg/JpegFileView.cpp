@@ -29,6 +29,8 @@ namespace
 
 	const bool IsMarkerValid( const Internal::Marker& marker )
 	{
+		CRET( marker.prefix != Internal::MARKER_PREFIX, false );
+		return IsMarkerCodeValid( marker.code );
 	}
 }
 
