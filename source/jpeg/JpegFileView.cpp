@@ -399,13 +399,18 @@ namespace
 			case Internal::MarkerCode::Sos:
 				{
 					Internal::ImageBlockEntry& image_block = m_image_blocks.emplace_back();
+					Black::PlainView<const std::byte> segment_buffer{ segment.content };
 
-					image_block.scan_header		= reinterpret_cast<const Internal::ScanHeader*>( segment.content.GetMemory() );
-					image_block.scan_components	= {
-						reinterpret_cast<const Internal::ScanComponent*>( segment.content.GetMemory() + sizeof( Internal::ScanHeader ) ),
+					image_block.scan_header = &PromoteSegment<Internal::ScanHeader>( segment_buffer, segment_header );
+					segment_buffer = segment_buffer.TruncatePrefix( sizeof( Internal::ScanHeader ) );
+
+					image_block.scan_components = {
+						&PromoteSegment<Internal::ScanComponent>( segment_buffer, segment_header ),
 						size_t( image_block.scan_header->components_count )
 					};
-					image_block.scan_footer		= reinterpret_cast<const Internal::ScanFooter*>( image_block.scan_components.GetEnd() );
+					segment_buffer = segment_buffer.TruncatePrefix( image_block.scan_components.GetUsedBytes() );
+
+					image_block.scan_footer = &PromoteSegment<Internal::ScanFooter>( segment_buffer, segment_header );
 
 					for( size_t index = 0; index < segments_buffer.GetLength(); ++index )
 					{
