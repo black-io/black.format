@@ -275,6 +275,12 @@ namespace
 
 	const const JpegStructure::FrameHeader& JpegFileView::GetFrameHeader() const
 	{
+		EXPECTS( m_is_valid );
+
+		const JpegStructure::FrameHeader* const header = QueryFrameHeader();
+		ENSURES( header != nullptr );
+
+		return *header;
 	}
 
 	const bool JpegFileView::IsValidFile() const
