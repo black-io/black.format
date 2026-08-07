@@ -376,7 +376,7 @@ namespace
 				CCON( IsMarkerValid( next_marker ) );
 			}
 
-			const Internal::SegmentHeader& segment_header = reinterpret_cast<const Internal::SegmentHeader&>( marker );
+			const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( marker );
 			CBRK( segment_header.length > segments_buffer.GetLength() );
 
 			Internal::SegmentEntry& segment = m_segments.emplace_back();
