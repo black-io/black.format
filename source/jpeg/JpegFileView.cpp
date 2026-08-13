@@ -57,6 +57,22 @@ namespace
 		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( TSegment ) );
 		return *reinterpret_cast<const TSegment*>( buffer.GetMemory() );
 	}
+
+	template< typename TValue >
+	const TValue GetExifValue( const TValue original_value, const Internal::TiffEndianness endianness )
+	{
+		switch( endianness )
+		{
+		case Internal::TiffEndianness::LittleEndian:
+			return Black::GetTransformedEndianness<Black::BUILD_ENDIANNESS, Black::PlatformEndianness::LittleEndian>( original_value );
+		case Internal::TiffEndianness::BigEndian:
+			return Black::GetTransformedEndianness<Black::BUILD_ENDIANNESS, Black::PlatformEndianness::BigEndian>( original_value );
+		default:
+			break;
+		}
+
+		return original_value;
+	}
 }
 
 
