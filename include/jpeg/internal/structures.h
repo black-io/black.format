@@ -51,8 +51,8 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct TiffHeader final
 	{
-		TiffEndianness						endianness;
-		Black::BigEndianIntegral<uint16_t>	signature;
+		TiffEndianness	endianness;
+		uint16_t		signature;
 	};
 	#pragma pack( pop )
 
