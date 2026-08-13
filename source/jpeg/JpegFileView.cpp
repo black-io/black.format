@@ -124,6 +124,7 @@ namespace
 
 				const size_t min_ifd_offset = sizeof( Internal::ExifHeader ) - Internal::ExifHeader::IDENTIFIER_LENGTH;
 				CRET( GetExifValue( exif_header.ifd_offset, exif_header.tiff_header.endianness ) < min_ifd_offset, false );
+				CRET( GetExifValue( exif_header.ifd_offset, exif_header.tiff_header.endianness ) > header_size, false );
 
 				is_app_header_valid = true;
 			}
