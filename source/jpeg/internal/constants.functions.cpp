@@ -43,12 +43,6 @@ namespace
 
 		return true;
 	}
-
-	const bool IsMarkerValid( const Marker& candidate )
-	{
-		CRET( candidate.prefix != Internal::MARKER_PREFIX, false );
-		return IsMarkerCodeValid( candidate.code );
-	}
 }
 }
 }

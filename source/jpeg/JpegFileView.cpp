@@ -18,6 +18,12 @@ namespace
 
 namespace
 {
+	const bool IsMarkerValid( const Internal::Marker& marker )
+	{
+		CRET( marker.prefix != Internal::MARKER_PREFIX, false );
+		return IsMarkerCodeValid( marker.code );
+	}
+
 	const Internal::Marker& PromoteMarker( const Black::PlainView<const std::byte>& buffer )
 	{
 		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::Marker ) );
