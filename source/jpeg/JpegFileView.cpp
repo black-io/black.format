@@ -139,7 +139,7 @@ namespace
 	{
 		CRET( !IsHeaderValid( file_memory ), false );
 
-		constexpr size_t first_marker_index	= Black::GetEnumValue( Internal::MIN_CODE );
+		constexpr size_t first_marker_index	= Black::GetEnumValue( Internal::MarkerCode::Sof0 );
 		constexpr size_t markers_count		= Black::GetEnumValue( Internal::MarkerCode::Com ) - first_marker_index + 1;
 
 		size_t marker_positions[ markers_count ];
