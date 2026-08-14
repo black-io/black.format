@@ -95,7 +95,6 @@ namespace Internal
 		Com			= 0xFE,	// [COM] Comment - Comment.
 	};
 
-	inline constexpr MarkerCode INVALID_CODE_1	= MarkerCode( 0x00U );
 	inline constexpr MarkerCode INVALID_CODE_2	= MarkerCode( 0xFFU );
 	inline constexpr MarkerCode MIN_CODE		= MarkerCode::Sof0;
 
