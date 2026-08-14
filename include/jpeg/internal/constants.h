@@ -19,6 +19,15 @@ namespace Internal
 	*/
 	inline constexpr std::byte MARKER_PREFIX = ~std::byte{};
 
+	/**
+		@brief	JIF marker code.
+
+		This enumeration described in various documents.
+		The most basic group of codes described in table B.1 (Marker code assignments) of ISO/IEC 10918-1 : 1 1993(E) document.
+		Values of this enumeration reflects all the possible codes of JIF marker.
+
+		Any marker of JIF format may be considered valid only if its code belongs to this enumeration.
+	*/
 	enum class MarkerCode : uint8_t
 	{
 		Sof0		= 0xC0,	// [SOF0] Start of Frame 0 - Baseline DCT.
