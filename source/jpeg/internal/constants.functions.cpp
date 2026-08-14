@@ -13,8 +13,6 @@ namespace
 {
 	// Logging channel.
 	constexpr const char* LOG_CHANNEL = "Black/JPEG/Functions";
-
-	const MarkerCode INVALID_CODE_2	= MarkerCode( 0xFFU );
 }
 
 
@@ -35,7 +33,7 @@ namespace
 	const bool IsMarkerCodeValid( const MarkerCode candidate )
 	{
 		CRET( candidate == MarkerCode( 0x00U ), false );
-		CRET( candidate == INVALID_CODE_2, false );
+		CRET( candidate == MarkerCode( 0xFFU ), false );
 
 		return true;
 	}
