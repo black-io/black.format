@@ -95,8 +95,6 @@ namespace Internal
 		Com			= 0xFE,	// [COM] Comment - Comment.
 	};
 
-	inline constexpr MarkerCode MIN_CODE		= MarkerCode::Sof0;
-
 	enum class DensityUnit : uint8_t
 	{
 		None,		// Density measured in pixels as is.
