@@ -18,6 +18,11 @@ namespace
 
 namespace
 {
+	const bool IsMarkerCodeInvalid( const MarkerCode candidate )
+	{
+		return ( candidate == MarkerCode( 0x00U ) ) || ( candidate == MarkerCode( 0xFFU ) );
+	}
+
 	const bool IsMarkerCodePrivate( const MarkerCode candidate )
 	{
 		return candidate == MarkerCode( 0x01U );
