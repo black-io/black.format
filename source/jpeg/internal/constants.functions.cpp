@@ -26,6 +26,11 @@ namespace
 	{
 		return candidate == MarkerCode( 0x01U );
 	}
+
+	const bool IsMarkerCodeReserved( const MarkerCode candidate )
+	{
+		return ( candidate >= MarkerCode( 0x02U ) ) && ( candidate <= MarkerCode( 0xBFU ) );
+	}
 }
 
 
