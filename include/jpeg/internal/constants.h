@@ -95,6 +95,16 @@ namespace Internal
 		Com			= 0xFE,	// [COM] Comment - Comment.
 	};
 
+	/**
+		@brief	Identifier of valid JFIF header.
+
+		This constant described in section (JPEG File Interchange Format Specification) of JPEG File Interchange Format, Version 1.02 document.
+
+		X'4A', X'46', X'49', X'46', X'00' This zero terminated string (“JFIF”) uniquely identifies this APP0 marker.
+		This string shall have zero parity (bit 7=0).
+
+		The constant indicates that structure of APP0 segment is identical to structure of header.
+	*/
 	constexpr const char JFIF_HEADER_IDENTIFIER[] = "JFIF";
 
 	/**
