@@ -37,8 +37,7 @@ namespace
 
 	const bool IsMarkerCodeValid( const MarkerCode candidate )
 	{
-		CRET( candidate == MarkerCode( 0x00U ), false );
-		CRET( candidate == MarkerCode( 0xFFU ), false );
+		CRET( IsMarkerCodeInvalid( candidate ), false );
 
 		return true;
 	}
