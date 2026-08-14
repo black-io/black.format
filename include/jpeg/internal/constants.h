@@ -15,6 +15,7 @@ namespace Internal
 		This constant described in section B.1.1.2 (Markers) of ISO/IEC 10918-1 : 1 1993(E) document.
 
 		Single prefix of `0xFF` value indicates the next byte as possible code of marker.
+		But also any sequence of merker prefix may be considered as marker prefix.
 	*/
 	inline constexpr std::byte MARKER_PREFIX = ~std::byte{};
 
