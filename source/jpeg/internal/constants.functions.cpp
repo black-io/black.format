@@ -39,6 +39,7 @@ namespace
 	{
 		CRET( IsMarkerCodeInvalid( candidate ), false );
 		CRET( IsMarkerCodePrivate( candidate ), false );
+		CRET( IsMarkerCodeReserved( candidate ), false );
 
 		return true;
 	}
