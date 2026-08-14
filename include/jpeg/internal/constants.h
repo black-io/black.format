@@ -95,6 +95,8 @@ namespace Internal
 		Com			= 0xFE,	// [COM] Comment - Comment.
 	};
 
+	constexpr const char JFIF_HEADER_IDENTIFIER[] = "JFIF";
+
 	/**
 		@brief	Available units of JPEG dencity.
 
@@ -113,8 +115,6 @@ namespace Internal
 		Inch,		// Density per inch.
 		Centimeter,	// Density per centimeter.
 	};
-
-	constexpr const char JFIF_HEADER_IDENTIFIER[] = "JFIF";
 
 	enum class TiffEndianness : uint16_t
 	{
