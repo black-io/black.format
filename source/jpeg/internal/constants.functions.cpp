@@ -38,6 +38,7 @@ namespace
 	const bool IsMarkerCodeValid( const MarkerCode candidate )
 	{
 		CRET( IsMarkerCodeInvalid( candidate ), false );
+		CRET( IsMarkerCodePrivate( candidate ), false );
 
 		return true;
 	}
