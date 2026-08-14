@@ -16,7 +16,6 @@ namespace
 
 	const MarkerCode INVALID_CODE_1	= MarkerCode( 0x00U );
 	const MarkerCode INVALID_CODE_2	= MarkerCode( 0xFFU );
-	const MarkerCode MIN_CODE		= MarkerCode::Sof0;
 }
 
 
@@ -38,7 +37,6 @@ namespace
 	{
 		CRET( candidate == INVALID_CODE_1, false );
 		CRET( candidate == INVALID_CODE_2, false );
-		CRET( candidate < MIN_CODE, false );
 
 		return true;
 	}
