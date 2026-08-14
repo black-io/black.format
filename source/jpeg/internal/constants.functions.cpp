@@ -20,6 +20,14 @@ namespace
 }
 
 
+	const bool IsMarkerCodeValid( const MarkerCode candidate )
+	{
+		CRET( candidate == INVALID_CODE_1, false );
+		CRET( candidate == INVALID_CODE_2, false );
+		CRET( candidate < MIN_CODE, false );
+
+		return true;
+	}
 }
 }
 }
