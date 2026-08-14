@@ -95,6 +95,18 @@ namespace Internal
 		Com			= 0xFE,	// [COM] Comment - Comment.
 	};
 
+	/**
+		@brief	Available units of JPEG dencity.
+
+		This enumeration described in section (JPEG File Interchange Format Specification) of JPEG File Interchange Format, Version 1.02 document.
+
+		Units for the X and Y densities.
+		- units = 0: no units, X and Y specify the pixel aspect ratio
+		- units = 1: X and Y are dots per inch
+		- units = 2: X and Y are dots per cm
+
+		Enumeration is used in structure of APP0 segment.
+	*/
 	enum class DensityUnit : uint8_t
 	{
 		None,		// Density measured in pixels as is.
