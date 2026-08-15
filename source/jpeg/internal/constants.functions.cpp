@@ -1,5 +1,7 @@
 #include <black/format/jpeg.h>
 
+#include <black/core/algorithms.h>
+
 
 namespace Black
 {
