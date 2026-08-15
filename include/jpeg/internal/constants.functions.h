@@ -30,6 +30,10 @@ namespace Internal
 		@return				`true` in case the candidate is valid density unit value.
 	*/
 	const bool IsDesityUnitValid( const DensityUnit candidate );
+
+	/**
+	*/
+	const bool IsTiffEndiannessValid( const TiffEndianness candidate );
 }
 }
 }
