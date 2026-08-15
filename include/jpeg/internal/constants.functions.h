@@ -22,6 +22,10 @@ namespace Internal
 		@return				`true` for valid code of JIF marker and `false` in other way.
 	*/
 	const bool IsMarkerCodeValid( const MarkerCode candidate );
+
+	/**
+	*/
+	const bool IsDesityUnitValid( const DensityUnit candidate );
 }
 }
 }
