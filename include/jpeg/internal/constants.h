@@ -108,6 +108,14 @@ namespace Internal
 	constexpr const char JFIF_HEADER_IDENTIFIER[] = "JFIF";
 
 	/**
+		@brief	Identifier of valid JFXX header.
+
+		This constant described in section (JFIF Extension APP0 Marker Segment) of JPEG File Interchange Format, Version 1.02 document.
+
+		X'4A', X'46', X'58', X'58', X'00' This zero terminated string (“JFXX”) uniquely identifies this APP0 marker.
+		This string shall have zero parity (bit 7=0).
+
+		The constant identifies that structure of APP0 segment is identical to structure of extension header.
 	*/
 	constexpr const char JFXX_HEADER_IDENTIFIER[] = "JFXX";
 
