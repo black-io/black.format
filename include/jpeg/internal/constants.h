@@ -145,6 +145,16 @@ namespace Internal
 		BigEndian		= 0x4D4DU,	// Value 'MM' that represent big-endian endianness.
 	};
 
+	/**
+		@brief	TIFF file format signature.
+
+		This value described in section (Image File Header) of TIFF 6.0 Specification.
+
+		An arbitrary but carefully chosen number (42) that further identifies the file as a TIFF file.
+		The byte order depends on the value of Bytes 0-1.
+
+		Sounds like the answer of ultimate question...
+	*/
 	constexpr const uint16_t TIFF_SIGNATURE = 42;
 
 	constexpr const char EXIF_HEADER_IDENTIFIER[] = "Exif\000";
