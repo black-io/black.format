@@ -168,6 +168,13 @@ namespace Internal
 	*/
 	constexpr const char EXIF_HEADER_IDENTIFIER[] = "Exif\000";
 
+	/**
+		@brief	Adobe XAP file format identifier code.
+
+		Adobe XAP is proprietary file format for Adobe XMP platform. So this way no citations placed here.
+
+		XAP identifier code straightly indicates the structure of APP1 segment.
+	*/
 	constexpr const char XMP_HEADER_IDENTIFIER[] = "http://ns.adobe.com/xap/1.0/";
 }
 }
