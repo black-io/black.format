@@ -24,6 +24,10 @@ namespace Internal
 	const bool IsMarkerCodeValid( const MarkerCode candidate );
 
 	/**
+		@brief	Whether the given candidate is valid density unit of JFIF format.
+
+		@param	candidate	Given candidate to be checked.
+		@return				`true` in case the candidate is valid density unit value.
 	*/
 	const bool IsDesityUnitValid( const DensityUnit candidate );
 }
