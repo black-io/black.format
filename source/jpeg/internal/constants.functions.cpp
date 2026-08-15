@@ -45,6 +45,13 @@ namespace
 
 		return true;
 	}
+
+	const bool IsDesityUnitValid( const DensityUnit candidate )
+	{
+		static constexpr DensityUnit allowed_units[] { DensityUnit::None, DensityUnit::Inch, DensityUnit::Centimeter };
+
+		return Black::HasItem( allowed_units, candidate );
+	}
 }
 }
 }
