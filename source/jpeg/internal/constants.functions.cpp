@@ -52,6 +52,13 @@ namespace
 
 		return Black::HasItem( allowed_units, candidate );
 	}
+
+	const bool IsTiffEndiannessValid( const TiffEndianness candidate )
+	{
+		static constexpr TiffEndianness allowed_endianness[] { TiffEndianness::LittleEndian, TiffEndianness::BigEndian };
+
+		return Black::HasItem( allowed_endianness, candidate );
+	}
 }
 }
 }
