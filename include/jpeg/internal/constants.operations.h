@@ -28,6 +28,11 @@ namespace Internal
 	std::string_view format_as( const DensityUnit value );
 
 	/**
+		@brief	Perform the valid formatting of TIFF format endianness.
+		This function performs the formatting API for {fmt} library.
+
+		@param	value	Given endianness to be formatted.
+		@retrn			The value returned is name of given endianness.
 	*/
 	std::string_view format_as( const TiffEndianness value );
 }
