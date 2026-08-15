@@ -19,6 +19,11 @@ namespace Internal
 	std::string_view format_as( const MarkerCode value );
 
 	/**
+		@brief	Perform the valid formatting of JFIF density unit.
+		This function performs the formatting API for {fmt} library.
+
+		@param	value	Given unit to be formatted.
+		@retrn			The value returned is name of given unit.
 	*/
 	std::string_view format_as( const DensityUnit value );
 
