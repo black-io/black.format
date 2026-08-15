@@ -32,6 +32,14 @@ namespace Internal
 	const bool IsDesityUnitValid( const DensityUnit candidate );
 
 	/**
+		@brief	Whether the given candidate is valid endianness value of TIFF format.
+
+		Valid value is:
+		- 0x4949U ('II'),
+		- 0x4D4DU ('MM').
+
+		@param	candidate	Given candidate to be checked.
+		@return				`true` in case the candidate is valid value of TIFF endianness.
 	*/
 	const bool IsTiffEndiannessValid( const TiffEndianness candidate );
 }
