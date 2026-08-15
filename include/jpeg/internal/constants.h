@@ -10,16 +10,6 @@ inline namespace Jpeg
 namespace Internal
 {
 	/**
-		@brief	JIF marker prefix.
-
-		This constant described in section B.1.1.2 (Markers) of ISO/IEC 10918-1 : 1 1993(E) document.
-
-		Single prefix of `0xFF` value indicates the next byte as possible code of marker.
-		But also any sequence of merker prefix may be considered as marker prefix.
-	*/
-	inline constexpr std::byte MARKER_PREFIX = ~std::byte{};
-
-	/**
 		@brief	JIF marker code.
 
 		This enumeration described in various documents.
@@ -94,6 +84,16 @@ namespace Internal
 		Jpg13		= 0xFD,	// [JPG13] JPEG Extension 13 - (Not common).
 		Com			= 0xFE,	// [COM] Comment - Comment.
 	};
+
+	/**
+		@brief	JIF marker prefix.
+
+		This constant described in section B.1.1.2 (Markers) of ISO/IEC 10918-1 : 1 1993(E) document.
+
+		Single prefix of `0xFF` value indicates the next byte as possible code of marker.
+		But also any sequence of merker prefix may be considered as marker prefix.
+	*/
+	inline constexpr std::byte MARKER_PREFIX = ~std::byte{};
 
 	/**
 		@brief	Identifier of valid JFIF header.
