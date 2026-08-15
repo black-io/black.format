@@ -16,6 +16,9 @@ namespace
 }
 
 
+	std::string_view format_as( const MarkerCode value )
+	{
+	}
 }
 }
 }
