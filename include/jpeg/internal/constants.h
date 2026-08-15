@@ -108,6 +108,10 @@ namespace Internal
 	constexpr const char JFIF_HEADER_IDENTIFIER[] = "JFIF";
 
 	/**
+	*/
+	constexpr const char JFXX_HEADER_IDENTIFIER[] = "JFXX";
+
+	/**
 		@brief	Available units of JPEG dencity.
 
 		This enumeration described in section (JPEG File Interchange Format Specification) of JPEG File Interchange Format, Version 1.02 document.
