@@ -86,40 +86,6 @@ namespace Internal
 	};
 
 	/**
-		@brief	JIF marker prefix.
-
-		This constant described in section B.1.1.2 (Markers) of ISO/IEC 10918-1 : 1 1993(E) document.
-
-		Single prefix of `0xFF` value indicates the next byte as possible code of marker.
-		But also any sequence of merker prefix may be considered as marker prefix.
-	*/
-	inline constexpr std::byte MARKER_PREFIX = ~std::byte{};
-
-	/**
-		@brief	Identifier of valid JFIF header.
-
-		This constant described in section (JPEG File Interchange Format Specification) of JPEG File Interchange Format, Version 1.02 document.
-
-		X'4A', X'46', X'49', X'46', X'00' This zero terminated string (“JFIF”) uniquely identifies this APP0 marker.
-		This string shall have zero parity (bit 7=0).
-
-		The constant indicates that structure of APP0 segment is identical to structure of header.
-	*/
-	constexpr const char JFIF_HEADER_IDENTIFIER[] = "JFIF";
-
-	/**
-		@brief	Identifier of valid JFXX header.
-
-		This constant described in section (JFIF Extension APP0 Marker Segment) of JPEG File Interchange Format, Version 1.02 document.
-
-		X'4A', X'46', X'58', X'58', X'00' This zero terminated string (“JFXX”) uniquely identifies this APP0 marker.
-		This string shall have zero parity (bit 7=0).
-
-		The constant identifies that structure of APP0 segment is identical to structure of extension header.
-	*/
-	constexpr const char JFXX_HEADER_IDENTIFIER[] = "JFXX";
-
-	/**
 		@brief	Available units of JPEG dencity.
 
 		This enumeration described in section (JPEG File Interchange Format Specification) of JPEG File Interchange Format, Version 1.02 document.
@@ -156,6 +122,40 @@ namespace Internal
 		LittleEndian	= 0x4949U,	// Value 'II' that represent little-endian endianness.
 		BigEndian		= 0x4D4DU,	// Value 'MM' that represent big-endian endianness.
 	};
+
+	/**
+		@brief	JIF marker prefix.
+
+		This constant described in section B.1.1.2 (Markers) of ISO/IEC 10918-1 : 1 1993(E) document.
+
+		Single prefix of `0xFF` value indicates the next byte as possible code of marker.
+		But also any sequence of merker prefix may be considered as marker prefix.
+	*/
+	inline constexpr std::byte MARKER_PREFIX = ~std::byte{};
+
+	/**
+		@brief	Identifier of valid JFIF header.
+
+		This constant described in section (JPEG File Interchange Format Specification) of JPEG File Interchange Format, Version 1.02 document.
+
+		X'4A', X'46', X'49', X'46', X'00' This zero terminated string (“JFIF”) uniquely identifies this APP0 marker.
+		This string shall have zero parity (bit 7=0).
+
+		The constant indicates that structure of APP0 segment is identical to structure of header.
+	*/
+	constexpr const char JFIF_HEADER_IDENTIFIER[] = "JFIF";
+
+	/**
+		@brief	Identifier of valid JFXX header.
+
+		This constant described in section (JFIF Extension APP0 Marker Segment) of JPEG File Interchange Format, Version 1.02 document.
+
+		X'4A', X'46', X'58', X'58', X'00' This zero terminated string (“JFXX”) uniquely identifies this APP0 marker.
+		This string shall have zero parity (bit 7=0).
+
+		The constant identifies that structure of APP0 segment is identical to structure of extension header.
+	*/
+	constexpr const char JFXX_HEADER_IDENTIFIER[] = "JFXX";
 
 	/**
 		@brief	TIFF file format signature.
