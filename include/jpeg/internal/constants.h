@@ -126,6 +126,19 @@ namespace Internal
 		Centimeter,	// Density per centimeter.
 	};
 
+	/**
+		@brief	Indication of byte order used by TIFF format.
+
+		This enumeration described in section (Image File Header) of TIFF 6.0 Specification.
+
+		In the 'II' format, byte order is always from the least significant byte to the most
+		significant byte, for both 16-bit and 32-bit integers This is called little-endian byte
+		order. In the 'MM' format, byte order is always from most significant to least
+		significant, for both 16-bit and 32-bit integers. This is called big-endian byte
+		order.
+
+		Looks like 'II' stans for Intel (LE) and 'MM' stands for Motorolla (BE).
+	*/
 	enum class TiffEndianness : uint16_t
 	{
 		LittleEndian	= 0x4949U,	// Value 'II' that represent little-endian endianness.
