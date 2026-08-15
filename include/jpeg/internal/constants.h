@@ -157,6 +157,15 @@ namespace Internal
 	*/
 	constexpr const uint16_t TIFF_SIGNATURE = 42;
 
+	/**
+		@brief	EXIF file format identifier code.
+
+		This constant described in section 4.5.4 (Basic Structure of JPEG Compressed Data) of JEITA CP-3451 document.
+
+		APP1 consists of the APP1 marker, Exif identifier code, and the attribute information itself.
+
+		Exif identifier code straightly indicates the structure of APP1 segment.
+	*/
 	constexpr const char EXIF_HEADER_IDENTIFIER[] = "Exif\000";
 
 	constexpr const char XMP_HEADER_IDENTIFIER[] = "http://ns.adobe.com/xap/1.0/";
