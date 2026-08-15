@@ -134,6 +134,18 @@ namespace Internal
 	inline constexpr std::byte MARKER_PREFIX = ~std::byte{};
 
 	/**
+		@brief	TIFF file format signature.
+
+		This value described in section (Image File Header) of TIFF 6.0 Specification.
+
+		An arbitrary but carefully chosen number (42) that further identifies the file as a TIFF file.
+		The byte order depends on the value of Bytes 0-1.
+
+		Sounds like the answer of ultimate question...
+	*/
+	constexpr const uint16_t TIFF_SIGNATURE = 42;
+
+	/**
 		@brief	Identifier of valid JFIF header.
 
 		This constant described in section (JPEG File Interchange Format Specification) of JPEG File Interchange Format, Version 1.02 document.
@@ -156,18 +168,6 @@ namespace Internal
 		The constant identifies that structure of APP0 segment is identical to structure of extension header.
 	*/
 	constexpr const char JFXX_HEADER_IDENTIFIER[] = "JFXX";
-
-	/**
-		@brief	TIFF file format signature.
-
-		This value described in section (Image File Header) of TIFF 6.0 Specification.
-
-		An arbitrary but carefully chosen number (42) that further identifies the file as a TIFF file.
-		The byte order depends on the value of Bytes 0-1.
-
-		Sounds like the answer of ultimate question...
-	*/
-	constexpr const uint16_t TIFF_SIGNATURE = 42;
 
 	/**
 		@brief	EXIF file format identifier code.
