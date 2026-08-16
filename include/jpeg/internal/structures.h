@@ -57,6 +57,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct JfifHeader final
 	{
+		// Length of JFIF header identifier.
 		static constexpr size_t					IDENTIFIER_LENGTH = std::size( JFIF_HEADER_IDENTIFIER );
 
 		char									identifier[ IDENTIFIER_LENGTH ];
