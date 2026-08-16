@@ -87,7 +87,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct TiffHeader final
 	{
-		TiffEndianness	endianness;
+		TiffEndianness	endianness;	// Endianness of following data.
 		uint16_t		signature;
 	};
 	#pragma pack( pop )
