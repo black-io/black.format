@@ -23,7 +23,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct Marker final
 	{
-		std::byte	prefix;
+		std::byte	prefix;	// First byte of marker means prefix. Should be always equal to `MARKER_PREFIX` constant.
 		MarkerCode	code;
 	};
 	#pragma pack( pop )
