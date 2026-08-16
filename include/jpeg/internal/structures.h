@@ -107,7 +107,7 @@ namespace Internal
 		// Length of EXIF header identifier.
 		static constexpr size_t		IDENTIFIER_LENGTH = std::size( EXIF_HEADER_IDENTIFIER );
 
-		char						identifier[ IDENTIFIER_LENGTH ];
+		char						identifier[ IDENTIFIER_LENGTH ];	// Identifier of header. Should equal only to `EXIF_HEADER_IDENTIFIER`.
 		TiffHeader					tiff_header;
 		uint32_t					ifd_offset;
 	};
