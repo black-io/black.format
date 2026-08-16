@@ -60,6 +60,17 @@ namespace
 
 	std::string_view format_as( const TiffEndianness value )
 	{
+		switch( value )
+		{
+		case TiffEndianness::LittleEndian:
+			return "Little Endian";
+		case TiffEndianness::BigEndian:
+			return "Big Endian";
+		default:
+			break;
+		}
+
+		return "Unknown";
 	}
 }
 }
