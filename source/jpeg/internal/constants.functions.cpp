@@ -62,6 +62,9 @@ namespace
 
 	const Black::PlatformEndianness TranslateTiffEndianness( const TiffEndianness endianness )
 	{
+		EXPECTS_DEBUG( IsTiffEndiannessValid( endianness ) );
+
+		return ( endianness == TiffEndianness::LittleEndian )? Black::PlatformEndianness::LittleEndian : Black::PlatformEndianness::BigEndian;
 	}
 }
 }
