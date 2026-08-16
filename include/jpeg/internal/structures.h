@@ -9,6 +9,13 @@ inline namespace Jpeg
 {
 namespace Internal
 {
+	/**
+		@brief	Regular JIF marker.
+
+		This structure described in section B.1.1.2 (Markers) of ISO/IEC 10918-1 : 1993(E) document.
+
+		Markers are the first of major JIF entities.
+	*/
 	#pragma pack( push, 1 )
 	struct Marker final
 	{
