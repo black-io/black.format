@@ -42,7 +42,7 @@ namespace Internal
 	struct SegmentHeader final
 	{
 		Marker								marker;	// Marker corresponding to segment.
-		Black::BigEndianIntegral<uint16_t>	length;
+		Black::BigEndianIntegral<uint16_t>	length;	// Length of segment.
 	};
 	#pragma pack( pop )
 
