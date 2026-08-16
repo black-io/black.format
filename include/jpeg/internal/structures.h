@@ -61,7 +61,7 @@ namespace Internal
 		static constexpr size_t					IDENTIFIER_LENGTH = std::size( JFIF_HEADER_IDENTIFIER );
 
 		char									identifier[ IDENTIFIER_LENGTH ];	// Identifier of header. Should equal only to `JFIF_HEADER_IDENTIFIER`.
-		uint8_t									version[2];
+		uint8_t									version[2];							// Version of JFIF format. Format: maj.min.
 		DensityUnit								units;
 
 		struct
