@@ -41,7 +41,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct SegmentHeader final
 	{
-		Marker								marker;
+		Marker								marker;	// Marker corresponding to segment.
 		Black::BigEndianIntegral<uint16_t>	length;
 	};
 	#pragma pack( pop )
