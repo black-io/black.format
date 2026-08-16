@@ -78,6 +78,12 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	TIFF image header.
+
+		This structure described in section (Image File Header) of TIFF 6.0 Specification.
+		This header used as part of Exif header in APP1 segment.
+	*/
 	#pragma pack( push, 1 )
 	struct TiffHeader final
 	{
