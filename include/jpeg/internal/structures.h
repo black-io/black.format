@@ -104,6 +104,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ExifHeader final
 	{
+		// Length of EXIF header identifier.
 		static constexpr size_t		IDENTIFIER_LENGTH = std::size( EXIF_HEADER_IDENTIFIER );
 
 		char						identifier[ IDENTIFIER_LENGTH ];
