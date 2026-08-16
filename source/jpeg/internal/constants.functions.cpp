@@ -59,6 +59,10 @@ namespace
 
 		return Black::HasItem( allowed_endianness, candidate );
 	}
+
+	const Black::PlatformEndianness TranslateTiffEndianness( const TiffEndianness endianness )
+	{
+	}
 }
 }
 }
