@@ -88,7 +88,7 @@ namespace Internal
 	struct TiffHeader final
 	{
 		TiffEndianness	endianness;	// Endianness of following data.
-		uint16_t		signature;
+		uint16_t		signature;	// TIFF signature value. Should equal only to `TIFF_SIGNATURE`.
 	};
 	#pragma pack( pop )
 
