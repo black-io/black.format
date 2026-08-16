@@ -28,6 +28,12 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	Regular header of JIF segment.
+
+		This structure does not documented in JIF or JFIF specifications. But it much usable for purposes of JIF analysis.
+		The meaning of structure is to declare the statement of segment in memory right after the header.
+	*/
 	#pragma pack( push, 1 )
 	struct SegmentHeader final
 	{
