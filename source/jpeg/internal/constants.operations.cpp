@@ -40,6 +40,10 @@ namespace
 		const size_t code_index = Black::GetEnumValue( value ) - Black::GetEnumValue( MarkerCode::Sof0 );
 		return code_names[ code_index ];
 	}
+
+	std::string_view format_as( const DensityUnit value )
+	{
+	}
 }
 }
 }
