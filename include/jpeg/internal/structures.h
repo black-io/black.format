@@ -46,6 +46,14 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	Header of APP0 segment in JFIF file.
+
+		This structure described in section (JPEG File Interchange Format Specification) of JPEG File Interchange Format, Version 1.02 document.
+		The memory of very first APP0 segment has format of this structure. So the memory of segment may be interpreted as object of this structure.
+
+		This structure always used to map the memory of file and read the fields directly.
+	*/
 	#pragma pack( push, 1 )
 	struct JfifHeader final
 	{
