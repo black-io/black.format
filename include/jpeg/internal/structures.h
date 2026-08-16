@@ -92,6 +92,15 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	EXIF data header.
+
+		This structure described in section 4.7.2.B (APP1 Interoperability structure) of JEITA CP-3451 document.
+		In EXIF file, the memory of very first APP1 segment should has format of this structure.
+		So the memory of segment may be interpreted as object of this structure.
+
+		This structure always used to map the memory of file and read the fields directly.
+	*/
 	#pragma pack( push, 1 )
 	struct ExifHeader final
 	{
