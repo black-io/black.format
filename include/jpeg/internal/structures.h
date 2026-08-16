@@ -72,7 +72,7 @@ namespace Internal
 
 		struct
 		{
-			uint8_t								x;
+			uint8_t								x;									// Width of thumbnail.
 			uint8_t								y;									// Height of thumbnail.
 		}										thumbnail;							// Properties of embedded thumbnail.
 	};
