@@ -24,7 +24,7 @@ namespace Internal
 	struct Marker final
 	{
 		std::byte	prefix;	// First byte of marker means prefix. Should be always equal to `MARKER_PREFIX` constant.
-		MarkerCode	code;
+		MarkerCode	code;	// Second byte of marker stores the marker code. Should be one of valid `MarkerCode` values.
 	};
 	#pragma pack( pop )
 
