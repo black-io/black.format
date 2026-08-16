@@ -43,6 +43,19 @@ namespace
 
 	std::string_view format_as( const DensityUnit value )
 	{
+		switch( value )
+		{
+		case DensityUnit::None:
+			return "None";
+		case DensityUnit::Inch:
+			return "DPI";
+		case DensityUnit::Centimeter:
+			return "DPC";
+		default:
+			break;
+		}
+
+		return "Unknown";
 	}
 }
 }
