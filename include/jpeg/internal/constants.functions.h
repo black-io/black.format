@@ -45,7 +45,7 @@ namespace Internal
 
 	/**
 	*/
-	const Black::PlatformEndianness ClassifyTiffEndianness( const TiffEndianness endianness );
+	const Black::PlatformEndianness TranslateTiffEndianness( const TiffEndianness endianness );
 }
 }
 }
