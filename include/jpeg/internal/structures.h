@@ -68,7 +68,7 @@ namespace Internal
 		{
 			Black::BigEndianIntegral<uint16_t>	x;
 			Black::BigEndianIntegral<uint16_t>	y;
-		}										density;
+		}										density;							// Image density. The meaning of values depends on `units` value.
 
 		struct
 		{
