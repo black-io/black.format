@@ -42,6 +42,10 @@ namespace Internal
 		@return				`true` in case the candidate is valid value of TIFF endianness.
 	*/
 	const bool IsTiffEndiannessValid( const TiffEndianness candidate );
+
+	/**
+	*/
+	const Black::PlatformEndianness ClassifyTiffEndianness( const TiffEndianness endianness );
 }
 }
 }
