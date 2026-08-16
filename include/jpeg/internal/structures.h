@@ -73,7 +73,7 @@ namespace Internal
 		struct
 		{
 			uint8_t								x;
-			uint8_t								y;
+			uint8_t								y;									// Height of thumbnail.
 		}										thumbnail;							// Properties of embedded thumbnail.
 	};
 	#pragma pack( pop )
