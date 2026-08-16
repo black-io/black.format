@@ -57,6 +57,10 @@ namespace
 
 		return "Unknown";
 	}
+
+	std::string_view format_as( const TiffEndianness value )
+	{
+	}
 }
 }
 }
