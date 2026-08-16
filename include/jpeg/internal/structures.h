@@ -32,7 +32,11 @@ namespace Internal
 		@brief	Regular header of JIF segment.
 
 		This structure does not documented in JIF or JFIF specifications. But it much usable for purposes of JIF analysis.
-		The meaning of structure is to declare the statement of segment in memory right after the header.
+		The meaning of structure is to declare the statement of segment in memory right after the header with length stored in header.
+
+		The segments of marker always start with length. But the memory of `length` field also counted as part of segment, meaning the length of segment is
+		part of it. It is not so usable to know the length only after the begin of segment investigation. Its much better to know the length of segment first,
+		and next use the known bounds of memory as desired.
 	*/
 	#pragma pack( push, 1 )
 	struct SegmentHeader final
