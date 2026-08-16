@@ -74,7 +74,7 @@ namespace Internal
 		{
 			uint8_t								x;
 			uint8_t								y;
-		}										thumbnail;
+		}										thumbnail;							// Properties of embedded thumbnail.
 	};
 	#pragma pack( pop )
 
