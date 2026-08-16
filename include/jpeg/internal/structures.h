@@ -14,6 +14,10 @@ namespace Internal
 
 		This structure described in section B.1.1.2 (Markers) of ISO/IEC 10918-1 : 1993(E) document.
 
+		All markers are assigned two-byte codes:
+			- an X’FF’ byte,
+			- a byte which is not equal to 0 or X’FF’.
+
 		Markers are the first of major JIF entities.
 	*/
 	#pragma pack( push, 1 )
