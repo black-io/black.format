@@ -69,7 +69,7 @@ inline namespace Jpeg
 		// Regular entry of JIF file segment.
 		using SegmentEntry = Internal::SegmentEntry;
 
-		//
+		// Regular entry of JPEG image block.
 		using ImageBlockEntry = Internal::ImageBlockEntry;
 	};
 }
