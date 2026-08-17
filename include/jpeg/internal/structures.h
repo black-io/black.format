@@ -205,7 +205,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ScanComponent final
 	{
-		uint8_t		id;
+		uint8_t		id;					// (Cs) Scan component selector.
 
 		struct
 		{
