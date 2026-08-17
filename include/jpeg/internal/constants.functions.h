@@ -44,6 +44,12 @@ namespace Internal
 	const bool IsTiffEndiannessValid( const TiffEndianness candidate );
 
 	/**
+		@brief	Translate the TIFF format endianness into regaular endianness for framework.
+
+		The function will translate only valid value of TIFF endianness. Behavior of function is undefined for invalid values.
+
+		@param	endianness	Given endianness to be translated.
+		@return				For ank valid TIFF endianness the value returned will be corresponded framework endianness.
 	*/
 	const Black::PlatformEndianness TranslateTiffEndianness( const TiffEndianness endianness );
 }
