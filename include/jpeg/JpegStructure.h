@@ -52,6 +52,9 @@ inline namespace Jpeg
 		{
 			// Signature of TIFF header.
 			static constexpr uint16_t SIGNATURE = Internal::TIFF_SIGNATURE;
+
+			// Endianness of file format.
+			using Endianness = Internal::TiffEndianness;
 		};
 
 		//
