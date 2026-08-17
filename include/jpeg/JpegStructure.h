@@ -34,6 +34,11 @@ inline namespace Jpeg
 			using SegmentHeader = Internal::SegmentHeader;
 		};
 
+		// Types of JFIF (JPEG File Interchange Format).
+		struct Jfif final
+		{
+		};
+
 		//
 		using JfifHeader = Internal::JfifHeader;
 
