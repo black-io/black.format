@@ -312,7 +312,7 @@ namespace
 	{
 		EXPECTS( m_is_valid );
 
-		const JpegStructure::JfifHeader* const header = QueryJfifHeader();
+		const JpegStructure::Jfif::MainHeader* const header = QueryJfifMainHeader();
 		ENSURES( header != nullptr );
 
 		return *header;
