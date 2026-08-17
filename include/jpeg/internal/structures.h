@@ -188,7 +188,7 @@ namespace Internal
 		struct
 		{
 			uint8_t	high_bits	: 4;	// (Ah) Successive approximation bit position high.
-			uint8_t	low_bits	: 4;	// Successive approximation bit position low or point transform.
+			uint8_t	low_bits	: 4;	// (Al) Successive approximation bit position low or point transform.
 		}			approximation;		// Settings of scan approximation process.
 	};
 	#pragma pack( pop )
