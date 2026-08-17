@@ -183,7 +183,7 @@ namespace Internal
 	struct ScanFooter final
 	{
 		uint8_t		section_start;		// (Ss) Start of spectral or predictor selection.
-		uint8_t		section_end;		// End of spectral selection.
+		uint8_t		section_end;		// (Se) End of spectral selection.
 
 		struct
 		{
