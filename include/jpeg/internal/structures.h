@@ -187,7 +187,7 @@ namespace Internal
 
 		struct
 		{
-			uint8_t	high_bits	: 4;
+			uint8_t	high_bits	: 4;	// Successive approximation bit position high.
 			uint8_t	low_bits	: 4;
 		}			approximation;
 	};
