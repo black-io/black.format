@@ -209,7 +209,7 @@ namespace Internal
 
 		struct
 		{
-			uint8_t	ac_index	: 4;
+			uint8_t	ac_index	: 4;	// (Ta) AC entropy coding table destination selector.
 			uint8_t	dc_index	: 4;	// (Td) DC entropy coding table destination selector.
 		}			dht_info;			// Settings of used DHT table.
 	};
