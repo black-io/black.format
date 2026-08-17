@@ -182,7 +182,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ScanFooter final
 	{
-		uint8_t		section_start;		// Start of spectral or predictor selection.
+		uint8_t		section_start;		// (Ss) Start of spectral or predictor selection.
 		uint8_t		section_end;		// End of spectral selection.
 
 		struct
