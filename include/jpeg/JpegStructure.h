@@ -22,7 +22,7 @@ inline namespace Jpeg
 		struct Jif final
 		{
 			// Prefix of valid marker.
-			static inline constexpr std::byte MARKER_PREFIX = Internal::MARKER_PREFIX;
+			static constexpr std::byte MARKER_PREFIX = Internal::MARKER_PREFIX;
 
 			// Enumeration of marker codes.
 			using MarkerCode = Internal::MarkerCode;
