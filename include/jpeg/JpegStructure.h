@@ -21,6 +21,9 @@ inline namespace Jpeg
 		// Types of JIF (JPEG Interchange Format).
 		struct Jif final
 		{
+			// Prefix of valid marker.
+			static inline constexpr std::byte MARKER_PREFIX = Internal::MARKER_PREFIX;
+
 			// Enumeration of marker codes.
 			using MarkerCode = Internal::MarkerCode;
 		};
