@@ -113,6 +113,13 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	Adobe XAP file header.
+
+		Adobe XAP is proprietary file format for Adobe XMP platform. So this way no citations placed here.
+
+		This structure always used to map the memory of file and read the fields directly.
+	*/
 	#pragma pack( push, 1 )
 	struct XapHeader final
 	{
