@@ -48,7 +48,7 @@ inline namespace Jpeg
 
 
 		//
-		const Black::PlainView<const JpegStructure::Marker*> GetMarkers() const;
+		const Black::PlainView<const JpegStructure::Jif::Marker*> GetMarkers() const;
 
 		//
 		const Black::PlainView<const JpegStructure::SegmentEntry> GetSegments() const;
