@@ -45,6 +45,9 @@ inline namespace Jpeg
 
 			// Enumeration of image dimensional density units.
 			using DensityUnit = Internal::DensityUnit;
+
+			// Main header, may be found in first APP0 segment.
+			using MainHeader = Internal::JfifHeader;
 		};
 
 		// types of TIFF (Tagged Image File Format).
@@ -59,9 +62,6 @@ inline namespace Jpeg
 			// File header.
 			using Header = Internal::TiffHeader;
 		};
-
-		//
-		using JfifHeader = Internal::JfifHeader;
 
 		//
 		using FrameHeader = Internal::FrameHeader;
