@@ -26,10 +26,10 @@ inline namespace Jpeg
 
 			// Enumeration of marker codes.
 			using MarkerCode = Internal::MarkerCode;
-		};
 
-		//
-		using Marker = Internal::Marker;
+			// Format of regular marker.
+			using Marker = Internal::Marker;
+		};
 
 		//
 		using SegmentHeader = Internal::SegmentHeader;
