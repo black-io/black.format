@@ -215,6 +215,13 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	Entry of regular JIF segment.
+
+		Each field always represent the direct memory of JIF file.
+
+		This entry implements the segment of JIF file.
+	*/
 	struct SegmentEntry final
 	{
 		const SegmentHeader*				header;
