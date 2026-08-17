@@ -50,6 +50,8 @@ inline namespace Jpeg
 		// types of TIFF (Tagged Image File Format).
 		struct Tiff final
 		{
+			// Signature of TIFF header.
+			static constexpr uint16_t SIGNATURE = Internal::TIFF_SIGNATURE;
 		};
 
 		//
