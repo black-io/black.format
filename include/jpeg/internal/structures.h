@@ -131,6 +131,16 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	Header of SOFn segment in regular JIF file.
+
+		This structure describer in section B.2.2 (Frame header syntax) of ISO/IEC 10918-1 : 1993(E) document.
+
+		This header specifies the source image characteristics, the components in the frame, and the sampling factors for each component,
+		and specifies the destinations from which the quantized tables to be used with each component are retrieved.
+
+		This structure always used to map the memory of file and read the fields directly.
+	*/
 	#pragma pack( push, 1 )
 	struct FrameHeader final
 	{
