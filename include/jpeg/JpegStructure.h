@@ -76,6 +76,11 @@ inline namespace Jpeg
 			using Header = Internal::ExifHeader;
 		};
 
+		// Types of Adobe XAP proprietary format.
+		struct XAP final
+		{
+		};
+
 		// Regular entry of JIF file segment.
 		using SegmentEntry = Internal::SegmentEntry;
 
