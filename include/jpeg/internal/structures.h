@@ -151,6 +151,16 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	Header of SOS segment in regular JIF file.
+
+		This structure describer in section B.2.3 (Scan header syntax) of ISO/IEC 10918-1 : 1993(E) document.
+
+		This header specifies which component(s) are contained in the scan, specifies the destinations from which the entropy tables to be used with each
+		component are retrieved, and (for the progressive DCT) which part of the DCT quantized coefficient data is contained in the scan.
+
+		This structure always used to map the memory of file and read the fields directly.
+	*/
 	#pragma pack( push, 1 )
 	struct ScanHeader final
 	{
