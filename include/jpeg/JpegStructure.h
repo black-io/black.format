@@ -66,7 +66,7 @@ inline namespace Jpeg
 			using Header = Internal::TiffHeader;
 		};
 
-		//
+		// Regular entry of JIF file segment.
 		using SegmentEntry = Internal::SegmentEntry;
 
 		//
