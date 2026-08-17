@@ -121,7 +121,7 @@ namespace
 			}
 			else if(
 				( header_size >= sizeof( Internal::XapHeader ) ) &&
-				Black::IsMemoryEqual( buffer.GetMemory(), Internal::XMP_HEADER_IDENTIFIER, Internal::XapHeader::IDENTIFIER_LENGTH )
+				Black::IsMemoryEqual( buffer.GetMemory(), Internal::XAP_HEADER_IDENTIFIER, Internal::XapHeader::IDENTIFIER_LENGTH )
 			)
 			{
 				is_app_header_valid = true;
