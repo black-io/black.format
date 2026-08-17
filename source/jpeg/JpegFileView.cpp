@@ -113,7 +113,7 @@ namespace
 				const Internal::ExifHeader& exif_header = PromoteSegment<Internal::ExifHeader>( buffer, app_segment_header );
 				CRET( GetExifValue( exif_header.tiff_header.signature, exif_header.tiff_header.endianness ) != Internal::TIFF_SIGNATURE, false );
 
-				const size_t min_ifd_offset = sizeof( Internal::ExifHeader ) - Internal::ExifHeader::IDENTIFIER_LENGTH;
+				const size_t min_ifd_offset = sizeof( Internal::ExifHeader ) - Black::GetFieldOffset( &Internal::ExifHeader::tiff_header );
 				CRET( GetExifValue( exif_header.ifd_offset, exif_header.tiff_header.endianness ) < min_ifd_offset, false );
 				CRET( GetExifValue( exif_header.ifd_offset, exif_header.tiff_header.endianness ) > header_size, false );
 
