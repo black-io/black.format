@@ -108,6 +108,7 @@ namespace Internal
 		static constexpr size_t		IDENTIFIER_LENGTH = std::size( EXIF_HEADER_IDENTIFIER );
 
 		char						identifier[ IDENTIFIER_LENGTH ];	// Identifier of header. Should equal only to `EXIF_HEADER_IDENTIFIER`.
+		uint8_t						padding;							// Padding to align the TIFF header.
 		TiffHeader					tiff_header;						// Embedded TIFF header.
 		uint32_t					ifd_offset;							// Offset to first Image File Directory.
 	};
