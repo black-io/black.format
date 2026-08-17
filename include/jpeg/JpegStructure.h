@@ -37,6 +37,8 @@ inline namespace Jpeg
 		// Types of JFIF (JPEG File Interchange Format).
 		struct Jfif final
 		{
+			// Identifier of JFIF main header.
+			static constexpr const char* JFIF_IDENTIFIER = Internal::JFIF_HEADER_IDENTIFIER;
 		};
 
 		//
