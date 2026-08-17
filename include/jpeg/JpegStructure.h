@@ -69,6 +69,8 @@ inline namespace Jpeg
 		// Types of EXIF (Exchangeable Image File Format).
 		struct Exif final
 		{
+			// Identifier of EXIF header.
+			static constexpr const char* HEADER_IDENTIFIER = Internal::EXIF_HEADER_IDENTIFIER;
 		};
 
 		// Regular entry of JIF file segment.
