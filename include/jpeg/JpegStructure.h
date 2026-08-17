@@ -55,6 +55,9 @@ inline namespace Jpeg
 
 			// Endianness of file format.
 			using Endianness = Internal::TiffEndianness;
+
+			// File header.
+			using Header = Internal::TiffHeader;
 		};
 
 		//
