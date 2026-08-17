@@ -211,7 +211,7 @@ namespace Internal
 		{
 			uint8_t	ac_index	: 4;
 			uint8_t	dc_index	: 4;
-		}			dht_info;
+		}			dht_info;			// Settings of used DHT table.
 	};
 	#pragma pack( pop )
 
