@@ -145,7 +145,7 @@ namespace Internal
 	struct FrameHeader final
 	{
 		uint8_t								image_precision;	// (P) Sample precission, in bits.
-		Black::BigEndianIntegral<uint16_t>	image_height;
+		Black::BigEndianIntegral<uint16_t>	image_height;		// (Y) Number of lines in the source image.
 		Black::BigEndianIntegral<uint16_t>	image_width;
 		uint8_t								components_count;
 	};
