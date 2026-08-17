@@ -53,7 +53,7 @@ inline namespace Jpeg
 			using MainHeader = Internal::JfifHeader;
 		};
 
-		// types of TIFF (Tagged Image File Format).
+		// Types of TIFF (Tagged Image File Format).
 		struct Tiff final
 		{
 			// Signature of TIFF header.
