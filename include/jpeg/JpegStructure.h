@@ -79,6 +79,8 @@ inline namespace Jpeg
 		// Types of Adobe XAP proprietary format.
 		struct XAP final
 		{
+			// Identifier of XAP header.
+			static constexpr const char* HEADER_IDENTIFIER = Internal::XAP_HEADER_IDENTIFIER;
 		};
 
 		// Regular entry of JIF file segment.
