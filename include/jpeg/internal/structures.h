@@ -224,7 +224,7 @@ namespace Internal
 	*/
 	struct SegmentEntry final
 	{
-		const SegmentHeader*				header;
+		const SegmentHeader*				header;		// Header of segment.
 		Black::PlainView<const std::byte>	content;
 	};
 
