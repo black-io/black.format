@@ -39,6 +39,9 @@ inline namespace Jpeg
 		{
 			// Identifier of JFIF main header.
 			static constexpr const char* JFIF_IDENTIFIER = Internal::JFIF_HEADER_IDENTIFIER;
+
+			// Identifier of JFIF extension header.
+			static constexpr const char* JFXX_IDENTIFIER = Internal::JFXX_HEADER_IDENTIFIER;
 		};
 
 		//
