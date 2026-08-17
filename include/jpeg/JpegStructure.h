@@ -29,10 +29,10 @@ inline namespace Jpeg
 
 			// Format of regular marker.
 			using Marker = Internal::Marker;
-		};
 
-		//
-		using SegmentHeader = Internal::SegmentHeader;
+			// Format of regular segment header.
+			using SegmentHeader = Internal::SegmentHeader;
+		};
 
 		//
 		using JfifHeader = Internal::JfifHeader;
