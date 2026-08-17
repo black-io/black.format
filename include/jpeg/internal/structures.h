@@ -147,7 +147,7 @@ namespace Internal
 		uint8_t								image_precision;	// (P) Sample precission, in bits.
 		Black::BigEndianIntegral<uint16_t>	image_height;		// (Y) Number of lines in the source image.
 		Black::BigEndianIntegral<uint16_t>	image_width;		// (X) Number of samples per line in the source image.
-		uint8_t								components_count;
+		uint8_t								components_count;	// (Nf) Number of source image components in the frame.
 	};
 	#pragma pack( pop )
 
