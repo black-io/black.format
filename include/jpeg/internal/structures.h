@@ -170,6 +170,15 @@ namespace Internal
 	};
 	#pragma pack( pop )
 
+	/**
+		@brief	Footer of SOS segment in regular JIF file.
+
+		This structure describer in section B.2.3 (Scan header syntax) of ISO/IEC 10918-1 : 1993(E) document.
+
+		The structure is only part of described SOS segment format. Due to variable number of component descriptors right after the count,
+		the memory of SOS segment is segmented in 3 structures: header, components and footer.
+		This structure always used to map the memory of file and read the fields directly.
+	*/
 	#pragma pack( push, 1 )
 	struct ScanFooter final
 	{
