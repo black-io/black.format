@@ -63,7 +63,7 @@ inline namespace Jpeg
 		const JpegStructure::Jif::FrameHeader* QueryFrameHeader() const;
 
 		//
-		const JpegStructure::JfifHeader& GetJfifHeader() const;
+		const JpegStructure::Jfif::MainHeader& GetJfifMainHeader() const;
 
 		//
 		const JpegStructure::FrameHeader& GetFrameHeader() const;
