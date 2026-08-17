@@ -237,7 +237,7 @@ namespace Internal
 	*/
 	struct ImageBlockEntry final
 	{
-		const ScanHeader*						scan_header;
+		const ScanHeader*						scan_header;		// Header at SOS segment.
 		const ScanFooter*						scan_footer;
 		Black::PlainView<const ScanComponent>	scan_components;
 		Black::PlainView<const std::byte>		image;
