@@ -71,6 +71,9 @@ inline namespace Jpeg
 		{
 			// Identifier of EXIF header.
 			static constexpr const char* HEADER_IDENTIFIER = Internal::EXIF_HEADER_IDENTIFIER;
+
+			// File header.
+			using Header = Internal::ExifHeader;
 		};
 
 		// Regular entry of JIF file segment.
