@@ -159,7 +159,7 @@ namespace Internal
 		This header specifies which component(s) are contained in the scan, specifies the destinations from which the entropy tables to be used with each
 		component are retrieved, and (for the progressive DCT) which part of the DCT quantized coefficient data is contained in the scan.
 
-		The structure is only part of described SOS segment format. Due to variable number of component descriptors right after the cout,
+		The structure is only part of described SOS segment format. Due to variable number of component descriptors right after the count,
 		the memory of SOS segment is segmented in 3 structures: header, components and footer.
 		This structure always used to map the memory of file and read the fields directly.
 	*/
