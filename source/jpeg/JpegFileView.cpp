@@ -322,7 +322,7 @@ namespace
 	{
 		EXPECTS( m_is_valid );
 
-		const JpegStructure::FrameHeader* const header = QueryFrameHeader();
+		const JpegStructure::Jif::FrameHeader* const header = QueryFrameHeader();
 		ENSURES( header != nullptr );
 
 		return *header;
