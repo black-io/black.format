@@ -32,6 +32,9 @@ inline namespace Jpeg
 
 			// Format of regular segment header.
 			using SegmentHeader = Internal::SegmentHeader;
+
+			// Header of frame. May be found in SOFn segment.
+			using FrameHeader = Internal::FrameHeader;
 		};
 
 		// Types of JFIF (JPEG File Interchange Format).
@@ -62,9 +65,6 @@ inline namespace Jpeg
 			// File header.
 			using Header = Internal::TiffHeader;
 		};
-
-		//
-		using FrameHeader = Internal::FrameHeader;
 
 		//
 		using SegmentEntry = Internal::SegmentEntry;
