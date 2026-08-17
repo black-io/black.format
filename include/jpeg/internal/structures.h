@@ -126,7 +126,7 @@ namespace Internal
 		// Length of XAP header identifier.
 		static constexpr size_t	IDENTIFIER_LENGTH = std::size( XAP_HEADER_IDENTIFIER );
 
-		char	identifier[ IDENTIFIER_LENGTH ];
+		char	identifier[ IDENTIFIER_LENGTH ];	// Identifier of header. Should equal only to `XAP_HEADER_IDENTIFIER`.
 	};
 	#pragma pack( pop )
 
