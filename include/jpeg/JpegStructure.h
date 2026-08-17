@@ -66,6 +66,11 @@ inline namespace Jpeg
 			using Header = Internal::TiffHeader;
 		};
 
+		// Types of EXIF (Exchangeable Image File Format).
+		struct Exif final
+		{
+		};
+
 		// Regular entry of JIF file segment.
 		using SegmentEntry = Internal::SegmentEntry;
 
