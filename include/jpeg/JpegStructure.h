@@ -42,6 +42,9 @@ inline namespace Jpeg
 
 			// Identifier of JFIF extension header.
 			static constexpr const char* JFXX_IDENTIFIER = Internal::JFXX_HEADER_IDENTIFIER;
+
+			// Enumeration of image dimensional density units.
+			using DensityUnit = Internal::DensityUnit;
 		};
 
 		//
