@@ -225,7 +225,7 @@ namespace Internal
 	struct SegmentEntry final
 	{
 		const SegmentHeader*				header;		// Header of segment.
-		Black::PlainView<const std::byte>	content;
+		Black::PlainView<const std::byte>	content;	// Memory of segment.
 	};
 
 	struct ImageBlockEntry final
