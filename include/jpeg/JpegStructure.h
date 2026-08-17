@@ -21,6 +21,8 @@ inline namespace Jpeg
 		// Types of JIF (JPEG Interchange Format).
 		struct Jif final
 		{
+			// Enumeration of marker codes.
+			using MarkerCode = Internal::MarkerCode;
 		};
 
 		//
