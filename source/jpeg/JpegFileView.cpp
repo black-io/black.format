@@ -120,8 +120,8 @@ namespace
 				is_app_header_valid = true;
 			}
 			else if(
-				( header_size >= sizeof( Internal::XmpHeader ) ) &&
-				Black::IsMemoryEqual( buffer.GetMemory(), Internal::XMP_HEADER_IDENTIFIER, Internal::XmpHeader::IDENTIFIER_LENGTH )
+				( header_size >= sizeof( Internal::XapHeader ) ) &&
+				Black::IsMemoryEqual( buffer.GetMemory(), Internal::XMP_HEADER_IDENTIFIER, Internal::XapHeader::IDENTIFIER_LENGTH )
 			)
 			{
 				is_app_header_valid = true;

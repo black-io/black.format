@@ -114,7 +114,7 @@ namespace Internal
 	#pragma pack( pop )
 
 	#pragma pack( push, 1 )
-	struct XmpHeader final
+	struct XapHeader final
 	{
 		static constexpr size_t	IDENTIFIER_LENGTH = std::size( XMP_HEADER_IDENTIFIER );
 
