@@ -38,7 +38,7 @@ inline namespace Jpeg
 		struct Jfif final
 		{
 			// Identifier of JFIF main header.
-			static constexpr const char* JFIF_IDENTIFIER = Internal::JFIF_HEADER_IDENTIFIER;
+			static constexpr const char* HEADER_IDENTIFIER = Internal::JFIF_HEADER_IDENTIFIER;
 
 			// Identifier of JFIF extension header.
 			static constexpr const char* JFXX_IDENTIFIER = Internal::JFXX_HEADER_IDENTIFIER;
