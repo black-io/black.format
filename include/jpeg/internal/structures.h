@@ -239,7 +239,7 @@ namespace Internal
 	{
 		const ScanHeader*						scan_header;		// Header at SOS segment.
 		const ScanFooter*						scan_footer;		// Footer as SOS segment.
-		Black::PlainView<const ScanComponent>	scan_components;
+		Black::PlainView<const ScanComponent>	scan_components;	// SOS segment components.
 		Black::PlainView<const std::byte>		image;
 	};
 }
