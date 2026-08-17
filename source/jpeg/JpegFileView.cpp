@@ -258,7 +258,7 @@ namespace
 		Black::Swap( m_is_parsed, other.m_is_parsed );
 	}
 
-	const Black::PlainView<const JpegStructure::Marker*> JpegFileView::GetMarkers() const
+	const Black::PlainView<const JpegStructure::Jif::Marker*> JpegFileView::GetMarkers() const
 	{
 		CRET( !m_is_valid, {} );
 
