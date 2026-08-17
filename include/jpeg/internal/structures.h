@@ -123,6 +123,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct XapHeader final
 	{
+		// Length of XAP header identifier.
 		static constexpr size_t	IDENTIFIER_LENGTH = std::size( XAP_HEADER_IDENTIFIER );
 
 		char	identifier[ IDENTIFIER_LENGTH ];
