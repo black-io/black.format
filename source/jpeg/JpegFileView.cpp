@@ -298,7 +298,7 @@ namespace
 		return m_jfif_header;
 	}
 
-	const JpegStructure::FrameHeader* JpegFileView::QueryFrameHeader() const
+	const JpegStructure::Jif::FrameHeader* JpegFileView::QueryFrameHeader() const
 	{
 		CRET( !m_is_valid, nullptr );
 
