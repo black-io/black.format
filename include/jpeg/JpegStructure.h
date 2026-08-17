@@ -18,6 +18,11 @@ inline namespace Jpeg
 	*/
 	struct JpegStructure final
 	{
+		// Types of JIF (JPEG Interchange Format).
+		struct Jif final
+		{
+		};
+
 		//
 		using Marker = Internal::Marker;
 
