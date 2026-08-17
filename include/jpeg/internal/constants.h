@@ -178,7 +178,7 @@ namespace Internal
 
 		Exif identifier code straightly indicates the structure of APP1 segment.
 	*/
-	constexpr const char EXIF_HEADER_IDENTIFIER[] = "Exif\000";
+	constexpr const char EXIF_HEADER_IDENTIFIER[] = "Exif";
 
 	/**
 		@brief	Adobe XAP file format identifier code.
