@@ -228,6 +228,13 @@ namespace Internal
 		Black::PlainView<const std::byte>	content;	// Memory of segment.
 	};
 
+	/**
+		@brief	Entry of regular encoded image in JIF file.
+
+		Each field always represent the direct memory of JIF file.
+
+		This entry implements the complete information of compressed image in regualr JIF file.
+	*/
 	struct ImageBlockEntry final
 	{
 		const ScanHeader*						scan_header;
