@@ -164,7 +164,7 @@ namespace Internal
 	#pragma pack( push, 1 )
 	struct ScanHeader final
 	{
-		uint8_t	components_count;
+		uint8_t	components_count;	// (Ns) Number of source image components in the scan.
 	};
 	#pragma pack( pop )
 
