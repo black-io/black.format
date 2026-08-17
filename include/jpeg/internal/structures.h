@@ -109,7 +109,7 @@ namespace Internal
 
 		char						identifier[ IDENTIFIER_LENGTH ];	// Identifier of header. Should equal only to `EXIF_HEADER_IDENTIFIER`.
 		TiffHeader					tiff_header;						// Embedded TIFF header.
-		uint32_t					ifd_offset;
+		uint32_t					ifd_offset;							// Offset to first Image File Directory.
 	};
 	#pragma pack( pop )
 
