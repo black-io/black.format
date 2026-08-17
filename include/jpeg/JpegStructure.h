@@ -81,6 +81,9 @@ inline namespace Jpeg
 		{
 			// Identifier of XAP header.
 			static constexpr const char* HEADER_IDENTIFIER = Internal::XAP_HEADER_IDENTIFIER;
+
+			// File header.
+			using Header = Internal::XapHeader;
 		};
 
 		// Regular entry of JIF file segment.
