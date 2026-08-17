@@ -47,6 +47,11 @@ inline namespace Jpeg
 			using DensityUnit = Internal::DensityUnit;
 		};
 
+		// types of TIFF (Tagged Image File Format).
+		struct Tiff final
+		{
+		};
+
 		//
 		using JfifHeader = Internal::JfifHeader;
 
