@@ -79,7 +79,7 @@ inline namespace Jpeg
 		// Query the list of segments found in file. May return empty list in case of invalid or empty file.
 		const Black::PlainView<const JpegStructure::SegmentEntry> GetSegments() const;
 
-		//
+		// Query the list of image blocks found in file. May return empty list in case of invalid or empty file.
 		const Black::PlainView<const JpegStructure::ImageBlockEntry> GetImageBlocks() const;
 
 		//
