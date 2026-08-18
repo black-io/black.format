@@ -101,7 +101,7 @@ inline namespace Jpeg
 		// Whether the JPEG file is invalid or empty.
 		const bool IsEmpty() const;
 
-		//
+		// Whether the viewed memory has basically valid format of JPEG file.
 		inline const bool IsValid() const	{ return m_is_valid; };
 
 	// Private interface.
