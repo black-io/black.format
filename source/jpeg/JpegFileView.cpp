@@ -24,6 +24,12 @@ namespace
 		return Internal::IsMarkerCodeValid( marker.code );
 	}
 
+	const bool IsPaddingSequence( const Black::PlainView<const std::byte>& buffer )
+	{
+		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::Marker ) );
+		return ( buffer[0] == Internal::MARKER_PREFIX ) && ( buffer[1] == Internal::MARKER_PREFIX );
+	}
+
 	const Internal::Marker& PromoteMarker( const Black::PlainView<const std::byte>& buffer )
 	{
 		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::Marker ) );
