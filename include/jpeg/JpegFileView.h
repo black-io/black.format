@@ -106,7 +106,7 @@ inline namespace Jpeg
 
 	// Private interface.
 	private:
-		//
+		// Reset only non-state fields.
 		void InvalidateCache() const;
 
 		//
