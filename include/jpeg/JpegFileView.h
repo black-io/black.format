@@ -37,7 +37,14 @@ inline namespace Jpeg
 		*/
 		static const bool IsHeaderValid( const Black::PlainView<const std::byte>& file_memory );
 
-		//
+		/**
+			@brief	Whether the memory of file represents the valid JPEG format.
+
+			This function does not perform the whole file parsing, but only looks for certain segments or markers in valid places it should be found.
+
+			@param	file_memory	Memory of file to be checked.
+			@result				`true` in case of valid JPEG format found in given memory.
+		*/
 		static const bool IsFileValid( const Black::PlainView<const std::byte>& file_memory );
 
 	// Public life-time management.
