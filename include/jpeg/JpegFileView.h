@@ -24,7 +24,17 @@ inline namespace Jpeg
 
 	// Public static interface.
 	public:
-		//
+		/**
+			@brief	Whether the memory of file carries valid header of JPEG format.
+
+			This function perform the most basic checks at the beginning of given file.
+			It succeeds only for valid JPEG files.
+
+			Under the `JPEG header` is meant the few of first JIF markers and segments at the very begin of file.
+
+			@param	file_memory	Memory of file to be checked.
+			@result				`true` in case of valid JPEG header found in valid place of given memory.
+		*/
 		static const bool IsHeaderValid( const Black::PlainView<const std::byte>& file_memory );
 
 		//
