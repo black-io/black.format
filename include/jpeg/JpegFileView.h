@@ -85,7 +85,7 @@ inline namespace Jpeg
 		// Query the main header of JFIF file, that was found in first APP0 segment of file.
 		const JpegStructure::Jfif::MainHeader* QueryJfifMainHeader() const;
 
-		//
+		// Query the frame header, that was found in SOFn segment of file.
 		const JpegStructure::Jif::FrameHeader* QueryFrameHeader() const;
 
 		//
