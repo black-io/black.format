@@ -91,7 +91,7 @@ inline namespace Jpeg
 		// Get the main header of JFIF file. Method can be used only for valid and not empty file.
 		const JpegStructure::Jfif::MainHeader& GetJfifMainHeader() const;
 
-		//
+		// Get the frame header of file. Method can be used only for valid and not empty file.
 		const JpegStructure::Jif::FrameHeader& GetFrameHeader() const;
 
 
