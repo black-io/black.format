@@ -82,7 +82,7 @@ inline namespace Jpeg
 		// Query the list of image blocks found in file. May return empty list in case of invalid or empty file.
 		const Black::PlainView<const JpegStructure::ImageBlockEntry> GetImageBlocks() const;
 
-		//
+		// Query the main header of JFIF file, that was found in first APP0 segment of file.
 		const JpegStructure::Jfif::MainHeader* QueryJfifMainHeader() const;
 
 		//
