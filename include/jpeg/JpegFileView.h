@@ -95,7 +95,7 @@ inline namespace Jpeg
 		const JpegStructure::Jif::FrameHeader& GetFrameHeader() const;
 
 
-		//
+		// Whether the viewed file satisfies the conditions of valid JPEG file.
 		const bool IsValidFile() const;
 
 		//
