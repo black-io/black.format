@@ -115,7 +115,7 @@ inline namespace Jpeg
 		// Perform the JPEG file parsing.
 		void ParseFileMemory() const;
 
-		//
+		// Perform the quick tests for underlying JPEG file to ensure it may be parsed.
 		void TestFileMemory() const;
 
 	// Private state.
