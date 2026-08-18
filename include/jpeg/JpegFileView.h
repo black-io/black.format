@@ -125,7 +125,7 @@ inline namespace Jpeg
 	// Private non-state.
 	private:
 		mutable std::vector<const Internal::Marker*>	m_markers;		// List of markers, found in file memory.
-		mutable std::vector<Internal::SegmentEntry>		m_segments;
+		mutable std::vector<Internal::SegmentEntry>		m_segments;		// List of segments, found in file memory.
 		mutable std::vector<Internal::ImageBlockEntry>	m_image_blocks;
 
 		mutable const Internal::JfifHeader*		m_jfif_header	= nullptr;
