@@ -88,7 +88,7 @@ inline namespace Jpeg
 		// Query the frame header, that was found in SOFn segment of file.
 		const JpegStructure::Jif::FrameHeader* QueryFrameHeader() const;
 
-		//
+		// Get the main header of JFIF file. Method can be used only for valid and not empty file.
 		const JpegStructure::Jfif::MainHeader& GetJfifMainHeader() const;
 
 		//
