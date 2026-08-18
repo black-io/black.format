@@ -112,7 +112,7 @@ inline namespace Jpeg
 		// Make the guarantee the viewed memory of JPEG file is parsed only once.
 		void EnsureFileMemoryParsed() const;
 
-		//
+		// Perform the JPEG file parsing.
 		void ParseFileMemory() const;
 
 		//
