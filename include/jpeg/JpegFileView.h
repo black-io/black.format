@@ -129,7 +129,7 @@ inline namespace Jpeg
 		mutable std::vector<Internal::ImageBlockEntry>	m_image_blocks;	// List of image blocks, found in file memory.
 
 		mutable const Internal::JfifHeader*		m_jfif_header	= nullptr;	// Memory of JFIF main header, found in APP0 segment.
-		mutable const Internal::FrameHeader*	m_frame_header	= nullptr;
+		mutable const Internal::FrameHeader*	m_frame_header	= nullptr;	// Memory of JIF frame header, found in SOFn segment.
 
 		mutable bool	m_is_valid	= false;
 		mutable bool	m_is_parsed	= false;
