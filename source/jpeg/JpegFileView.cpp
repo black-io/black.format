@@ -377,6 +377,12 @@ namespace
 		{
 			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
 
+			if( IsPaddingSequence( segments_buffer ) )
+			{
+				segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::MARKER_PREFIX ) );
+				continue;
+			}
+
 			const Internal::Marker& marker = PromoteMarker( segments_buffer );
 			CBRK( !IsMarkerValid( marker ) );
 
