@@ -109,7 +109,7 @@ inline namespace Jpeg
 		// Reset only non-state fields.
 		void InvalidateCache() const;
 
-		//
+		// Make the guarantee the viewed memory of JPEG file is parsed only once.
 		void EnsureFileMemoryParsed() const;
 
 		//
