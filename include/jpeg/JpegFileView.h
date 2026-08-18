@@ -98,7 +98,7 @@ inline namespace Jpeg
 		// Whether the viewed file satisfies the conditions of valid JPEG file.
 		const bool IsValidFile() const;
 
-		//
+		// Whether the JPEG file is invalid or empty.
 		const bool IsEmpty() const;
 
 		//
