@@ -73,7 +73,7 @@ inline namespace Jpeg
 		void Swap( JpegFileView& other );
 
 
-		//
+		// Query the list of markers found in file. May return empty list in case of invalid or empty file.
 		const Black::PlainView<const JpegStructure::Jif::Marker*> GetMarkers() const;
 
 		//
