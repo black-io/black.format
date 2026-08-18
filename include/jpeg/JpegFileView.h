@@ -120,7 +120,7 @@ inline namespace Jpeg
 
 	// Private state.
 	private:
-		Black::PlainView<const std::byte>	m_file_memory;
+		Black::PlainView<const std::byte>	m_file_memory;	// JPEG file memory.
 
 	// Private non-state.
 	private:
