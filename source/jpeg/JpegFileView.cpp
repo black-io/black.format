@@ -27,6 +27,11 @@ namespace
 		Image,		// New image block found.
 	};
 
+	//
+	class MarkerStats final
+	{
+	};
+
 
 	// Whether the next bytes of buffer represent padding sequence. Such padding may be skipped.
 	const bool IsPaddingSequence( const Black::PlainView<const std::byte>& buffer )
