@@ -18,7 +18,7 @@ namespace
 
 namespace
 {
-	//
+	// Enumeration of JIF memory events.
 	enum class FileEvent : uint32_t
 	{
 		Empty = 0,
