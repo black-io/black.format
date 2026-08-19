@@ -86,7 +86,7 @@ namespace
 	template< typename THandler >
 	void EnumerateFileEvents( const Black::PlainView<const std::byte>& file_memory, THandler&& event_handler )
 	{
-		CRETW( file_memory.GetLength() < sizeof( Internal::Marker ), Black::BooleanStatus::Success, LOG_CHANNEL, "Size of file is too low." );
+		CRET( file_memory.GetLength() < sizeof( Internal::Marker ) );
 
 		Black::PlainView<const std::byte> segments_buffer{ file_memory };
 		while( !segments_buffer.IsEmpty() )
