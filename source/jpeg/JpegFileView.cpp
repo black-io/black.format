@@ -84,7 +84,7 @@ namespace
 
 	// Enumerate the JIF events in given memory and pass them to given handler.
 	template< typename THandler >
-	const Black::BooleanStatus EnumerateFileEvents( const Black::PlainView<const std::byte>& file_memory, THandler&& event_handler )
+	void EnumerateFileEvents( const Black::PlainView<const std::byte>& file_memory, THandler&& event_handler )
 	{
 		CRETW( file_memory.GetLength() < sizeof( Internal::Marker ), Black::BooleanStatus::Success, LOG_CHANNEL, "Size of file is too low." );
 
