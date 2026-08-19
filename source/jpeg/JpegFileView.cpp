@@ -61,6 +61,7 @@ namespace
 		return *reinterpret_cast<const TSegment*>( buffer.GetMemory() );
 	}
 
+	// Perform the byte-order transformation for value of EXIF format, using TIFF endianness as guide of storage endianness.
 	template< typename TValue >
 	const TValue GetExifValue( const TValue original_value, const Internal::TiffEndianness endianness )
 	{
