@@ -77,6 +77,12 @@ namespace
 
 		return original_value;
 	}
+
+	//
+	template< typename THandler >
+	const Black::BooleanStatus EnumerateFileEvents( const Black::PlainView<const std::byte>& file_memory, THandler&& event_handler )
+	{
+	}
 }
 
 
