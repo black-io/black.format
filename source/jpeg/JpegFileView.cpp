@@ -19,7 +19,7 @@ namespace
 namespace
 {
 	// Enumeration of JIF memory events.
-	enum class FileEvent : uint32_t
+	enum class FileEventId : uint32_t
 	{
 		Empty = 0,	// Empty event.
 		Marker,		// New marker found.
