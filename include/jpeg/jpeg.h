@@ -26,6 +26,7 @@ namespace Internal
 #include "internal/constants.operations.h"
 #include "internal/constants.functions.h"
 #include "internal/structures.h"
+#include "internal/structures.functions.h"
 
 // JPEG file format types.
 #include "JpegStructure.h"
