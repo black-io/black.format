@@ -104,7 +104,7 @@ namespace
 			CBRK( !Internal::IsMarkerValid( marker ) );
 
 			// Push the event.
-			event_handler( FileEvent::Marker, segments_buffer.GetSubview( 0, sizeof( Internal::Marker ) ) );
+			event_handler( FileEventId::Marker, segments_buffer.GetSubview( 0, sizeof( Internal::Marker ) ) );
 
 			Black::PlainView<const std::byte> segment_candidate{ segments_buffer };
 
