@@ -25,6 +25,7 @@ namespace
 		return ( buffer[0] == Internal::MARKER_PREFIX ) && ( buffer[1] == Internal::MARKER_PREFIX );
 	}
 
+	// Perform the padding length counting.
 	const size_t GatherPaddingLength( const Black::PlainView<const std::byte>& buffer )
 	{
 		EXPECTS_DEBUG( IsPaddingSequence( buffer ) );
