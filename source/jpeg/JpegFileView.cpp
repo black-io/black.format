@@ -39,6 +39,7 @@ namespace
 		return *reinterpret_cast<const Internal::Marker*>( buffer.GetMemory() );
 	}
 
+	// Treat the given memory as object of JIF segment header. Much unsafe. No checks done internally.
 	const Internal::SegmentHeader& PromoteSegmentHeader( const Black::PlainView<const std::byte>& buffer )
 	{
 		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::SegmentHeader ) );
