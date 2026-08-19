@@ -122,7 +122,7 @@ namespace
 			CBRK( segment_header.length > segments_buffer.GetLength() );
 
 			// Push the segment.
-			event_handler( FileEvent::Segment, segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) ) );
+			event_handler( FileEventId::Segment, segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) ) );
 
 			segments_buffer = segments_buffer.TruncatePrefix( segment_header.length );
 			CCON( marker.code != Internal::MarkerCode::Sos );
