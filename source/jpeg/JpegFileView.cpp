@@ -21,10 +21,10 @@ namespace
 	// Enumeration of JIF memory events.
 	enum class FileEvent : uint32_t
 	{
-		Empty = 0,
-		Marker,
-		Segment,
-		Image,
+		Empty = 0,	// Empty event.
+		Marker,		// New marker found.
+		Segment,	// New segment found.
+		Image,		// New image block found.
 	};
 
 	// Whether the next bytes of buffer represent padding sequence. Such padding may be skipped.
