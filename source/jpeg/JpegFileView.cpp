@@ -183,7 +183,7 @@ namespace
 
 			{
 				const Internal::Marker& marker_candidate = PromoteMarker( buffer );
-				CCON( IsMarkerValid( marker_candidate ) );
+				CCON( Internal::IsMarkerValid( marker_candidate ) );
 			}
 
 			const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( marker );
