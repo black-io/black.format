@@ -9,6 +9,9 @@ inline namespace Jpeg
 {
 namespace Internal
 {
+	/**
+	*/
+	const bool IsMarkerValid( const Internal::Marker& marker );
 }
 }
 }
