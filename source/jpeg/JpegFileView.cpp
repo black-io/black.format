@@ -81,10 +81,70 @@ namespace
 		return original_value;
 	}
 
-	//
+	// Enumerate the JIF events in given memory and pass them to given handler.
 	template< typename THandler >
 	const Black::BooleanStatus EnumerateFileEvents( const Black::PlainView<const std::byte>& file_memory, THandler&& event_handler )
 	{
+		CRETW( file_memory.GetLength() < sizeof( Internal::Marker ), Black::BooleanStatus::Success, LOG_CHANNEL, "Size of file is too low." );
+
+		Black::PlainView<const std::byte> segments_buffer{ file_memory };
+		while( !segments_buffer.IsEmpty() )
+		{
+			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
+
+			// B.1.1.2: Any marker may optionally be preceded by any number of fill bytes, which are bytes assigned code X’FF’.
+			if( IsPaddingSequence( segments_buffer ) )
+			{
+				segments_buffer = segments_buffer.TruncatePrefix( GatherPaddingLength( segments_buffer ) );
+				continue;
+			}
+
+			const Internal::Marker& marker = PromoteMarker( segments_buffer );
+			CBRK( !Internal::IsMarkerValid( marker ) );
+
+			// Push the event.
+			event_handler( FileEvent::Marker, segments_buffer.GetSubview( 0, sizeof( Internal::Marker ) ) );
+
+			Black::PlainView<const std::byte> segment_candidate{ segments_buffer };
+
+			segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::Marker ) );
+			CBRK( marker.code == Internal::MarkerCode::Eoi );
+			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
+
+			// Check that the segment is started here or the next marker.
+			{
+				const Internal::Marker& next_marker = PromoteMarker( segments_buffer );
+				CCON( Internal::IsMarkerValid( next_marker ) );
+			}
+
+			const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( segment_candidate );
+			CBRK( segment_header.length > segments_buffer.GetLength() );
+
+			// Push the segment.
+			event_handler( FileEvent::Segment, segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) ) );
+
+			segments_buffer = segments_buffer.TruncatePrefix( segment_header.length );
+			CCON( marker.code != Internal::MarkerCode::Sos );
+
+			// Investigate the image block.
+			for( size_t index = 0; index < segments_buffer.GetLength(); ++index )
+			{
+				CBRK( ( index + 1 ) >= segments_buffer.GetLength() );
+
+				// F.1.2.3:	Whenever, in the course of normal encoding, the byte value X’FF’ is created in the code string,
+				//			a X’00’ byte is stuffed into the code string.
+				// This rule prevent to observe the valid marker inside of image block. So the first valid marker can be found only after the block ends.
+				const Internal::Marker& candidate = *reinterpret_cast<const Internal::Marker*>( &segments_buffer.GetValueAt( index ) );
+				CCON( !Internal::IsMarkerValid( candidate ) );
+
+				const size_t image_length = index;
+
+				// Push the image block.
+				event_handler( FileEvent::Image, segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) + image_length ) );
+				segments_buffer = segments_buffer.TruncatePrefix( image_length );
+				break;
+			}
+		}
 	}
 }
 
