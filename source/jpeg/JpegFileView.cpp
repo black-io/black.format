@@ -431,7 +431,7 @@ namespace
 						CBRK( ( index + 1 ) >= segments_buffer.GetLength() );
 
 						const Internal::Marker& candidate = *reinterpret_cast<const Internal::Marker*>( &segments_buffer.GetValueAt( index ) );
-						CCON( !IsMarkerValid( candidate ) );
+						CCON( !Internal::IsMarkerValid( candidate ) );
 
 						image_block.image = segments_buffer.GetSubview( 0, index );
 						break;
