@@ -378,7 +378,7 @@ namespace
 			}
 
 			const Internal::Marker& marker = PromoteMarker( segments_buffer );
-			CBRK( !IsMarkerValid( marker ) );
+			CBRK( !Internal::IsMarkerValid( marker ) );
 
 			m_markers.push_back( &marker );
 			segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::Marker ) );
