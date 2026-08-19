@@ -380,7 +380,7 @@ namespace
 
 			if( IsPaddingSequence( segments_buffer ) )
 			{
-				segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::MARKER_PREFIX ) );
+				segments_buffer = segments_buffer.TruncatePrefix( GatherPaddingLength( segments_buffer ) );
 				continue;
 			}
 
