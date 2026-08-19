@@ -46,6 +46,7 @@ namespace
 		return *reinterpret_cast<const Internal::SegmentHeader*>( buffer.GetMemory() );
 	}
 
+	// Treat the given JIF marker as object of JIF segment header. Much unsafe. No checks done internally.
 	const Internal::SegmentHeader& PromoteSegmentHeader( const Internal::Marker& marker )
 	{
 		return reinterpret_cast<const Internal::SegmentHeader&>( marker );
