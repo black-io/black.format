@@ -18,6 +18,7 @@ namespace
 
 namespace
 {
+	// Whether the given marker is valid.
 	const bool IsMarkerValid( const Internal::Marker& marker )
 	{
 		CRET( marker.prefix != Internal::MARKER_PREFIX, false );
