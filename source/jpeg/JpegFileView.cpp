@@ -387,7 +387,7 @@ namespace
 
 			{
 				const Internal::Marker& next_marker = PromoteMarker( segments_buffer );
-				CCON( IsMarkerValid( next_marker ) );
+				CCON( Internal::IsMarkerValid( next_marker ) );
 			}
 
 			const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( marker );
