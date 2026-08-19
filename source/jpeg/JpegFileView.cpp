@@ -32,6 +32,7 @@ namespace
 		return std::count( buffer.begin(), buffer.end(), Internal::MARKER_PREFIX ) - 1;
 	}
 
+	// Treat the given memory as JIF marker object. Much unsafe. No checks done internally.
 	const Internal::Marker& PromoteMarker( const Black::PlainView<const std::byte>& buffer )
 	{
 		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::Marker ) );
