@@ -52,6 +52,7 @@ namespace
 		return reinterpret_cast<const Internal::SegmentHeader&>( marker );
 	}
 
+	// Treat the given memory as object of given segment type. Much unsafe. No checks done internally.
 	template< typename TSegment >
 	const TSegment& PromoteSegment( const Black::PlainView<const std::byte>& buffer, const Internal::SegmentHeader& header )
 	{
