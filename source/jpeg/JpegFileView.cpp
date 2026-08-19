@@ -18,13 +18,6 @@ namespace
 
 namespace
 {
-	// Whether the given marker is valid.
-	const bool IsMarkerValid( const Internal::Marker& marker )
-	{
-		CRET( marker.prefix != Internal::MARKER_PREFIX, false );
-		return Internal::IsMarkerCodeValid( marker.code );
-	}
-
 	const bool IsPaddingSequence( const Black::PlainView<const std::byte>& buffer )
 	{
 		EXPECTS_DEBUG( buffer.GetLength() >= sizeof( Internal::Marker ) );

@@ -16,6 +16,11 @@ namespace
 }
 
 
+	const bool IsMarkerValid( const Marker& marker )
+	{
+		CRET( marker.prefix != MARKER_PREFIX, false );
+		return IsMarkerCodeValid( marker.code );
+	}
 }
 }
 }
