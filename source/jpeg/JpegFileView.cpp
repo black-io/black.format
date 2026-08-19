@@ -18,6 +18,15 @@ namespace
 
 namespace
 {
+	//
+	enum class FileEvent : uint32_t
+	{
+		Empty = 0,
+		Marker,
+		Segment,
+		Image,
+	};
+
 	// Whether the next bytes of buffer represent padding sequence. Such padding may be skipped.
 	const bool IsPaddingSequence( const Black::PlainView<const std::byte>& buffer )
 	{
