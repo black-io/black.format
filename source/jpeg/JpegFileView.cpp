@@ -95,7 +95,7 @@ namespace
 	template< typename THandler >
 	const Black::BooleanStatus EnumerateFileEvents( const Black::PlainView<const std::byte>& file_memory, THandler&& event_handler )
 	{
-		CRET( file_memory.GetLength() < sizeof( Internal::Marker ) );
+		CRET( file_memory.GetLength() < sizeof( Internal::Marker ), Black::BooleanStatus::Failure );
 
 		Black::PlainView<const std::byte> segments_buffer{ file_memory };
 		while( !segments_buffer.IsEmpty() )
