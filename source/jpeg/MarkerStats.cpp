@@ -46,6 +46,8 @@ namespace
 
 	const size_t MarkerStats::GetCodeIndex( const Internal::MarkerCode code )
 	{
+		EXPECTS_DEBUG( Internal::IsMarkerCodeValid( code ) );
+		return size_t( Black::GetEnumValue( code ) ) - BASE_OFFSET;
 	}
 }
 }
