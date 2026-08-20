@@ -51,7 +51,7 @@ inline namespace Jpeg
 
 	// Private interface.
 	private:
-		//
+		// Get the ordinal index for given marker code.
 		static const size_t GetCodeIndex( const Internal::MarkerCode code );
 
 	// Private state.
