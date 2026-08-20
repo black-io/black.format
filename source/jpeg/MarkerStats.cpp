@@ -16,6 +16,9 @@ namespace
 }
 
 
+	MarkerStats::MarkerStats( Black::PlainView<const std::byte> file_memory ) noexcept
+	{
+	}
 }
 }
 }
