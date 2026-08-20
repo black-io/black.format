@@ -175,6 +175,8 @@ namespace
 				break;
 			}
 		}
+
+		return Black::BooleanStatus::Success;
 	}
 }
 
