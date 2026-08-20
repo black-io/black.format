@@ -224,58 +224,52 @@ namespace
 	{
 		CRET( !IsHeaderValid( file_memory ), false );
 
-		constexpr size_t first_marker_index	= Black::GetEnumValue( Internal::MarkerCode::Sof0 );
-		constexpr size_t markers_count		= Black::GetEnumValue( Internal::MarkerCode::Com ) - first_marker_index + 1;
-
-		size_t marker_positions[ markers_count ];
-		std::fill( std::begin( marker_positions ), std::end( marker_positions ), ~size_t{} );
-
-		Black::PlainView<const std::byte> buffer{ file_memory };
-		while( !buffer.IsEmpty() )
-		{
-			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
-
-			const Internal::Marker& marker = PromoteMarker( buffer );
-			CBRK( !Internal::IsMarkerValid( marker ) );
-
-			const size_t marker_position = std::distance( file_memory.GetMemory(), buffer.GetMemory() );
-			marker_positions[ Black::GetEnumValue( marker.code ) - first_marker_index ] = marker_position;
-
-			switch( marker.code )
+		bool has_valid_format = true;
+		MarkerStats marker_stats{ file_memory };
+		EnumerateFileEvents(
+			file_memory,
+			[&marker_stats, &has_valid_format]( const FileEventId event_id, const Black::PlainView<const std::byte>& buffer )
 			{
-			case Internal::MarkerCode::Eoi:
-				CRET( marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] >= marker_position, false );
-				break;
-			case Internal::MarkerCode::Sos:
+				CRET( !has_valid_format );
+
+				switch( event_id )
 				{
-					const bool has_required_markers = Black::AnyOf(
-						{ Internal::MarkerCode::Dht, Internal::MarkerCode::Dqt, Internal::MarkerCode::Dri },
-						[&marker_positions, marker_position]( const Internal::MarkerCode code )
+				case FileEventId::Marker:
+					marker_stats.LogMarker( PromoteMarker( buffer ), buffer.GetMemory() );
+					break;
+				case FileEventId::Segment:
+					{
+						const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( buffer );
+						switch( segment_header.marker.code )
 						{
-							return marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] < marker_position;
+						case Internal::MarkerCode::Eoi:
+							has_valid_format = marker_stats.GetPosition( Internal::MarkerCode::Soi ) < marker_stats.GetPosition( Internal::MarkerCode::Eoi );
+							break;
+						default:
+							break;
 						}
-					);
+					}
+					break;
+				case FileEventId::Image:
+					{
+						const size_t marker_position = marker_stats.GetPosition( Internal::MarkerCode::Sos );
 
-					CRET( !has_required_markers, false );
+						has_valid_format = Black::AnyOf(
+							{ Internal::MarkerCode::Dht, Internal::MarkerCode::Dqt, Internal::MarkerCode::Dri },
+							[&marker_stats, marker_position]( const Internal::MarkerCode code )
+							{
+								return marker_stats.GetPosition( code ) < marker_position;
+							}
+						);
+					}
+					break;
+				default:
+					break;
 				}
-				break;
-			default:
-				break;
 			}
+		);
 
-			buffer = buffer.TruncatePrefix( sizeof( Internal::Marker ) );
-			CBRK( buffer.GetLength() < sizeof( Internal::Marker ) );
-
-			{
-				const Internal::Marker& marker_candidate = PromoteMarker( buffer );
-				CCON( Internal::IsMarkerValid( marker_candidate ) );
-			}
-
-			const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( marker );
-			CBRK( segment_header.length > buffer.GetLength() );
-
-			buffer = buffer.TruncatePrefix( segment_header.length );
-		}
+		CRET( !has_valid_format, false );
 
 		const Internal::MarkerCode sof_markers[] {
 			Internal::MarkerCode::Sof0,		Internal::MarkerCode::Sof1,		Internal::MarkerCode::Sof2,
@@ -285,17 +279,7 @@ namespace
 			Internal::MarkerCode::Sof15,
 		};
 
-		const bool has_sof_marker = Black::AnyOf(
-			sof_markers,
-			[&marker_positions]( const Internal::MarkerCode code )
-			{
-				return marker_positions[ Black::GetEnumValue( Internal::MarkerCode::Soi ) - first_marker_index ] != ~size_t{};
-			}
-		);
-
-		CRET( !has_sof_marker, false );
-
-		return true;
+		return Black::AnyOf( sof_markers, Black::BindMethod<&MarkerStats::IsPositionValid>( marker_stats ) );
 	}
 
 	JpegFileView::JpegFileView( JpegFileView&& other ) noexcept
