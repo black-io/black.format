@@ -21,6 +21,8 @@ inline namespace Jpeg
 
 	// Private state.
 	private:
+		Black::PlainView<const std::byte>	m_file_memory;
+
 		size_t	m_marker_positions[ CODES_COUNT ];
 	};
 }
