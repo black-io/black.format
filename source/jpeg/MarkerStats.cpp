@@ -29,6 +29,10 @@ namespace
 
 		m_marker_positions[ GetCodeIndex( marker.code ) ] = marker_offset;
 	}
+
+	const size_t MarkerStats::GetPosition( const Internal::MarkerCode code ) const
+	{
+	}
 }
 }
 }
