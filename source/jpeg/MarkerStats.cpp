@@ -21,6 +21,10 @@ namespace
 	{
 		std::fill( std::begin( m_marker_positions ), std::end( m_marker_positions ), Black::UNDEFINED_INDEX );
 	}
+
+	void MarkerStats::LogMarker( const Internal::Marker& marker, Black::NotNull<const std::byte*> memory )
+	{
+	}
 }
 }
 }
