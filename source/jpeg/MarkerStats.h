@@ -18,6 +18,10 @@ inline namespace Jpeg
 
 		//
 		static constexpr size_t CODES_COUNT	= size_t( Black::GetEnumValue( Internal::MarkerCode::Com ) ) - BASE_OFFSET + 1;
+
+	// Private state.
+	private:
+		size_t	m_marker_positions[ CODES_COUNT ];
 	};
 }
 }
