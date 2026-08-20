@@ -161,7 +161,16 @@ namespace
 				const size_t image_length = index;
 
 				// Push the image block.
-				event_handler( FileEventId::Image, segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) + image_length ) );
+				if(
+					event_handler(
+						FileEventId::Image,
+						segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) + image_length )
+					) == EventHandlerResponse::Abort
+				)
+				{
+					return Black::BooleanStatus::Failure;
+				}
+
 				segments_buffer = segments_buffer.TruncatePrefix( image_length );
 				break;
 			}
