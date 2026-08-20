@@ -11,6 +11,11 @@ inline namespace Jpeg
 	*/
 	class MarkerStats final : private Black::NonTransferable
 	{
+	// Public life-time management.
+	public:
+		MarkerStats() noexcept;
+		~MarkerStats() noexcept;
+
 	// Public interface.
 	public:
 		//
