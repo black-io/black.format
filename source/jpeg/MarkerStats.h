@@ -11,6 +11,11 @@ inline namespace Jpeg
 	*/
 	class MarkerStats final
 	{
+	// Public interface.
+	public:
+		//
+		void LogMarker( const Internal::Marker& marker, Black::NotNull<const std::byte*> memory );
+
 	// Private constants.
 	private:
 		//
