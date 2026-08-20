@@ -13,7 +13,8 @@ inline namespace Jpeg
 	{
 	// Public life-time management.
 	public:
-		MarkerStats() noexcept;
+		MarkerStats() noexcept = delete;
+		explicit MarkerStats( Black::PlainView<const std::byte> file_memory ) noexcept;
 		~MarkerStats() noexcept;
 
 	// Public interface.
