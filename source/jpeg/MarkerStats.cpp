@@ -34,6 +34,8 @@ namespace
 
 	const size_t MarkerStats::GetPosition( const Internal::MarkerCode code ) const
 	{
+		CRETE( !Internal::IsMarkerCodeValid( code ), Black::UNDEFINED_INDEX, LOG_CHANNEL, "Attempt to request position for invalid marker code." );
+		return m_marker_positions[ GetCodeIndex( code ) ];
 	}
 }
 }
