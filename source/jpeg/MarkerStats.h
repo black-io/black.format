@@ -38,7 +38,7 @@ inline namespace Jpeg
 		const size_t GetPosition( const Internal::MarkerCode code ) const;
 
 
-		//
+		// Whether the marker was previously logged with valid position.
 		const bool IsPositionValid( const Internal::MarkerCode code ) const;
 
 	// Private constants.
