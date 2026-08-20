@@ -34,7 +34,7 @@ inline namespace Jpeg
 		void LogMarker( const Internal::Marker& marker, Black::NotNull<const std::byte*> memory );
 
 
-		//
+		// Get the previously logged position of given marker.
 		const size_t GetPosition( const Internal::MarkerCode code ) const;
 
 
