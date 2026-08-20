@@ -40,6 +40,8 @@ namespace
 
 	const bool MarkerStats::IsPositionValid( const Internal::MarkerCode code ) const
 	{
+		CRETE( !Internal::IsMarkerCodeValid( code ), false, LOG_CHANNEL, "Attempt to check position for invalid marker code." );
+		return m_marker_positions[ GetCodeIndex( code ) ] != Black::UNDEFINED_INDEX;
 	}
 }
 }
