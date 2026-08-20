@@ -110,7 +110,7 @@ namespace
 			}
 
 			const Internal::Marker& marker = PromoteMarker( segments_buffer );
-			CBRK( !Internal::IsMarkerValid( marker ) );
+			CRET( !Internal::IsMarkerValid( marker ), Black::BooleanStatus::Failure );
 
 			// Push the event.
 			event_handler( FileEventId::Marker, segments_buffer.GetSubview( 0, sizeof( Internal::Marker ) ) );
