@@ -9,7 +9,7 @@ inline namespace Jpeg
 {
 	/**
 	*/
-	class MarkerStats final
+	class MarkerStats final : private Black::NonTransferable
 	{
 	// Public interface.
 	public:
