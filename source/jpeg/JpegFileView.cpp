@@ -134,7 +134,15 @@ namespace
 			CRET( segment_header.length > segments_buffer.GetLength(), Black::BooleanStatus::Failure );
 
 			// Push the segment.
-			event_handler( FileEventId::Segment, segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) ) );
+			if(
+				event_handler(
+					FileEventId::Segment,
+					segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) )
+				) == EventHandlerResponse::Abort
+			)
+			{
+				return Black::BooleanStatus::Failure;
+			}
 
 			segments_buffer = segments_buffer.TruncatePrefix( segment_header.length );
 			CCON( marker.code != Internal::MarkerCode::Sos );
