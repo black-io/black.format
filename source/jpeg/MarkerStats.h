@@ -46,7 +46,7 @@ inline namespace Jpeg
 		// Indexing base of marker codes.
 		static constexpr size_t BASE_OFFSET	= Black::GetEnumValue( Internal::MarkerCode::Sof0 );
 
-		//
+		// Total number of valid markers.
 		static constexpr size_t CODES_COUNT	= size_t( Black::GetEnumValue( Internal::MarkerCode::Com ) ) - BASE_OFFSET + 1;
 
 	// Private interface.
