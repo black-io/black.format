@@ -29,6 +29,13 @@ namespace
 		Image,		// New image block found.
 	};
 
+	// Enumeration of event handler response.
+	enum class EventHandlerResponse : bool
+	{
+		Abort		= false,	// Abort the file processing.
+		Continue,				// Continue file processing.
+	};
+
 
 	// Whether the next bytes of buffer represent padding sequence. Such padding may be skipped.
 	const bool IsPaddingSequence( const Black::PlainView<const std::byte>& buffer )
