@@ -131,7 +131,7 @@ namespace
 			}
 
 			const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( segment_candidate );
-			CBRK( segment_header.length > segments_buffer.GetLength() );
+			CRET( segment_header.length > segments_buffer.GetLength(), Black::BooleanStatus::Failure );
 
 			// Push the segment.
 			event_handler( FileEventId::Segment, segment_candidate.GetSubview( 0, size_t( segment_header.length ) + sizeof( Internal::Marker ) ) );
