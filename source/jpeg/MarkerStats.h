@@ -22,6 +22,10 @@ inline namespace Jpeg
 		//
 		void LogMarker( const Internal::Marker& marker, Black::NotNull<const std::byte*> memory );
 
+
+		//
+		const size_t GetPosition( const Internal::MarkerCode code ) const;
+
 	// Private constants.
 	private:
 		//
