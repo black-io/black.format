@@ -253,52 +253,52 @@ namespace
 	{
 		CRET( !IsHeaderValid( file_memory ), false );
 
-		bool has_valid_format = true;
 		MarkerStats marker_stats{ file_memory };
-		EnumerateFileEvents(
-			file_memory,
-			[&marker_stats, &has_valid_format]( const FileEventId event_id, const Black::PlainView<const std::byte>& buffer )
+		auto event_handler = [&marker_stats]( const FileEventId event_id, const Black::PlainView<const std::byte>& buffer ) -> EventHandlerResponse
+		{
+			switch( event_id )
 			{
-				CRET( !has_valid_format );
-
-				switch( event_id )
+			case FileEventId::Marker:
+				marker_stats.LogMarker( PromoteMarker( buffer ), buffer.GetMemory() );
+				break;
+			case FileEventId::Segment:
 				{
-				case FileEventId::Marker:
-					marker_stats.LogMarker( PromoteMarker( buffer ), buffer.GetMemory() );
-					break;
-				case FileEventId::Segment:
+					const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( buffer );
+					switch( segment_header.marker.code )
 					{
-						const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( buffer );
-						switch( segment_header.marker.code )
+					case Internal::MarkerCode::Eoi:
+						if( marker_stats.GetPosition( Internal::MarkerCode::Soi ) < marker_stats.GetPosition( Internal::MarkerCode::Eoi ) )
 						{
-						case Internal::MarkerCode::Eoi:
-							has_valid_format = marker_stats.GetPosition( Internal::MarkerCode::Soi ) < marker_stats.GetPosition( Internal::MarkerCode::Eoi );
-							break;
-						default:
-							break;
+							return EventHandlerResponse::Abort;
 						}
+						break;
+					default:
+						break;
 					}
-					break;
-				case FileEventId::Image:
-					{
-						const size_t marker_position = marker_stats.GetPosition( Internal::MarkerCode::Sos );
-
-						has_valid_format = Black::AnyOf(
-							{ Internal::MarkerCode::Dht, Internal::MarkerCode::Dqt, Internal::MarkerCode::Dri },
-							[&marker_stats, marker_position]( const Internal::MarkerCode code )
-							{
-								return marker_stats.GetPosition( code ) < marker_position;
-							}
-						);
-					}
-					break;
-				default:
-					break;
 				}
-			}
-		);
+				break;
+			case FileEventId::Image:
+				{
+					const size_t marker_position = marker_stats.GetPosition( Internal::MarkerCode::Sos );
+					const bool has_required_blocks = Black::AnyOf(
+						{ Internal::MarkerCode::Dht, Internal::MarkerCode::Dqt, Internal::MarkerCode::Dri },
+						[&marker_stats, marker_position]( const Internal::MarkerCode code )
+						{
+							return marker_stats.GetPosition( code ) < marker_position;
+						}
+					);
 
-		CRET( !has_valid_format, false );
+					CRET( !has_required_blocks, EventHandlerResponse::Abort );
+				}
+				break;
+			default:
+				break;
+			}
+
+			return EventHandlerResponse::Continue;
+		};
+
+		CRET( Black::IsFailed( EnumerateFileEvents( file_memory, event_handler ) ), false );
 
 		const Internal::MarkerCode sof_markers[] {
 			Internal::MarkerCode::Sof0,		Internal::MarkerCode::Sof1,		Internal::MarkerCode::Sof2,
