@@ -523,6 +523,30 @@ namespace
 		m_is_parsed = true;
 	}
 
+	void JpegFileView::ParseSegment( const Internal::SegmentEntry& segment ) const
+	{
+		EXPECTS_DEBUG( segment.header != nullptr );
+		switch( segment.header->marker.code )
+		{
+		case Internal::MarkerCode::Sof0:
+			[[fallthrough]];
+		case Internal::MarkerCode::Sof1:
+			[[fallthrough]];
+		case Internal::MarkerCode::Sof2:
+			[[fallthrough]];
+		case Internal::MarkerCode::Sof3:
+			CBRK( m_frame_header != nullptr );
+			m_frame_header = &PromoteSegment<Internal::FrameHeader>( segment.content, *segment.header );
+			break;
+		case Internal::MarkerCode::App0:
+			CBRK( m_jfif_header != nullptr );
+			m_jfif_header = &PromoteSegment<Internal::JfifHeader>( segment.content, *segment.header );
+			break;
+		default:
+			break;
+		}
+	}
+
 	void JpegFileView::TestFileMemory() const
 	{
 		m_is_valid = false;
