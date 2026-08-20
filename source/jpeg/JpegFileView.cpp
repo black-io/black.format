@@ -435,88 +435,55 @@ namespace
 		Black::ScopeLeaveHandler reset_contract{ Black::BindMethod<&JpegFileView::InvalidateCache>( *this ) };
 		CRETW( m_file_memory.GetLength() < sizeof( Internal::Marker ), , LOG_CHANNEL, "Size of file is too low." );
 
-		Black::PlainView<const std::byte> segments_buffer{ m_file_memory };
-		while( !segments_buffer.IsEmpty() )
-		{
-			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
-
-			if( IsPaddingSequence( segments_buffer ) )
+		EnumerateFileEvents(
+			m_file_memory,
+			[this]( const FileEventId event_id, const Black::PlainView<const std::byte>& buffer )
 			{
-				segments_buffer = segments_buffer.TruncatePrefix( GatherPaddingLength( segments_buffer ) );
-				continue;
-			}
-
-			const Internal::Marker& marker = PromoteMarker( segments_buffer );
-			CBRK( !Internal::IsMarkerValid( marker ) );
-
-			m_markers.push_back( &marker );
-			segments_buffer = segments_buffer.TruncatePrefix( sizeof( Internal::Marker ) );
-			CBRK( marker.code == Internal::MarkerCode::Eoi );
-			CBRK( segments_buffer.GetLength() < sizeof( Internal::Marker ) );
-
-			{
-				const Internal::Marker& next_marker = PromoteMarker( segments_buffer );
-				CCON( Internal::IsMarkerValid( next_marker ) );
-			}
-
-			const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( marker );
-			CBRK( segment_header.length > segments_buffer.GetLength() );
-
-			Internal::SegmentEntry& segment = m_segments.emplace_back();
-			segment.header	= &segment_header;
-			segment.content	= segments_buffer.GetSubview( 0, segment_header.length ).TruncatePrefix( sizeof( segment_header.length ) );
-			segments_buffer = segments_buffer.TruncatePrefix( segment_header.length );
-
-			switch( marker.code )
-			{
-			case Internal::MarkerCode::Sof0:
-				[[fallthrough]];
-			case Internal::MarkerCode::Sof1:
-				[[fallthrough]];
-			case Internal::MarkerCode::Sof2:
-				[[fallthrough]];
-			case Internal::MarkerCode::Sof3:
-				CBRK( m_frame_header != nullptr );
-				m_frame_header = &PromoteSegment<Internal::FrameHeader>( segment.content, segment_header );
-				break;
-			case Internal::MarkerCode::Sos:
+				switch( event_id )
 				{
-					Internal::ImageBlockEntry& image_block = m_image_blocks.emplace_back();
-					Black::PlainView<const std::byte> segment_buffer{ segment.content };
-
-					image_block.scan_header = &PromoteSegment<Internal::ScanHeader>( segment_buffer, segment_header );
-					segment_buffer = segment_buffer.TruncatePrefix( sizeof( Internal::ScanHeader ) );
-
-					image_block.scan_components = {
-						&PromoteSegment<Internal::ScanComponent>( segment_buffer, segment_header ),
-						size_t( image_block.scan_header->components_count )
-					};
-					segment_buffer = segment_buffer.TruncatePrefix( image_block.scan_components.GetUsedBytes() );
-
-					image_block.scan_footer = &PromoteSegment<Internal::ScanFooter>( segment_buffer, segment_header );
-
-					for( size_t index = 0; index < segments_buffer.GetLength(); ++index )
+				case FileEventId::Marker:
+					m_markers.push_back( &PromoteMarker( buffer ) );
+					break;
+				case FileEventId::Segment:
 					{
-						CBRK( ( index + 1 ) >= segments_buffer.GetLength() );
+						const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( buffer );
 
-						const Internal::Marker& candidate = *reinterpret_cast<const Internal::Marker*>( &segments_buffer.GetValueAt( index ) );
-						CCON( !Internal::IsMarkerValid( candidate ) );
+						Internal::SegmentEntry& segment = m_segments.emplace_back();
 
-						image_block.image = segments_buffer.GetSubview( 0, index );
-						break;
+						segment.header	= &segment_header;
+						segment.content	= buffer.GetSubview( sizeof( Internal::Marker ), segment_header.length ).TruncatePrefix( sizeof( segment_header.length ) );
+
+						ParseSegment( segment );
 					}
+					break;
+				case FileEventId::Image:
+					{
+						const Internal::SegmentHeader& segment_header = PromoteSegmentHeader( buffer );
+						Black::PlainView<const std::byte> segment_buffer{
+							buffer.GetSubview( sizeof( Internal::Marker ), segment_header.length ).TruncatePrefix( sizeof( segment_header.length ) )
+						};
 
-					segments_buffer = segments_buffer.TruncatePrefix( image_block.image.GetLength() );
+						Internal::ImageBlockEntry& image_block = m_image_blocks.emplace_back();
+
+						image_block.scan_header = &PromoteSegment<Internal::ScanHeader>( segment_buffer, segment_header );
+						segment_buffer = segment_buffer.TruncatePrefix( sizeof( Internal::ScanHeader ) );
+
+						image_block.scan_components = {
+							&PromoteSegment<Internal::ScanComponent>( segment_buffer, segment_header ),
+							size_t( image_block.scan_header->components_count )
+						};
+						segment_buffer = segment_buffer.TruncatePrefix( image_block.scan_components.GetUsedBytes() );
+
+						image_block.scan_footer = &PromoteSegment<Internal::ScanFooter>( segment_buffer, segment_header );
+
+						image_block.image = buffer.TruncatePrefix( std::distance( buffer.begin(), segment_buffer.end() ) );
+					}
+					break;
+				default:
+					break;
 				}
-				break;
-			case Internal::MarkerCode::App0:
-				CBRK( m_jfif_header != nullptr );
-				m_jfif_header = &PromoteSegment<Internal::JfifHeader>( segment.content, segment_header );
-				break;
-			default:
-				break;
 			}
-		}
+		);
 
 		BLACK_LOG_VERBOSE( LOG_CHANNEL, "File successfully parsed." );
 		reset_contract.Cancel();
