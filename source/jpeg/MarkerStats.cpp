@@ -43,6 +43,10 @@ namespace
 		CRETE( !Internal::IsMarkerCodeValid( code ), false, LOG_CHANNEL, "Attempt to check position for invalid marker code." );
 		return m_marker_positions[ GetCodeIndex( code ) ] != Black::UNDEFINED_INDEX;
 	}
+
+	const size_t MarkerStats::GetCodeIndex( const Internal::MarkerCode code )
+	{
+	}
 }
 }
 }
