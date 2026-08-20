@@ -2,6 +2,8 @@
 
 #include <black/core/algorithms.h>
 
+#include "MarkerStats.h"
+
 
 namespace Black
 {
