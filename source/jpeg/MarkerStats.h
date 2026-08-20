@@ -23,7 +23,14 @@ inline namespace Jpeg
 
 	// Public interface.
 	public:
-		//
+		/**
+			@brief	Perform the logging of JIF marker.
+
+			After the logging is done, the marker positions can be obtained to analyze the structure of file.
+
+			@param	marker	Given marker to be logged.
+			@param	memory	The memory, where marker is placed in file.
+		*/
 		void LogMarker( const Internal::Marker& marker, Black::NotNull<const std::byte*> memory );
 
 
