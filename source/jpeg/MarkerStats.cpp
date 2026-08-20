@@ -24,6 +24,8 @@ namespace
 
 	void MarkerStats::LogMarker( const Internal::Marker& marker, Black::NotNull<const std::byte*> memory )
 	{
+		CRETE( !Internal::IsMarkerCodeValid( marker.code ), , LOG_CHANNEL, "Attempt to log the marker with invalid code." );
+
 		const size_t marker_offset = std::distance( m_file_memory.GetMemory(), memory.Get() );
 		CRETE( marker_offset >= m_file_memory.GetLength(), , LOG_CHANNEL, "Attempt to log the marker from out of file bounds." );
 
