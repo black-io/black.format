@@ -43,7 +43,7 @@ inline namespace Jpeg
 
 	// Private constants.
 	private:
-		//
+		// Indexing base of marker codes.
 		static constexpr size_t BASE_OFFSET	= Black::GetEnumValue( Internal::MarkerCode::Sof0 );
 
 		//
