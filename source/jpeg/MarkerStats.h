@@ -39,6 +39,11 @@ inline namespace Jpeg
 		//
 		static constexpr size_t CODES_COUNT	= size_t( Black::GetEnumValue( Internal::MarkerCode::Com ) ) - BASE_OFFSET + 1;
 
+	// Private interface.
+	private:
+		//
+		static const size_t GetCodeIndex( const Internal::MarkerCode code );
+
 	// Private state.
 	private:
 		Black::PlainView<const std::byte>	m_file_memory;
