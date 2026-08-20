@@ -8,6 +8,9 @@ inline namespace Format
 inline namespace Jpeg
 {
 	/**
+		@brief	Statistics table for JIF markers.
+
+		This small type is useful in a process of JIF file validation.
 	*/
 	class MarkerStats final : private Black::NonTransferable
 	{
