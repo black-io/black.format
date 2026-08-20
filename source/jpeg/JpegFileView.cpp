@@ -113,7 +113,10 @@ namespace
 			CRET( !Internal::IsMarkerValid( marker ), Black::BooleanStatus::Failure );
 
 			// Push the event.
-			event_handler( FileEventId::Marker, segments_buffer.GetSubview( 0, sizeof( Internal::Marker ) ) );
+			if( event_handler( FileEventId::Marker, segments_buffer.GetSubview( 0, sizeof( Internal::Marker ) ) ) == EventHandlerResponse::Abort )
+			{
+				return Black::BooleanStatus::Failure;
+			}
 
 			Black::PlainView<const std::byte> segment_candidate{ segments_buffer };
 
