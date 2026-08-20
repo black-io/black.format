@@ -11,6 +11,13 @@ inline namespace Jpeg
 	*/
 	class MarkerStats final
 	{
+	// Private constants.
+	private:
+		//
+		static constexpr size_t BASE_OFFSET	= Black::GetEnumValue( Internal::MarkerCode::Sof0 );
+
+		//
+		static constexpr size_t CODES_COUNT	= size_t( Black::GetEnumValue( Internal::MarkerCode::Com ) ) - BASE_OFFSET + 1;
 	};
 }
 }
