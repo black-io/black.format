@@ -95,6 +95,11 @@ namespace
 	template< typename THandler >
 	const Black::BooleanStatus EnumerateFileEvents( const Black::PlainView<const std::byte>& file_memory, THandler&& event_handler )
 	{
+		static_assert(
+			std::is_invocable_r_v<EventHandlerResponse, THandler, const FileEventId, const Black::PlainView<const std::byte>&>,
+			"Given event handler should satisfy the signature `const EventHandlerResponse ( const FileEventId, const Black::PlainView<const std::byte>& )`."
+		);
+
 		CRET( file_memory.GetLength() < sizeof( Internal::Marker ), Black::BooleanStatus::Failure );
 
 		Black::PlainView<const std::byte> segments_buffer{ file_memory };
